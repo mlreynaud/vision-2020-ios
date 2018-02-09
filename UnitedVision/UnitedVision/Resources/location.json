@@ -1,0 +1,843 @@
+[
+ {
+ "id": null,
+ "lat": 0.0,
+ "lon": 0.0,
+ "description": "FT LAUDERDALE-006<br/>3821 WEST HALLANDALE BEACH BLVD<br/>SUITE 1<br/>WEST PARK, FL 33023<br/><a href='tel:+17542097601'>754-209-7601</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 26.2933,
+ "lon": 97.9931,
+ "description": "ELSA TX - 733<br/>406 SOUTH GREENVILLE STREET<br/>ELSA, TX 78543<br/><a href='tel:+19565604761'>956-560-4761</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 27.5072,
+ "lon": 99.5081,
+ "description": "GRT TRANSPORTATION LLC - 3001<br/>12115 DOC ADAMS<br/>LAREDO, TX 78045<br/><a href='tel:+19567242598'>956-724-2598</a><br/><br/>ROSALINA GARZA - 3002<br/>14709 ATLANTA DR<br/>LAREDO, TX 78045<br/><a href='tel:+19567242598'>956-724-2598</a><br/><br/>JORGE GARZA<br/>3318 HAGEN COURT<br/>LAREDO, TX 78045<br/><a href='tel:+19567242598'>956-724-2598</a><br/><br/>UVL 8020<br/><br/>LAREDO, TX 78045<br/><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 27.5098,
+ "lon": 99.5027,
+ "description": "LAREDO-7036<br/>1209 SAN DARIO AVE 92-122<br/>LAREDO, TX 78045<br/><a href='tel:+19567908069'>956-790-8069</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 27.6116,
+ "lon": 99.5111,
+ "description": "LAREDO-7037<br/>8412 AMPARIAN RD<br/>LAREDO, TX 78045<br/><a href='tel:+19567297360'>956-729-7360</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 27.6327,
+ "lon": 99.5444,
+ "description": "LAREDO-7034<br/>279 PAPALOTE RD<br/>LAREDO, TX 78045<br/><a href='tel:+17139551729'>713-955-1729</a><br/><br/>LAREDO-7038<br/>14709 ATLANTA DR<br/>LAREDO, TX 78045<br/><a href='tel:+19567182669'>956-718-2669</a><br/><br/>LAREDO-7040<br/>14709 ATLANTA DR<br/>LAREDO, TX 78045<br/><a href='tel:+19567298196'>956-729-8196</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 27.7306,
+ "lon": 98.079,
+ "description": "ALICE TX - 494<br/>315 HUB STREET<br/>ALICE, TX 78332<br/><a href='tel:+13616610584'>361-661-0584</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 27.7433,
+ "lon": 98.0811,
+ "description": "ALICE - 490<br/>1122 ARCADIA<br/>ALICE, TX 78332<br/><a href='tel:+13615626926'>361-562-6926</a><br/><br/>ALICE - 730<br/>6860 HIGHWAY 359<br/>ALICE, TX 78332<br/><a href='tel:+13615336689'>361-533-6689</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 27.7441,
+ "lon": 98.0404,
+ "description": "ALICE-010<br/>2231 ENERGY AVE.<br/>ALICE, TX 78332<br/><a href='tel:+13616681725'>361-668-1725</a><br/><br/>ALICE-010<br/>2231 ENERGY AVE.<br/>ALICE, TX 78332<br/><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 27.7964,
+ "lon": 97.5358,
+ "description": "CORPUS CHRISTI-037<br/>8653 AGNES STREET<br/>CORPUS CHRISTI, TX 78406<br/><a href='tel:+13612650222'>361-265-0222</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 27.9558,
+ "lon": 97.9347,
+ "description": "ORANGE GROVE -745<br/>148 CR 2311<br/>ORANGE GROVE, TX 78372<br/><a href='tel:+13613849911'>361-384-9911</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 28.0225,
+ "lon": 97.8792,
+ "description": "SANDIA -740<br/>677 CR 357<br/>SANDIA, TX 78383<br/><a href='tel:+13612275152'>361-227-5152</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 28.0914,
+ "lon": 82.4306,
+ "description": "TAMPA-1062<br/>1006 HARDY DR<br/>TAMPA, FL 33613<br/><a href='tel:+18134435333'>813-443-5333</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 28.5103,
+ "lon": 81.325,
+ "description": "ORLANDO-1032<br/>4425 YACHTMANS COURT<br/>ORLANDO, FL 32812<br/><a href='tel:+14077372900'>407-737-2900</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 28.7905,
+ "lon": 97.0296,
+ "description": "VICTORIA-023<br/>2505 SW MOODY<br/>VICTORIA, TX 77901<br/><a href='tel:+13615728646'>361-572-8646</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 28.8044,
+ "lon": 96.9589,
+ "description": "VICTORIA-754<br/>2040 BURROUGHSVILLE RD.<br/>VICTORIA, TX 77903<br/><a href='tel:+13462239600'>346-223-9600</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.2109,
+ "lon": 96.2404,
+ "description": "EL CAMPO-086<br/>26292 US 59 ROAD<br/>EL CAMPO, TX 77437<br/><a href='tel:+19795431948'>979-543-1948</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.2483,
+ "lon": 98.3331,
+ "description": "ELMENDORF TX-496<br/>14050 SOUTHTON ROAD<br/>ELMENDORF, TX 78112<br/><a href='tel:+16825538797'>682-553-8797</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.3122,
+ "lon": 89.3843,
+ "description": "BOOTHVILLE-085<br/>41271 HWY 23 N<br/>BOOTHVILLE, LA 70038<br/><a href='tel:+15045347587'>504-534-7587</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.3433,
+ "lon": 89.4197,
+ "description": "BOOTHVILLE-184<br/>40839 HWY 23 NORTH<br/>BOOTHVILLE, LA 70038<br/><a href='tel:+15045347995'>504-534-7995</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.4117,
+ "lon": 90.2778,
+ "description": "FOURCHON-019<br/>18814 W MAIN ST<br/>GALLIANO, LA 70354<br/><a href='tel:+19854756888'>985-475-6888</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.4236,
+ "lon": 95.2439,
+ "description": "ALVIN-183<br/>10419 HWY 1462<br/>ALVIN, TX 77511<br/><a href='tel:+12813313335'>281-331-3335</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.4994,
+ "lon": 90.3262,
+ "description": "FOURCHON-080<br/>201 E 63RD ST<br/>CUT OFF, LA 70345<br/><a href='tel:+19856321642'>985-632-1642</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.5465,
+ "lon": 95.2819,
+ "description": "PEARLAND-515<br/>3801 MAGNOLIA<br/>PEARLAND, TX 77584<br/><a href='tel:+12814859977'>281-485-9977</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.5719,
+ "lon": 97.949,
+ "description": "SEGUIN-194<br/>242 RIVERVIEW TERRACE<br/>SEGUIN, TX 78155<br/><a href='tel:+18303795447'>830-379-5447</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.581,
+ "lon": 90.6651,
+ "description": "HOUMA-504<br/>3531 TAXI RD.<br/>HOUMA, LA 70363<br/><a href='tel:+19858513316'>985-851-3316</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.5834,
+ "lon": 90.4228,
+ "description": "FOURCHON-062<br/>10940 HWY 1<br/>BUSY CALL DREW @985-637-2569<br/>LOCKPORT, LA 70374<br/><a href='tel:+19855327117'>985-532-7117</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.6606,
+ "lon": 91.1022,
+ "description": "ASIAN TRANSIT COMPANY LLC - 8005<br/>1230 DUHON BOULEVARD<br/>AMELIA, LA 70340<br/><a href='tel:+19856314230'>985-631-4230</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.6618,
+ "lon": 91.1187,
+ "description": "AMELIA-148<br/>1230 DUHON RD<br/>AMELIA, LA 70340<br/><a href='tel:+19856312323'>985-631-2323</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.6619,
+ "lon": 91.1192,
+ "description": "AMELIA-502<br/>1230 DUHON BLVD<br/>AMELIA, LA 70340<br/><a href='tel:+19856313196'>985-631-3196</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.8375,
+ "lon": 95.1594,
+ "description": "HOUSTON-027<br/>15005 CROSBY FREEWAY BLDG C<br/>HOUSTON, TX 77049<br/><a href='tel:+12814362310'>281-436-2310</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.8386,
+ "lon": 90.9528,
+ "description": "LABADIEVILLE -742<br/>2951 HWY 1<br/>LABADIEVILLE, LA 70372<br/><a href='tel:+19855263931'>985-526-3931</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.8408,
+ "lon": 95.1588,
+ "description": "HOUSTON-501<br/>15005 CROSBY FREEWAY; BLDG. C<br/>HOUSTON, TX 77049<br/><a href='tel:+12814362300'>281-436-2300</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.8412,
+ "lon": 95.1598,
+ "description": "HOUSTON TX-522<br/>15005 CROSBY FREEWAY BLD-A<br/>HOUSTON, TX 77049<br/><a href='tel:+12814362370'>281-436-2370</a><br/><br/>HOUSTON-331<br/>15005 CROSBY FREEWAY BLDG A<br/>HOUSTON, TX 77049<br/><a href='tel:+12814586363'>281-458-6363</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.8417,
+ "lon": 95.1587,
+ "description": "HOUSTON-047<br/>15005 CROSBY FREEWAY, BLDG C<br/>HOUSTON, TX 77049<br/><a href='tel:+12814544000'>281-454-4000</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.8669,
+ "lon": 96.7548,
+ "description": "HOUSTON TX-059<br/>546 ZAPALAC<br/>LA GRANGE, TX 78945<br/><a href='tel:+19792063202'>979-206-3202</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.8749,
+ "lon": 90.1085,
+ "description": "HARVEY-018<br/>1938 MANOR HEIGHTS<br/>MARRERO, LA 70072<br/><a href='tel:+15042355855'>504-235-5855</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.8802,
+ "lon": 95.5842,
+ "description": "HOUSTON-407<br/>11610 FM ROAD 529<br/>HOUSTON, TX 77041<br/><a href='tel:+17138960407'>713-896-0407</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.881,
+ "lon": 90.0714,
+ "description": "HARVEY-508<br/>2001 PETERS ROAD<br/>HARVEY, LA 70058<br/><a href='tel:+15043629181'>504-362-9181</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.9239,
+ "lon": 95.4556,
+ "description": "HOUSTON TX - 732<br/>12050 TOMBALL HIGHWAY 249<br/>HOUSTON, TX 77086<br/><a href='tel:+18326178283'>832-617-8283</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.9346,
+ "lon": 93.8989,
+ "description": "BEAUMONT TX-749<br/>6299 GULFWAY DRIVE<br/>GROVES, TX 77619<br/><a href='tel:+14099606767'>409-960-6767</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.9757,
+ "lon": 91.9319,
+ "description": "NEW IBERIA LA-333<br/>4718 WAGUESPACK ROAD<br/>NEW IBERIA, LA 70560<br/><a href='tel:+13373478833'>337-347-8833</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 29.993,
+ "lon": 93.0914,
+ "description": "CAMERON-450<br/>299 RITA DRIVE<br/>BELL CITY, LA 70630<br/><a href='tel:+13377752969'>337-775-2969</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.0029,
+ "lon": 91.893,
+ "description": "NEW IBERIA-324<br/>4508 JEFFERSON ISLAND RD<br/>NEW IBERIA, LA 70560<br/><a href='tel:+13373598976'>337-359-8976</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.05,
+ "lon": 91.9367,
+ "description": "NEW IBERIA -743<br/>3909 COTEAU RD.<br/>NEW IBERIA, LA 70560<br/><a href='tel:+13373650522'>337-365-0522</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.0806,
+ "lon": 95.4331,
+ "description": "SPRING- 8008<br/>24505 ALDINE WESTFIELD RD #2110<br/>SPRING, TX 77373<br/><a href='tel:+15013149915'>501-314-9915</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.0977,
+ "lon": 91.9425,
+ "description": "BROUSSARD-506<br/>1114-B HWY 90 E<br/>BROUSSARD, LA 70518<br/><a href='tel:+13372620517'>337-262-0517</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.0982,
+ "lon": 91.9419,
+ "description": "BROUSSARD-449<br/>1114D HWY 90 EAST<br/>BROUSSARD, LA 70518<br/><a href='tel:+13378394499'>337-839-4499</a><br/><br/>BROUSSARD-764<br/>1114D HWY 90 EAST<br/>BROUSSARD, LA 70518<br/><a href='tel:+13378375081'>337-837-5081</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.0983,
+ "lon": 91.9418,
+ "description": "BROUSSARD-503<br/>1114 HWY 90 E<br/>BROUSSARD, LA 70518<br/><a href='tel:+13378371805'>337-837-1805</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.1234,
+ "lon": 92.1163,
+ "description": "LAFAYETTE-028<br/>7731 JOHNSTON STREET<br/>LAFAYETTE, LA 70503<br/><a href='tel:+13372052800'>337-205-2800</a><br/><br/>LAFAYETTE-409<br/>7731 JOHNSTON STREET<br/>LAFAYETTE, LA 70503<br/><a href='tel:+13372052800'>337-205-2800</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.1478,
+ "lon": 91.9558,
+ "description": "BROUSSARD -739<br/>1114B HIGHWAY 90 EAST<br/>BROUSSARD, LA 70518<br/><a href='tel:+13373301399'>337-330-1399</a><br/><br/>DEBRA CUNNINGHAM<br/>111 COLCHESTER DRIVE<br/>BROUSSARD, LA 70518<br/><a href='tel:+13372916724'>337-291-6724</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.166,
+ "lon": 92.0597,
+ "description": "LAFAYETTE-695<br/>4021 AMBASSADOR CAFFERY PKY<br/>SUITE 200, #A<br/>LAFAYETTE, LA 70503<br/><a href='tel:+13372916736'>337-291-6736</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.1663,
+ "lon": 92.0602,
+ "description": "LAFAYETTE-158<br/>4021 AMBASSADOR CAFFERY PKWY; SUITE 157<br/>LAFAYETTE, LA 70503<br/><a href='tel:+13374060086'>337-406-0086</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.1669,
+ "lon": 92.059,
+ "description": "LAFAYETTE-692<br/>4021 AMBASSADOR CAFFERY PKWY<br/>BLDG A, STE 200<br/>LAFAYETTE, LA 70503<br/><a href='tel:+13372916795'>337-291-6795</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.1672,
+ "lon": 92.0606,
+ "description": "CENTRAL LOGISTICS 500<br/>4021 AMBASSADOR CAFFERY PKWY<br/>SUITE 200 BLDG A<br/>LAFAYETTE, LA 70503<br/><a href='tel:+18008808482'>800-880-8482</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.1675,
+ "lon": 92.0597,
+ "description": "LAFAYETTE-691<br/>4021 AMBASSADOR CAFFERY PKWY<br/>BLDG A, STE 200<br/>LAFAYETTE, LA 70503<br/><a href='tel:+13372916725'>337-291-6725</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.2053,
+ "lon": 92.01,
+ "description": "LAFAYETTE-698<br/>4021 AMBASSADOR CAFFERY<br/>LAFAYETTE, LA 70503<br/><a href='tel:+13372916827'>337-291-6827</a><br/><br/>LAFAYETTE-699<br/>4021 AMBASSADOR CAFFERY PKWY<br/>BLDG A, STE 200<br/>LAFAYETTE, LA 70503<br/><a href='tel:+13372916732'>337-291-6732</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.2169,
+ "lon": 92.0065,
+ "description": "LAFAYETTE-124<br/>932 HUGH WALLIS RD<br/>LAFAYETTE, LA 70508<br/><a href='tel:+13379886284'>337-988-6284</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.2225,
+ "lon": 94.1933,
+ "description": "LUMBERTON-697<br/>837 N. MAIN STREET<br/>SUITE 108<br/>LUMBERTON, TX 77657<br/><a href='tel:+14097510860'>409-751-0860</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.2365,
+ "lon": 93.2173,
+ "description": "LAKE CHARLES LA-472<br/>299 RITA DRIVE<br/>BELL CITY, LA 70630<br/><a href='tel:+13374968180'>337-496-8180</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.315,
+ "lon": 89.7517,
+ "description": "SLIDELL LA-751<br/>677- B EAST I10 SERVICE RD<br/>SLIDELL, LA 70461<br/><a href='tel:+19852567170'>985-256-7170</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.316,
+ "lon": 90.9699,
+ "description": "PRAIRIEVILLE-499<br/>17130 RONALD RD<br/>PRAIRIEVILLE, LA 70769<br/><a href='tel:+12256734242'>225-673-4242</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.4586,
+ "lon": 91.1058,
+ "description": "BATON ROUGE-1048<br/>6554 FLORIDA BLVD, STE 244<br/>BATON ROUGE, LA 70806<br/><a href='tel:+18005571480'>800-557-1480</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.5311,
+ "lon": 96.6928,
+ "description": "CALDWELL-755<br/>245 FM 60 SOUTH<br/>CALDWELL, TX 77836<br/><a href='tel:+19795357620'>979-535-7620</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.5781,
+ "lon": 98.2728,
+ "description": "BURNET-1086<br/>1107 LOMA LANE<br/>MARBLE FALLS, TX 78654<br/><a href='tel:+18306937744'>830-693-7744</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 30.796,
+ "lon": 95.4586,
+ "description": "HUNTSVILLE TX-481<br/>2948 STATE HIGHWAY 19<br/>HUNTSVILLE, TX 77320<br/><a href='tel:+19362910623'>936-291-0623</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 31.1358,
+ "lon": 92.68,
+ "description": "PATRICIA LASITER - 3013<br/>275 HAVENS ROAD<br/>ELMER, LA 71424<br/><a href='tel:+13186593102'>318-659-3102</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 31.2608,
+ "lon": 95.9811,
+ "description": "CINDY PARKER<br/>327 S. POLK STREET<br/>CENTERVILLE, TX 75833<br/><a href='tel:+19035361204'>903-536-1204</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 31.6033,
+ "lon": 94.6564,
+ "description": "CHRIS BARR<br/>210 OLDSMOBILE DRIVE<br/>NACOGDOCHES, TX 75965<br/><a href='tel:+18552624844'>855-262-4844</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 31.6848,
+ "lon": 94.6669,
+ "description": "NACOGDOCHES -734<br/>210 OLDSMOBILE DR<br/>NACOGDOCHES, TX 75965<br/><a href='tel:+18552624844'>855-262-4844</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 31.8208,
+ "lon": 102.3746,
+ "description": "ODESSA TX-475<br/>3210 NORTH FM 1936<br/>ODESSA, TX 79764<br/><a href='tel:+14322024794'>432-202-4794</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 31.8216,
+ "lon": 102.3728,
+ "description": "ODESSA-516<br/>1406 W. INTERSTATE 20<br/>ODESSA, TX 79763<br/><a href='tel:+14323328460'>432-332-8460</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 31.8605,
+ "lon": 102.3395,
+ "description": "ODESSA-459<br/>835 TOWER DRIVE<br/>SUITE 12<br/>ODESSA, TX 79762<br/><a href='tel:+14323327035'>432-332-7035</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.0292,
+ "lon": 102.0542,
+ "description": "TEXAS - 756<br/>6501 EAST COUNTY ROAD 66<br/>MIDLAND, TX 79705<br/><a href='tel:+14326856005'>432-685-6005</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.1011,
+ "lon": 96.6342,
+ "description": "BARRY-1005<br/>PO BOX 36<br/>BARRY, TX 75102<br/><a href='tel:+19036952044'>903-695-2044</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.1369,
+ "lon": 96.2275,
+ "description": "B & B TRANSPORTING GROUP LLC - 6113<br/>313 N. GOODMAN AVE<br/>KERENS, TX 75144<br/><a href='tel:+19032576964'>903-257-6964</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.3671,
+ "lon": 94.7987,
+ "description": "KILGORE-460<br/>4306 CR 2105E<br/>KILGORE, TX 75662<br/><a href='tel:+19039879217'>903-987-9217</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.3894,
+ "lon": 94.8781,
+ "description": "KILGORE-510A<br/>3010 MAVERICK DR<br/>KILGORE, TX 75662<br/><br/><br/>KILGORE - 735<br/>1144 FM 1252 W<br/>KILGORE, TX 75662<br/><a href='tel:+19039189515'>903-918-9515</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.4047,
+ "lon": 94.9012,
+ "description": "KILGORE-510<br/>3010 MAVERICK DR<br/>KILGORE, TX 75662<br/><a href='tel:+19039830007'>903-983-0007</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.4131,
+ "lon": 97.2139,
+ "description": "ALVARADO, TX-491<br/>110 W. COLLEGE STREET<br/>ALVARADO, TX 76009<br/><a href='tel:+18176541900'>817-654-1900</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.4458,
+ "lon": 95.7036,
+ "description": "BEN WHEELER -744<br/>2104 VZ CR 4909<br/>BEN WHEELER, TX 75754<br/><a href='tel:+17174370279'>717-437-0279</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.4727,
+ "lon": 93.6572,
+ "description": "BOSSIER CITY-747<br/>1905 ALFRED LANE<br/>SUITE A<br/>BOSSIER CITY, LA 71112<br/><a href='tel:+13184652562'>318-465-2562</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.5472,
+ "lon": 117.0511,
+ "description": "SAN DIEGO-6127<br/>2587 PALM AVENUE<br/>SAN DIEGO, CA 92154<br/><a href='tel:+16194077166'>619-407-7166</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.6013,
+ "lon": 97.1307,
+ "description": "JJC LOGISTIICS LLC - 5041<br/>616 COAL CREEK DRIVE<br/>MANSFIELD, TX 76063<br/><a href='tel:+18177517150'>817-751-7150</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.6958,
+ "lon": 97.6022,
+ "description": "BAUM, CHAD - 2028<br/>11875 CAMP BOWIE WEST BLVD<br/>ALEDO, TX 76008<br/><a href='tel:+18176327700'>817-632-7700</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.7044,
+ "lon": 95.9958,
+ "description": "LOIS RAMSEY - 3010<br/>2700 FM 1504<br/>WILLS POINT, TX 75169<br/><a href='tel:+19728777222'>972-877-7222</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.7245,
+ "lon": 97.4694,
+ "description": "FORT WORTH-7032<br/>8808 CAMP BOWIE WEST BLVD, STE 130<br/>FORT WORTH, TX 76116<br/><a href='tel:+18176325300'>817-632-5300</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.7369,
+ "lon": 96.2736,
+ "description": "LAURIE THOMAS - 5043<br/>12377 FM 2728<br/>TERRELL, TX 75161<br/><a href='tel:+19038734777'>903-873-4777</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.751,
+ "lon": 96.2863,
+ "description": "VOYLES, EDWARD - 5023<br/>203 WESTVUE<br/>TERRELL, TX 75160<br/><a href='tel:+18778738224'>877-873-8224</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.785,
+ "lon": 97.1178,
+ "description": "ARLINGTON-1041<br/>2401 AVENUE J, STE 244<br/>ARLINGTON, TX 76006<br/><a href='tel:+18176333404'>817-633-3404</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.8,
+ "lon": 94.7206,
+ "description": "ORE CITY TX-752<br/>14579 WISTERIA<br/>ORE CITY, TX 75683<br/><a href='tel:+19039682432'>903-968-2432</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.8219,
+ "lon": 96.9828,
+ "description": "ST. JOHN, LAUREN - 2029<br/>5005 W ROYAL LN, STE 204<br/>IRVING, TX 75063<br/><a href='tel:+18885899657'>888-589-9657</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.9015,
+ "lon": 96.7327,
+ "description": "RES LOGISTICS LLC - 5040<br/>9117 MEADOWKNOLL DR<br/>DALLAS, TX 75243<br/><a href='tel:+18177517150'>817-751-7150</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.9217,
+ "lon": 97.0169,
+ "description": "ERICSON, PJ - 2005<br/>5005 W ROYAL LN, STE 204<br/>IRVING, TX 75063<br/><a href='tel:+12144413213'>214-441-3213</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.9697,
+ "lon": 96.7911,
+ "description": "ABISAG M. MANCINA - 6111<br/>5200 MEADOWCREEK DR 1015<br/>DALLAS, TX 75248<br/><a href='tel:+19722433930'>972-243-3930</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 32.9983,
+ "lon": 96.8925,
+ "description": "GEORGE, BRENT - 2037<br/>1703 BIG CANYON TRL<br/>CARROLLTON, TX 75007<br/><a href='tel:+19722450631'>972-245-0631</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 33.0458,
+ "lon": 96.9936,
+ "description": "THOMAS, RICK - 2002<br/>2016 JUSTIN RD, STE 340<br/>HIGHLAND VILLAGE, TX 75077<br/><a href='tel:+18003189232'>800-318-9232</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 33.1503,
+ "lon": 96.8239,
+ "description": "CURTIS SILVERBERG - 3015<br/>13119 BARBAROSA DR<br/>FRISCO, TX 75035<br/><a href='tel:+14698772981'>469-877-2981</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 33.5206,
+ "lon": 117.7097,
+ "description": "DOSS, KEN - 2039<br/>28061 TIOGA CT<br/>LAGUNA NIGUEL, CA 92677<br/><a href='tel:+19493600588'>949-360-0588</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 33.5425,
+ "lon": 101.852,
+ "description": "LUBBOCK-9022<br/>16419 COUNTY ROAD 2130<br/>LUBBOCK, TX 79423<br/><a href='tel:+18067717264'>806-771-7264</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 33.5547,
+ "lon": 101.8031,
+ "description": "LUBBOCK-1004<br/>8008 SLIDE #35<br/>LUBBOCK, TX 79424<br/><a href='tel:+18067451724'>806-745-1724</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 33.5658,
+ "lon": 112.2136,
+ "description": "GLENDALE-6110<br/>17600 N. 79TH AVE #1401<br/>GLENDALE, AZ 85308<br/><a href='tel:+15052042273'>505-204-2273</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 33.5778,
+ "lon": 101.855,
+ "description": "GREGORY KEITH GARRETT<br/>4010 95TH STREET<br/>LUBBOCK, TX 79423<br/><a href='tel:+18176327900'>817-632-7900</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 33.6389,
+ "lon": 112.4205,
+ "description": "AUGUSTINE, SANDRA - 6001<br/>16772 WEST BELL RD, STE 110 # 466<br/>SURPRISE, AZ 85374<br/><a href='tel:+18664017283'>866-401-7283</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 33.7956,
+ "lon": 84.6619,
+ "description": "TRAIL GLOBAL INC - 8004<br/>9169 DOVER ST.<br/>LITHIA SPRINGS, GA 30122<br/><a href='tel:+14045009346'>404-500-9346</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 33.9631,
+ "lon": 117.3861,
+ "description": "KAREN BARHITE<br/>6741 HUNTSMAN ST<br/>RIVERSIDE, CA 92509<br/><a href='tel:87759152638010'>877-591-5263 x8010</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 33.985,
+ "lon": 81.1403,
+ "description": "WILLIAM DENNIS LISBY - 3006<br/>113 OPAGO WAY<br/>LEXINGTON, SC 29073<br/><a href='tel:+19126044510'>912-604-4510</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 34.8347,
+ "lon": 97.6114,
+ "description": "LINDSAY - 419<br/>14033 120TH STREET<br/>LINDSAY, OK 73052<br/><a href='tel:+14052029009'>405-202-9009</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 34.9803,
+ "lon": 101.9186,
+ "description": "LUBBOCK-1060<br/>608 8TH AVE<br/>CANYON, TX 79015<br/><a href='tel:+18067451724'>806-745-1724</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 35.116,
+ "lon": 80.9265,
+ "description": "CHARLOTTE-045<br/>700 WESTINGHOUSE BLVD<br/>CHARLOTTE, NC 28273<br/><a href='tel:+17045832099'>704-583-2099</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 35.2672,
+ "lon": 78.0372,
+ "description": "SHIELA GIBSON - 3014<br/>208 BRENTWOOD DR<br/>DUDLEY, NC 28333<br/><a href='tel:+19192523224'>919-252-3224</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 35.4445,
+ "lon": 97.4769,
+ "description": "OKLAHOMA CITY OK-521<br/>2105 SOUTH EASTERN AVENUE<br/>OKLAHOMA CITY, OK 73129<br/><a href='tel:+14056195555'>405-619-5555</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 35.4897,
+ "lon": 119.2589,
+ "description": "SHAFTER-6124<br/>494 EMILY WAY<br/>SHAFTER, CA 93263<br/><a href='tel:+19254930567'>925-493-0567</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 35.9381,
+ "lon": 77.7903,
+ "description": "ROCKY MOUNT-6125<br/>141 PARKRIDGE COURT<br/>ROCKY MOUNT, NC 27804<br/><a href='tel:+12525676031'>252-567-6031</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 36.0981,
+ "lon": 95.9242,
+ "description": "UVL 8021<br/><br/>TULSA, OK 74135<br/><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 36.1119,
+ "lon": 96.3531,
+ "description": "CALIBANI, TERRIE - 4006<br/>36585 W HIGHWAY 51<br/>MANNFORD, OK 74044<br/><a href='tel:+18663236018'>866-323-6018</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 36.1889,
+ "lon": 95.7456,
+ "description": "TULSA -410<br/>21703 E ADMIRAL PLAZA<br/>CATOOSA, OK 74015<br/><a href='tel:+19182668870'>918-266-8870</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 37.056,
+ "lon": 94.4772,
+ "description": "BROWN, GARY - 1121<br/>2727 EAST 32ND ST, STE B<br/>JOPLIN, MO 64804<br/><a href='tel:+14172060600'>417-206-0600</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 37.1464,
+ "lon": 94.4628,
+ "description": "JOPLIN-1033<br/>9845 COUNTY LANE 248<br/>WEBB CITY, MO 64870<br/><a href='tel:+14176732773'>417-673-2773</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 38.9728,
+ "lon": 92.2783,
+ "description": "JW LOGISTICS GROUP LLC - 1151<br/>711 VANDIVER DR STE F<br/>COLUMBIA, MO 65202<br/><a href='tel:+15734428560'>573-442-8560</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 39.0086,
+ "lon": 75.5772,
+ "description": "JAY HACKNEY - 3008<br/>514 EQUITATION LANE<br/>FELTON, DE 19943<br/><a href='tel:+13022763482'>302-276-3482</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 39.385,
+ "lon": 84.53,
+ "description": "LIBERTY TOWNSHIP OH - 8009<br/>6419 WINTER HAZEL DR<br/>LIBERTY TOWNSHIP, OH 45044<br/><a href='tel:+15676866503'>567-686-6503</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 40.0958,
+ "lon": 75.1697,
+ "description": "SETTIMIO DIPPOLITO - 3009<br/>2112 JENKINTOWN RD<br/>GLENSIDE, PA 19038<br/><a href='tel:+12155820457'>215-582-0457</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 40.1247,
+ "lon": 79.8664,
+ "description": "PITTSBURGH PA-520<br/>108 UNITY LANE<br/>BELLE VERNON, PA 15012<br/><a href='tel:+17246330051'>724-633-0051</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 40.5142,
+ "lon": 80.1531,
+ "description": "TONY DIGIAMBERDINE<br/>1010 BRAODHEAD ROAD<br/>CORAOPOLIS, PA 15108<br/><a href='tel:+13189180713'>318-918-0713</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 40.5992,
+ "lon": 77.5711,
+ "description": "MICHAEL STRINGFELLOW - 1077<br/>8191 US HWY 522 S<br/>LEWISTOWN, PA 17044<br/><a href='tel:+18149449230'>814-944-9230</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 40.8094,
+ "lon": 80.4225,
+ "description": "DARLINGTON PA-520A<br/>215 SECOND ST<br/>DARLINGTON, PA 16115<br/><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 41.0144,
+ "lon": 81.4347,
+ "description": "KELLEY DIEHL - 3024<br/>155 ELM GROVE AVE.<br/>AKRON, OH 44312<br/><a href='tel:+13308583217'>330-858-3217</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 41.1289,
+ "lon": 85.1131,
+ "description": "FORT WAYNE IN - 8010<br/>714 PELMAN DR<br/>FORT WAYNE, IN 46825<br/><a href='tel:+12602052745'>260-205-2745</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 41.1933,
+ "lon": 80.9775,
+ "description": "BIG M TRUCKING - 1097<br/>4648 MCCLITOCKSBURG RD<br/>NEWTON FALLS, OH 44444<br/><a href='tel:+13306031395'>330-603-1395</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 41.2458,
+ "lon": 77.0144,
+ "description": "WILLIAMSPORT-8001<br/>170 PINE CREST DR<br/>WILLIAMSPORT, PA 17701<br/><a href='tel:+15705068798'>570-506-8798</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 41.4181,
+ "lon": 81.9167,
+ "description": "NORTH OLMSTED-6107<br/>3934 WOODSIDE DR.<br/>NORTH OLMSTED, OH 44070<br/><a href='tel:+14409348404'>440-934-8404</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 41.4506,
+ "lon": 81.9225,
+ "description": "POLOMSKY, JOSEPH E - 1094<br/>2549 CANTEBURY ROAD<br/>WESTLAKE, OH 44145<br/><a href='tel:+14405542804'>440-554-2804</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 41.4581,
+ "lon": 81.795,
+ "description": "GODHARD LOGISTICS, LLC - 3007<br/>3954 WEST 158TH ST.<br/>CLEVELAND, OH 44111<br/><a href='tel:+14404783609'>440-478-3609</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 41.5916,
+ "lon": 109.2044,
+ "description": "ROCK SPRINGS-164<br/>1505 JAMES DR<br/>ROCK SPRINGS, WY 82901<br/><a href='tel:+13073628786'>307-362-8786</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 41.7192,
+ "lon": 83.5444,
+ "description": "VISION LOGISTICS LLC - 1099<br/>646 W. CRAWFORD AVE.<br/>TOLEDO, OH 43612<br/><a href='tel:+14197400884'>419-740-0884</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 41.7233,
+ "lon": 83.5923,
+ "description": "TOLEDO-1087<br/>5868 MARIN DR<br/>TOLEDO, OH 43613<br/><a href='tel:+14194663678'>419-466-3678</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 42.3486,
+ "lon": 83.2097,
+ "description": "ERICA FIELDS<br/>8111 LAUDER<br/>DETROIT, MI 48228<br/><a href='tel:+14193594203'>419-359-4203</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 45.5725,
+ "lon": 122.6836,
+ "description": "RENEE NORTH - 3018<br/>PORTLAND, OR 97217<br/><a href='tel:+15032855696'>503-285-5696</a><br/><br/>"
+ },
+ {
+ "id": null,
+ "lat": 46.6606,
+ "lon": 120.5431,
+ "description": "BRANCH, GENIEVA - 9003<br/>1001 SPEYERS RD<br/>SELAH, WA 98942<br/><a href='tel:+15096983600'>509-698-3600</a><br/><br/>"
+ }
+ ]
+
