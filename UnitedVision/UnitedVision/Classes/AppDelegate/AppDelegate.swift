@@ -7,18 +7,40 @@
 //
 
 import UIKit
+import SlideMenuControllerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    
+    fileprivate func createMenuView() {
+        
+        // create viewController code...
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let mainViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        let leftViewController = storyboard.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
+    
+        let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
+        
+        SlideMenuOptions.leftViewWidth = 120
+
+        let slideMenuController = SlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
+        slideMenuController.automaticallyAdjustsScrollViewInsets = true
+        
+        self.window?.rootViewController = slideMenuController
+        self.window?.makeKeyAndVisible()
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let dataManager = DataManager.sharedInstance;
 //        dataManager.parseLocationInfo()
         dataManager.parseTractorInfo()
+        
+        self.createMenuView()
         
         return true
     }

@@ -10,6 +10,9 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var emailTextfield : UITextField!
+    @IBOutlet weak var passwordTextfield : UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,6 +25,27 @@ class LoginViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: - Button Action
+    @IBAction func loginButtonAction()
+    {
+        
+    }
+    
+    @IBAction func forgotPasswordButtonAction()
+    {
+        
+    }
+    @IBAction func registerButtonAction()
+    {
+        
+    }
+    
+    @IBAction func closeButtonAction()
+    {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
 
     /*

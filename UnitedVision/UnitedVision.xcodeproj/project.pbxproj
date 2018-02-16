@@ -23,15 +23,20 @@
 		BA44A11F202DF96E00DE6130 /* WebServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A108202DF96E00DE6130 /* WebServiceManager.swift */; };
 		BA44A120202DF96E00DE6130 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A10C202DF96E00DE6130 /* UIUtils.swift */; };
 		BA44A121202DF96E00DE6130 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A10E202DF96E00DE6130 /* BaseViewController.swift */; };
-		BA44A122202DF96E00DE6130 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A10F202DF96E00DE6130 /* HomeViewController.swift */; };
 		BA44A123202DF96E00DE6130 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A110202DF96E00DE6130 /* LocationViewController.swift */; };
 		BA44A124202DF96E00DE6130 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A111202DF96E00DE6130 /* LoginViewController.swift */; };
 		BA44A125202DF96E00DE6130 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A112202DF96E00DE6130 /* MapViewController.swift */; };
-		BA44A126202DF96E00DE6130 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A113202DF96E00DE6130 /* SplashViewController.swift */; };
+		BA44A126202DF96E00DE6130 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A113202DF96E00DE6130 /* HomeViewController.swift */; };
 		BA44A127202DF96E00DE6130 /* TerminalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */; };
+		BA5CE6042036E7BF00B14DB6 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE6032036E7BF00B14DB6 /* SideMenuViewController.swift */; };
+		BA5CE6072036EBBF00B14DB6 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE6062036EBBF00B14DB6 /* UIViewController.swift */; };
+		BA5CE6092036EF3C00B14DB6 /* SideMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE6082036EF3C00B14DB6 /* SideMenuTableCell.swift */; };
+		CA9B55882AE68F35E5223F55 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		231F842DF1EE3AC446A128CE /* Pods-UnitedVision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitedVision.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision.debug.xcconfig"; sourceTree = "<group>"; };
+		B32E5ADD18A8E0C9A7676579 /* Pods-UnitedVision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitedVision.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision.release.xcconfig"; sourceTree = "<group>"; };
 		BA44A0DF202DF91200DE6130 /* UnitedVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitedVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA44A0E7202DF91200DE6130 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BA44A0E9202DF91200DE6130 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -50,12 +55,15 @@
 		BA44A108202DF96E00DE6130 /* WebServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceManager.swift; sourceTree = "<group>"; };
 		BA44A10C202DF96E00DE6130 /* UIUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		BA44A10E202DF96E00DE6130 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		BA44A10F202DF96E00DE6130 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BA44A110202DF96E00DE6130 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		BA44A111202DF96E00DE6130 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BA44A112202DF96E00DE6130 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		BA44A113202DF96E00DE6130 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		BA44A113202DF96E00DE6130 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalDetailViewController.swift; sourceTree = "<group>"; };
+		BA5CE6032036E7BF00B14DB6 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		BA5CE6062036EBBF00B14DB6 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		BA5CE6082036EF3C00B14DB6 /* SideMenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableCell.swift; sourceTree = "<group>"; };
+		E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,17 +71,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA9B55882AE68F35E5223F55 /* Pods_UnitedVision.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09DABA3F2D9395D8D6FDCC43 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				231F842DF1EE3AC446A128CE /* Pods-UnitedVision.debug.xcconfig */,
+				B32E5ADD18A8E0C9A7676579 /* Pods-UnitedVision.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9D8F54E81A3BB5AFF971D2A9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BA44A0D6202DF91200DE6130 = {
 			isa = PBXGroup;
 			children = (
 				BA44A0E1202DF91200DE6130 /* UnitedVision */,
 				BA44A0E0202DF91200DE6130 /* Products */,
+				09DABA3F2D9395D8D6FDCC43 /* Pods */,
+				9D8F54E81A3BB5AFF971D2A9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				BA44A100202DF96E00DE6130 /* SplashActionTableCell.swift */,
+				BA5CE6082036EF3C00B14DB6 /* SideMenuTableCell.swift */,
 			);
 			path = CustomTableCell;
 			sourceTree = "<group>";
@@ -192,18 +221,11 @@
 		BA44A109202DF96E00DE6130 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				BA44A10A202DF96E00DE6130 /* Categories */,
+				BA5CE6052036EBBF00B14DB6 /* Extension */,
 				BA44A10B202DF96E00DE6130 /* Others */,
 				BA44A10C202DF96E00DE6130 /* UIUtils.swift */,
 			);
 			path = Utility;
-			sourceTree = "<group>";
-		};
-		BA44A10A202DF96E00DE6130 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Categories;
 			sourceTree = "<group>";
 		};
 		BA44A10B202DF96E00DE6130 /* Others */ = {
@@ -217,14 +239,22 @@
 			isa = PBXGroup;
 			children = (
 				BA44A10E202DF96E00DE6130 /* BaseViewController.swift */,
-				BA44A10F202DF96E00DE6130 /* HomeViewController.swift */,
 				BA44A110202DF96E00DE6130 /* LocationViewController.swift */,
 				BA44A111202DF96E00DE6130 /* LoginViewController.swift */,
 				BA44A112202DF96E00DE6130 /* MapViewController.swift */,
-				BA44A113202DF96E00DE6130 /* SplashViewController.swift */,
+				BA44A113202DF96E00DE6130 /* HomeViewController.swift */,
 				BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */,
+				BA5CE6032036E7BF00B14DB6 /* SideMenuViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		BA5CE6052036EBBF00B14DB6 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				BA5CE6062036EBBF00B14DB6 /* UIViewController.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,9 +264,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BA44A0F1202DF91200DE6130 /* Build configuration list for PBXNativeTarget "UnitedVision" */;
 			buildPhases = (
+				61BCF414773BD0D86C8799EA /* [CP] Check Pods Manifest.lock */,
 				BA44A0DB202DF91200DE6130 /* Sources */,
 				BA44A0DC202DF91200DE6130 /* Frameworks */,
 				BA44A0DD202DF91200DE6130 /* Resources */,
+				7DB23A7BEB56DCAB67B9EA42 /* [CP] Embed Pods Frameworks */,
+				2122F2E4C1F4EDBF6DDB34B6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -296,14 +329,70 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2122F2E4C1F4EDBF6DDB34B6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61BCF414773BD0D86C8799EA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UnitedVision-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7DB23A7BEB56DCAB67B9EA42 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BA44A0DB202DF91200DE6130 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA5CE6092036EF3C00B14DB6 /* SideMenuTableCell.swift in Sources */,
 				BA44A124202DF96E00DE6130 /* LoginViewController.swift in Sources */,
 				BA44A118202DF96E00DE6130 /* Defines.swift in Sources */,
 				BA44A11B202DF96E00DE6130 /* DataManager.swift in Sources */,
+				BA5CE6072036EBBF00B14DB6 /* UIViewController.swift in Sources */,
 				BA44A127202DF96E00DE6130 /* TerminalDetailViewController.swift in Sources */,
 				BA44A121202DF96E00DE6130 /* BaseViewController.swift in Sources */,
 				BA44A11C202DF96E00DE6130 /* LocationManager.swift in Sources */,
@@ -316,8 +405,8 @@
 				BA44A11E202DF96E00DE6130 /* TractorInfo.swift in Sources */,
 				BA44A11F202DF96E00DE6130 /* WebServiceManager.swift in Sources */,
 				BA44A125202DF96E00DE6130 /* MapViewController.swift in Sources */,
-				BA44A122202DF96E00DE6130 /* HomeViewController.swift in Sources */,
-				BA44A126202DF96E00DE6130 /* SplashViewController.swift in Sources */,
+				BA5CE6042036E7BF00B14DB6 /* SideMenuViewController.swift in Sources */,
+				BA44A126202DF96E00DE6130 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +541,7 @@
 		};
 		BA44A0F2202DF91200DE6130 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 231F842DF1EE3AC446A128CE /* Pods-UnitedVision.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -468,6 +558,7 @@
 		};
 		BA44A0F3202DF91200DE6130 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B32E5ADD18A8E0C9A7676579 /* Pods-UnitedVision.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
