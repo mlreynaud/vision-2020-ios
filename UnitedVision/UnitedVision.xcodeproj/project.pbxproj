@@ -31,6 +31,8 @@
 		BA5CE6042036E7BF00B14DB6 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE6032036E7BF00B14DB6 /* SideMenuViewController.swift */; };
 		BA5CE6072036EBBF00B14DB6 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE6062036EBBF00B14DB6 /* UIViewController.swift */; };
 		BA5CE6092036EF3C00B14DB6 /* SideMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE6082036EF3C00B14DB6 /* SideMenuTableCell.swift */; };
+		BA5CE60D203AF8E400B14DB6 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE60C203AF8E400B14DB6 /* iCarousel.m */; };
+		BA5CE616203AFCAF00B14DB6 /* PageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE615203AFCAF00B14DB6 /* PageTableCell.swift */; };
 		CA9B55882AE68F35E5223F55 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +65,10 @@
 		BA5CE6032036E7BF00B14DB6 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		BA5CE6062036EBBF00B14DB6 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		BA5CE6082036EF3C00B14DB6 /* SideMenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableCell.swift; sourceTree = "<group>"; };
+		BA5CE60B203AF8E400B14DB6 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		BA5CE60C203AF8E400B14DB6 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		BA5CE614203AFA8D00B14DB6 /* UnitedVision-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitedVision-Bridging-Header.h"; sourceTree = "<group>"; };
+		BA5CE615203AFCAF00B14DB6 /* PageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTableCell.swift; sourceTree = "<group>"; };
 		E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -160,6 +166,7 @@
 			children = (
 				BA44A0FA202DF96E00DE6130 /* AppDelegate.swift */,
 				BA44A0FB202DF96E00DE6130 /* Defines.swift */,
+				BA5CE614203AFA8D00B14DB6 /* UnitedVision-Bridging-Header.h */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -194,6 +201,7 @@
 			children = (
 				BA44A100202DF96E00DE6130 /* SplashActionTableCell.swift */,
 				BA5CE6082036EF3C00B14DB6 /* SideMenuTableCell.swift */,
+				BA5CE615203AFCAF00B14DB6 /* PageTableCell.swift */,
 			);
 			path = CustomTableCell;
 			sourceTree = "<group>";
@@ -221,6 +229,7 @@
 		BA44A109202DF96E00DE6130 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				BA5CE60A203AF8E400B14DB6 /* iCarousel */,
 				BA5CE6052036EBBF00B14DB6 /* Extension */,
 				BA44A10B202DF96E00DE6130 /* Others */,
 				BA44A10C202DF96E00DE6130 /* UIUtils.swift */,
@@ -255,6 +264,15 @@
 				BA5CE6062036EBBF00B14DB6 /* UIViewController.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		BA5CE60A203AF8E400B14DB6 /* iCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				BA5CE60B203AF8E400B14DB6 /* iCarousel.h */,
+				BA5CE60C203AF8E400B14DB6 /* iCarousel.m */,
+			);
+			path = iCarousel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -389,6 +407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA5CE6092036EF3C00B14DB6 /* SideMenuTableCell.swift in Sources */,
+				BA5CE60D203AF8E400B14DB6 /* iCarousel.m in Sources */,
 				BA44A124202DF96E00DE6130 /* LoginViewController.swift in Sources */,
 				BA44A118202DF96E00DE6130 /* Defines.swift in Sources */,
 				BA44A11B202DF96E00DE6130 /* DataManager.swift in Sources */,
@@ -399,6 +418,7 @@
 				BA44A11A202DF96E00DE6130 /* LoadingView.swift in Sources */,
 				BA44A119202DF96E00DE6130 /* SplashActionTableCell.swift in Sources */,
 				BA44A120202DF96E00DE6130 /* UIUtils.swift in Sources */,
+				BA5CE616203AFCAF00B14DB6 /* PageTableCell.swift in Sources */,
 				BA44A123202DF96E00DE6130 /* LocationViewController.swift in Sources */,
 				BA44A117202DF96E00DE6130 /* AppDelegate.swift in Sources */,
 				BA44A11D202DF96E00DE6130 /* LocationInfo.swift in Sources */,
@@ -551,6 +571,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Meenakshi-Pathani.UnitedVision";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/UnitedVision/Classes/AppDelegate/UnitedVision-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -568,6 +589,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Meenakshi-Pathani.UnitedVision";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/UnitedVision/Classes/AppDelegate/UnitedVision-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

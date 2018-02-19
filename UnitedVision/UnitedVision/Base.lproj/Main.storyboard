@@ -357,27 +357,31 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="0.0" reuseIdentifier="PageTableCell" rowHeight="250" id="321-78-HIq">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="0.0" reuseIdentifier="PageTableCell" rowHeight="250" id="321-78-HIq" customClass="PageTableCell" customModule="UnitedVision" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="83" width="375" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="321-78-HIq" id="8Ci-Z6-RCZ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DummyPageImage" translatesAutoresizingMaskIntoConstraints="NO" id="sVt-Bf-paF">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3oQ-YY-ias" customClass="iCarousel">
                                                     <rect key="frame" x="15" y="11" width="345" height="228"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="228" id="pGP-Il-HOK"/>
+                                                        <constraint firstAttribute="height" constant="228" id="Mok-5J-LnP"/>
                                                     </constraints>
-                                                </imageView>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="sVt-Bf-paF" firstAttribute="leading" secondItem="8Ci-Z6-RCZ" secondAttribute="leadingMargin" id="S8f-2D-cbe"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="sVt-Bf-paF" secondAttribute="trailing" id="VpT-Mb-xyj"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="sVt-Bf-paF" secondAttribute="bottom" id="fEC-Nd-wOA"/>
-                                                <constraint firstItem="sVt-Bf-paF" firstAttribute="top" secondItem="8Ci-Z6-RCZ" secondAttribute="topMargin" id="lMK-4f-zQ1"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="3oQ-YY-ias" secondAttribute="bottom" id="FVX-IN-hwI"/>
+                                                <constraint firstItem="3oQ-YY-ias" firstAttribute="leading" secondItem="8Ci-Z6-RCZ" secondAttribute="leadingMargin" id="WD2-OL-0Kv"/>
+                                                <constraint firstItem="3oQ-YY-ias" firstAttribute="top" secondItem="8Ci-Z6-RCZ" secondAttribute="topMargin" id="cSt-ki-qOE"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="3oQ-YY-ias" secondAttribute="trailing" id="igf-OK-z5s"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="carousel" destination="3oQ-YY-ias" id="I1P-3p-G5W"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SplashActionTableCell" rowHeight="60" id="vZP-3p-EuD" customClass="SplashActionTableCell" customModule="UnitedVision" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="333" width="375" height="60"/>
@@ -584,6 +588,5 @@ Lafayette, LA 70503
     </scenes>
     <resources>
         <image name="DummyLogoImage" width="158" height="22"/>
-        <image name="DummyPageImage" width="158" height="110"/>
     </resources>
 </document>
