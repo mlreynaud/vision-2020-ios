@@ -10,7 +10,7 @@ import Foundation
 
 // MARK:- Server URLs
 
-let kProductionURL = ""
-let kStagingURL = ""
+let kProductionURL = "http://uv.agilink.net/api/"
+let kStagingURL = "http://uv.agilink.net/api/"
 
 let kServerUrl = UIUtils.getServerURl()!

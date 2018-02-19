@@ -122,6 +122,10 @@ extension SideMenuViewController
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         
+//        self.providesPresentationContextTransitionStyle = true
+//        self.definesPresentationContext = true
+        viewCtrl.modalPresentationStyle = .overCurrentContext
+
         self.present(viewCtrl, animated: true, completion: nil)
     }
 }

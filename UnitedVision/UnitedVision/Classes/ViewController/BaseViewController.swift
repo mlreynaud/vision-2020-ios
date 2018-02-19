@@ -16,6 +16,8 @@ class BaseViewController: UIViewController {
         
         self.edgesForExtendedLayout = []
     }
+    
+   
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

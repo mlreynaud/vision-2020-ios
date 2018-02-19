@@ -11,6 +11,8 @@ import UIKit
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, iCarouselDataSource, iCarouselDelegate {
     
     @IBOutlet weak var tableView : UITableView!
+    
+    weak var pageControl: UIPageControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -53,11 +56,13 @@ extension HomeViewController
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PageTableCell", for: indexPath) as! PageTableCell
             cell.carousel.isPagingEnabled = true
-            cell.carousel.type = .rotary
+            cell.carousel.type = .linear
             cell.carousel.dataSource = self
             cell.carousel.delegate = self
-        
-            cell.carousel.autoscroll = -0.4
+            cell.pageControl.numberOfPages = 5
+            cell.pageControl.currentPage = cell.carousel.currentItemIndex
+            self.pageControl = cell.pageControl
+//            cell.carousel.autoscroll = -0.4
 
             return cell
         case 2:
@@ -164,7 +169,7 @@ extension HomeViewController
             return 1;
         case .spacing:
             //add a bit of spacing between the item views
-            return value * 1.05;
+            return 1.0 //value * 1.05;
 //        case .fadeMax:
            
 //        case iCarouselOptionShowBackfaces:
@@ -186,5 +191,12 @@ extension HomeViewController
 //        }
 //        return value
     }
+    
+    func carouselCurrentItemIndexDidChange(_ carousel: iCarousel)
+    {
+        self.pageControl.currentPage = carousel.currentItemIndex
+    }
+    
+
 }
 

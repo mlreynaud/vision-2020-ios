@@ -10,8 +10,9 @@ import UIKit
 
 class PageTableCell: UITableViewCell {
 
-    @IBOutlet var carousel: iCarousel!
-
+    @IBOutlet weak  var carousel: iCarousel!
+    @IBOutlet weak var pageControl: UIPageControl!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,6 +22,13 @@ class PageTableCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @IBAction func updatePage(pageControl : UIPageControl)
+    {
+//        [carousel scrollToItemAtIndex:pageControl.currentPage * 5 aimated:YES];
+        
+        self.carousel.scrollToItem(at: pageControl.currentPage, animated: true)
     }
 
 }
