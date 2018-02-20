@@ -108,8 +108,20 @@ class WebServiceManager: NSObject, URLSessionDelegate {
                         print("error: not a valid http response")
                         serviceCompletionHandler!(nil, error as NSError?)
                         return
-                }
+                }               
                 
+//                guard let rawString = String(data: receivedData, encoding: .utf8) else {
+//                    return
+//                }
+////                let newString = aString.replacingOccurrences(of: "\", with: "+")
+////                let escapedString =  rawString.replacingOccurrences(of: "\\", with: "", options: NSString.CompareOptions.literal, range: nil)
+//
+//                let string = rawString.unescaped
+//                let escapedString = rawString.replacingOccurrences(of: "\\\"", with: "", options: .literal, range: nil)
+//
+////                let escapedString = rawString.stringByReplacingOccurrencesOfString("\"", withString: "", options: .literalSearch, range: nil)
+//                let jsonData = string.data(using: .utf8)
+
                 //let httpResponse : NSHTTPURLResponse = response as! NSHTTPURLResponse
                 let responseStatusCode = httpResponse.statusCode
                 if responseStatusCode == 200
@@ -120,9 +132,7 @@ class WebServiceManager: NSObject, URLSessionDelegate {
                 {
                     serviceCompletionHandler!(nil, error as NSError?)
                 }
-                
             }
-            
         });
         
         dataTask.resume()

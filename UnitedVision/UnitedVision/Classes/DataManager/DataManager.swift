@@ -22,6 +22,36 @@ class DataManager: NSObject {
         locationManager.initializeLocationManager()
     }
     
+    func parseJSONData(_ data: Data?) -> (status: Bool, message: String, count: String, content: Any?){
+        
+        guard data != nil else {
+//            UIUtils.showAlert(withTitle: "Server Error", message: "Please try again later", alertType: .error)
+//            UIUtils.vibrate()
+            return (false, "Error", "0", nil)
+        }
+        if let json = UIUtils.getJSONFromData(data as Data!) as? NSDictionary {
+            let status = json.object(forKey: "success") as? Bool
+            let message = json.object(forKey: "message") as? String
+            var count = json.object(forKey: "totalCount") as? Int
+            let content = json.object(forKey: "content") as Any
+            
+            print("JSON response- \(json)")
+            
+            if count == nil {
+                count = Int(json.object(forKey: "totalCount") as! String)
+            }
+            
+            return(status!, message!, String(count!), content)
+        }
+        else
+        {
+//            UIUtils.showAlert(withTitle: "Server Error", message: "Please try again later", alertType: .error)
+//            UIUtils.vibrate()
+            return (false, "Error", "0", nil)
+        }
+    }
+    
+    
     func readJSON(file filename: String) -> Data?
     {
         print(filename)
@@ -72,6 +102,65 @@ class DataManager: NSObject {
         }
         
         self.tractorList = list
+    }
+    
+    func requestToFetchTractorLocations (completionHandler handler: @escaping ( Bool, [LocationInfo]?) -> () ) {
+        
+        let service: String = "location/service/active"
+        
+        let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
+        WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {(data, error) in
+            
+            var list = [LocationInfo]()
+
+            do {
+                let outerJSON = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as! String
+                let array =  try! JSONSerialization.jsonObject(with: outerJSON.data(using: .utf8)!, options: .allowFragments) as! NSArray
+
+                for dict in array
+                {
+                    let info = LocationInfo(info: (dict as? NSDictionary)!)
+                    list.append(info)
+                    //                let info = TractorInfo(info: (dict as? NSDictionary)!)
+                    //                list.append(info)
+                }
+                
+            }
+            catch{
+                print(error)
+            }
+            
+            self.locationList = list
+            handler(true, list)
+        })
+    }
+    
+    func requestToSearchTractor(_ info: TractorSearchInfo, completionHandler handler: @escaping ( Bool, [TractorInfo]?) -> () )
+    {
+        let service: String =  "tractor/service/search?radius=100&city=Lafayette&state=LA&zip=70508"
+        
+        let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
+        WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {(data, error) in
+            
+            var list = [TractorInfo]()
+
+            do {
+                let outerJSON = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as! String
+                let array =  try! JSONSerialization.jsonObject(with: outerJSON.data(using: .utf8)!, options: .allowFragments) as! NSArray
+                
+                for dict in array
+                {
+                    let info = TractorInfo(info: (dict as? NSDictionary)!)
+                    list.append(info)
+                }
+            }
+            catch{
+                print(error)
+            }
+            
+            self.tractorList = list
+            handler(true, list)
+        })
     }
 
 }

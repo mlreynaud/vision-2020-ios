@@ -13,4 +13,4 @@ import Foundation
 let kProductionURL = "http://uv.agilink.net/api/"
 let kStagingURL = "http://uv.agilink.net/api/"
 
-let kServerUrl = UIUtils.getServerURl()!
+let kServerUrl = "http://uv.agilink.net/api/" //UIUtils.getServerURl()!

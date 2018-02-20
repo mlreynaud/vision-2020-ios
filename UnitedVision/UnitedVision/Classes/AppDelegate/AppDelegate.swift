@@ -40,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        dataManager.parseLocationInfo()
         dataManager.parseTractorInfo()
         
+       
+        
         self.createMenuView()
         
         return true

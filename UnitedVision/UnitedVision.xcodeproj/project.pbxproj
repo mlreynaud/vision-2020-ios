@@ -33,6 +33,7 @@
 		BA5CE6092036EF3C00B14DB6 /* SideMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE6082036EF3C00B14DB6 /* SideMenuTableCell.swift */; };
 		BA5CE60D203AF8E400B14DB6 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE60C203AF8E400B14DB6 /* iCarousel.m */; };
 		BA5CE616203AFCAF00B14DB6 /* PageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE615203AFCAF00B14DB6 /* PageTableCell.swift */; };
+		BA5CE618203C282A00B14DB6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE617203C282A00B14DB6 /* String.swift */; };
 		CA9B55882AE68F35E5223F55 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		BA5CE60C203AF8E400B14DB6 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		BA5CE614203AFA8D00B14DB6 /* UnitedVision-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitedVision-Bridging-Header.h"; sourceTree = "<group>"; };
 		BA5CE615203AFCAF00B14DB6 /* PageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTableCell.swift; sourceTree = "<group>"; };
+		BA5CE617203C282A00B14DB6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -262,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				BA5CE6062036EBBF00B14DB6 /* UIViewController.swift */,
+				BA5CE617203C282A00B14DB6 /* String.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				BA44A11A202DF96E00DE6130 /* LoadingView.swift in Sources */,
 				BA44A119202DF96E00DE6130 /* SplashActionTableCell.swift in Sources */,
 				BA44A120202DF96E00DE6130 /* UIUtils.swift in Sources */,
+				BA5CE618203C282A00B14DB6 /* String.swift in Sources */,
 				BA5CE616203AFCAF00B14DB6 /* PageTableCell.swift in Sources */,
 				BA44A123202DF96E00DE6130 /* LocationViewController.swift in Sources */,
 				BA44A117202DF96E00DE6130 /* AppDelegate.swift in Sources */,

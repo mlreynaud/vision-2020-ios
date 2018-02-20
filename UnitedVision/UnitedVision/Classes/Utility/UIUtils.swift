@@ -85,7 +85,7 @@ class UIUtils: NSObject {
     {
         var json: Any?
         do {
-            json = try JSONSerialization.jsonObject(with: jsonData as Data, options: JSONSerialization.ReadingOptions() )
+            json = try JSONSerialization.jsonObject(with: jsonData as Data, options: .allowFragments )
         } catch {
             print(error)
         }
