@@ -23,9 +23,9 @@
 		BA44A11F202DF96E00DE6130 /* WebServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A108202DF96E00DE6130 /* WebServiceManager.swift */; };
 		BA44A120202DF96E00DE6130 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A10C202DF96E00DE6130 /* UIUtils.swift */; };
 		BA44A121202DF96E00DE6130 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A10E202DF96E00DE6130 /* BaseViewController.swift */; };
-		BA44A123202DF96E00DE6130 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A110202DF96E00DE6130 /* LocationViewController.swift */; };
+		BA44A123202DF96E00DE6130 /* TractorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A110202DF96E00DE6130 /* TractorViewController.swift */; };
 		BA44A124202DF96E00DE6130 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A111202DF96E00DE6130 /* LoginViewController.swift */; };
-		BA44A125202DF96E00DE6130 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A112202DF96E00DE6130 /* MapViewController.swift */; };
+		BA44A125202DF96E00DE6130 /* TerminalSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A112202DF96E00DE6130 /* TerminalSearchViewController.swift */; };
 		BA44A126202DF96E00DE6130 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A113202DF96E00DE6130 /* HomeViewController.swift */; };
 		BA44A127202DF96E00DE6130 /* TerminalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */; };
 		BA5CE6042036E7BF00B14DB6 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE6032036E7BF00B14DB6 /* SideMenuViewController.swift */; };
@@ -34,6 +34,7 @@
 		BA5CE60D203AF8E400B14DB6 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE60C203AF8E400B14DB6 /* iCarousel.m */; };
 		BA5CE616203AFCAF00B14DB6 /* PageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE615203AFCAF00B14DB6 /* PageTableCell.swift */; };
 		BA5CE618203C282A00B14DB6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE617203C282A00B14DB6 /* String.swift */; };
+		BA5CE61A203D7E5000B14DB6 /* AutocompleteTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE619203D7E5000B14DB6 /* AutocompleteTableCell.swift */; };
 		CA9B55882AE68F35E5223F55 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,9 +59,9 @@
 		BA44A108202DF96E00DE6130 /* WebServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceManager.swift; sourceTree = "<group>"; };
 		BA44A10C202DF96E00DE6130 /* UIUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		BA44A10E202DF96E00DE6130 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		BA44A110202DF96E00DE6130 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		BA44A110202DF96E00DE6130 /* TractorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TractorViewController.swift; sourceTree = "<group>"; };
 		BA44A111202DF96E00DE6130 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		BA44A112202DF96E00DE6130 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		BA44A112202DF96E00DE6130 /* TerminalSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalSearchViewController.swift; sourceTree = "<group>"; };
 		BA44A113202DF96E00DE6130 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalDetailViewController.swift; sourceTree = "<group>"; };
 		BA5CE6032036E7BF00B14DB6 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +72,7 @@
 		BA5CE614203AFA8D00B14DB6 /* UnitedVision-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitedVision-Bridging-Header.h"; sourceTree = "<group>"; };
 		BA5CE615203AFCAF00B14DB6 /* PageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTableCell.swift; sourceTree = "<group>"; };
 		BA5CE617203C282A00B14DB6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		BA5CE619203D7E5000B14DB6 /* AutocompleteTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteTableCell.swift; sourceTree = "<group>"; };
 		E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -204,6 +206,7 @@
 				BA44A100202DF96E00DE6130 /* SplashActionTableCell.swift */,
 				BA5CE6082036EF3C00B14DB6 /* SideMenuTableCell.swift */,
 				BA5CE615203AFCAF00B14DB6 /* PageTableCell.swift */,
+				BA5CE619203D7E5000B14DB6 /* AutocompleteTableCell.swift */,
 			);
 			path = CustomTableCell;
 			sourceTree = "<group>";
@@ -250,9 +253,9 @@
 			isa = PBXGroup;
 			children = (
 				BA44A10E202DF96E00DE6130 /* BaseViewController.swift */,
-				BA44A110202DF96E00DE6130 /* LocationViewController.swift */,
+				BA44A110202DF96E00DE6130 /* TractorViewController.swift */,
 				BA44A111202DF96E00DE6130 /* LoginViewController.swift */,
-				BA44A112202DF96E00DE6130 /* MapViewController.swift */,
+				BA44A112202DF96E00DE6130 /* TerminalSearchViewController.swift */,
 				BA44A113202DF96E00DE6130 /* HomeViewController.swift */,
 				BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */,
 				BA5CE6032036E7BF00B14DB6 /* SideMenuViewController.swift */,
@@ -415,6 +418,7 @@
 				BA44A118202DF96E00DE6130 /* Defines.swift in Sources */,
 				BA44A11B202DF96E00DE6130 /* DataManager.swift in Sources */,
 				BA5CE6072036EBBF00B14DB6 /* UIViewController.swift in Sources */,
+				BA5CE61A203D7E5000B14DB6 /* AutocompleteTableCell.swift in Sources */,
 				BA44A127202DF96E00DE6130 /* TerminalDetailViewController.swift in Sources */,
 				BA44A121202DF96E00DE6130 /* BaseViewController.swift in Sources */,
 				BA44A11C202DF96E00DE6130 /* LocationManager.swift in Sources */,
@@ -423,12 +427,12 @@
 				BA44A120202DF96E00DE6130 /* UIUtils.swift in Sources */,
 				BA5CE618203C282A00B14DB6 /* String.swift in Sources */,
 				BA5CE616203AFCAF00B14DB6 /* PageTableCell.swift in Sources */,
-				BA44A123202DF96E00DE6130 /* LocationViewController.swift in Sources */,
+				BA44A123202DF96E00DE6130 /* TractorViewController.swift in Sources */,
 				BA44A117202DF96E00DE6130 /* AppDelegate.swift in Sources */,
 				BA44A11D202DF96E00DE6130 /* LocationInfo.swift in Sources */,
 				BA44A11E202DF96E00DE6130 /* TractorInfo.swift in Sources */,
 				BA44A11F202DF96E00DE6130 /* WebServiceManager.swift in Sources */,
-				BA44A125202DF96E00DE6130 /* MapViewController.swift in Sources */,
+				BA44A125202DF96E00DE6130 /* TerminalSearchViewController.swift in Sources */,
 				BA5CE6042036E7BF00B14DB6 /* SideMenuViewController.swift in Sources */,
 				BA44A126202DF96E00DE6130 /* HomeViewController.swift in Sources */,
 			);

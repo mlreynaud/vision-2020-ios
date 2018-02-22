@@ -14,3 +14,6 @@ let kProductionURL = "http://uv.agilink.net/api/"
 let kStagingURL = "http://uv.agilink.net/api/"
 
 let kServerUrl = "http://uv.agilink.net/api/" //UIUtils.getServerURl()!
+
+let kDefaultRadius = 50 //UIUtils.getServerURl()!
+

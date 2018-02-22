@@ -97,11 +97,11 @@ extension SideMenuViewController
 //            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
 //            self.slideMenuController()?.changeMainViewController(viewCtrl, close: true)
 //            break
-        case .tractorSearch:
-            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
-            return viewCtrl
         case .terminalSearch:
-            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "LocationViewController") as! LocationViewController
+            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TerminalSearchViewController") as! TerminalSearchViewController
+            return viewCtrl
+        case .tractorSearch:
+            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TractorViewController") as! TractorViewController
             return viewCtrl
 //        case .applyNow:
 //            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController

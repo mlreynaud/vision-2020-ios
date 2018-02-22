@@ -145,8 +145,14 @@ class DataManager: NSObject {
             var list = [TractorInfo]()
 
             do {
-                let outerJSON = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as! String
-                let array =  try! JSONSerialization.jsonObject(with: outerJSON.data(using: .utf8)!, options: .allowFragments) as! NSArray
+                
+                guard   let outerJSON : String = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as? String,
+                     outerJSON.count != 0,
+                    let array =  try! JSONSerialization.jsonObject(with: outerJSON.data(using: .utf8)!, options: .allowFragments) as? NSArray
+                    else {
+                        handler(false, nil)
+                        return
+                    }
                 
                 for dict in array
                 {
