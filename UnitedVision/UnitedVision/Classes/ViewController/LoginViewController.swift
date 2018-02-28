@@ -20,6 +20,11 @@ class LoginViewController: UIViewController {
         
         self.title = "Login"
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        self.setNavigationBarItem()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -29,22 +34,23 @@ class LoginViewController: UIViewController {
     // MARK: - Button Action
     @IBAction func loginButtonAction()
     {
-        
+        DataManager.sharedInstance.isLogin = true
+        self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func forgotPasswordButtonAction()
-    {
-        
-    }
-    @IBAction func registerButtonAction()
-    {
-        
-    }
-    
-    @IBAction func closeButtonAction()
-    {
-        self.dismiss(animated: true, completion: nil)
-    }
+//    @IBAction func forgotPasswordButtonAction()
+//    {
+//        
+//    }
+//    @IBAction func registerButtonAction()
+//    {
+//        
+//    }
+//    
+//    @IBAction func closeButtonAction()
+//    {
+//        self.dismiss(animated: true, completion: nil)
+//    }
     
     
 

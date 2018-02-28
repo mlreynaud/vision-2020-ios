@@ -9,24 +9,34 @@
 
 enum LeftMenu: Int {
     case home = 0
-    case login
-    case register
+//    case login
+//    case register
     case tractorSearch
     case terminalSearch
     case applyNow
     case contact
+    case logout
 }
 
 import UIKit
 
 class SideMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
-    @IBOutlet weak var tableView : UITableView!
-    var menus = ["Home","Login", "Register", "Tractor Search", "Terminal Search", "Apply Now", "Contact"]
+    
+    @IBOutlet weak var nameLabel : UILabel!
+    @IBOutlet weak var signInButton : UIButton!
 
+    @IBOutlet weak var tableView : UITableView!
+    var menus: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setupInitialView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,6 +44,47 @@ class SideMenuViewController: UIViewController, UITableViewDataSource, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
+    func setupInitialView ()
+    {
+//        signInButton.isHidden = DataManager.sharedInstance.isLogin ? true : false
+       // nameLabel.text = DataManager.sharedInstance.isLogin ? "Welcome Meenakshi" : "Welcome Guest"
+        
+        self.populateArray()
+        if (DataManager.sharedInstance.isLogin){
+            let userName = "Meenakshi"
+            nameLabel.text = "Welcome " + userName
+            signInButton.isHidden = true
+        } else{
+            let textString = "Welcome Sign In"
+            nameLabel.attributedText = textString.createUnderlineString(subString: "Sign In", underlineColor: UIColor.black)
+
+            signInButton.isHidden = false
+        }
+    }
+    
+    func populateArray() {
+        
+        if (DataManager.sharedInstance.isLogin) {
+            menus = ["Home", "Tractor Search", "Terminal Search", "Apply Now", "Contact", "Logout"]
+        }
+        else{
+            menus = ["Home", "Tractor Search", "Terminal Search", "Apply Now", "Contact"]
+        }
+        
+        tableView.reloadData()
+    }
+    
+    @IBAction func signInButtonAction()
+    {
+        self.slideMenuController()?.closeLeft()
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        
+        if let navCtrl = self.slideMenuController()?.mainViewController as? UINavigationController
+        {
+            navCtrl.pushViewController(viewCtrl, animated: true)
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -65,10 +116,13 @@ extension SideMenuViewController
         if let menu = LeftMenu(rawValue: indexPath.row) {
             
             switch menu{
-            case .login:
-                    self.showLoginView()
-                    break;
-                
+//            case .login:
+//                    self.showLoginView()
+//                    break;
+            case .logout:
+                DataManager.sharedInstance.isLogin = false
+                self.slideMenuController()?.closeLeft()
+                break
             default:
                 if let viewCtrl =  self.getViewControllerFor(menu: menu){
                     let navCtrl = UINavigationController(rootViewController: viewCtrl)
@@ -90,9 +144,9 @@ extension SideMenuViewController
         case .home:
             let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
             return viewCtrl
-        case .login:
-            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-            return viewCtrl
+//        case .login:
+//            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+//            return viewCtrl
 //        case .register:
 //            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
 //            self.slideMenuController()?.changeMainViewController(viewCtrl, close: true)

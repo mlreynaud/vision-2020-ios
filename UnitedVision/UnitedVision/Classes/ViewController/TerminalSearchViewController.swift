@@ -25,6 +25,7 @@ class TerminalSearchViewController: BaseViewController, MKMapViewDelegate, UISea
         // Do any additional setup after loading the view.
         
         self.title = "Terminal Search"
+        UIUtils.transparentSearchBarBackgrund(searchBar)
         
         autocompleteTableView.estimatedRowHeight = 100
         autocompleteTableView.rowHeight = UITableViewAutomaticDimension
@@ -57,6 +58,8 @@ class TerminalSearchViewController: BaseViewController, MKMapViewDelegate, UISea
     
     //MARK-
     
+   
+    
     func fetchTerminalLocations()
     {
         LoadingView.shared.showOverlay()
@@ -66,6 +69,8 @@ class TerminalSearchViewController: BaseViewController, MKMapViewDelegate, UISea
 
             self.locationArray = tractorList! //DataManager.sharedInstance.tractorList
             self.addAnnotations()
+            
+            self.moveMapToCurrentLocation()
 
         })
     }
@@ -120,7 +125,8 @@ class TerminalSearchViewController: BaseViewController, MKMapViewDelegate, UISea
     
     func moveMaptoLocation(location: CLLocation){
         
-        let span = MKCoordinateSpanMake(0.05, 0.05)
+//        let span = MKCoordinateSpanMake(0.05, 0.05)
+        let span = MKCoordinateSpanMake(2.0, 2.0)
         let region = MKCoordinateRegion(center: location.coordinate, span: span)
         mapView.setRegion(region, animated: true)
     }
@@ -304,9 +310,11 @@ extension TerminalSearchViewController
         
         if (indexPath.row == 0)
         {
-            let coordinate = DataManager.sharedInstance.userLocation
-            let currentLocation = CLLocation(latitude: (coordinate?.latitude)!, longitude: (coordinate?.longitude)!)
-            self.moveMaptoLocation(location: currentLocation)
+//            let coordinate = DataManager.sharedInstance.userLocation
+//            let currentLocation = CLLocation(latitude: (coordinate?.latitude)!, longitude: (coordinate?.longitude)!)
+//            self.moveMaptoLocation(location: currentLocation)
+            
+            self.moveMapToCurrentLocation()
             return
         }
         
@@ -315,6 +323,13 @@ extension TerminalSearchViewController
         searchBar.text = placemark.name
         
         self.moveMaptoLocation(location: placemark.location!)
+    }
+    
+    func moveMapToCurrentLocation()
+    {
+        let coordinate = DataManager.sharedInstance.userLocation
+        let currentLocation = CLLocation(latitude: (coordinate?.latitude)!, longitude: (coordinate?.longitude)!)
+        self.moveMaptoLocation(location: currentLocation)
     }
     
 }

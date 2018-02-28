@@ -25,7 +25,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -196,7 +195,5 @@ extension HomeViewController
     {
         self.pageControl.currentPage = carousel.currentItemIndex
     }
-    
-
 }
 

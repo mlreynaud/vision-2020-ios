@@ -48,4 +48,34 @@ extension String {
     var htmlToString: String {
         return htmlToAttributedString?.string ?? ""
     }
+    
+    func  createAttributedString(subString: String, subStringColor color: UIColor) -> NSAttributedString{
+        
+        let range = (self as NSString).range(of: subString)
+        
+        let attributedString = NSMutableAttributedString(string: self)
+        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: color, range: range)
+        
+        return attributedString
+        
+    }
+    
+    func  createUnderlineString(subString: String, underlineColor color: UIColor) -> NSAttributedString{
+        
+        let range = (self as NSString).range(of: subString)
+        
+        let attributedString = NSMutableAttributedString(string: self)
+        
+        let attributes    = [NSAttributedStringKey.underlineStyle : NSUnderlineStyle.styleSingle.rawValue, NSAttributedStringKey.foregroundColor: UIColor.blue, NSAttributedStringKey.underlineColor : UIColor.blue] as [NSAttributedStringKey : Any]
+        
+        attributedString.addAttributes(attributes, range: range)
+        
+        return attributedString
+    }
+    
+    func encodeString() -> String{
+        let allowedCharacterSet = (CharacterSet(charactersIn: "!*'();:@&=+$,/?%#[] ").inverted)
+        let encodedString = self.addingPercentEncoding( withAllowedCharacters: allowedCharacterSet)
+        return encodedString!
+    }
 }

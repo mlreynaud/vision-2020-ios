@@ -16,6 +16,8 @@ class DataManager: NSObject {
     var userLocation : CLLocationCoordinate2D?
     var locationList : [LocationInfo] = []
     var tractorList : [TractorInfo] = []
+    
+    var isLogin = false
 
     fileprivate override init() {
         let locationManager = LocationManager.sharedInstance

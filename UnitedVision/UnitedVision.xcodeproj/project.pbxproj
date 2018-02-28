@@ -28,6 +28,7 @@
 		BA44A125202DF96E00DE6130 /* TerminalSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A112202DF96E00DE6130 /* TerminalSearchViewController.swift */; };
 		BA44A126202DF96E00DE6130 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A113202DF96E00DE6130 /* HomeViewController.swift */; };
 		BA44A127202DF96E00DE6130 /* TerminalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */; };
+		BA4D87992046FB7A00FC78CA /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4D87982046FB7A00FC78CA /* UISegmentedControl.swift */; };
 		BA5CE6042036E7BF00B14DB6 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE6032036E7BF00B14DB6 /* SideMenuViewController.swift */; };
 		BA5CE6072036EBBF00B14DB6 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE6062036EBBF00B14DB6 /* UIViewController.swift */; };
 		BA5CE6092036EF3C00B14DB6 /* SideMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE6082036EF3C00B14DB6 /* SideMenuTableCell.swift */; };
@@ -64,6 +65,7 @@
 		BA44A112202DF96E00DE6130 /* TerminalSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalSearchViewController.swift; sourceTree = "<group>"; };
 		BA44A113202DF96E00DE6130 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalDetailViewController.swift; sourceTree = "<group>"; };
+		BA4D87982046FB7A00FC78CA /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
 		BA5CE6032036E7BF00B14DB6 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		BA5CE6062036EBBF00B14DB6 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		BA5CE6082036EF3C00B14DB6 /* SideMenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableCell.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 			children = (
 				BA5CE6062036EBBF00B14DB6 /* UIViewController.swift */,
 				BA5CE617203C282A00B14DB6 /* String.swift */,
+				BA4D87982046FB7A00FC78CA /* UISegmentedControl.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				BA44A119202DF96E00DE6130 /* SplashActionTableCell.swift in Sources */,
 				BA44A120202DF96E00DE6130 /* UIUtils.swift in Sources */,
 				BA5CE618203C282A00B14DB6 /* String.swift in Sources */,
+				BA4D87992046FB7A00FC78CA /* UISegmentedControl.swift in Sources */,
 				BA5CE616203AFCAF00B14DB6 /* PageTableCell.swift in Sources */,
 				BA44A123202DF96E00DE6130 /* TractorViewController.swift in Sources */,
 				BA44A117202DF96E00DE6130 /* AppDelegate.swift in Sources */,

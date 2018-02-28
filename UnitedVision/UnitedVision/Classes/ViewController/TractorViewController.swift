@@ -17,7 +17,8 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var mapBackgroundView: UIView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var searchBar: UISearchBar!
-    
+    @IBOutlet weak var segmentedControl : UISegmentedControl!
+
     var showMap = false
 
     let tractorSearchInfo = TractorSearchInfo()
@@ -31,6 +32,10 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         
         self.title = "Tractor Search"
         
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addUnderlineForSelectedSegment()
+
+        UIUtils.transparentSearchBarBackgrund(searchBar)
         self.fetchTractorLocations()
 
     }
@@ -48,6 +53,9 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     //MARK-
     
     @IBAction func segmentControlValueChanged(_ sender: UISegmentedControl) {
+        
+        sender.changeUnderlinePosition()
+
         switch sender.selectedSegmentIndex {
         case 0:
             mapBackgroundView.isHidden = true
@@ -62,6 +70,11 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         default:
             break;
         }
+    }
+    
+    @IBAction func filterButtonAction()
+    {
+        
     }
     
     func createAnnotation(coordinate:CLLocationCoordinate2D) -> MKPointAnnotation

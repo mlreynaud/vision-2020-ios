@@ -253,4 +253,12 @@ class UIUtils: NSObject {
         }
         return nil
     }
+    
+    class func transparentSearchBarBackgrund(_ searchBar: UISearchBar)
+    {
+        searchBar.barTintColor = UIColor.clear
+        searchBar.backgroundColor = UIColor.clear
+        searchBar.isTranslucent = true
+        searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
+    }
 }
