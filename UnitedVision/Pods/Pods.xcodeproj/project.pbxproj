@@ -3,67 +3,96 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28EDAEB6756925984E3FBB80EE1598AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		5EE286BD4A940AD269BECF0C7197C7D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		700C7CC1E6DB4E9E15149036563C6E21 /* Pods-UnitedVision-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777289AA48430274FF37FFCC7A14386 /* Pods-UnitedVision-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8FD1B7065DBD67F6E38B4E1C0C8A21A5 /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8110A20D864C22E8570DA40FEABB3839 /* SlideMenuController.swift */; };
-		9BA29F71FCEE05B15E1997C933283398 /* Pods-UnitedVision-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B0E4AE6F353125C4B72FBF65CBC48 /* Pods-UnitedVision-dummy.m */; };
-		A36CC670A0D35E5C2708E646A2A2B3C1 /* SlideMenuControllerSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DB21B13927C0FBF5B991E2B29373E209 /* SlideMenuControllerSwift-dummy.m */; };
-		FEE1D9D50D31D9C9349D9DFFDE16FF83 /* SlideMenuControllerSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D0BC680A96E40826668429BD458F27D /* SlideMenuControllerSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		01EE02DA0953E97297A22566DF909EBB /* SlideMenuControllerSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 79D652DC71307FFFC62994884DEB27EF /* SlideMenuControllerSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0211A1B6E41037F1476A90613C02F00E /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0463DECC433C8B3ECFF101AC485AA65 /* SlideMenuController.swift */; };
+		3CB2B2BB4BC4A75784F237EAD185888E /* Pods-UnitedVision-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B0E4AE6F353125C4B72FBF65CBC48 /* Pods-UnitedVision-dummy.m */; };
+		63C737EFC7C5012CC3081363E89B2F6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		782C34F4A1ABCB57E54C34CE6C01F73C /* FZAccordionTableView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F6F2026890E04C388D97C9EE8E1E451 /* FZAccordionTableView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7848F506C24A946C8F08FF5B423F31E7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		7E4E43838C554B19AA8BB78CF855CDBC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		9F5293C7D868F5344572C89DCF4F8FFD /* FZAccordionTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1007E43D95095524E6D6609F6D6BF265 /* FZAccordionTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A08C764A0959DF1F66056580B430872D /* FZAccordionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEAFAE5CA39F1CF7724C13FF1563A9A /* FZAccordionTableView.m */; };
+		C009B9CFD7D6FF9FED55A8A9B550E964 /* Pods-UnitedVision-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777289AA48430274FF37FFCC7A14386 /* Pods-UnitedVision-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C926D0670B5FA7AFF40E4444AEA38A5F /* FZAccordionTableView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C357953BEA61FF68134F03FA423F047 /* FZAccordionTableView-dummy.m */; };
+		D28143D7FB6647F9C2AD65A7A25DA98E /* SlideMenuControllerSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED8D4FA71BC8B68053167D2D7F3CF68 /* SlideMenuControllerSwift-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		41BEA7EA3F22B6C0ABB722F4C77F6207 /* PBXContainerItemProxy */ = {
+		9D1AA23DAB6E8DBB667A5497D0F0747A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A6276AF34A3BA071B4301EA54E3012A6;
+			remoteGlobalIDString = B2E1605C379B3AEEF12FBD4B8A810DD7;
 			remoteInfo = SlideMenuControllerSwift;
+		};
+		F2074B7505CF8C501AA35FAB562BFA96 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FFC6095663C8C444F0093D2A2BECFA58;
+			remoteInfo = FZAccordionTableView;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		06870CB5FB1CE8AEB1BD9BC457444353 /* Pods-UnitedVision.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-UnitedVision.modulemap"; sourceTree = "<group>"; };
-		0D0BC680A96E40826668429BD458F27D /* SlideMenuControllerSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SlideMenuControllerSwift-umbrella.h"; sourceTree = "<group>"; };
-		0EED61B8D215697F57286F0FF9404F4C /* SlideMenuControllerSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SlideMenuControllerSwift.xcconfig; sourceTree = "<group>"; };
+		0D71EEC229A089C1CC6646F9A122EC7B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1007E43D95095524E6D6609F6D6BF265 /* FZAccordionTableView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FZAccordionTableView.h; path = FZAccordionTableView/FZAccordionTableView.h; sourceTree = "<group>"; };
 		1454F9971900F497BC775062771B123A /* Pods-UnitedVision-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UnitedVision-acknowledgements.plist"; sourceTree = "<group>"; };
+		167F2860FC5F9ADCA3AD6392A215F7C3 /* SlideMenuControllerSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SlideMenuControllerSwift.xcconfig; sourceTree = "<group>"; };
 		2899A37AF35263FF214AB38981270DB1 /* Pods-UnitedVision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UnitedVision.debug.xcconfig"; sourceTree = "<group>"; };
-		2D39FCF9B0B6CA34A1F9E4C8B8A93E4D /* SlideMenuControllerSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SlideMenuControllerSwift-prefix.pch"; sourceTree = "<group>"; };
-		3FA7B792EFCA3A9C3003E19AB2DAC31A /* SlideMenuControllerSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SlideMenuControllerSwift.modulemap; sourceTree = "<group>"; };
-		483B1E5DA25A0740512233E0D7B152CA /* SlideMenuControllerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SlideMenuControllerSwift.framework; path = SlideMenuControllerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EE7241C8840B5666627CB3A3297716D /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UnitedVision.framework; path = "Pods-UnitedVision.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C4D9408C038BE4C851C5BA68E5E37AA /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EEAFAE5CA39F1CF7724C13FF1563A9A /* FZAccordionTableView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FZAccordionTableView.m; path = FZAccordionTableView/FZAccordionTableView.m; sourceTree = "<group>"; };
+		2F6F2026890E04C388D97C9EE8E1E451 /* FZAccordionTableView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FZAccordionTableView-umbrella.h"; sourceTree = "<group>"; };
+		327E846ACBDDB30E7AA216E37F0E9F55 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E534E16F081225EB828CACE8A9CE970 /* FZAccordionTableView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FZAccordionTableView.modulemap; sourceTree = "<group>"; };
+		5960110D591CAC5A6241900861836187 /* FZAccordionTableView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FZAccordionTableView.xcconfig; sourceTree = "<group>"; };
 		5B2F1B71356210C17BAC370C1DD8B95D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C357953BEA61FF68134F03FA423F047 /* FZAccordionTableView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FZAccordionTableView-dummy.m"; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		6ED6C206F0F4FB4B978BAE8B172056F3 /* FZAccordionTableView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FZAccordionTableView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		79D652DC71307FFFC62994884DEB27EF /* SlideMenuControllerSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SlideMenuControllerSwift-umbrella.h"; sourceTree = "<group>"; };
 		7D59A8DA1F255419405F8CD9366B4B3A /* Pods-UnitedVision-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UnitedVision-frameworks.sh"; sourceTree = "<group>"; };
+		7FF7F6BEFEA1CDC0621862672591C41E /* FZAccordionTableView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FZAccordionTableView-prefix.pch"; sourceTree = "<group>"; };
 		80E8D2A09864C1E778E00B3395CB2033 /* Pods-UnitedVision-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UnitedVision-resources.sh"; sourceTree = "<group>"; };
-		8110A20D864C22E8570DA40FEABB3839 /* SlideMenuController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SlideMenuController.swift; path = Source/SlideMenuController.swift; sourceTree = "<group>"; };
 		8777289AA48430274FF37FFCC7A14386 /* Pods-UnitedVision-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-UnitedVision-umbrella.h"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9ED8D4FA71BC8B68053167D2D7F3CF68 /* SlideMenuControllerSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SlideMenuControllerSwift-dummy.m"; sourceTree = "<group>"; };
+		A0E62C363AE5E451447DD7F4633661A5 /* SlideMenuControllerSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SlideMenuControllerSwift.modulemap; sourceTree = "<group>"; };
+		A49638FA9A95E6B5DF48B03B839A2E09 /* SlideMenuControllerSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SlideMenuControllerSwift-prefix.pch"; sourceTree = "<group>"; };
 		B45A1C5C2C46E61D71661E88FE61C3F1 /* Pods-UnitedVision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UnitedVision.release.xcconfig"; sourceTree = "<group>"; };
-		C77B2CB002924CB555EF2F3E2E486A5E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0463DECC433C8B3ECFF101AC485AA65 /* SlideMenuController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SlideMenuController.swift; path = Source/SlideMenuController.swift; sourceTree = "<group>"; };
 		D627963D1A78F8974734C9D56041B0F7 /* Pods-UnitedVision-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UnitedVision-acknowledgements.markdown"; sourceTree = "<group>"; };
-		DB21B13927C0FBF5B991E2B29373E209 /* SlideMenuControllerSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SlideMenuControllerSwift-dummy.m"; sourceTree = "<group>"; };
 		EC5B0E4AE6F353125C4B72FBF65CBC48 /* Pods-UnitedVision-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UnitedVision-dummy.m"; sourceTree = "<group>"; };
+		F2436C79DF74ACBB8EFE621EB00CD9DD /* SlideMenuControllerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SlideMenuControllerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		19EDE44AEC6390B21001ECD597BBF74A /* Frameworks */ = {
+		3090FBE2188060731222DDC3BCA13F27 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EE286BD4A940AD269BECF0C7197C7D3 /* Foundation.framework in Frameworks */,
+				63C737EFC7C5012CC3081363E89B2F6F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		949AE16D814EDFAF8530E27A2AE443F3 /* Frameworks */ = {
+		6F40BD1C409939039C019A29BB6A08DC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28EDAEB6756925984E3FBB80EE1598AD /* Foundation.framework in Frameworks */,
+				7848F506C24A946C8F08FF5B423F31E7 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCBF6DD3B108B044B966EDE7273E7A0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E4E43838C554B19AA8BB78CF855CDBC /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,13 +125,12 @@
 			path = "Target Support Files/Pods-UnitedVision";
 			sourceTree = "<group>";
 		};
-		790C6657361277EA4001655A408366B9 /* SlideMenuControllerSwift */ = {
+		5D165D6B0A8995523F3F821ED5747DA7 /* SlideMenuControllerSwift */ = {
 			isa = PBXGroup;
 			children = (
-				8110A20D864C22E8570DA40FEABB3839 /* SlideMenuController.swift */,
-				A601CEFAF205499F31980ED7ECC4B9F6 /* Support Files */,
+				D0463DECC433C8B3ECFF101AC485AA65 /* SlideMenuController.swift */,
+				E2A39FED70DCB1996F5D20B7260B6EFF /* Support Files */,
 			);
-			name = SlideMenuControllerSwift;
 			path = SlideMenuControllerSwift;
 			sourceTree = "<group>";
 		};
@@ -111,33 +139,44 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				CA428321F8257CD374B594CA29A4C7DF /* Pods */,
-				956F78E259016CAF22EC007538024935 /* Products */,
+				E39DBC9CCC5CD9A50FF34ACE34C0DB0F /* Pods */,
+				94B1CA98F2C7A03629029CE3B169D518 /* Products */,
 				29B933C843C10ED196E893F3C94E9ECD /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		956F78E259016CAF22EC007538024935 /* Products */ = {
+		8A2B89319A860629A3226D47A2DD8DDB /* FZAccordionTableView */ = {
 			isa = PBXGroup;
 			children = (
-				4EE7241C8840B5666627CB3A3297716D /* Pods_UnitedVision.framework */,
-				483B1E5DA25A0740512233E0D7B152CA /* SlideMenuControllerSwift.framework */,
+				1007E43D95095524E6D6609F6D6BF265 /* FZAccordionTableView.h */,
+				2EEAFAE5CA39F1CF7724C13FF1563A9A /* FZAccordionTableView.m */,
+				B8240C581B06ED1720F7197FDF551BAD /* Support Files */,
+			);
+			path = FZAccordionTableView;
+			sourceTree = "<group>";
+		};
+		94B1CA98F2C7A03629029CE3B169D518 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6ED6C206F0F4FB4B978BAE8B172056F3 /* FZAccordionTableView.framework */,
+				2C4D9408C038BE4C851C5BA68E5E37AA /* Pods_UnitedVision.framework */,
+				F2436C79DF74ACBB8EFE621EB00CD9DD /* SlideMenuControllerSwift.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A601CEFAF205499F31980ED7ECC4B9F6 /* Support Files */ = {
+		B8240C581B06ED1720F7197FDF551BAD /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				C77B2CB002924CB555EF2F3E2E486A5E /* Info.plist */,
-				3FA7B792EFCA3A9C3003E19AB2DAC31A /* SlideMenuControllerSwift.modulemap */,
-				0EED61B8D215697F57286F0FF9404F4C /* SlideMenuControllerSwift.xcconfig */,
-				DB21B13927C0FBF5B991E2B29373E209 /* SlideMenuControllerSwift-dummy.m */,
-				2D39FCF9B0B6CA34A1F9E4C8B8A93E4D /* SlideMenuControllerSwift-prefix.pch */,
-				0D0BC680A96E40826668429BD458F27D /* SlideMenuControllerSwift-umbrella.h */,
+				3E534E16F081225EB828CACE8A9CE970 /* FZAccordionTableView.modulemap */,
+				5960110D591CAC5A6241900861836187 /* FZAccordionTableView.xcconfig */,
+				5C357953BEA61FF68134F03FA423F047 /* FZAccordionTableView-dummy.m */,
+				7FF7F6BEFEA1CDC0621862672591C41E /* FZAccordionTableView-prefix.pch */,
+				2F6F2026890E04C388D97C9EE8E1E451 /* FZAccordionTableView-umbrella.h */,
+				327E846ACBDDB30E7AA216E37F0E9F55 /* Info.plist */,
 			);
 			name = "Support Files";
-			path = "../Target Support Files/SlideMenuControllerSwift";
+			path = "../Target Support Files/FZAccordionTableView";
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -148,14 +187,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CA428321F8257CD374B594CA29A4C7DF /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				790C6657361277EA4001655A408366B9 /* SlideMenuControllerSwift */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,53 +195,67 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		E2A39FED70DCB1996F5D20B7260B6EFF /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0D71EEC229A089C1CC6646F9A122EC7B /* Info.plist */,
+				A0E62C363AE5E451447DD7F4633661A5 /* SlideMenuControllerSwift.modulemap */,
+				167F2860FC5F9ADCA3AD6392A215F7C3 /* SlideMenuControllerSwift.xcconfig */,
+				9ED8D4FA71BC8B68053167D2D7F3CF68 /* SlideMenuControllerSwift-dummy.m */,
+				A49638FA9A95E6B5DF48B03B839A2E09 /* SlideMenuControllerSwift-prefix.pch */,
+				79D652DC71307FFFC62994884DEB27EF /* SlideMenuControllerSwift-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SlideMenuControllerSwift";
+			sourceTree = "<group>";
+		};
+		E39DBC9CCC5CD9A50FF34ACE34C0DB0F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8A2B89319A860629A3226D47A2DD8DDB /* FZAccordionTableView */,
+				5D165D6B0A8995523F3F821ED5747DA7 /* SlideMenuControllerSwift */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		9042E83C8BBACFE1998C0B2A864CF2EB /* Headers */ = {
+		3246F32C573B9D706FFA6D5736A04704 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FEE1D9D50D31D9C9349D9DFFDE16FF83 /* SlideMenuControllerSwift-umbrella.h in Headers */,
+				782C34F4A1ABCB57E54C34CE6C01F73C /* FZAccordionTableView-umbrella.h in Headers */,
+				9F5293C7D868F5344572C89DCF4F8FFD /* FZAccordionTableView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E553BD5E8AE0EC26BE872D51EA383A40 /* Headers */ = {
+		9727C835B6024BBF4ED2A0065D00F282 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				700C7CC1E6DB4E9E15149036563C6E21 /* Pods-UnitedVision-umbrella.h in Headers */,
+				C009B9CFD7D6FF9FED55A8A9B550E964 /* Pods-UnitedVision-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB7D95F987F52B4326A312178C2884EB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01EE02DA0953E97297A22566DF909EBB /* SlideMenuControllerSwift-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		57064655723F4D065AE08DBE77B29A8E /* Pods-UnitedVision */ = {
+		B2E1605C379B3AEEF12FBD4B8A810DD7 /* SlideMenuControllerSwift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BCC23E9264D556A16D2164BBE8DB9797 /* Build configuration list for PBXNativeTarget "Pods-UnitedVision" */;
+			buildConfigurationList = E2D3CC0C8820836CE4BDE39412F52B6A /* Build configuration list for PBXNativeTarget "SlideMenuControllerSwift" */;
 			buildPhases = (
-				8D27A05879D11E1464184ECF3D32B1E0 /* Sources */,
-				19EDE44AEC6390B21001ECD597BBF74A /* Frameworks */,
-				E553BD5E8AE0EC26BE872D51EA383A40 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9EF77425DC74C417E8BE9467529347C4 /* PBXTargetDependency */,
-			);
-			name = "Pods-UnitedVision";
-			productName = "Pods-UnitedVision";
-			productReference = 4EE7241C8840B5666627CB3A3297716D /* Pods_UnitedVision.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		A6276AF34A3BA071B4301EA54E3012A6 /* SlideMenuControllerSwift */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6ACDA648DBD78F850E1F0A638AE27BB2 /* Build configuration list for PBXNativeTarget "SlideMenuControllerSwift" */;
-			buildPhases = (
-				DCDEA9EDF6715171922A4E05BE045E56 /* Sources */,
-				949AE16D814EDFAF8530E27A2AE443F3 /* Frameworks */,
-				9042E83C8BBACFE1998C0B2A864CF2EB /* Headers */,
+				3F532BAFC376825AA7D63B7429092066 /* Sources */,
+				3090FBE2188060731222DDC3BCA13F27 /* Frameworks */,
+				DB7D95F987F52B4326A312178C2884EB /* Headers */,
 			);
 			buildRules = (
 			);
@@ -218,7 +263,43 @@
 			);
 			name = SlideMenuControllerSwift;
 			productName = SlideMenuControllerSwift;
-			productReference = 483B1E5DA25A0740512233E0D7B152CA /* SlideMenuControllerSwift.framework */;
+			productReference = F2436C79DF74ACBB8EFE621EB00CD9DD /* SlideMenuControllerSwift.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E8FD616DBE650DA0C81ADF07AB6D8FE5 /* Pods-UnitedVision */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC8F882A1734168FA59749AECDEBE576 /* Build configuration list for PBXNativeTarget "Pods-UnitedVision" */;
+			buildPhases = (
+				74074D1AA1E9D80FDDFDD95B091835A7 /* Sources */,
+				6F40BD1C409939039C019A29BB6A08DC /* Frameworks */,
+				9727C835B6024BBF4ED2A0065D00F282 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0AD6E9D54DD24D5FA8D140D1443B7387 /* PBXTargetDependency */,
+				3D55CB38DA5875BEEFB80C06A0BF4B1E /* PBXTargetDependency */,
+			);
+			name = "Pods-UnitedVision";
+			productName = "Pods-UnitedVision";
+			productReference = 2C4D9408C038BE4C851C5BA68E5E37AA /* Pods_UnitedVision.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		FFC6095663C8C444F0093D2A2BECFA58 /* FZAccordionTableView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29BF29A99AAEDEF8832BD4BD7ECBB8C0 /* Build configuration list for PBXNativeTarget "FZAccordionTableView" */;
+			buildPhases = (
+				3170CB9D0CA82DD67481C5F497E7BBED /* Sources */,
+				CCBF6DD3B108B044B966EDE7273E7A0A /* Frameworks */,
+				3246F32C573B9D706FFA6D5736A04704 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FZAccordionTableView;
+			productName = FZAccordionTableView;
+			productReference = 6ED6C206F0F4FB4B978BAE8B172056F3 /* FZAccordionTableView.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -238,46 +319,96 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 956F78E259016CAF22EC007538024935 /* Products */;
+			productRefGroup = 94B1CA98F2C7A03629029CE3B169D518 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				57064655723F4D065AE08DBE77B29A8E /* Pods-UnitedVision */,
-				A6276AF34A3BA071B4301EA54E3012A6 /* SlideMenuControllerSwift */,
+				FFC6095663C8C444F0093D2A2BECFA58 /* FZAccordionTableView */,
+				E8FD616DBE650DA0C81ADF07AB6D8FE5 /* Pods-UnitedVision */,
+				B2E1605C379B3AEEF12FBD4B8A810DD7 /* SlideMenuControllerSwift */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8D27A05879D11E1464184ECF3D32B1E0 /* Sources */ = {
+		3170CB9D0CA82DD67481C5F497E7BBED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BA29F71FCEE05B15E1997C933283398 /* Pods-UnitedVision-dummy.m in Sources */,
+				C926D0670B5FA7AFF40E4444AEA38A5F /* FZAccordionTableView-dummy.m in Sources */,
+				A08C764A0959DF1F66056580B430872D /* FZAccordionTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DCDEA9EDF6715171922A4E05BE045E56 /* Sources */ = {
+		3F532BAFC376825AA7D63B7429092066 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FD1B7065DBD67F6E38B4E1C0C8A21A5 /* SlideMenuController.swift in Sources */,
-				A36CC670A0D35E5C2708E646A2A2B3C1 /* SlideMenuControllerSwift-dummy.m in Sources */,
+				0211A1B6E41037F1476A90613C02F00E /* SlideMenuController.swift in Sources */,
+				D28143D7FB6647F9C2AD65A7A25DA98E /* SlideMenuControllerSwift-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74074D1AA1E9D80FDDFDD95B091835A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3CB2B2BB4BC4A75784F237EAD185888E /* Pods-UnitedVision-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9EF77425DC74C417E8BE9467529347C4 /* PBXTargetDependency */ = {
+		0AD6E9D54DD24D5FA8D140D1443B7387 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FZAccordionTableView;
+			target = FFC6095663C8C444F0093D2A2BECFA58 /* FZAccordionTableView */;
+			targetProxy = F2074B7505CF8C501AA35FAB562BFA96 /* PBXContainerItemProxy */;
+		};
+		3D55CB38DA5875BEEFB80C06A0BF4B1E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SlideMenuControllerSwift;
-			target = A6276AF34A3BA071B4301EA54E3012A6 /* SlideMenuControllerSwift */;
-			targetProxy = 41BEA7EA3F22B6C0ABB722F4C77F6207 /* PBXContainerItemProxy */;
+			target = B2E1605C379B3AEEF12FBD4B8A810DD7 /* SlideMenuControllerSwift */;
+			targetProxy = 9D1AA23DAB6E8DBB667A5497D0F0747A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		0E15F1A2B2F5794BD1CC7A21072C662D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2899A37AF35263FF214AB38981270DB1 /* Pods-UnitedVision.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-UnitedVision/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-UnitedVision/Pods-UnitedVision.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_UnitedVision;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		26F954BA177A9A46FFFD4E23ED11D67A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -336,9 +467,9 @@
 			};
 			name = Release;
 		};
-		A205F2278B0B333B7794F47B22572EF8 /* Debug */ = {
+		C3E459132471E178B04B8A0FCE335413 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EED61B8D215697F57286F0FF9404F4C /* SlideMenuControllerSwift.xcconfig */;
+			baseConfigurationReference = 5960110D591CAC5A6241900861836187 /* FZAccordionTableView.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -349,17 +480,16 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SlideMenuControllerSwift/SlideMenuControllerSwift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SlideMenuControllerSwift/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/FZAccordionTableView/FZAccordionTableView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FZAccordionTableView/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SlideMenuControllerSwift/SlideMenuControllerSwift.modulemap";
-				PRODUCT_NAME = SlideMenuControllerSwift;
+				MODULEMAP_FILE = "Target Support Files/FZAccordionTableView/FZAccordionTableView.modulemap";
+				PRODUCT_NAME = FZAccordionTableView;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -367,9 +497,9 @@
 			};
 			name = Debug;
 		};
-		AA0E6D062196D4F2CFEC7C7A6E6AD7BE /* Debug */ = {
+		C87B1BFA0AB1DE2096C4A7D44C6EF011 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2899A37AF35263FF214AB38981270DB1 /* Pods-UnitedVision.debug.xcconfig */;
+			baseConfigurationReference = 5960110D591CAC5A6241900861836187 /* FZAccordionTableView.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -380,26 +510,23 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-UnitedVision/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/FZAccordionTableView/FZAccordionTableView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FZAccordionTableView/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-UnitedVision/Pods-UnitedVision.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_UnitedVision;
+				MODULEMAP_FILE = "Target Support Files/FZAccordionTableView/FZAccordionTableView.modulemap";
+				PRODUCT_NAME = FZAccordionTableView;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		E2BF6D6731C31DE69900B7B24E6F0445 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -464,9 +591,9 @@
 			};
 			name = Debug;
 		};
-		E5603BB5952163EF6E6602870AFC652F /* Release */ = {
+		ED459D10373A6F696683BF464B3B7C8D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EED61B8D215697F57286F0FF9404F4C /* SlideMenuControllerSwift.xcconfig */;
+			baseConfigurationReference = 167F2860FC5F9ADCA3AD6392A215F7C3 /* SlideMenuControllerSwift.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -487,16 +614,15 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
-		F80F0245AD25C1F18A16277ECEC539A2 /* Release */ = {
+		EE1576ED0B0DAEBFEE51BD8982684928 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B45A1C5C2C46E61D71661E88FE61C3F1 /* Pods-UnitedVision.release.xcconfig */;
 			buildSettings = {
@@ -530,9 +656,50 @@
 			};
 			name = Release;
 		};
+		F864FDCC741A86E9C7E1A482B608540E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 167F2860FC5F9ADCA3AD6392A215F7C3 /* SlideMenuControllerSwift.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SlideMenuControllerSwift/SlideMenuControllerSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SlideMenuControllerSwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SlideMenuControllerSwift/SlideMenuControllerSwift.modulemap";
+				PRODUCT_NAME = SlideMenuControllerSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		29BF29A99AAEDEF8832BD4BD7ECBB8C0 /* Build configuration list for PBXNativeTarget "FZAccordionTableView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3E459132471E178B04B8A0FCE335413 /* Debug */,
+				C87B1BFA0AB1DE2096C4A7D44C6EF011 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -542,20 +709,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6ACDA648DBD78F850E1F0A638AE27BB2 /* Build configuration list for PBXNativeTarget "SlideMenuControllerSwift" */ = {
+		AC8F882A1734168FA59749AECDEBE576 /* Build configuration list for PBXNativeTarget "Pods-UnitedVision" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A205F2278B0B333B7794F47B22572EF8 /* Debug */,
-				E5603BB5952163EF6E6602870AFC652F /* Release */,
+				0E15F1A2B2F5794BD1CC7A21072C662D /* Debug */,
+				EE1576ED0B0DAEBFEE51BD8982684928 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BCC23E9264D556A16D2164BBE8DB9797 /* Build configuration list for PBXNativeTarget "Pods-UnitedVision" */ = {
+		E2D3CC0C8820836CE4BDE39412F52B6A /* Build configuration list for PBXNativeTarget "SlideMenuControllerSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AA0E6D062196D4F2CFEC7C7A6E6AD7BE /* Debug */,
-				F80F0245AD25C1F18A16277ECEC539A2 /* Release */,
+				ED459D10373A6F696683BF464B3B7C8D /* Debug */,
+				F864FDCC741A86E9C7E1A482B608540E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

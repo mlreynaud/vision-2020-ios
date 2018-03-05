@@ -17,3 +17,9 @@ let kServerUrl = "http://uv.agilink.net/api/" //UIUtils.getServerURl()!
 
 let kDefaultRadius = 50 //UIUtils.getServerURl()!
 
+enum FilterType: Int {
+    case status = 0
+    case tractorType
+    case trailerType
+    case tractorTerminal
+}

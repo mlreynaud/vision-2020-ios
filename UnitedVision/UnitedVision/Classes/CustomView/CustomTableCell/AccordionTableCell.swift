@@ -8,10 +8,9 @@
 
 import UIKit
 
-class SplashActionTableCell: UITableViewCell {
+class AccordionTableCell: UITableViewCell {
     
-    @IBOutlet weak var locationButton: UIButton!
-    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var textView: UITextView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

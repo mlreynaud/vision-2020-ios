@@ -1,12 +1,15 @@
 PODS:
+  - FZAccordionTableView (0.2.3)
   - SlideMenuControllerSwift (4.0.0)
 
 DEPENDENCIES:
+  - FZAccordionTableView
   - SlideMenuControllerSwift
 
 SPEC CHECKSUMS:
+  FZAccordionTableView: e64f49c71c32d750feda14025b088bcd25d1a71f
   SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
 
-PODFILE CHECKSUM: 5a499fda85a90d0dfeb0628b79e2eaf220fe97ef
+PODFILE CHECKSUM: 03370a35088a285ee21effaa3af59beda32d9f05
 
 COCOAPODS: 1.4.0

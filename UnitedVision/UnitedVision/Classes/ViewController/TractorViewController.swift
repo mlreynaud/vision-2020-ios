@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 
-class TractorViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MKMapViewDelegate {
+class TractorViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MKMapViewDelegate, TerminalTableCellDelegate {
 
     @IBOutlet weak var tableView : UITableView!
     
@@ -36,7 +36,11 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         segmentedControl.addUnderlineForSelectedSegment()
 
         UIUtils.transparentSearchBarBackgrund(searchBar)
-        self.fetchTractorLocations()
+//        self.fetchTractorLocations()
+        
+        tractorArray = DataManager.sharedInstance.tractorList
+        self.addTractorAnnotations()
+        tableView.reloadData()
 
     }
     
@@ -74,7 +78,9 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     
     @IBAction func filterButtonAction()
     {
-        
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "FilterViewController") as! FilterViewController
+        self.navigationController?.pushViewController(viewCtrl, animated: true)
     }
     
     func createAnnotation(coordinate:CLLocationCoordinate2D) -> MKPointAnnotation
@@ -122,7 +128,6 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         mapView.showAnnotations(annotationList, animated: true);
         
     }
-
 }
 
 //MARK: - TableView delgate
@@ -130,26 +135,50 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
 extension TractorViewController
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tractorArray.count;
+        return 1
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return tractorArray.count;
+    }
+
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell : UITableViewCell!
+        var cell : TerminalTableCell!
         
-        cell = tableView.dequeueReusableCell(withIdentifier: "TerminalLocationCell", for: indexPath)
+        cell = tableView.dequeueReusableCell(withIdentifier: "TerminalTableCell", for: indexPath) as! TerminalTableCell
         
-        let info = tractorArray[indexPath.row]
-        cell.textLabel?.text = "Destination-\(info.destinationCity!) "
-        cell.detailTextLabel?.text = "Status- \(info.status)"
+        cell.contentView.layer.borderColor = UIColor.lightGray.cgColor
+        cell.contentView.layer.borderWidth = 1.0
+        
+        let info = tractorArray[indexPath.section]
+        cell.showTractorInfo(info)
+        
+        cell.layer.shadowOffset = CGSize(width:1,height:0)//CGSizeMake(1, 0)
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowRadius = 5;
+        cell.layer.shadowOpacity = 0.25;
         
         return cell;
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "MapViewController") as! TerminalSearchViewController
-        self.navigationController?.pushViewController(viewCtrl, animated: true)
+//        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "MapViewController") as! TerminalSearchViewController
+//        self.navigationController?.pushViewController(viewCtrl, animated: true)
+    }
+    
+    //MARK- TerminalTableCell delegate methods
+    
+    func callAtIndex (_ indexpath: IndexPath)
+    {
+        
+    }
+    
+    func showMapAtIndex (_ indexpath: IndexPath)
+    {
+        
     }
     
 }

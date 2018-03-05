@@ -12,5 +12,4 @@
 
 #import "iCarousel.h"
 
-
 #endif /* UnitedVision_Bridging_Header_h */

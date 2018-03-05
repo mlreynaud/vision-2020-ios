@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import FZAccordionTableView
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, iCarouselDataSource, iCarouselDelegate {
+class HomeViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, iCarouselDataSource, iCarouselDelegate {
     
-    @IBOutlet weak var tableView : UITableView!
+    static fileprivate let kTableViewCellReuseIdentifier = "AccordionTableCell"
+
+    @IBOutlet weak  var carousel: iCarousel!
+    @IBOutlet weak var pageControl: UIPageControl!
     
-    weak var pageControl: UIPageControl!
+    @IBOutlet weak var tableView : FZAccordionTableView!
+        
+    let departmentList = ["Corporate Headquarters", "Sales", "Driver opprtunities", "Corporate Communications", "Operations", "Brokerage", "Driver Verifications", "Website Support", "Logistics", "Safety", "Driver Qualtifications"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +26,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         tableView.estimatedRowHeight = 200
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        self.initialSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,83 +43,129 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func initialSetup()
+    {
+        //self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: HomeViewController.kTableViewCellReuseIdentifier)
+        
+        let logo = UIImage(named: "DummyLogoImage")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
+        
+        tableView.allowMultipleSectionsOpen = true
+        tableView.register(UINib(nibName: "AccordionHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: AccordionHeaderView.kAccordionHeaderViewReuseIdentifier)
+
+        self.carousel.isPagingEnabled = true
+        self.carousel.type = .linear
+        self.carousel.dataSource = self
+        self.carousel.delegate = self
+        self.pageControl.numberOfPages = 5
+        self.pageControl.currentPage = self.carousel.currentItemIndex
+    }
+    
+    // MARK: - Button Action
+    @IBAction func signInButtonAction()
+    {
+//        DataManager.sharedInstance.isLogin = true
+//        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func locationButtonAction()
+    {
+        //        DataManager.sharedInstance.isLogin = true
+        //        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func updatePage(pageControl : UIPageControl)
+    {
+        //        [carousel scrollToItemAtIndex:pageControl.currentPage * 5 aimated:YES];
+        
+        self.carousel.scrollToItem(at: pageControl.currentPage, animated: true)
+    }
 }
 
 //MARK: - TableView delgate
 
-extension HomeViewController
-{
+extension HomeViewController  {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5;
+        return 1
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return departmentList.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return AccordionHeaderView.kDefaultAccordionHeaderViewHeight
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.tableView(tableView, heightForRowAt: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return self.tableView(tableView, heightForHeaderInSection:section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell : UITableViewCell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: HomeViewController.kTableViewCellReuseIdentifier, for: indexPath) as! AccordionTableCell
         
-        switch indexPath.row {
-        case 0:
-            cell = tableView.dequeueReusableCell(withIdentifier: "LogoTableCell", for: indexPath)
-            break;
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PageTableCell", for: indexPath) as! PageTableCell
-            cell.carousel.isPagingEnabled = true
-            cell.carousel.type = .linear
-            cell.carousel.dataSource = self
-            cell.carousel.delegate = self
-            cell.pageControl.numberOfPages = 5
-            cell.pageControl.currentPage = cell.carousel.currentItemIndex
-            self.pageControl = cell.pageControl
-//            cell.carousel.autoscroll = -0.4
-
-            return cell
-        case 2:
-            let actionCell = tableView.dequeueReusableCell(withIdentifier: "SplashActionTableCell", for: indexPath) as! SplashActionTableCell
-//            cell.locationButton.addTarge
-            return actionCell
-        case 3:
-            cell = tableView.dequeueReusableCell(withIdentifier: "AddressTableCell", for: indexPath)
-            break
-        case 4:
-            cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableCell", for: indexPath)
-            break
-       
-        default:
-            break
+        if (indexPath.section == 0)
+        {
+            cell.textView.text = """
+                                4021 Ambassador Caffery Pkwy
+                                Suite 200 Bldg A
+                                Lafayette, LA 70503
+                                Phone: 337-291-6700
+                                """
         }
-
-        return cell;
+        else
+        {
+            cell.textView.text = """
+                                    Email: Bentley Burgess
+                                    Phone: 713-350-5200
+                                    """
+        }
+        return cell
     }
     
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableViewAutomaticDimension
-//    }
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableViewAutomaticDimension
-//    }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-//    {
-//        return indexPath.row == productList.count ? kDefaultCellHeight : kProductCellHeight
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
-//    {
-//        return (productList.count < 1 && !isLogin) ?  0 : (headerView?.frame.height)!
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
-//    {
-//        return (productList.count < 1 && !isLogin) ? nil : headerView
-//    }
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-//    {
-//        indexPath.row == productList.count ?  self.showCategoryListScreen () : self.showProductDetailScreen(info:
-//            productList[indexPath.row])
-//    }
-//
-    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: AccordionHeaderView.kAccordionHeaderViewReuseIdentifier) as! AccordionHeaderView
+        headerView.titleLabel.text = departmentList[section]
+        return headerView
+    }
 }
+
+// MARK: - <FZAccordionTableViewDelegate> -
+
+extension HomeViewController : FZAccordionTableViewDelegate {
+    
+    func tableView(_ tableView: FZAccordionTableView, willOpenSection section: Int, withHeader header: UITableViewHeaderFooterView?) {
+        
+    }
+    
+    func tableView(_ tableView: FZAccordionTableView, didOpenSection section: Int, withHeader header: UITableViewHeaderFooterView?) {
+        
+    }
+    
+    func tableView(_ tableView: FZAccordionTableView, willCloseSection section: Int, withHeader header: UITableViewHeaderFooterView?) {
+        
+    }
+    
+    func tableView(_ tableView: FZAccordionTableView, didCloseSection section: Int, withHeader header: UITableViewHeaderFooterView?) {
+        
+    }
+    
+    func tableView(_ tableView: FZAccordionTableView, canInteractWithHeaderAtSection section: Int) -> Bool {
+        return true
+    }
+}
+
 
 //MARK: - iCarousel delgate
 

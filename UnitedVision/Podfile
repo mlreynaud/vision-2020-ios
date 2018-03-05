@@ -8,5 +8,6 @@ target 'UnitedVision' do
   # Pods for UnitedVision
 
 pod 'SlideMenuControllerSwift'
+pod 'FZAccordionTableView'
 
 end
