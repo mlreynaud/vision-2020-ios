@@ -201,7 +201,7 @@ extension HomeViewController
             itemView.addSubview(label)
         }
         
-        itemView.backgroundColor = .red
+        itemView.backgroundColor = .blue
         //set item label
         //remember to always set any properties of your carousel item
         //views outside of the `if (view == nil) {...}` check otherwise

@@ -20,7 +20,7 @@ enum LeftMenu: Int {
 
 import UIKit
 
-class SideMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
+class SideMenuViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate  {
     
     @IBOutlet weak var nameLabel : UILabel!
     @IBOutlet weak var signInButton : UIButton!

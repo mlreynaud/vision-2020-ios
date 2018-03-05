@@ -9,7 +9,6 @@
 import UIKit
 import MapKit
 
-
 class TractorViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MKMapViewDelegate, TerminalTableCellDelegate {
 
     @IBOutlet weak var tableView : UITableView!
@@ -41,6 +40,8 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         tractorArray = DataManager.sharedInstance.tractorList
         self.addTractorAnnotations()
         tableView.reloadData()
+        
+        self.view.backgroundColor = UIColor.white
 
     }
     
@@ -135,11 +136,29 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
 extension TractorViewController
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return (tractorArray.count == 0) ? 0 : 1
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return tractorArray.count;
+//        return tractorArray.count;
+        
+        var numOfSections: Int = 0
+        if tractorArray.count != 0
+        {
+            tableView.separatorStyle = .singleLine
+            numOfSections            = tractorArray.count
+            tableView.backgroundView = nil
+        }
+        else
+        {
+            let noDataLabel: UILabel     = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel.text          = "No data available"
+            noDataLabel.textColor     = UIColor.black
+            noDataLabel.textAlignment = .center
+            tableView.backgroundView  = noDataLabel
+            tableView.separatorStyle  = .none
+        }
+        return numOfSections
     }
 
     
@@ -148,16 +167,17 @@ extension TractorViewController
         
         cell = tableView.dequeueReusableCell(withIdentifier: "TerminalTableCell", for: indexPath) as! TerminalTableCell
         
-        cell.contentView.layer.borderColor = UIColor.lightGray.cgColor
-        cell.contentView.layer.borderWidth = 1.0
-        
         let info = tractorArray[indexPath.section]
         cell.showTractorInfo(info)
         
-        cell.layer.shadowOffset = CGSize(width:1,height:0)//CGSizeMake(1, 0)
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowRadius = 5;
-        cell.layer.shadowOpacity = 0.25;
+        cell.contentView.layer.cornerRadius = 5.0
+        cell.contentView.layer.borderColor  =  UIColor.clear.cgColor
+        cell.contentView.layer.borderWidth = 5.0
+        cell.contentView.layer.shadowOpacity = 0.5
+        cell.contentView.layer.shadowColor =  UIColor.lightGray.cgColor
+        cell.contentView.layer.shadowRadius = 5.0
+        cell.contentView.layer.shadowOffset = CGSize(width:5, height: 5)
+        cell.contentView.layer.masksToBounds = true
         
         return cell;
     }

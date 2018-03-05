@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TerminalDetailViewController: UIViewController {
+class TerminalDetailViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

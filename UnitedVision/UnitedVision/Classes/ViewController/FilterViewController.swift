@@ -9,16 +9,18 @@
 
 import UIKit
 
-class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FilterViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
-    let filterList = ["Status", "Tractor Type", "Trailer Type", "Tractor Terminal", "Loaded", "HazMat"]
+    let filterList = ["Status", "Tractor Type", "Trailer Type", "Tractor Terminal"]
+    
+    let subList = ["Loaded", "HazMat"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "FilterTableCell")
+        self.tableView.tableFooterView = UIView()
 
         // Do any additional setup after loading the view.
     }
@@ -52,24 +54,25 @@ extension FilterViewController
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return filterList.count;
+        return filterList.count + subList.count;
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell : UITableViewCell!
         
-        cell = tableView.dequeueReusableCell(withIdentifier: "FilterTableCell", for: indexPath)
+        if (indexPath.section < filterList.count)
+        {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FilterTableViewCell", for: indexPath) as! FilterTableViewCell
         
-        cell.contentView.layer.borderColor = UIColor.lightGray.cgColor
-        cell.contentView.layer.borderWidth = 1.0
-        
-        cell.textLabel?.text = filterList[indexPath.section]
-        
-        cell.layer.shadowOffset = CGSize(width:1,height:0)//CGSizeMake(1, 0)
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowRadius = 5;
-        cell.layer.shadowOpacity = 0.25;
+            cell.titleLabel.text = filterList[indexPath.section]
+            
+            return cell;
+        }
+       
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CheckboxFilterTableCell", for: indexPath) as! CheckboxFilterTableCell
+ 
+        let index = indexPath.section - filterList.count
+        cell.titleLabel.text = subList[index]
         
         return cell;
     }
