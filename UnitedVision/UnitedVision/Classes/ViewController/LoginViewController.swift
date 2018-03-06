@@ -19,6 +19,9 @@ class LoginViewController: BaseViewController {
         // Do any additional setup after loading the view.
         
         self.title = "Login"
+        
+        emailTextfield.text = "customer" // ""owner.operator
+        passwordTextfield.text = "uvlgo4it"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,8 +37,27 @@ class LoginViewController: BaseViewController {
     // MARK: - Button Action
     @IBAction func loginButtonAction()
     {
-        DataManager.sharedInstance.isLogin = true
-        self.navigationController?.popViewController(animated: true)
+        guard let username = emailTextfield.text?.trimmingCharacters(in: .whitespaces),
+            let password = passwordTextfield.text?.trimmingCharacters(in: .whitespaces),
+            username.count > 0, password.count > 0
+            else {
+
+                UIUtils.showAlert(withTitle: kAppTitle, message: "Please enter a valid useranme or password.", inContainer: self)
+                return
+        }
+
+        DataManager.sharedInstance.request(toLogin: username, withPassword: password, completionHandler: {(status, errorMessage) in
+            
+            if (status)
+            {
+                DataManager.sharedInstance.isLogin = true
+                self.navigationController?.popViewController(animated: true)
+            }
+            else
+            {
+                UIUtils.showAlert(withTitle: kAppTitle, message: errorMessage, inContainer: self)
+            }
+        })
     }
     
 //    @IBAction func forgotPasswordButtonAction()

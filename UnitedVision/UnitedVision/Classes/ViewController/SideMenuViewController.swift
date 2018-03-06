@@ -13,7 +13,6 @@ enum LeftMenu: Int {
 //    case register
     case tractorSearch
     case terminalSearch
-    case applyNow
     case contact
     case logout
 }
@@ -65,10 +64,10 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
     func populateArray() {
         
         if (DataManager.sharedInstance.isLogin) {
-            menus = ["Home", "Tractor Search", "Terminal Search", "Apply Now", "Contact", "Logout"]
+            menus = ["Home", "Tractor Search", "Terminal Search", "Contact", "Logout"]
         }
         else{
-            menus = ["Home", "Tractor Search", "Terminal Search", "Apply Now", "Contact"]
+            menus = ["Home", "Tractor Search", "Terminal Search", "Contact"]
         }
         
         tableView.reloadData()

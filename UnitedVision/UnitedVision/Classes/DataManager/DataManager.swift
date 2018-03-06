@@ -17,6 +17,8 @@ class DataManager: NSObject {
     var locationList : [LocationInfo] = []
     var tractorList : [TractorInfo] = []
     
+    var authToken = ""
+
     var isLogin = false
 
     fileprivate override init() {
@@ -106,6 +108,28 @@ class DataManager: NSObject {
         self.tractorList = list
     }
     
+    func request(toLogin username: String, withPassword password: String, completionHandler handler: @escaping ( Bool, String) -> () ) {
+        
+        let service: String = String(format:"auth/service/login")
+        
+        let postString = "username=\(username.encodeString())&password=\(password.encodeString())"
+        
+        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostString: postString) as URLRequest
+        WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {[unowned self] (data, error) in
+            
+            let response = self.parseJSONData(data as Data?)
+            
+            if let content = response.content as? NSDictionary
+            {
+//                AppPrefData.sharedInstance.userDict = content
+//                self.userInfo = UserInfo(info:content)
+//                self.userInfo?.isGuest = false
+//                print("JSON response- \(self.userInfo)");
+            }
+            handler(response.status, response.message)
+        })
+    }
+    
     func requestToFetchTractorLocations (completionHandler handler: @escaping ( Bool, [LocationInfo]?) -> () ) {
         
         let service: String = "location/service/active"
@@ -116,8 +140,8 @@ class DataManager: NSObject {
             var list = [LocationInfo]()
 
             do {
-                let outerJSON = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as! String
-                let array =  try! JSONSerialization.jsonObject(with: outerJSON.data(using: .utf8)!, options: .allowFragments) as! NSArray
+//                let outerJSON = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments)
+                let array =  try! JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as! NSArray
 
                 for dict in array
                 {

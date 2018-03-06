@@ -41,7 +41,10 @@
 		BA5CE60D203AF8E400B14DB6 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE60C203AF8E400B14DB6 /* iCarousel.m */; };
 		BA5CE618203C282A00B14DB6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE617203C282A00B14DB6 /* String.swift */; };
 		BA5CE61A203D7E5000B14DB6 /* AutocompleteTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE619203D7E5000B14DB6 /* AutocompleteTableCell.swift */; };
-		BA84A37B204D5D33004E1410 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA84A37A204D5D33004E1410 /* View.xib */; };
+		BA84A37B204D5D33004E1410 /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA84A37A204D5D33004E1410 /* MapView.xib */; };
+		BA84A37D204D6066004E1410 /* FilterPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A37C204D6066004E1410 /* FilterPopupViewController.swift */; };
+		BA84A37F204D6540004E1410 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A37E204D6540004E1410 /* MapView.swift */; };
+		BA84A381204D6664004E1410 /* CheckboxTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A380204D6664004E1410 /* CheckboxTableCell.swift */; };
 		CA9B55882AE68F35E5223F55 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,7 +89,10 @@
 		BA5CE614203AFA8D00B14DB6 /* UnitedVision-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitedVision-Bridging-Header.h"; sourceTree = "<group>"; };
 		BA5CE617203C282A00B14DB6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		BA5CE619203D7E5000B14DB6 /* AutocompleteTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteTableCell.swift; sourceTree = "<group>"; };
-		BA84A37A204D5D33004E1410 /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
+		BA84A37A204D5D33004E1410 /* MapView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
+		BA84A37C204D6066004E1410 /* FilterPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPopupViewController.swift; sourceTree = "<group>"; };
+		BA84A37E204D6540004E1410 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		BA84A380204D6664004E1410 /* CheckboxTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxTableCell.swift; sourceTree = "<group>"; };
 		E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -164,7 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				BA4D87A0204D1D0100FC78CA /* AccordionHeaderView.xib */,
-				BA84A37A204D5D33004E1410 /* View.xib */,
+				BA84A37A204D5D33004E1410 /* MapView.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -198,6 +204,7 @@
 				BA44A0FF202DF96E00DE6130 /* CustomTableCell */,
 				BA44A101202DF96E00DE6130 /* LoadingView.swift */,
 				BA4D879E204D1CD700FC78CA /* AccordionHeaderView.swift */,
+				BA84A37E204D6540004E1410 /* MapView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -225,6 +232,7 @@
 				BA5CE619203D7E5000B14DB6 /* AutocompleteTableCell.swift */,
 				BA4D879A204BBEA600FC78CA /* TerminalTableCell.swift */,
 				BA4D87A6204D470300FC78CA /* FilterTableViewCell.swift */,
+				BA84A380204D6664004E1410 /* CheckboxTableCell.swift */,
 			);
 			path = CustomTableCell;
 			sourceTree = "<group>";
@@ -279,6 +287,7 @@
 				BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */,
 				BA5CE6032036E7BF00B14DB6 /* SideMenuViewController.swift */,
 				BA4D879C204BD24F00FC78CA /* FilterViewController.swift */,
+				BA84A37C204D6066004E1410 /* FilterPopupViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -364,7 +373,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA84A37B204D5D33004E1410 /* View.xib in Resources */,
+				BA84A37B204D5D33004E1410 /* MapView.xib in Resources */,
 				BA44A0ED202DF91200DE6130 /* LaunchScreen.storyboard in Resources */,
 				BA44A116202DF96E00DE6130 /* tractor.json in Resources */,
 				BA44A0EA202DF91200DE6130 /* Assets.xcassets in Resources */,
@@ -438,12 +447,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA5CE6092036EF3C00B14DB6 /* SideMenuTableCell.swift in Sources */,
+				BA84A381204D6664004E1410 /* CheckboxTableCell.swift in Sources */,
 				BA4D87A5204D40FE00FC78CA /* CardView.swift in Sources */,
 				BA5CE60D203AF8E400B14DB6 /* iCarousel.m in Sources */,
 				BA44A124202DF96E00DE6130 /* LoginViewController.swift in Sources */,
 				BA44A118202DF96E00DE6130 /* Defines.swift in Sources */,
 				BA4D87A7204D470300FC78CA /* FilterTableViewCell.swift in Sources */,
 				BA44A11B202DF96E00DE6130 /* DataManager.swift in Sources */,
+				BA84A37F204D6540004E1410 /* MapView.swift in Sources */,
 				BA5CE6072036EBBF00B14DB6 /* UIViewController.swift in Sources */,
 				BA5CE61A203D7E5000B14DB6 /* AutocompleteTableCell.swift in Sources */,
 				BA44A127202DF96E00DE6130 /* TerminalDetailViewController.swift in Sources */,
@@ -455,6 +466,7 @@
 				BA44A120202DF96E00DE6130 /* UIUtils.swift in Sources */,
 				BA5CE618203C282A00B14DB6 /* String.swift in Sources */,
 				BA4D87992046FB7A00FC78CA /* UISegmentedControl.swift in Sources */,
+				BA84A37D204D6066004E1410 /* FilterPopupViewController.swift in Sources */,
 				BA4D879F204D1CD700FC78CA /* AccordionHeaderView.swift in Sources */,
 				BA44A123202DF96E00DE6130 /* TractorViewController.swift in Sources */,
 				BA44A117202DF96E00DE6130 /* AppDelegate.swift in Sources */,

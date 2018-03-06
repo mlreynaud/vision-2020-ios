@@ -261,4 +261,18 @@ class UIUtils: NSObject {
         searchBar.isTranslucent = true
         searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
     }
+    
+    class func callPhoneNumber(_ number : String)
+    {
+        if let url = URL(string: "tel://\(number)"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+        else {
+            print("Your device doesn't support this feature.")
+        }
+    }
 }

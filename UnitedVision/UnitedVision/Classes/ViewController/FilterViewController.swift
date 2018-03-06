@@ -79,6 +79,20 @@ extension FilterViewController
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        if (indexPath.section < filterList.count)
+        {
+            let filterType = FilterType(rawValue: indexPath.section)!
+            switch filterType {
+            case .status:
+                self.showFilterPopup(filterType, withMultiSelection:true )
+            case .tractorType:
+                self.showFilterPopup(filterType, withMultiSelection:false)
+            default:
+                break
+            }
+            
+        }
+        
 //        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 //        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "MapViewController") as! TerminalSearchViewController
 //        self.navigationController?.pushViewController(viewCtrl, animated: true)
@@ -88,12 +102,25 @@ extension FilterViewController
     
     func callAtIndex (_ indexpath: IndexPath)
     {
-        
+        UIUtils.callPhoneNumber("+91-9873956960")
     }
     
     func showMapAtIndex (_ indexpath: IndexPath)
     {
         
+    }
+    
+    func showFilterPopup(_ filterType: FilterType, withMultiSelection allow: Bool)
+    {
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "FilterPopupViewController") as! FilterPopupViewController
+            viewCtrl.filterType = filterType
+            
+            //        self.providesPresentationContextTransitionStyle = true
+            //        self.definesPresentationContext = true
+            viewCtrl.modalPresentationStyle = .overCurrentContext
+            
+            self.present(viewCtrl, animated: true, completion: nil)
     }
     
 }
