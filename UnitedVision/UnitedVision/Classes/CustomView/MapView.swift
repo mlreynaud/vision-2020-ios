@@ -38,6 +38,19 @@ class MapView: UIView, MKMapViewDelegate, UISearchBarDelegate, UITableViewDataSo
         addSubview(view)
     }
     
+    func initialSetup()
+    {
+        UIUtils.transparentSearchBarBackgrund(self.searchBar)
+
+        // register Nibs
+        self.autocompleteTableView.register(UITableViewCell.self, forCellReuseIdentifier: "CurrentLocationTableCell")
+        
+        self.autocompleteTableView.register(UINib(nibName: "AutocompleteTableCell", bundle: Bundle.main), forCellReuseIdentifier: "AutocompleteTableCell")
+
+        autocompleteTableView.estimatedRowHeight = 100
+        autocompleteTableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
     func loadViewFromNib() ->UIView {
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: nibName, bundle: bundle)
@@ -224,6 +237,7 @@ extension MapView
     {
         let currentLocation = self.getCurrentLocation()
         self.moveMaptoLocation(location: currentLocation)
+        
     }
     
     func getCurrentLocation() -> CLLocation
@@ -232,13 +246,95 @@ extension MapView
         let currentLocation = CLLocation(latitude: (coordinate?.latitude)!, longitude: (coordinate?.longitude)!)
         return currentLocation
     }
+
+    
+}
+
+extension MapView
+{
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            if overlay is MKCircle {
+                let circle = MKCircleRenderer(overlay: overlay)
+                circle.strokeColor = UIColor.darkGray
+                circle.fillColor = UIColor(white: 0, alpha: 0.2)
+                circle.lineWidth = 1
+                return circle
+            } else {
+                return MKPolylineRenderer()
+            }
+        }
+        
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
+        {
+            if annotation is MKUserLocation {
+                return nil
+            }
+            let reuseID = "pin"
+            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseID) as? MKPinAnnotationView
+            if(pinView == nil) {
+                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+                // pinView?.tintColor = UIColor.red
+                pinView!.canShowCallout = true
+                pinView!.animatesDrop = true
+            }
+            return pinView
+        }
+    
+    // MARK-
+        
+        func addRadiusCircle(location: CLLocation)
+        {
+            let overlays = map.overlays
+            map.removeOverlays(overlays)
+            
+            let radiusInMile = DataManager.sharedInstance.radius
+            let radiusInMeter = CLLocationDistance(radiusInMile) * 1609.34
+            let circle = MKCircle(center: location.coordinate, radius: CLLocationDistance(radiusInMeter))
+            self.map.add(circle)
+        }
+    
+    func addAnnotationList(_ annotationList: [MKPointAnnotation])
+    {
+        if map.annotations.count != 0 {
+            map.removeAnnotations(map.annotations)
+        }
+        
+        map.addAnnotations(annotationList)
+       map.showAnnotations(annotationList, animated: true);
+    }
+    
+//        func removeAllAnnotations()
+//        {
+//            let annotations = mapView.annotations.filter {
+//                $0 !== self.mapView.userLocation
+//            }
+//            map.removeAnnotations(annotations)
+//        }
+    
+    func createAnnotation(coordinate:CLLocationCoordinate2D) -> MKPointAnnotation
+    {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate //CLLocationCoordinate2DMake(info.latitude, info.longitude)
+        
+        //        annotation.subtitle = (info.originCity)! + "-" + (info.destinationCity)!
+        return annotation
+        
+    }
     
     func moveMaptoLocation(location: CLLocation){
         
-        let span = MKCoordinateSpanMake(0.05, 0.05)
-        //        let span = MKCoordinateSpanMake(2.0, 2.0)
+//        let span = MKCoordinateSpanMake(0.05, 0.05)
+        let span = MKCoordinateSpanMake(2.0, 2.0)
         let region = MKCoordinateRegion(center: location.coordinate, span: span)
         map.setRegion(region, animated: true)
     }
-    
+
+        
+        //    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
+        //    {
+        //        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        //        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TerminalDetailViewController") as! TerminalDetailViewController
+        //        self.navigationController?.pushViewController(viewCtrl, animated: true)
+        //    }
+        
 }

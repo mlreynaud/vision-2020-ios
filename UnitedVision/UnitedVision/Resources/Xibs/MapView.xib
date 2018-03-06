@@ -47,13 +47,13 @@
                     </connections>
                 </searchBar>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DAp-NC-HYY" customClass="CardView" customModule="UnitedVision" customModuleProvider="target">
-                    <rect key="frame" x="290" y="517" width="55" height="100"/>
+                    <rect key="frame" x="295" y="517" width="50" height="100"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="MZ4-x7-N1D">
-                            <rect key="frame" x="1" y="1" width="53" height="98"/>
+                            <rect key="frame" x="1" y="1" width="48" height="98"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="An0-4Z-l4H">
-                                    <rect key="frame" x="0.0" y="0.0" width="53" height="48.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48.5"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                     <state key="normal" title="+">
@@ -64,7 +64,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7So-jW-Ib2">
-                                    <rect key="frame" x="0.0" y="49.5" width="53" height="48.5"/>
+                                    <rect key="frame" x="0.0" y="49.5" width="48" height="48.5"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                     <state key="normal" title="-">
@@ -81,7 +81,7 @@
                     <constraints>
                         <constraint firstItem="MZ4-x7-N1D" firstAttribute="leading" secondItem="DAp-NC-HYY" secondAttribute="leading" constant="1" id="ACp-p1-8i6"/>
                         <constraint firstAttribute="height" constant="100" id="OP5-vN-koZ"/>
-                        <constraint firstAttribute="width" constant="55" id="i9V-7D-RQD"/>
+                        <constraint firstAttribute="width" constant="50" id="i9V-7D-RQD"/>
                         <constraint firstAttribute="bottom" secondItem="MZ4-x7-N1D" secondAttribute="bottom" constant="1" id="lcw-eN-bSl"/>
                         <constraint firstAttribute="trailing" secondItem="MZ4-x7-N1D" secondAttribute="trailing" constant="1" id="phu-BG-MGj"/>
                         <constraint firstItem="MZ4-x7-N1D" firstAttribute="top" secondItem="DAp-NC-HYY" secondAttribute="top" constant="1" id="yUo-r1-ZQD"/>

@@ -13,9 +13,9 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
 
     @IBOutlet weak var tableView : UITableView!
     
-    @IBOutlet weak var mapBackgroundView: UIView!
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var mapView: MapView!
+   // @IBOutlet weak var mapView: MKMapView!
+   // @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl : UISegmentedControl!
 
     var showMap = false
@@ -34,8 +34,9 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addUnderlineForSelectedSegment()
 
-        UIUtils.transparentSearchBarBackgrund(searchBar)
 //        self.fetchTractorLocations()
+        
+        mapView.initialSetup()
         
         tractorArray = DataManager.sharedInstance.tractorList
         self.addTractorAnnotations()
@@ -63,12 +64,12 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
 
         switch sender.selectedSegmentIndex {
         case 0:
-            mapBackgroundView.isHidden = true
+            mapView.isHidden = true
             tableView.isHidden = false
             
             showMap = false
         case 1:
-            mapBackgroundView.isHidden = false
+            mapView.isHidden = false
             tableView.isHidden = true
             
             showMap = true
@@ -125,8 +126,8 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
             annotationList.append(annotation)
            
         }
-        mapView.addAnnotations(annotationList)
-        mapView.showAnnotations(annotationList, animated: true);
+        mapView.map.addAnnotations(annotationList)
+        mapView.map.showAnnotations(annotationList, animated: true);
         
     }
 }
@@ -228,18 +229,5 @@ extension TractorViewController
     //        self.navigationController?.pushViewController(viewCtrl, animated: true)
     //    }
     
-}
-
-extension TractorViewController
-{
-    func searchBarBecomeFirstResponder ()
-    {
-        self.searchBar.becomeFirstResponder()
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
-    {
-        searchBar.resignFirstResponder()
-    }
 }
 

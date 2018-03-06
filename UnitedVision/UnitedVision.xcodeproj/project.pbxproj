@@ -45,6 +45,7 @@
 		BA84A37D204D6066004E1410 /* FilterPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A37C204D6066004E1410 /* FilterPopupViewController.swift */; };
 		BA84A37F204D6540004E1410 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A37E204D6540004E1410 /* MapView.swift */; };
 		BA84A381204D6664004E1410 /* CheckboxTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A380204D6664004E1410 /* CheckboxTableCell.swift */; };
+		BA84A383204E752B004E1410 /* AutocompleteTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA84A382204E752B004E1410 /* AutocompleteTableCell.xib */; };
 		CA9B55882AE68F35E5223F55 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +94,7 @@
 		BA84A37C204D6066004E1410 /* FilterPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPopupViewController.swift; sourceTree = "<group>"; };
 		BA84A37E204D6540004E1410 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BA84A380204D6664004E1410 /* CheckboxTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxTableCell.swift; sourceTree = "<group>"; };
+		BA84A382204E752B004E1410 /* AutocompleteTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AutocompleteTableCell.xib; sourceTree = "<group>"; };
 		E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -171,6 +173,7 @@
 			children = (
 				BA4D87A0204D1D0100FC78CA /* AccordionHeaderView.xib */,
 				BA84A37A204D5D33004E1410 /* MapView.xib */,
+				BA84A382204E752B004E1410 /* AutocompleteTableCell.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				BA44A0ED202DF91200DE6130 /* LaunchScreen.storyboard in Resources */,
 				BA44A116202DF96E00DE6130 /* tractor.json in Resources */,
 				BA44A0EA202DF91200DE6130 /* Assets.xcassets in Resources */,
+				BA84A383204E752B004E1410 /* AutocompleteTableCell.xib in Resources */,
 				BA44A115202DF96E00DE6130 /* location.json in Resources */,
 				BA4D87A1204D1D0100FC78CA /* AccordionHeaderView.xib in Resources */,
 				BA44A0E8202DF91200DE6130 /* Main.storyboard in Resources */,

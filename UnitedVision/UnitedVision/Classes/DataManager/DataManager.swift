@@ -18,6 +18,8 @@ class DataManager: NSObject {
     var tractorList : [TractorInfo] = []
     
     var authToken = ""
+    
+    var radius = 50
 
     var isLogin = false
 
