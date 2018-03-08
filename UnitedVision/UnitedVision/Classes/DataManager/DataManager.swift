@@ -18,7 +18,9 @@ class DataManager: NSObject {
     var tractorList : [TractorInfo] = []
     
     var authToken = ""
-    
+    var userType : UserType = .none
+    var userTypeStr : String = ""
+
     var radius = 50
 
     var isLogin = false
@@ -26,6 +28,8 @@ class DataManager: NSObject {
     fileprivate override init() {
         let locationManager = LocationManager.sharedInstance
         locationManager.initializeLocationManager()
+        
+        self.isLogin = AppPrefData.sharedInstance.isLogin
     }
     
     func parseJSONData(_ data: Data?) -> (status: Bool, message: String, count: String, content: Any?){
@@ -114,19 +118,49 @@ class DataManager: NSObject {
         
         let service: String = String(format:"auth/service/login")
         
-        let postString = "username=\(username.encodeString())&password=\(password.encodeString())"
+        let postParams = ["username": username.encodeString(), "password": password.encodeString()] as Dictionary<String, String>
+        //let postString = "username=\(username.encodeString())&password=\(password.encodeString())"
         
-        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostString: postString) as URLRequest
+       let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: postParams) as URLRequest
+       // let request = WebServiceManager.getRequest(service) as URLRequest
+        WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {[unowned self] (data, error) in
+            
+            guard  let responseStr : String = String(data: data! as Data, encoding: .utf8),
+                    responseStr.count != 0
+                    else {
+                        handler(false, "Login failed")
+                        return
+                }
+                
+                self.userType = self.checkUserType(responseStr)
+                self.userTypeStr = (self.userType == .none) ? "" : responseStr
+            
+                (self.userType == .none) ? handler(false, "Login failed") : handler(true, "Login sucessfull")
+        })
+    }
+    
+    func requestToCheckTokenValidity(completionHandler handler: @escaping ( Bool, String) -> () ) {
+        
+        let token = AppPrefData.sharedInstance.authToken
+        if (token.count == 0)
+        {
+            handler (false, "Empty Token")
+            return
+        }
+        
+        let service: String = String(format:"auth/service/checkToken")
+        
+        let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {[unowned self] (data, error) in
             
             let response = self.parseJSONData(data as Data?)
             
             if let content = response.content as? NSDictionary
             {
-//                AppPrefData.sharedInstance.userDict = content
-//                self.userInfo = UserInfo(info:content)
-//                self.userInfo?.isGuest = false
-//                print("JSON response- \(self.userInfo)");
+                //                AppPrefData.sharedInstance.userDict = content
+                //                self.userInfo = UserInfo(info:content)
+                //                self.userInfo?.isGuest = false
+                //                print("JSON response- \(self.userInfo)");
             }
             handler(response.status, response.message)
         })
@@ -196,5 +230,92 @@ class DataManager: NSObject {
             handler(true, list)
         })
     }
+    
+    func requestToSearchTrailerType(_ search: String, completionHandler handler: @escaping ( Bool, [TractorInfo]?) -> () )
+    {
+        let service: String =  "trailer/service/lookup?Searchstr=\(search)"
+        
+        let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
+        WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {(data, error) in
+            
+//            var list = [TractorInfo]()
+//
+//            do {
+//
+//                guard   let outerJSON : String = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as? String,
+//                    outerJSON.count != 0,
+//                    let array =  try! JSONSerialization.jsonObject(with: outerJSON.data(using: .utf8)!, options: .allowFragments) as? NSArray
+//                    else {
+//                        handler(false, nil)
+//                        return
+//                }
+//
+//                for dict in array
+//                {
+//                    let info = TractorInfo(info: (dict as? NSDictionary)!)
+//                    list.append(info)
+//                }
+//            }
+//            catch{
+//                print(error)
+//            }
+//
+//            self.tractorList = list
+            handler(true, nil)
+        })
+    }
+    
+    func requestToSearchTerminal(_ search: String, completionHandler handler: @escaping ( Bool, [TractorInfo]?) -> () )
+    {
+        let service: String =  "terminal/service/lookup?Searchstr=\(search)"
+        
+        let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
+        WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {(data, error) in
+            
+            //            var list = [TractorInfo]()
+            //
+            //            do {
+            //
+            //                guard   let outerJSON : String = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as? String,
+            //                    outerJSON.count != 0,
+            //                    let array =  try! JSONSerialization.jsonObject(with: outerJSON.data(using: .utf8)!, options: .allowFragments) as? NSArray
+            //                    else {
+            //                        handler(false, nil)
+            //                        return
+            //                }
+            //
+            //                for dict in array
+            //                {
+            //                    let info = TractorInfo(info: (dict as? NSDictionary)!)
+            //                    list.append(info)
+            //                }
+            //            }
+            //            catch{
+            //                print(error)
+            //            }
+            //
+            //            self.tractorList = list
+            handler(true, nil)
+        })
+    }
+    
+    func checkUserType(_ user: String) -> UserType
+    {
+        var type : UserType = .none
+        if (user == "Customer")
+        {
+            type = .customer
+        }
+        else if (user == "Carrier")
+        {
+            type = .carrier
+        }
+        else if (user == "Employee")
+        {
+            type = .employee
+        }
+        return type
+    }
+    
 
 }

@@ -50,7 +50,7 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
         
         self.populateArray()
         if (DataManager.sharedInstance.isLogin){
-            let userName = "Meenakshi"
+            let userName = DataManager.sharedInstance.userTypeStr
             nameLabel.text = "Welcome " + userName
             signInButton.isHidden = true
         } else{
@@ -119,7 +119,8 @@ extension SideMenuViewController
 //                    self.showLoginView()
 //                    break;
             case .logout:
-                DataManager.sharedInstance.isLogin = false
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.logout()
                 self.slideMenuController()?.closeLeft()
                 break
             default:
@@ -143,27 +144,16 @@ extension SideMenuViewController
         case .home:
             let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
             return viewCtrl
-//        case .login:
-//            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-//            return viewCtrl
-//        case .register:
-//            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-//            self.slideMenuController()?.changeMainViewController(viewCtrl, close: true)
-//            break
+            
         case .terminalSearch:
             let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TerminalSearchViewController") as! TerminalSearchViewController
             return viewCtrl
+            
         case .tractorSearch:
             let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TractorViewController") as! TractorViewController
             return viewCtrl
-//        case .applyNow:
-//            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-//            self.slideMenuController()?.changeMainViewController(viewCtrl, close: true)
-//            break
-//        case .contact:
-//            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-//            self.slideMenuController()?.changeMainViewController(viewCtrl, close: true)
-//            break
+        
+           
         default:
                 break
         }

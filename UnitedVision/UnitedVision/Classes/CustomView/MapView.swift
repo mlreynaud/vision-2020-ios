@@ -34,7 +34,7 @@ class MapView: UIView, MKMapViewDelegate, UISearchBarDelegate, UITableViewDataSo
     func xibSetUp() {
         view = loadViewFromNib()
         view.frame = self.bounds
-        view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleWidth]
+        view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
         addSubview(view)
     }
     
@@ -42,6 +42,7 @@ class MapView: UIView, MKMapViewDelegate, UISearchBarDelegate, UITableViewDataSo
     {
         UIUtils.transparentSearchBarBackgrund(self.searchBar)
 
+        
         // register Nibs
         self.autocompleteTableView.register(UITableViewCell.self, forCellReuseIdentifier: "CurrentLocationTableCell")
         

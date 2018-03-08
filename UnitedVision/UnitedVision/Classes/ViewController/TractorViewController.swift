@@ -48,7 +48,11 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setNavigationBarItem()
+        if (self.navigationController?.viewControllers[0].isKind(of: TractorViewController.self))!
+        {
+            self.setNavigationBarItem()
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {

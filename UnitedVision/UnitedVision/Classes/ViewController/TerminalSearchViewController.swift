@@ -42,7 +42,11 @@ class TerminalSearchViewController: BaseViewController, UIPickerViewDelegate, UI
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setNavigationBarItem()
+        
+        if (self.navigationController?.viewControllers[0].isKind(of: TerminalSearchViewController.self) )!
+        {
+            self.setNavigationBarItem()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -118,6 +122,8 @@ extension TerminalSearchViewController : UITextFieldDelegate
         
         radiusTextField.text = String("Radius: \(selectedRadius) mi")
         radiusTextField.resignFirstResponder()
+        
+        DataManager.sharedInstance.radius = selectedRadius
         
         let currentLocation = mapView.getCurrentLocation()
         mapView.addRadiusCircle(location: currentLocation)

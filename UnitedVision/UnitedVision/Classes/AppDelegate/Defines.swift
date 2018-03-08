@@ -24,4 +24,13 @@ enum FilterType: Int {
     case tractorTerminal
 }
 
+enum UserType: Int {
+    case none = 1000
+    case customer
+    case carrier
+    case employee
+}
+
 let kAppTitle = "United Vision"
+
+let kBlueColor = UIColor(red: 38/255.0, green: 95.0/255.0, blue: 137.0/255.0, alpha: 1.0)

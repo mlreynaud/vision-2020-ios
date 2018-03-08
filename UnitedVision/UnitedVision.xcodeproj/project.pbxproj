@@ -46,6 +46,11 @@
 		BA84A37F204D6540004E1410 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A37E204D6540004E1410 /* MapView.swift */; };
 		BA84A381204D6664004E1410 /* CheckboxTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A380204D6664004E1410 /* CheckboxTableCell.swift */; };
 		BA84A383204E752B004E1410 /* AutocompleteTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA84A382204E752B004E1410 /* AutocompleteTableCell.xib */; };
+		BA84A385204E916B004E1410 /* AppPrefData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A384204E916B004E1410 /* AppPrefData.swift */; };
+		BA84A387204E99C4004E1410 /* TractorSearchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A386204E99C4004E1410 /* TractorSearchInfo.swift */; };
+		BA84A38920518C3B004E1410 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A38820518C3B004E1410 /* ContactViewController.swift */; };
+		BA84A38B20518F2E004E1410 /* ContactTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A38A20518F2E004E1410 /* ContactTableCell.swift */; };
+		BA84A38D205194FD004E1410 /* HomeCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A38C205194FD004E1410 /* HomeCollectionCell.swift */; };
 		CA9B55882AE68F35E5223F55 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +100,11 @@
 		BA84A37E204D6540004E1410 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BA84A380204D6664004E1410 /* CheckboxTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxTableCell.swift; sourceTree = "<group>"; };
 		BA84A382204E752B004E1410 /* AutocompleteTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AutocompleteTableCell.xib; sourceTree = "<group>"; };
+		BA84A384204E916B004E1410 /* AppPrefData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPrefData.swift; sourceTree = "<group>"; };
+		BA84A386204E99C4004E1410 /* TractorSearchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TractorSearchInfo.swift; sourceTree = "<group>"; };
+		BA84A38820518C3B004E1410 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
+		BA84A38A20518F2E004E1410 /* ContactTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableCell.swift; sourceTree = "<group>"; };
+		BA84A38C205194FD004E1410 /* HomeCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionCell.swift; sourceTree = "<group>"; };
 		E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -215,16 +225,9 @@
 		BA44A0FD202DF96E00DE6130 /* CustomCollectionCell */ = {
 			isa = PBXGroup;
 			children = (
-				BA44A0FE202DF96E00DE6130 /* CustomTableCell */,
+				BA84A38C205194FD004E1410 /* HomeCollectionCell.swift */,
 			);
 			path = CustomCollectionCell;
-			sourceTree = "<group>";
-		};
-		BA44A0FE202DF96E00DE6130 /* CustomTableCell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CustomTableCell;
 			sourceTree = "<group>";
 		};
 		BA44A0FF202DF96E00DE6130 /* CustomTableCell */ = {
@@ -236,6 +239,7 @@
 				BA4D879A204BBEA600FC78CA /* TerminalTableCell.swift */,
 				BA4D87A6204D470300FC78CA /* FilterTableViewCell.swift */,
 				BA84A380204D6664004E1410 /* CheckboxTableCell.swift */,
+				BA84A38A20518F2E004E1410 /* ContactTableCell.swift */,
 			);
 			path = CustomTableCell;
 			sourceTree = "<group>";
@@ -247,6 +251,7 @@
 				BA44A104202DF96E00DE6130 /* LocationManager.swift */,
 				BA44A105202DF96E00DE6130 /* Model */,
 				BA44A108202DF96E00DE6130 /* WebServiceManager.swift */,
+				BA84A384204E916B004E1410 /* AppPrefData.swift */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -256,6 +261,7 @@
 			children = (
 				BA44A106202DF96E00DE6130 /* LocationInfo.swift */,
 				BA44A107202DF96E00DE6130 /* TractorInfo.swift */,
+				BA84A386204E99C4004E1410 /* TractorSearchInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -291,6 +297,7 @@
 				BA5CE6032036E7BF00B14DB6 /* SideMenuViewController.swift */,
 				BA4D879C204BD24F00FC78CA /* FilterViewController.swift */,
 				BA84A37C204D6066004E1410 /* FilterPopupViewController.swift */,
+				BA84A38820518C3B004E1410 /* ContactViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -453,6 +460,7 @@
 				BA5CE6092036EF3C00B14DB6 /* SideMenuTableCell.swift in Sources */,
 				BA84A381204D6664004E1410 /* CheckboxTableCell.swift in Sources */,
 				BA4D87A5204D40FE00FC78CA /* CardView.swift in Sources */,
+				BA84A38920518C3B004E1410 /* ContactViewController.swift in Sources */,
 				BA5CE60D203AF8E400B14DB6 /* iCarousel.m in Sources */,
 				BA44A124202DF96E00DE6130 /* LoginViewController.swift in Sources */,
 				BA44A118202DF96E00DE6130 /* Defines.swift in Sources */,
@@ -461,6 +469,7 @@
 				BA84A37F204D6540004E1410 /* MapView.swift in Sources */,
 				BA5CE6072036EBBF00B14DB6 /* UIViewController.swift in Sources */,
 				BA5CE61A203D7E5000B14DB6 /* AutocompleteTableCell.swift in Sources */,
+				BA84A38B20518F2E004E1410 /* ContactTableCell.swift in Sources */,
 				BA44A127202DF96E00DE6130 /* TerminalDetailViewController.swift in Sources */,
 				BA44A121202DF96E00DE6130 /* BaseViewController.swift in Sources */,
 				BA44A11C202DF96E00DE6130 /* LocationManager.swift in Sources */,
@@ -470,10 +479,13 @@
 				BA44A120202DF96E00DE6130 /* UIUtils.swift in Sources */,
 				BA5CE618203C282A00B14DB6 /* String.swift in Sources */,
 				BA4D87992046FB7A00FC78CA /* UISegmentedControl.swift in Sources */,
+				BA84A385204E916B004E1410 /* AppPrefData.swift in Sources */,
 				BA84A37D204D6066004E1410 /* FilterPopupViewController.swift in Sources */,
 				BA4D879F204D1CD700FC78CA /* AccordionHeaderView.swift in Sources */,
+				BA84A387204E99C4004E1410 /* TractorSearchInfo.swift in Sources */,
 				BA44A123202DF96E00DE6130 /* TractorViewController.swift in Sources */,
 				BA44A117202DF96E00DE6130 /* AppDelegate.swift in Sources */,
+				BA84A38D205194FD004E1410 /* HomeCollectionCell.swift in Sources */,
 				BA44A11D202DF96E00DE6130 /* LocationInfo.swift in Sources */,
 				BA4D879D204BD24F00FC78CA /* FilterViewController.swift in Sources */,
 				BA44A11E202DF96E00DE6130 /* TractorInfo.swift in Sources */,

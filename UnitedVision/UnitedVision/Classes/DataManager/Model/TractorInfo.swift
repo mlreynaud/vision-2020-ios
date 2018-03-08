@@ -56,11 +56,4 @@ class TractorInfo: NSObject {
 
 }
 
-class TractorSearchInfo: NSObject {
-    
-    var radius: String = ""
-    var city: String = ""
-    var state: String = ""
-    var zip: String = ""
 
-}

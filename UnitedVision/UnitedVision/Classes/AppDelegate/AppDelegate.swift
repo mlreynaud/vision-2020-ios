@@ -13,7 +13,6 @@ import SlideMenuControllerSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
     
     fileprivate func createMenuView() {
         
@@ -25,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
         
-//        SlideMenuOptions.leftViewWidth = 120
+        SlideMenuOptions.leftViewWidth = 300
 
         let slideMenuController = SlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
         slideMenuController.automaticallyAdjustsScrollViewInsets = true
@@ -40,10 +39,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        dataManager.parseLocationInfo()
         dataManager.parseTractorInfo()
         
-       
+        dataManager.requestToCheckTokenValidity(completionHandler: {(status, message) in
+
+            dataManager.isLogin = status ? false : true
+        })
         
+        self.customizeNavigationBar()
         self.createMenuView()
-        
+
         return true
     }
 
@@ -63,12 +66,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        DataManager.sharedInstance.requestToCheckTokenValidity(completionHandler: {(status, message) in
+            
+            DataManager.sharedInstance.isLogin = status ? false : true
+        })
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+     func customizeNavigationBar()
+     {
+        UINavigationBar.appearance().barTintColor = UIColor.white
+        UINavigationBar.appearance().tintColor = kBlueColor
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : kBlueColor]
+    }
+    
+    func logout()
+    {
+        DataManager.sharedInstance.isLogin = false;
+        DataManager.sharedInstance.authToken = "";
+        AppPrefData.sharedInstance.authToken = "";
+    }
 
 }
 

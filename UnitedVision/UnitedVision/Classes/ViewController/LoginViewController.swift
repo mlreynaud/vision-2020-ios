@@ -46,11 +46,17 @@ class LoginViewController: BaseViewController {
                 return
         }
 
+        LoadingView.shared.showOverlay()
         DataManager.sharedInstance.request(toLogin: username, withPassword: password, completionHandler: {(status, errorMessage) in
+            
+            LoadingView.shared.hideOverlayView()
             
             if (status)
             {
                 DataManager.sharedInstance.isLogin = true
+                AppPrefData.sharedInstance.isLogin = true
+                AppPrefData.sharedInstance.saveAllData()
+                
                 self.navigationController?.popViewController(animated: true)
             }
             else

@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "ic_location_red.png",
+      "filename" : "ic_location_red-2.png",
       "scale" : "1x"
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "ic_location_red-2.png",
+      "filename" : "ic_location_red.png",
       "scale" : "3x"
     }
   ],

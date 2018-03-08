@@ -48,6 +48,20 @@ class WebServiceManager: NSObject, URLSessionDelegate {
         return WebServiceManager.postRequest(url:urlString, withPostString: postString) as URLRequest
     }
     
+    class func postRequest (service serviceString : String, withPostDict params: Dictionary <String, Any> ) -> NSMutableURLRequest
+    {
+        let urlString = kServerUrl + serviceString
+//        let postData = postString.data(using: String.Encoding.utf8)
+//        let postLength = String("\(String(describing: postData?.count))")
+        
+        let request =  WebServiceManager.createRequest(urlString, forMethod: "POST")
+//        request.setValue(postLength, forHTTPHeaderField:"Content-Length")
+        
+        request.httpBody = try! JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
+       
+        return request
+    }
+    
     class func postRequest (url urlString : String, withPostString postString: String ) -> NSMutableURLRequest
     {
         let postData = postString.data(using: String.Encoding.utf8)
@@ -68,6 +82,12 @@ class WebServiceManager: NSObject, URLSessionDelegate {
         request.setValue("application/json", forHTTPHeaderField:"Content-Type")
         request.timeoutInterval = 60.0
         //        request.cachePolicy = .returnCacheDataElseLoad
+        
+        if (DataManager.sharedInstance.isLogin)
+        {
+            let token = DataManager.sharedInstance.authToken
+            request.setValue(token, forHTTPHeaderField:"Authorization")
+        }
         
         return request
     }
@@ -108,7 +128,17 @@ class WebServiceManager: NSObject, URLSessionDelegate {
                         print("error: not a valid http response")
                         serviceCompletionHandler!(nil, error as NSError?)
                         return
-                }               
+                }
+                
+                if let auth = httpResponse.allHeaderFields["Authorization"] as? String {
+                    // use X-Dem-Auth hereA
+                        DataManager.sharedInstance.authToken = auth
+                    
+                        AppPrefData.sharedInstance.authToken = auth;
+                        AppPrefData.sharedInstance.saveAllData()
+                    
+                        print (auth);
+                }
                 
 //                guard let rawString = String(data: receivedData, encoding: .utf8) else {
 //                    return
