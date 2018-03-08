@@ -152,7 +152,10 @@ extension SideMenuViewController
         case .tractorSearch:
             let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TractorViewController") as! TractorViewController
             return viewCtrl
-        
+            
+        case .contact:
+            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "ContactViewController") as! ContactViewController
+            return viewCtrl
            
         default:
                 break

@@ -24,7 +24,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     let pageList = ["truck_red", "truck", "truck_rig_sunset"];
         
-    let departmentList = ["Corporate Headquarters", "Sales", "Driver opprtunities", "Corporate Communications", "Operations", "Brokerage", "Driver Verifications", "Website Support", "Logistics", "Safety", "Driver Qualtifications"]
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
