@@ -11,8 +11,10 @@ import UIKit
 class ContactTableCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
-
     @IBOutlet weak var detailLabel: UILabel!
+    
+    @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet weak var callButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,13 +27,5 @@ class ContactTableCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func callButtonAction()
-    {
-        
-    }
-
-    @IBAction func mailButtonAction()
-    {
-        
-    }
+   
 }

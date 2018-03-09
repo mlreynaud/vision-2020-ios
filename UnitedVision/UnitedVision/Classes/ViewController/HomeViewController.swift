@@ -294,7 +294,19 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout
             break
         }        
     }
-        
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = ((self.view.frame.size.width - 10)/3.0)
+        return CGSize(width:110,height: 110)//CGSize(width: width, height: width)
+    }
+//    - (CGSize)collectionView:(UICollectionView *)collectionView
+//    layout:(UICollectionViewLayout*)collectionViewLayout
+//    sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
+//    {
+//    CGFloat width = CGRectGetWidth(self.view.frame)/3.0f;
+//    return CGSizeMake(width, (width * 1.1f));
+//    }
+    
         
 }
         

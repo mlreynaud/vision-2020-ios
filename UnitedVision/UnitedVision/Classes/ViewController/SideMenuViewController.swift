@@ -26,6 +26,7 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
 
     @IBOutlet weak var tableView : UITableView!
     var menus: [String] = []
+    var imageList : [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -65,9 +66,11 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
         
         if (DataManager.sharedInstance.isLogin) {
             menus = ["Home", "Tractor Search", "Terminal Search", "Contact", "Logout"]
+            imageList = ["ic_home","ic_truck_gray", "ic_location_black" ,"ic_call_black", "ic_logout"]
         }
         else{
             menus = ["Home", "Tractor Search", "Terminal Search", "Contact"]
+            imageList = ["ic_home","ic_truck_gray", "ic_location_black" ,"ic_call_black"]
         }
         
         tableView.reloadData()
@@ -84,6 +87,8 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
             navCtrl.pushViewController(viewCtrl, animated: true)
         }
     }
+    
+    
 
     /*
     // MARK: - Navigation
@@ -107,11 +112,14 @@ extension SideMenuViewController
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableCell", for: indexPath) as! SideMenuTableCell
         cell.titleLabel.text = menus[indexPath.row]
+        cell.iconImageView.image = UIImage(named: imageList[indexPath.row])
+        cell.iconImageView.tintColor = UIColor.gray
         
         return cell;
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if let menu = LeftMenu(rawValue: indexPath.row) {
             
             switch menu{

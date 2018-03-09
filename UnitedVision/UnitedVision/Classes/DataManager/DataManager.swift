@@ -317,5 +317,11 @@ class DataManager: NSObject {
         return type
     }
     
+    
+    
+
+    
+ 
+    
 
 }

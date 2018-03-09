@@ -51,6 +51,8 @@
 		BA84A38920518C3B004E1410 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A38820518C3B004E1410 /* ContactViewController.swift */; };
 		BA84A38B20518F2E004E1410 /* ContactTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A38A20518F2E004E1410 /* ContactTableCell.swift */; };
 		BA84A38D205194FD004E1410 /* HomeCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A38C205194FD004E1410 /* HomeCollectionCell.swift */; };
+		BA84A3932051B2E1004E1410 /* ContactInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA84A3922051B2E1004E1410 /* ContactInfo.plist */; };
+		BA84A3952052D5F0004E1410 /* ContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A3942052D5F0004E1410 /* ContactInfo.swift */; };
 		CA9B55882AE68F35E5223F55 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +107,8 @@
 		BA84A38820518C3B004E1410 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
 		BA84A38A20518F2E004E1410 /* ContactTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableCell.swift; sourceTree = "<group>"; };
 		BA84A38C205194FD004E1410 /* HomeCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionCell.swift; sourceTree = "<group>"; };
+		BA84A3922051B2E1004E1410 /* ContactInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ContactInfo.plist; sourceTree = "<group>"; };
+		BA84A3942052D5F0004E1410 /* ContactInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfo.swift; sourceTree = "<group>"; };
 		E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -174,6 +178,7 @@
 				BA44A0F5202DF96D00DE6130 /* location.json */,
 				BA44A0F6202DF96D00DE6130 /* tractor.json */,
 				BA44A0F7202DF96D00DE6130 /* Xibs */,
+				BA84A3922051B2E1004E1410 /* ContactInfo.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 				BA44A106202DF96E00DE6130 /* LocationInfo.swift */,
 				BA44A107202DF96E00DE6130 /* TractorInfo.swift */,
 				BA84A386204E99C4004E1410 /* TractorSearchInfo.swift */,
+				BA84A3942052D5F0004E1410 /* ContactInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -386,6 +392,7 @@
 				BA84A37B204D5D33004E1410 /* MapView.xib in Resources */,
 				BA44A0ED202DF91200DE6130 /* LaunchScreen.storyboard in Resources */,
 				BA44A116202DF96E00DE6130 /* tractor.json in Resources */,
+				BA84A3932051B2E1004E1410 /* ContactInfo.plist in Resources */,
 				BA44A0EA202DF91200DE6130 /* Assets.xcassets in Resources */,
 				BA84A383204E752B004E1410 /* AutocompleteTableCell.xib in Resources */,
 				BA44A115202DF96E00DE6130 /* location.json in Resources */,
@@ -460,6 +467,7 @@
 				BA5CE6092036EF3C00B14DB6 /* SideMenuTableCell.swift in Sources */,
 				BA84A381204D6664004E1410 /* CheckboxTableCell.swift in Sources */,
 				BA4D87A5204D40FE00FC78CA /* CardView.swift in Sources */,
+				BA84A3952052D5F0004E1410 /* ContactInfo.swift in Sources */,
 				BA84A38920518C3B004E1410 /* ContactViewController.swift in Sources */,
 				BA5CE60D203AF8E400B14DB6 /* iCarousel.m in Sources */,
 				BA44A124202DF96E00DE6130 /* LoginViewController.swift in Sources */,

@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import MessageUI
 
-class ContactViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource
+
+class ContactViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate
 {
     @IBOutlet weak  var tableView: UITableView!
+    
+    var contactList :[ContactInfo] = []
     
     let departmentList = ["Corporate Headquarters", "Sales", "Driver opprtunities", "Corporate Communications", "Operations", "Brokerage", "Driver Verifications", "Website Support", "Logistics", "Safety", "Driver Qualtifications"]
     
@@ -20,6 +24,8 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
         // Do any additional setup after loading the view.
         
         self.title = "Contact Info"
+        
+        self.readPropertyList();
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,46 +42,73 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
         
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func readPropertyList()
+    {
+        if let list = UIUtils.parsePlist(ofName: "ContactInfo")
+        {
+            for dict in list
+            {
+                let info = ContactInfo(info: dict as NSDictionary)
+                contactList.append(info)
+            }
+        }
     }
-    */
-
+    
+    @IBAction func callButtonAction(_ sender: UIButton)
+    {
+        let info = contactList[sender.tag]
+        UIUtils.callPhoneNumber(info.mobile!)
+    }
+    
+    @IBAction func mailButtonAction(_ sender: UIButton)
+    {
+        let info = contactList[sender.tag]
+        let mailComposeViewController = configureMailComposer(info.email!)
+        if MFMailComposeViewController.canSendMail(){
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        }else{
+            print("Can't send email")
+        }
+    }
+    
+    func configureMailComposer(_ receipient :String) -> MFMailComposeViewController
+    {
+        let mailComposeVC = MFMailComposeViewController()
+        mailComposeVC.mailComposeDelegate = self
+        mailComposeVC.setToRecipients([receipient])
+        mailComposeVC.setSubject("United Vision")
+//        mailComposeVC.setMessageBody(self.textViewBody.text!, isHTML: false)
+        return mailComposeVC
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 extension ContactViewController
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return departmentList.count;
+        return contactList.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableCell", for: indexPath) as! ContactTableCell
-        cell.titleLabel.text = departmentList[indexPath.row]
         
-        if (indexPath.row == 0)
-        {
-            cell.detailLabel.text = """
-            4021 Ambassador Caffery Pkwy
-            Suite 200 Bldg A
-            Lafayette, LA 70503
-            Phone: 337-291-6700
-            """
-        }
-        else
-        {
-            cell.detailLabel.text = """
-            Email: Bentley Burgess
-            Phone: 713-350-5200
-            """
-        }
+        let info = contactList[indexPath.row]
         
+        cell.titleLabel.text = info.title!
+        cell.detailLabel.text = info.detail!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        
+        cell.emailButton.isHidden = (info.email!.count > 0) ? false : true
+        cell.callButton.isHidden = (info.mobile!.count > 0) ? false : true
+        
+        cell.emailButton.tag = indexPath.row
+        cell.callButton.tag = indexPath.row
+
         return cell;
     }
+
 }

@@ -275,4 +275,21 @@ class UIUtils: NSObject {
             print("Your device doesn't support this feature.")
         }
     }
+    
+    class func parsePlist(ofName name: String) -> [Dictionary<String, AnyObject>]? {
+        
+        // check if plist data available
+        guard let plistURL = Bundle.main.url(forResource: name, withExtension: "plist"),
+            let data = try? Data(contentsOf: plistURL)
+            else {
+                return nil
+        }
+        
+        // parse plist into [String: Anyobject]
+        guard let plistDictionary = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [Dictionary<String, AnyObject>] else {
+            return nil
+        }
+        
+        return plistDictionary
+    }
 }
