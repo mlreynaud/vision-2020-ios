@@ -11,21 +11,31 @@ import MapKit
 import GoogleMaps
 import GooglePlaces
 
-class MapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
+protocol MapFilterDelegate: class {
+    func mapFilter(sender: MapView)
+}
+
+class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManagerDelegate, UIPickerViewDelegate {
         
         
     @IBOutlet var map: GMSMapView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var radiusTextField: UITextField!
     @IBOutlet weak var autocompleteTableView: UITableView!
         
         var searchLocation: CLLocation!
-        var radius: Int = 50
+        var selectedRadius: Int = 50
+    
+    var radiusList : [String] = []
     
     let nibName = "MapView"
     var view : UIView!
     
-        
+    
+    
+    weak var mapFilterDelegate: MapFilterDelegate?
+    
         var locationManager = CLLocationManager()
         var currentLocation: CLLocation?
         var placesClient: GMSPlacesClient!
@@ -58,11 +68,14 @@ class MapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         map.isMyLocationEnabled = true
         map.settings.myLocationButton = true
         map.settings.compassButton = true
-//        map.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         map.padding = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
         map.delegate = self
         
         searchLocation = self.getCurrentLocation()
+        
+        searchBar.delegate = self
+        
+        radiusList = DataManager.sharedInstance.getRadiusList()
 
 //        locationManager = CLLocationManager()
 //        locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -106,6 +119,27 @@ class MapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
 
     func setSearchLocation(_ location: CLLocation) {
         self.searchLocation = location
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar:UISearchBar) -> Bool {
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        
+        let currentController = self.getCurrentViewController()
+        currentController?.present(autocompleteController, animated:true, completion: nil)
+        return false;
+    }
+    
+    func getCurrentViewController() -> UIViewController? {
+        var responder: UIResponder? = view
+        repeat {
+            responder = responder?.next
+            if let vc = responder as? UIViewController {
+                return vc
+            }
+        } while responder != nil
+        
+        return nil
     }
 }
 
@@ -185,7 +219,7 @@ extension MapView
         map.clear()
         for location in tractorList {
             let marker = GMSMarker()
-            marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: -location.longitude)
+            marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             //            marker.snippet = location.detail
             marker.map = map
         }
@@ -211,14 +245,100 @@ extension MapView
         var bounds: GMSCoordinateBounds = GMSCoordinateBounds.init()
         bounds = bounds.includingCoordinate(n).includingCoordinate(e).includingCoordinate(s).includingCoordinate(w)
         map.animate(with: GMSCameraUpdate.fit(bounds))
+        zoomLevel = map.camera.zoom
+    }
+}
+
+
+extension MapView : UITextFieldDelegate, UIPickerViewDataSource
+{
+    func createPickerView()
+    {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = .default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.darkGray //UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        // Adding Button ToolBar
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(MapView.doneClick))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(MapView.cancelClick))
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        radiusTextField.inputView = pickerView
+        radiusTextField.inputAccessoryView = toolBar
     }
     
-    
-        //    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
-        //    {
-        //        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        //        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TerminalDetailViewController") as! TerminalDetailViewController
-        //        self.navigationController?.pushViewController(viewCtrl, animated: true)
-        //    }
+    @objc func doneClick() {
         
+        radiusTextField.text = String("Radius: \(selectedRadius) mi")
+        radiusTextField.resignFirstResponder()
+        
+        DataManager.sharedInstance.radius = selectedRadius
+        self.mapFilterDelegate?.mapFilter(sender: self)
+    }
+    
+    @objc func cancelClick() {
+        radiusTextField.resignFirstResponder()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+        self.createPickerView()
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return radiusList.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedRadius =  Int(radiusList[row])!
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return radiusList[row]
+    }
 }
+
+
+extension MapView: GMSAutocompleteViewControllerDelegate {
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace){
+        viewController.dismiss(animated: true, completion: nil)
+        searchLocation = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        DispatchQueue.main.async { () -> Void in
+           
+            //            self.mapView.moveMaptoLocation(location: self.searchLocation!)
+            self.mapFilterDelegate?.mapFilter(sender: self)
+        }
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        print("Error: ", error.localizedDescription)
+    }
+    
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        viewController.dismiss(animated: true, completion: nil)
+    }
+    
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+}
+
+
+
+

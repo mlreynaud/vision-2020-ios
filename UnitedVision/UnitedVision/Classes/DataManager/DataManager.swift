@@ -169,7 +169,7 @@ class DataManager: NSObject {
         })
     }
     
-    func requestToFetchTractorLocations (completionHandler handler: @escaping ( Bool, [LocationInfo]?) -> () ) {
+    func requestToFetchTerminalLocations (completionHandler handler: @escaping ( Bool, [LocationInfo]?) -> () ) {
         
         let service: String = "location/service/active"
         
@@ -315,7 +315,7 @@ class DataManager: NSObject {
     {
         var radiusList : [String] = []
         var value = 25
-        for i in 0...20
+        for i in 1...20
         {
             radiusList.append(String(value))
             value += 25

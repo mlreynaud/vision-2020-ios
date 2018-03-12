@@ -20,9 +20,6 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
    // @IBOutlet weak var mapView: MKMapView!
    // @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl : UISegmentedControl!
-    var searchLocation: CLLocation?
-    
-    var selectedRadius =  50
     
     var showMap = false
 
@@ -44,7 +41,8 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         self.fetchTractorLocations()
         
         mapView.initialSetup()
-        searchLocation = mapView.getCurrentLocation()
+        mapView.searchLocation = mapView.getCurrentLocation()
+        mapView.mapFilterDelegate = self
 
 //        tractorArray = DataManager.sharedInstance.tractorList
 //        self.addTractorAnnotations()
@@ -139,16 +137,16 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
 //
 //            annotationList.append(annotation)
             
-            let dist = GMSGeometryDistance(CLLocationCoordinate2DMake(info.latitude,-info.longitude),
-                                           CLLocationCoordinate2DMake((searchLocation?.coordinate.latitude)!,
-                                                                      (searchLocation?.coordinate.longitude)!)) / 1609
-            if (Int(dist) <= selectedRadius) {
+            let dist = GMSGeometryDistance(CLLocationCoordinate2DMake(info.latitude,info.longitude),
+                                           CLLocationCoordinate2DMake((mapView.searchLocation?.coordinate.latitude)!,
+                                                                      (mapView.searchLocation?.coordinate.longitude)!)) / 1609
+            if (Int(dist) <= mapView.selectedRadius) {
                 mapLocationList.append(info)
             }
            
         }
         mapView.addTractorList(mapLocationList)
-        mapView.zoomMapToRadius(selectedRadius)
+        mapView.zoomMapToRadius(mapView.selectedRadius)
         
     }
 }
@@ -225,58 +223,9 @@ extension TractorViewController
     
 }
 
-extension TractorViewController
-{
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
-    {
-        if annotation is MKUserLocation {
-            return nil
-        }
-        let reuseID = "pin"
-        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseID) as? MKPinAnnotationView
-        if(pinView == nil) {
-            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
-            // pinView?.tintColor = UIColor.red
-            pinView!.canShowCallout = true
-            pinView!.animatesDrop = true
-        }
-        return pinView
-    }
-    
-    //    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
-    //    {
-    //        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-    //        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TerminalDetailViewController") as! TerminalDetailViewController
-    //        self.navigationController?.pushViewController(viewCtrl, animated: true)
-    //    }
-    
-}
-
-extension TractorViewController: GMSAutocompleteViewControllerDelegate {
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace){
-        dismiss(animated: true, completion: nil)
-        searchLocation = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-        DispatchQueue.main.async { () -> Void in
-            self.mapView.setSearchLocation(self.searchLocation!)
-            //            self.mapView.moveMaptoLocation(location: self.searchLocation!)
-            self.addTractorAnnotations()
-        }
-    }
-    
-    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        print("Error: ", error.localizedDescription)
-    }
-    
-    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-    }
-    
-    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+extension TractorViewController: MapFilterDelegate {
+    func mapFilter(sender: MapView){
+        self.addTractorAnnotations()
     }
 }
 
