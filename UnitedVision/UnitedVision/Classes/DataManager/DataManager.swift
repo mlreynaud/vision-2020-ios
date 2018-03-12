@@ -28,8 +28,9 @@ class DataManager: NSObject {
     fileprivate override init() {
         let locationManager = LocationManager.sharedInstance
         locationManager.initializeLocationManager()
-        
-        self.isLogin = AppPrefData.sharedInstance.isLogin
+         let appPref = AppPrefData.sharedInstance
+        self.isLogin = appPref.isLogin
+        self.authToken = appPref.authToken
     }
     
     func parseJSONData(_ data: Data?) -> (status: Bool, message: String, count: String, content: Any?){
@@ -120,7 +121,6 @@ class DataManager: NSObject {
         
         let postParams = ["username": username.encodeString(), "password": password.encodeString()] as Dictionary<String, String>
         //let postString = "username=\(username.encodeString())&password=\(password.encodeString())"
-        
        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: postParams) as URLRequest
        // let request = WebServiceManager.getRequest(service) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {[unowned self] (data, error) in
@@ -149,20 +149,23 @@ class DataManager: NSObject {
         }
         
         let service: String = String(format:"auth/service/checkToken")
+        let postParams = [String: String]() // Empty dict
         
-        let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
+
+        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: postParams) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {[unowned self] (data, error) in
             
-            let response = self.parseJSONData(data as Data?)
-            
-            if let content = response.content as? NSDictionary
-            {
-                //                AppPrefData.sharedInstance.userDict = content
-                //                self.userInfo = UserInfo(info:content)
-                //                self.userInfo?.isGuest = false
-                //                print("JSON response- \(self.userInfo)");
+            guard  let responseStr : String = String(data: data! as Data, encoding: .utf8),
+                responseStr.count != 0
+                else {
+                    handler(false, "Invalid Token")
+                    return
             }
-            handler(response.status, response.message)
+            
+            self.userType = self.checkUserType(responseStr)
+            self.userTypeStr = (self.userType == .none) ? "" : responseStr
+            
+            (self.userType == .none) ? handler(false, "Invalid Token") : handler(true, "Valid Token")
         })
     }
     
@@ -199,7 +202,10 @@ class DataManager: NSObject {
     
     func requestToSearchTractor(_ info: TractorSearchInfo, completionHandler handler: @escaping ( Bool, [TractorInfo]?) -> () )
     {
-        let service: String =  "tractor/service/search?radius=100&city=Lafayette&state=LA&zip=70508"
+        
+       // http://uv.agilink.net/api2/tractor/service/search?radius=100&city=Lafayette&state=LA&zip=70508&lat=30.2241&lon=-92.0198
+        
+        let service: String =  "tractor/service/search?radius=100&city=Lafayette&state=LA&zip=70508&lat=30.2241&lon=-92.0198"
         
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {(data, error) in
@@ -208,13 +214,15 @@ class DataManager: NSObject {
 
             do {
                 
-                guard   let outerJSON : String = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as? String,
-                     outerJSON.count != 0,
-                    let array =  try! JSONSerialization.jsonObject(with: outerJSON.data(using: .utf8)!, options: .allowFragments) as? NSArray
-                    else {
-                        handler(false, nil)
-                        return
-                    }
+//                guard   let outerJSON : String = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as? String,
+//                     outerJSON.count != 0,
+//                    let array =  try! JSONSerialization.jsonObject(with: outerJSON.data(using: .utf8)!, options: .allowFragments) as? NSArray
+//                    else {
+//                        handler(false, nil)
+//                        return
+//                    }
+//
+                let array =  try! JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as! NSArray
                 
                 for dict in array
                 {
@@ -317,7 +325,17 @@ class DataManager: NSObject {
         return type
     }
     
-    
+    func getRadiusList() -> [String]
+    {
+        var radiusList : [String] = []
+        var value = 25
+        for i in 0...20
+        {
+            radiusList.append(String(value))
+            value += 25
+        }
+        return radiusList
+    }
     
 
     

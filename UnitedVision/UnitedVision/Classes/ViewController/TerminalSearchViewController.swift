@@ -8,36 +8,57 @@
 
 import UIKit
 import MapKit
+import GoogleMaps
+import GooglePlaces
 
-class TerminalSearchViewController: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class TerminalSearchViewController: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource, GMSMapViewDelegate {
     
-    @IBOutlet weak var mapView: MapView!
-
+    
     @IBOutlet weak var radiusTextField : UITextField!
+    
+    @IBOutlet var mapView: MapView!
+    
+//    var locationManager = CLLocationManager()
+    var currentLocation: CLLocation?
+//    var placesClient: GMSPlacesClient!
+    var zoomLevel: Float = 15.0
+    
+    var searchLocation: CLLocation?
     
     var selectedRadius =  50
     
     var radiusList : [String] = []
-
-    var matchingItems: [MKMapItem] = []
-
+    
     var locationArray: [LocationInfo] = []
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-        var value = 25
-        for i in 0...20
-        {
-            radiusList.append(String(value))
-            value += 25
-        }
         
+        radiusList = DataManager.sharedInstance.getRadiusList()
         self.title = "Terminal Search"
-        mapView.initialSetup()
         
+        mapView.initialSetup()
+        searchLocation = mapView.getCurrentLocation()
         self.fetchTerminalLocations()
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .restricted:
+            print("Location access was restricted.")
+        case .denied:
+            print("User denied access to location.")
+            mapView.isHidden = false
+        case .notDetermined:
+            print("Locaiton status not determined")
+        case .authorizedAlways: fallthrough
+        case .authorizedWhenInUse:
+            print("Location status is OK.")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,49 +69,55 @@ class TerminalSearchViewController: BaseViewController, UIPickerViewDelegate, UI
             self.setNavigationBarItem()
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     //MARK-
-        
+    
     func fetchTerminalLocations()
     {
         LoadingView.shared.showOverlay()
         DataManager.sharedInstance.requestToFetchTractorLocations(completionHandler: {( status, tractorList) in
             
             LoadingView.shared.hideOverlayView()
-
+            
             self.locationArray = tractorList! //DataManager.sharedInstance.tractorList
-            self.addAnnotations()
+            self.mapLocations()
             
-            self.mapView.moveMapToCurrentLocation()
+            //            self.addAnnotations()
             
-            let currentLocation = self.mapView.getCurrentLocation()
-            self.mapView.addRadiusCircle(location: currentLocation)
-
+            //            self.mapView.moveMapToCurrentLocation()
+            //
+            //            let currentLocation = self.mapView.getCurrentLocation()
+            //            self.mapView.addRadiusCircle(location: currentLocation)
+            
         })
     }
     
-    func addAnnotations(){
-        
-        var annotationList = [MKPointAnnotation]()
-        
-        for info in locationArray
-        {
-            let annotation = mapView.createAnnotation(coordinate: CLLocationCoordinate2DMake(info.latitude, info.longitude))
-            
-            annotation.title =  "Tractor ID - 1"
-            annotation.subtitle = info.detail
-            
-            annotationList.append(annotation)
+    func mapLocations() {
+        var mapLocationList: [LocationInfo] = []
+        for location in locationArray {
+            let dist = GMSGeometryDistance(CLLocationCoordinate2DMake(location.latitude,-location.longitude),
+                                           CLLocationCoordinate2DMake((searchLocation?.coordinate.latitude)!,
+                                                                      (searchLocation?.coordinate.longitude)!)) / 1609
+            if (Int(dist) <= selectedRadius) {
+                mapLocationList.append(location)
+            }
         }
         
-        mapView.addAnnotationList(annotationList)
+        mapView.addLocationList(mapLocationList)
+        mapView.zoomMapToRadius(selectedRadius)
     }
-   
+    
+    @IBAction func autocompleteClicked(_ sender: UIButton) {
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        present(autocompleteController, animated:true, completion: nil)
+    }
+    
 }
 
 extension TerminalSearchViewController : UITextFieldDelegate
@@ -125,10 +152,11 @@ extension TerminalSearchViewController : UITextFieldDelegate
         
         DataManager.sharedInstance.radius = selectedRadius
         
-        let currentLocation = mapView.getCurrentLocation()
-        mapView.addRadiusCircle(location: currentLocation)
-//        self.view.endEditing(true)
+        //        let currentLocation = mapView.getCurrentLocation()
+        //        mapView.addRadiusCircle(location: currentLocation)
+        //        self.view.endEditing(true)
     }
+    
     @objc func cancelClick() {
         radiusTextField.resignFirstResponder()
     }
@@ -154,3 +182,32 @@ extension TerminalSearchViewController : UITextFieldDelegate
         return radiusList[row]
     }
 }
+
+extension TerminalSearchViewController: GMSAutocompleteViewControllerDelegate {
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace){
+        dismiss(animated: true, completion: nil)
+        searchLocation = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        DispatchQueue.main.async { () -> Void in
+            self.mapView.setSearchLocation(self.searchLocation!)
+            //            self.mapView.moveMaptoLocation(location: self.searchLocation!)
+            self.mapLocations()
+        }
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        print("Error: ", error.localizedDescription)
+    }
+    
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+}
+

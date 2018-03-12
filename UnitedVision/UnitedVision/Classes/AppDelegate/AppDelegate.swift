@@ -8,6 +8,8 @@
 
 import UIKit
 import SlideMenuControllerSwift
+import GoogleMaps
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,18 +37,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let dataManager = DataManager.sharedInstance;
+//        let dataManager = DataManager.sharedInstance;
 //        dataManager.parseLocationInfo()
-        dataManager.parseTractorInfo()
+//        dataManager.parseTractorInfo()
         
-        dataManager.requestToCheckTokenValidity(completionHandler: {(status, message) in
-
-            dataManager.isLogin = status ? false : true
-        })
         
         self.customizeNavigationBar()
         self.createMenuView()
 
+        GMSServices.provideAPIKey(kGoogleAPIKey)
+        GMSPlacesClient.provideAPIKey(kGoogleAPIKey)
+        
         return true
     }
 
@@ -69,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DataManager.sharedInstance.requestToCheckTokenValidity(completionHandler: {(status, message) in
             
-            DataManager.sharedInstance.isLogin = status ? false : true
+            DataManager.sharedInstance.isLogin = status ? true : false
         })
         
     }

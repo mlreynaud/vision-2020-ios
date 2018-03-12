@@ -37,6 +37,11 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func cancelButtonAction(_ sender: UIButton)
+    {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func fetchFilterList()
     {
        if (filterType == .status)

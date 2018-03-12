@@ -3,22 +3,22 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01EE02DA0953E97297A22566DF909EBB /* SlideMenuControllerSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 79D652DC71307FFFC62994884DEB27EF /* SlideMenuControllerSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0211A1B6E41037F1476A90613C02F00E /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0463DECC433C8B3ECFF101AC485AA65 /* SlideMenuController.swift */; };
+		01EE02DA0953E97297A22566DF909EBB /* SlideMenuControllerSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 004015F4D404A14BF4C4E79555EFEE58 /* SlideMenuControllerSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0211A1B6E41037F1476A90613C02F00E /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DA6658F1CFCDF6AF997FEAA054BDB9 /* SlideMenuController.swift */; };
 		3CB2B2BB4BC4A75784F237EAD185888E /* Pods-UnitedVision-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5B0E4AE6F353125C4B72FBF65CBC48 /* Pods-UnitedVision-dummy.m */; };
 		63C737EFC7C5012CC3081363E89B2F6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		782C34F4A1ABCB57E54C34CE6C01F73C /* FZAccordionTableView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F6F2026890E04C388D97C9EE8E1E451 /* FZAccordionTableView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		782C34F4A1ABCB57E54C34CE6C01F73C /* FZAccordionTableView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C16D2C46D285EB17D4CECDD9303A799C /* FZAccordionTableView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7848F506C24A946C8F08FF5B423F31E7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		7E4E43838C554B19AA8BB78CF855CDBC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		9F5293C7D868F5344572C89DCF4F8FFD /* FZAccordionTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1007E43D95095524E6D6609F6D6BF265 /* FZAccordionTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A08C764A0959DF1F66056580B430872D /* FZAccordionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEAFAE5CA39F1CF7724C13FF1563A9A /* FZAccordionTableView.m */; };
+		9F5293C7D868F5344572C89DCF4F8FFD /* FZAccordionTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B5E5F118D7891FE05B24EEC08EBFBB6 /* FZAccordionTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A08C764A0959DF1F66056580B430872D /* FZAccordionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 511F08273DA620B15E3AA5A1C2558C23 /* FZAccordionTableView.m */; };
 		C009B9CFD7D6FF9FED55A8A9B550E964 /* Pods-UnitedVision-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8777289AA48430274FF37FFCC7A14386 /* Pods-UnitedVision-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C926D0670B5FA7AFF40E4444AEA38A5F /* FZAccordionTableView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C357953BEA61FF68134F03FA423F047 /* FZAccordionTableView-dummy.m */; };
-		D28143D7FB6647F9C2AD65A7A25DA98E /* SlideMenuControllerSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ED8D4FA71BC8B68053167D2D7F3CF68 /* SlideMenuControllerSwift-dummy.m */; };
+		C926D0670B5FA7AFF40E4444AEA38A5F /* FZAccordionTableView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9211A662977F8E634D267A34D6A905 /* FZAccordionTableView-dummy.m */; };
+		D28143D7FB6647F9C2AD65A7A25DA98E /* SlideMenuControllerSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D67CA920E4FCBC3C840628CCCDB790CD /* SlideMenuControllerSwift-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,36 +39,42 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		004015F4D404A14BF4C4E79555EFEE58 /* SlideMenuControllerSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SlideMenuControllerSwift-umbrella.h"; sourceTree = "<group>"; };
 		06870CB5FB1CE8AEB1BD9BC457444353 /* Pods-UnitedVision.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-UnitedVision.modulemap"; sourceTree = "<group>"; };
-		0D71EEC229A089C1CC6646F9A122EC7B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1007E43D95095524E6D6609F6D6BF265 /* FZAccordionTableView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FZAccordionTableView.h; path = FZAccordionTableView/FZAccordionTableView.h; sourceTree = "<group>"; };
 		1454F9971900F497BC775062771B123A /* Pods-UnitedVision-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UnitedVision-acknowledgements.plist"; sourceTree = "<group>"; };
-		167F2860FC5F9ADCA3AD6392A215F7C3 /* SlideMenuControllerSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SlideMenuControllerSwift.xcconfig; sourceTree = "<group>"; };
+		15E882D596DC4A7F783BCFCB69EBE310 /* GooglePlaces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlaces.framework; path = Frameworks/GooglePlaces.framework; sourceTree = "<group>"; };
+		17032683AC1572EC6F499866710BDEEC /* FZAccordionTableView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FZAccordionTableView.modulemap; sourceTree = "<group>"; };
+		267643E7B49FE12C84717B3DAC40DBE2 /* SlideMenuControllerSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SlideMenuControllerSwift-prefix.pch"; sourceTree = "<group>"; };
 		2899A37AF35263FF214AB38981270DB1 /* Pods-UnitedVision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UnitedVision.debug.xcconfig"; sourceTree = "<group>"; };
-		2C4D9408C038BE4C851C5BA68E5E37AA /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EEAFAE5CA39F1CF7724C13FF1563A9A /* FZAccordionTableView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FZAccordionTableView.m; path = FZAccordionTableView/FZAccordionTableView.m; sourceTree = "<group>"; };
-		2F6F2026890E04C388D97C9EE8E1E451 /* FZAccordionTableView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FZAccordionTableView-umbrella.h"; sourceTree = "<group>"; };
-		327E846ACBDDB30E7AA216E37F0E9F55 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3E534E16F081225EB828CACE8A9CE970 /* FZAccordionTableView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FZAccordionTableView.modulemap; sourceTree = "<group>"; };
-		5960110D591CAC5A6241900861836187 /* FZAccordionTableView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FZAccordionTableView.xcconfig; sourceTree = "<group>"; };
+		2C4D9408C038BE4C851C5BA68E5E37AA /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UnitedVision.framework; path = "Pods-UnitedVision.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		33485B9AA9917E61397C792F35F11481 /* SlideMenuControllerSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SlideMenuControllerSwift.xcconfig; sourceTree = "<group>"; };
+		3C7FC615A497FF568019AEA4C74789C2 /* GoogleMapsBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMapsBase.framework; path = Base/Frameworks/GoogleMapsBase.framework; sourceTree = "<group>"; };
+		4B5E5F118D7891FE05B24EEC08EBFBB6 /* FZAccordionTableView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FZAccordionTableView.h; path = FZAccordionTableView/FZAccordionTableView.h; sourceTree = "<group>"; };
+		511F08273DA620B15E3AA5A1C2558C23 /* FZAccordionTableView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FZAccordionTableView.m; path = FZAccordionTableView/FZAccordionTableView.m; sourceTree = "<group>"; };
 		5B2F1B71356210C17BAC370C1DD8B95D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5C357953BEA61FF68134F03FA423F047 /* FZAccordionTableView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FZAccordionTableView-dummy.m"; sourceTree = "<group>"; };
+		64EE6966F0CEF0E84D12F6D757276856 /* FZAccordionTableView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FZAccordionTableView.xcconfig; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		6ED6C206F0F4FB4B978BAE8B172056F3 /* FZAccordionTableView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FZAccordionTableView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		79D652DC71307FFFC62994884DEB27EF /* SlideMenuControllerSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SlideMenuControllerSwift-umbrella.h"; sourceTree = "<group>"; };
+		6ED6C206F0F4FB4B978BAE8B172056F3 /* FZAccordionTableView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FZAccordionTableView.framework; path = FZAccordionTableView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F9211A662977F8E634D267A34D6A905 /* FZAccordionTableView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FZAccordionTableView-dummy.m"; sourceTree = "<group>"; };
+		7C80B4CD0FF0EE54E4D298D5789EC7CB /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Maps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
 		7D59A8DA1F255419405F8CD9366B4B3A /* Pods-UnitedVision-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UnitedVision-frameworks.sh"; sourceTree = "<group>"; };
-		7FF7F6BEFEA1CDC0621862672591C41E /* FZAccordionTableView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FZAccordionTableView-prefix.pch"; sourceTree = "<group>"; };
 		80E8D2A09864C1E778E00B3395CB2033 /* Pods-UnitedVision-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UnitedVision-resources.sh"; sourceTree = "<group>"; };
 		8777289AA48430274FF37FFCC7A14386 /* Pods-UnitedVision-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-UnitedVision-umbrella.h"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9ED8D4FA71BC8B68053167D2D7F3CF68 /* SlideMenuControllerSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SlideMenuControllerSwift-dummy.m"; sourceTree = "<group>"; };
-		A0E62C363AE5E451447DD7F4633661A5 /* SlideMenuControllerSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SlideMenuControllerSwift.modulemap; sourceTree = "<group>"; };
-		A49638FA9A95E6B5DF48B03B839A2E09 /* SlideMenuControllerSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SlideMenuControllerSwift-prefix.pch"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A75E8222F0752E1715706F9BF5F0519F /* GooglePlaces.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle; sourceTree = "<group>"; };
 		B45A1C5C2C46E61D71661E88FE61C3F1 /* Pods-UnitedVision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UnitedVision.release.xcconfig"; sourceTree = "<group>"; };
-		D0463DECC433C8B3ECFF101AC485AA65 /* SlideMenuController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SlideMenuController.swift; path = Source/SlideMenuController.swift; sourceTree = "<group>"; };
+		C16D2C46D285EB17D4CECDD9303A799C /* FZAccordionTableView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FZAccordionTableView-umbrella.h"; sourceTree = "<group>"; };
+		C550A3E49585F50565B5B24EF9CB715C /* SlideMenuControllerSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SlideMenuControllerSwift.modulemap; sourceTree = "<group>"; };
+		CA66A9FF5E40EC4272A635B5AACDC754 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D21A29AD4F60749096BE43C6A311F79E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D627963D1A78F8974734C9D56041B0F7 /* Pods-UnitedVision-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UnitedVision-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D67CA920E4FCBC3C840628CCCDB790CD /* SlideMenuControllerSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SlideMenuControllerSwift-dummy.m"; sourceTree = "<group>"; };
+		D7A6931139A294DABF6F085CDEED4739 /* GoogleMapsCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMapsCore.framework; path = Maps/Frameworks/GoogleMapsCore.framework; sourceTree = "<group>"; };
+		E0698E9092C16EBE33ACDE82FD256D97 /* GoogleMaps.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		EC5B0E4AE6F353125C4B72FBF65CBC48 /* Pods-UnitedVision-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UnitedVision-dummy.m"; sourceTree = "<group>"; };
-		F2436C79DF74ACBB8EFE621EB00CD9DD /* SlideMenuControllerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SlideMenuControllerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1DA6658F1CFCDF6AF997FEAA054BDB9 /* SlideMenuController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SlideMenuController.swift; path = Source/SlideMenuController.swift; sourceTree = "<group>"; };
+		F2436C79DF74ACBB8EFE621EB00CD9DD /* SlideMenuControllerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SlideMenuControllerSwift.framework; path = SlideMenuControllerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F67FB402CB7F693C880FD674F18F5780 /* FZAccordionTableView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FZAccordionTableView-prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,12 +105,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		261F523FEFC44F47FA06CE678FE445F5 /* FZAccordionTableView */ = {
+			isa = PBXGroup;
+			children = (
+				4B5E5F118D7891FE05B24EEC08EBFBB6 /* FZAccordionTableView.h */,
+				511F08273DA620B15E3AA5A1C2558C23 /* FZAccordionTableView.m */,
+				EF988FBCB63B6F5DA1FDD595CF94470F /* Support Files */,
+			);
+			name = FZAccordionTableView;
+			path = FZAccordionTableView;
+			sourceTree = "<group>";
+		};
 		29B933C843C10ED196E893F3C94E9ECD /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
 				41F9FEA0956AD5C4DCE947262138ABF7 /* Pods-UnitedVision */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		2EC3DFBC0CCA1C9027A149397CD2107A /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				4DC916AAE40E6B99B394396B3B8B8F36 /* Frameworks */,
+				885DC243325D92591BAE9F4BD2DF8026 /* Resources */,
+			);
+			name = Maps;
 			sourceTree = "<group>";
 		};
 		41F9FEA0956AD5C4DCE947262138ABF7 /* Pods-UnitedVision */ = {
@@ -125,13 +151,27 @@
 			path = "Target Support Files/Pods-UnitedVision";
 			sourceTree = "<group>";
 		};
-		5D165D6B0A8995523F3F821ED5747DA7 /* SlideMenuControllerSwift */ = {
+		4DC916AAE40E6B99B394396B3B8B8F36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D0463DECC433C8B3ECFF101AC485AA65 /* SlideMenuController.swift */,
-				E2A39FED70DCB1996F5D20B7260B6EFF /* Support Files */,
+				7C80B4CD0FF0EE54E4D298D5789EC7CB /* GoogleMaps.framework */,
+				D7A6931139A294DABF6F085CDEED4739 /* GoogleMapsCore.framework */,
 			);
-			path = SlideMenuControllerSwift;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		69CA1DB22C7AE07B9DF6F08A167B00EC /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				D21A29AD4F60749096BE43C6A311F79E /* Info.plist */,
+				C550A3E49585F50565B5B24EF9CB715C /* SlideMenuControllerSwift.modulemap */,
+				33485B9AA9917E61397C792F35F11481 /* SlideMenuControllerSwift.xcconfig */,
+				D67CA920E4FCBC3C840628CCCDB790CD /* SlideMenuControllerSwift-dummy.m */,
+				267643E7B49FE12C84717B3DAC40DBE2 /* SlideMenuControllerSwift-prefix.pch */,
+				004015F4D404A14BF4C4E79555EFEE58 /* SlideMenuControllerSwift-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SlideMenuControllerSwift";
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -139,20 +179,26 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				E39DBC9CCC5CD9A50FF34ACE34C0DB0F /* Pods */,
+				A24138EED9C56281CAC1EA7AE8529821 /* Pods */,
 				94B1CA98F2C7A03629029CE3B169D518 /* Products */,
 				29B933C843C10ED196E893F3C94E9ECD /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		8A2B89319A860629A3226D47A2DD8DDB /* FZAccordionTableView */ = {
+		878021BFF62E193F4D37F82FCAD58654 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				1007E43D95095524E6D6609F6D6BF265 /* FZAccordionTableView.h */,
-				2EEAFAE5CA39F1CF7724C13FF1563A9A /* FZAccordionTableView.m */,
-				B8240C581B06ED1720F7197FDF551BAD /* Support Files */,
+				DBD95B0AA67D418FEBDF651E57E6775D /* Frameworks */,
 			);
-			path = FZAccordionTableView;
+			name = Base;
+			sourceTree = "<group>";
+		};
+		885DC243325D92591BAE9F4BD2DF8026 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E0698E9092C16EBE33ACDE82FD256D97 /* GoogleMaps.bundle */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		94B1CA98F2C7A03629029CE3B169D518 /* Products */ = {
@@ -165,18 +211,33 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B8240C581B06ED1720F7197FDF551BAD /* Support Files */ = {
+		A24138EED9C56281CAC1EA7AE8529821 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3E534E16F081225EB828CACE8A9CE970 /* FZAccordionTableView.modulemap */,
-				5960110D591CAC5A6241900861836187 /* FZAccordionTableView.xcconfig */,
-				5C357953BEA61FF68134F03FA423F047 /* FZAccordionTableView-dummy.m */,
-				7FF7F6BEFEA1CDC0621862672591C41E /* FZAccordionTableView-prefix.pch */,
-				2F6F2026890E04C388D97C9EE8E1E451 /* FZAccordionTableView-umbrella.h */,
-				327E846ACBDDB30E7AA216E37F0E9F55 /* Info.plist */,
+				261F523FEFC44F47FA06CE678FE445F5 /* FZAccordionTableView */,
+				FEEAF7860FCE38D3067E7733ABAD84D2 /* GoogleMaps */,
+				A29B4AF73B513AB29B30D52709D6355A /* GooglePlaces */,
+				EB45B63CE910A0BA6555374E41C8756F /* SlideMenuControllerSwift */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/FZAccordionTableView";
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A29B4AF73B513AB29B30D52709D6355A /* GooglePlaces */ = {
+			isa = PBXGroup;
+			children = (
+				A3FCD55174F369AC96324EAAAE045F5C /* Frameworks */,
+				D4E4A212EC31F9AE5A35160A5882EEFD /* Resources */,
+			);
+			name = GooglePlaces;
+			path = GooglePlaces;
+			sourceTree = "<group>";
+		};
+		A3FCD55174F369AC96324EAAAE045F5C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				15E882D596DC4A7F783BCFCB69EBE310 /* GooglePlaces.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -195,27 +256,54 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		E2A39FED70DCB1996F5D20B7260B6EFF /* Support Files */ = {
+		D4E4A212EC31F9AE5A35160A5882EEFD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0D71EEC229A089C1CC6646F9A122EC7B /* Info.plist */,
-				A0E62C363AE5E451447DD7F4633661A5 /* SlideMenuControllerSwift.modulemap */,
-				167F2860FC5F9ADCA3AD6392A215F7C3 /* SlideMenuControllerSwift.xcconfig */,
-				9ED8D4FA71BC8B68053167D2D7F3CF68 /* SlideMenuControllerSwift-dummy.m */,
-				A49638FA9A95E6B5DF48B03B839A2E09 /* SlideMenuControllerSwift-prefix.pch */,
-				79D652DC71307FFFC62994884DEB27EF /* SlideMenuControllerSwift-umbrella.h */,
+				A75E8222F0752E1715706F9BF5F0519F /* GooglePlaces.bundle */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/SlideMenuControllerSwift";
+			name = Resources;
 			sourceTree = "<group>";
 		};
-		E39DBC9CCC5CD9A50FF34ACE34C0DB0F /* Pods */ = {
+		DBD95B0AA67D418FEBDF651E57E6775D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8A2B89319A860629A3226D47A2DD8DDB /* FZAccordionTableView */,
-				5D165D6B0A8995523F3F821ED5747DA7 /* SlideMenuControllerSwift */,
+				3C7FC615A497FF568019AEA4C74789C2 /* GoogleMapsBase.framework */,
 			);
-			name = Pods;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EB45B63CE910A0BA6555374E41C8756F /* SlideMenuControllerSwift */ = {
+			isa = PBXGroup;
+			children = (
+				F1DA6658F1CFCDF6AF997FEAA054BDB9 /* SlideMenuController.swift */,
+				69CA1DB22C7AE07B9DF6F08A167B00EC /* Support Files */,
+			);
+			name = SlideMenuControllerSwift;
+			path = SlideMenuControllerSwift;
+			sourceTree = "<group>";
+		};
+		EF988FBCB63B6F5DA1FDD595CF94470F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				17032683AC1572EC6F499866710BDEEC /* FZAccordionTableView.modulemap */,
+				64EE6966F0CEF0E84D12F6D757276856 /* FZAccordionTableView.xcconfig */,
+				6F9211A662977F8E634D267A34D6A905 /* FZAccordionTableView-dummy.m */,
+				F67FB402CB7F693C880FD674F18F5780 /* FZAccordionTableView-prefix.pch */,
+				C16D2C46D285EB17D4CECDD9303A799C /* FZAccordionTableView-umbrella.h */,
+				CA66A9FF5E40EC4272A635B5AACDC754 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/FZAccordionTableView";
+			sourceTree = "<group>";
+		};
+		FEEAF7860FCE38D3067E7733ABAD84D2 /* GoogleMaps */ = {
+			isa = PBXGroup;
+			children = (
+				878021BFF62E193F4D37F82FCAD58654 /* Base */,
+				2EC3DFBC0CCA1C9027A149397CD2107A /* Maps */,
+			);
+			name = GoogleMaps;
+			path = GoogleMaps;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -469,7 +557,7 @@
 		};
 		C3E459132471E178B04B8A0FCE335413 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5960110D591CAC5A6241900861836187 /* FZAccordionTableView.xcconfig */;
+			baseConfigurationReference = 64EE6966F0CEF0E84D12F6D757276856 /* FZAccordionTableView.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -483,7 +571,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/FZAccordionTableView/FZAccordionTableView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/FZAccordionTableView/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/FZAccordionTableView/FZAccordionTableView.modulemap";
 				PRODUCT_NAME = FZAccordionTableView;
@@ -499,7 +587,7 @@
 		};
 		C87B1BFA0AB1DE2096C4A7D44C6EF011 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5960110D591CAC5A6241900861836187 /* FZAccordionTableView.xcconfig */;
+			baseConfigurationReference = 64EE6966F0CEF0E84D12F6D757276856 /* FZAccordionTableView.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -513,7 +601,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/FZAccordionTableView/FZAccordionTableView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/FZAccordionTableView/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/FZAccordionTableView/FZAccordionTableView.modulemap";
 				PRODUCT_NAME = FZAccordionTableView;
@@ -593,7 +681,7 @@
 		};
 		ED459D10373A6F696683BF464B3B7C8D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 167F2860FC5F9ADCA3AD6392A215F7C3 /* SlideMenuControllerSwift.xcconfig */;
+			baseConfigurationReference = 33485B9AA9917E61397C792F35F11481 /* SlideMenuControllerSwift.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -658,7 +746,7 @@
 		};
 		F864FDCC741A86E9C7E1A482B608540E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 167F2860FC5F9ADCA3AD6392A215F7C3 /* SlideMenuControllerSwift.xcconfig */;
+			baseConfigurationReference = 33485B9AA9917E61397C792F35F11481 /* SlideMenuControllerSwift.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";

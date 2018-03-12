@@ -1,15 +1,26 @@
 PODS:
   - FZAccordionTableView (0.2.3)
+  - GoogleMaps (2.6.0):
+    - GoogleMaps/Maps (= 2.6.0)
+  - GoogleMaps/Base (2.6.0)
+  - GoogleMaps/Maps (2.6.0):
+    - GoogleMaps/Base
+  - GooglePlaces (2.6.0):
+    - GoogleMaps/Base (= 2.6.0)
   - SlideMenuControllerSwift (4.0.0)
 
 DEPENDENCIES:
   - FZAccordionTableView
+  - GoogleMaps
+  - GooglePlaces
   - SlideMenuControllerSwift
 
 SPEC CHECKSUMS:
   FZAccordionTableView: e64f49c71c32d750feda14025b088bcd25d1a71f
+  GoogleMaps: 42f91c68b7fa2f84d5c86597b18ceb99f5414c7f
+  GooglePlaces: f6ddf33b75cef69e888907d9947c57198ed845f3
   SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
 
-PODFILE CHECKSUM: 03370a35088a285ee21effaa3af59beda32d9f05
+PODFILE CHECKSUM: 47a2b36e69ab42bc270fc28b9f92a5be39c3c817
 
 COCOAPODS: 1.4.0

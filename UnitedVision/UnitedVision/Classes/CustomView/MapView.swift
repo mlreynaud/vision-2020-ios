@@ -8,19 +8,34 @@
 
 import Foundation
 import MapKit
+import GoogleMaps
+import GooglePlaces
 
-class MapView: UIView, MKMapViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
+class MapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
-    @IBOutlet weak var map : MKMapView!
+        
+    @IBOutlet var map: GMSMapView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var autocompleteTableView: UITableView!
-
-    var matchingItems: [MKMapItem] = []
+        
+        var searchLocation: CLLocation!
+        var radius: Int = 50
     
     let nibName = "MapView"
     var view : UIView!
     
+        
+        var locationManager = CLLocationManager()
+        var currentLocation: CLLocation?
+        var placesClient: GMSPlacesClient!
+    
+    
+    var kDefaultZoom: Float = 8.0
+    
+        var zoomLevel: Float = 15.0
+        
+        
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         xibSetUp()
@@ -40,16 +55,23 @@ class MapView: UIView, MKMapViewDelegate, UISearchBarDelegate, UITableViewDataSo
     
     func initialSetup()
     {
-        UIUtils.transparentSearchBarBackgrund(self.searchBar)
-
+        map.isMyLocationEnabled = true
+        map.settings.myLocationButton = true
+        map.settings.compassButton = true
+//        map.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        map.padding = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
+        map.delegate = self
         
-        // register Nibs
-        self.autocompleteTableView.register(UITableViewCell.self, forCellReuseIdentifier: "CurrentLocationTableCell")
-        
-        self.autocompleteTableView.register(UINib(nibName: "AutocompleteTableCell", bundle: Bundle.main), forCellReuseIdentifier: "AutocompleteTableCell")
+        searchLocation = self.getCurrentLocation()
 
-        autocompleteTableView.estimatedRowHeight = 100
-        autocompleteTableView.rowHeight = UITableViewAutomaticDimension
+//        locationManager = CLLocationManager()
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.requestAlwaysAuthorization()
+//        locationManager.distanceFilter = 50
+//        locationManager.startUpdatingLocation()
+//        locationManager.delegate = self
+        
+        zoomLevel = kDefaultZoom
     }
     
     func loadViewFromNib() ->UIView {
@@ -58,182 +80,38 @@ class MapView: UIView, MKMapViewDelegate, UISearchBarDelegate, UITableViewDataSo
         let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         return view
     }
+        
+        
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        let userLocation = locations.last
+//        currentLocation = userLocation
+//        if searchLocation == nil {
+//            searchLocation = userLocation!
+//            moveMaptoLocation(location: currentLocation!)
+//        }
+//        locationManager.stopUpdatingLocation()
+//        
+//    }
     
     
     @IBAction func zoomOutButtonClicked(sender: UIButton)
     {
-        let span = MKCoordinateSpan(latitudeDelta: map.region.span.latitudeDelta*2, longitudeDelta: map.region.span.longitudeDelta*2)
-        let region = MKCoordinateRegion(center: map.region.center, span: span)
-        
-        map.setRegion(region, animated: true)
+        self.map.animate(toZoom: self.map.camera.zoom + 0.5)
     }
     
     @IBAction func zoomInButtonClicked(sender: UIButton)
     {
-        let span = MKCoordinateSpan(latitudeDelta: map.region.span.latitudeDelta/2, longitudeDelta: map.region.span.longitudeDelta/2)
-        let region = MKCoordinateRegion(center: map.region.center, span: span)
-        
-        map.setRegion(region, animated: true)
+        self.map.animate(toZoom: self.map.camera.zoom - 0.5)
     }
 
-}
-
-extension MapView
-{
-    func searchBarBecomeFirstResponder ()
-    {
-        self.searchBar.becomeFirstResponder()
-        let text = (self.searchBar.text?.trimmingCharacters(in: CharacterSet.whitespaces))!
-        if (text.count > 0){
-            self.searchAutocompleteEntriesWithSubstring(text)
-        }
-        
-    }
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        let text = searchText.trimmingCharacters(in: CharacterSet.whitespaces)
-        
-        NSObject.cancelPreviousPerformRequests(withTarget: self)
-        
-        guard (text.count != 0) else{
-            searchBar.text = ""
-            print("No Search String");
-            return
-        }
-        
-        self.perform(#selector(searchAutocompleteEntriesWithSubstring) , with:searchBar.text, afterDelay: 0.5)
-        
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        //        AppPrefData.sharedInstance.homeSearchText = searchBar.text
-        //        AppPrefData.sharedInstance.saveAllData()
-        let searchBarText = searchBar.text?.trimmingCharacters(in: CharacterSet.whitespaces)
-        guard searchBarText?.count != 0 else {
-            searchBar.text = ""
-            print("No Search String");
-            return
-        }
-        
-        //        self.searchTractor()
-        
-    }
-    
-    @objc func searchAutocompleteEntriesWithSubstring(_ searchText: String)
-    {
-        // Request to fetch autocomplete text
-        
-        let request = MKLocalSearchRequest()
-        request.naturalLanguageQuery = searchText
-        request.region = map.region
-        let search = MKLocalSearch(request: request)
-        
-        search.start { response, _ in
-            guard let response = response else {
-                return
-            }
-            self.matchingItems = response.mapItems
-            
-            print(self.matchingItems)
-            self.autocompleteTableView.reloadData()
-        }
-        
-        self.autocompleteTableView.isHidden = false
-    }
-    
-    func parseAddress(selectedItem:MKPlacemark) -> String {
-        
-        // put a space between "4" and "Melrose Place"
-        let firstSpace = (selectedItem.subThoroughfare != nil &&
-            selectedItem.thoroughfare != nil) ? " " : ""
-        
-        // put a comma between street and city/state
-        let comma = (selectedItem.subThoroughfare != nil || selectedItem.thoroughfare != nil) &&
-            (selectedItem.subAdministrativeArea != nil || selectedItem.administrativeArea != nil) ? ", " : ""
-        
-        // put a space between "Washington" and "DC"
-        let secondSpace = (selectedItem.subAdministrativeArea != nil &&
-            selectedItem.administrativeArea != nil) ? " " : ""
-        
-        let addressLine = String(
-            format:"%@%@%@%@%@%@%@",
-            // street number
-            selectedItem.subThoroughfare ?? "",
-            firstSpace,
-            // street name
-            selectedItem.thoroughfare ?? "",
-            comma,
-            // city
-            selectedItem.locality ?? "",
-            secondSpace,
-            // state
-            selectedItem.administrativeArea ?? ""
-        )
-        
-        return addressLine
+    func setSearchLocation(_ location: CLLocation) {
+        self.searchLocation = location
     }
 }
 
+
 extension MapView
 {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.matchingItems.count + 1;
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //        var cell : AutocompleteTableCell!
-        
-        if (indexPath.row == 0){
-            
-            let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "CurrentLocationTableCell", for: indexPath)
-            cell.textLabel?.text = "Current Location";
-            cell.textLabel?.textColor = .blue
-            return cell;
-        }
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AutocompleteTableCell", for: indexPath) as! AutocompleteTableCell
-        
-        let info: MKMapItem = self.matchingItems[indexPath.row - 1]
-        let placemark = info.placemark
-        if info.isCurrentLocation == false
-        {
-            cell.titleLabel.text = placemark.name!
-            cell.subtitleLabel.text = self.parseAddress(selectedItem: placemark)
-        }
-        else
-        {
-            cell.titleLabel.text = info.name!
-        }
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
-        self.searchBar.resignFirstResponder()
-        tableView.isHidden = true
-        
-        if (indexPath.row == 0)
-        {
-            //            let coordinate = DataManager.sharedInstance.userLocation
-            //            let currentLocation = CLLocation(latitude: (coordinate?.latitude)!, longitude: (coordinate?.longitude)!)
-            //            self.moveMaptoLocation(location: currentLocation)
-            
-            self.moveMapToCurrentLocation()
-            return
-        }
-        
-        let info: MKMapItem = self.matchingItems[indexPath.row - 1]
-        let placemark = info.placemark
-        searchBar.text = placemark.name
-        
-        self.moveMaptoLocation(location: placemark.location!)
-    }
-    
     func moveMapToCurrentLocation()
     {
         let currentLocation = self.getCurrentLocation()
@@ -281,56 +159,61 @@ extension MapView
             return pinView
         }
     
-    // MARK-
         
-        func addRadiusCircle(location: CLLocation)
+        func addRadiusCircle()
         {
-            let overlays = map.overlays
-            map.removeOverlays(overlays)
-            
-            let radiusInMile = DataManager.sharedInstance.radius
-            let radiusInMeter = CLLocationDistance(radiusInMile) * 1609.34
-            let circle = MKCircle(center: location.coordinate, radius: CLLocationDistance(radiusInMeter))
-            self.map.add(circle)
+            let meterRadius = DataManager.sharedInstance.radius * 1609
+            let circle: GMSCircle = GMSCircle(position: (searchLocation?.coordinate)!,
+                                              radius: CLLocationDistance(meterRadius))
+            circle.map = map
         }
     
-    func addAnnotationList(_ annotationList: [MKPointAnnotation])
+    func addLocationList(_ locationList: [LocationInfo])
     {
-        if map.annotations.count != 0 {
-            map.removeAnnotations(map.annotations)
+        map.clear()
+        for location in locationList {
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: -location.longitude)
+            //            marker.snippet = location.detail
+            marker.map = map
         }
-        
-        map.addAnnotations(annotationList)
-       map.showAnnotations(annotationList, animated: true);
+        addRadiusCircle()
     }
     
-//        func removeAllAnnotations()
-//        {
-//            let annotations = mapView.annotations.filter {
-//                $0 !== self.mapView.userLocation
-//            }
-//            map.removeAnnotations(annotations)
-//        }
-    
-    func createAnnotation(coordinate:CLLocationCoordinate2D) -> MKPointAnnotation
+    func addTractorList(_ tractorList: [TractorInfo])
     {
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate //CLLocationCoordinate2DMake(info.latitude, info.longitude)
-        
-        //        annotation.subtitle = (info.originCity)! + "-" + (info.destinationCity)!
-        return annotation
-        
+        map.clear()
+        for location in tractorList {
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: -location.longitude)
+            //            marker.snippet = location.detail
+            marker.map = map
+        }
+        addRadiusCircle()
     }
     
     func moveMaptoLocation(location: CLLocation){
-        
-//        let span = MKCoordinateSpanMake(0.05, 0.05)
-        let span = MKCoordinateSpanMake(2.0, 2.0)
-        let region = MKCoordinateRegion(center: location.coordinate, span: span)
-        map.setRegion(region, animated: true)
+        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
+                                              longitude: location.coordinate.longitude,
+                                              zoom: self.zoomLevel)
+        self.map.animate(to: camera)
     }
 
+    
+    func zoomMapToRadius(_ radius: Int) {
+        let center: CLLocationCoordinate2D = searchLocation!.coordinate
+        let meterRadius = CLLocationDistance(radius*1609)
+        let n: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 0)
+        let e: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 90)
+        let s: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 180)
+        let w: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 270)
         
+        var bounds: GMSCoordinateBounds = GMSCoordinateBounds.init()
+        bounds = bounds.includingCoordinate(n).includingCoordinate(e).includingCoordinate(s).includingCoordinate(w)
+        map.animate(with: GMSCameraUpdate.fit(bounds))
+    }
+    
+    
         //    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
         //    {
         //        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)

@@ -9,5 +9,7 @@ target 'UnitedVision' do
 
 pod 'SlideMenuControllerSwift'
 pod 'FZAccordionTableView'
+pod 'GoogleMaps'
+pod 'GooglePlaces'
 
 end

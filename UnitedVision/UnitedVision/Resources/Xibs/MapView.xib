@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapView" customModule="UnitedVision" customModuleProvider="target">
             <connections>
                 <outlet property="autocompleteTableView" destination="QwD-J8-iQl" id="dRX-N6-u4d"/>
-                <outlet property="map" destination="lDu-fF-Dcr" id="G1f-oq-IMK"/>
+                <outlet property="map" destination="rN9-rU-81U" id="Xnr-Cj-TyR"/>
                 <outlet property="searchBar" destination="UpW-gj-u0G" id="Tds-O3-8IK"/>
             </connections>
         </placeholder>
@@ -22,12 +22,11 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="lDu-fF-Dcr">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rN9-rU-81U" customClass="GMSMapView">
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="UoI-KR-nJO"/>
-                    </connections>
-                </mapView>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <viewLayoutGuide key="safeArea" id="VLl-8g-XTJ"/>
+                </view>
                 <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QwD-J8-iQl">
                     <rect key="frame" x="0.0" y="70" width="375" height="597"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -47,13 +46,13 @@
                     </connections>
                 </searchBar>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DAp-NC-HYY" customClass="CardView" customModule="UnitedVision" customModuleProvider="target">
-                    <rect key="frame" x="295" y="517" width="50" height="100"/>
+                    <rect key="frame" x="310" y="547" width="55" height="100"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="MZ4-x7-N1D">
-                            <rect key="frame" x="1" y="1" width="48" height="98"/>
+                            <rect key="frame" x="1" y="1" width="53" height="98"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="An0-4Z-l4H">
-                                    <rect key="frame" x="0.0" y="0.0" width="48" height="48.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="53" height="48.5"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                     <state key="normal" title="+">
@@ -64,7 +63,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7So-jW-Ib2">
-                                    <rect key="frame" x="0.0" y="49.5" width="48" height="48.5"/>
+                                    <rect key="frame" x="0.0" y="49.5" width="53" height="48.5"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                     <state key="normal" title="-">
@@ -77,11 +76,10 @@
                             </subviews>
                         </stackView>
                     </subviews>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="MZ4-x7-N1D" firstAttribute="leading" secondItem="DAp-NC-HYY" secondAttribute="leading" constant="1" id="ACp-p1-8i6"/>
                         <constraint firstAttribute="height" constant="100" id="OP5-vN-koZ"/>
-                        <constraint firstAttribute="width" constant="50" id="i9V-7D-RQD"/>
+                        <constraint firstAttribute="width" constant="55" id="i9V-7D-RQD"/>
                         <constraint firstAttribute="bottom" secondItem="MZ4-x7-N1D" secondAttribute="bottom" constant="1" id="lcw-eN-bSl"/>
                         <constraint firstAttribute="trailing" secondItem="MZ4-x7-N1D" secondAttribute="trailing" constant="1" id="phu-BG-MGj"/>
                         <constraint firstItem="MZ4-x7-N1D" firstAttribute="top" secondItem="DAp-NC-HYY" secondAttribute="top" constant="1" id="yUo-r1-ZQD"/>
@@ -92,19 +90,24 @@
             <constraints>
                 <constraint firstItem="QwD-J8-iQl" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="1Bb-tO-zju"/>
                 <constraint firstItem="UpW-gj-u0G" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="2QZ-gt-m8S"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="lDu-fF-Dcr" secondAttribute="bottom" id="80T-2d-C8M"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="DAp-NC-HYY" secondAttribute="trailing" constant="30" id="QAn-9n-lo0"/>
+                <constraint firstItem="rN9-rU-81U" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="Hqw-xa-LOq"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="DAp-NC-HYY" secondAttribute="trailing" constant="10" id="QAn-9n-lo0"/>
                 <constraint firstItem="QwD-J8-iQl" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="ZNq-gm-Grg"/>
                 <constraint firstItem="UpW-gj-u0G" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="bWz-6B-AKP"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="lDu-fF-Dcr" secondAttribute="trailing" id="c9x-PC-RI3"/>
-                <constraint firstItem="lDu-fF-Dcr" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="e0O-6v-1Tc"/>
-                <constraint firstItem="lDu-fF-Dcr" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="eoD-3c-Ttf"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rN9-rU-81U" secondAttribute="trailing" id="c9x-PC-RI3"/>
+                <constraint firstItem="rN9-rU-81U" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="e0O-6v-1Tc"/>
+                <constraint firstItem="rN9-rU-81U" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="eoD-3c-Ttf"/>
                 <constraint firstItem="QwD-J8-iQl" firstAttribute="top" secondItem="UpW-gj-u0G" secondAttribute="bottom" id="fln-JT-r3X"/>
                 <constraint firstItem="QwD-J8-iQl" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="h6m-TX-SGM"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="DAp-NC-HYY" secondAttribute="bottom" constant="50" id="wqO-LC-SZe"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="DAp-NC-HYY" secondAttribute="bottom" constant="20" id="wqO-LC-SZe"/>
                 <constraint firstItem="UpW-gj-u0G" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="xw0-hi-YXG"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="QwD-J8-iQl"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="33.5" y="54.5"/>
         </view>
     </objects>

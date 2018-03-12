@@ -20,9 +20,11 @@ class TerminalTableCell: UITableViewCell {
     @IBOutlet weak var leftSecondLabel: UILabel!
     @IBOutlet weak var leftThirdLabel: UILabel!
     @IBOutlet weak var leftFourthLabel: UILabel!
+    @IBOutlet weak var leftFifthLabel: UILabel!
+
     @IBOutlet weak var rightFirstLabel: UILabel!
     @IBOutlet weak var rightSecondLabel: UILabel!
-    
+
     @IBOutlet weak var loadedButton: UIButton!
     @IBOutlet weak var hazmartButton: UIButton!
     
@@ -44,9 +46,11 @@ class TerminalTableCell: UITableViewCell {
     func showTractorInfo(_ info:TractorInfo) {
         
         leftFirstLabel.attributedText = ("TERMINAL: " + info.terminal!).createAttributedString(subString: info.terminal! , subStringColor: .darkGray)
-        leftSecondLabel.attributedText = ("TRACTOR: " + info.tractorType!).createAttributedString(subString: info.tractorType! , subStringColor: .darkGray)
-        leftThirdLabel.attributedText = ("TRAILER: " + info.trailerType!).createAttributedString(subString: info.trailerType! , subStringColor: .darkGray)
-        leftFourthLabel.attributedText = ("TRAILER LENGTH: " + info.trailerLength!).createAttributedString(subString: info.trailerLength! , subStringColor: .darkGray)
+        leftSecondLabel.attributedText = ("DEST: " + info.destinationCity!).createAttributedString(subString: info.destinationCity! , subStringColor: .darkGray)
+        leftThirdLabel.attributedText = ("TRACTOR: " + info.tractorType!).createAttributedString(subString: info.tractorType! , subStringColor: .darkGray)
+        leftFourthLabel.attributedText = ("TRAILER: " + info.trailerType!).createAttributedString(subString: info.trailerType! , subStringColor: .darkGray)
+        
+        leftFifthLabel.attributedText = ("TRAILER LENGTH: " + info.trailerLength!).createAttributedString(subString: info.trailerLength! , subStringColor: .darkGray)
         
         rightFirstLabel.attributedText = ("DISTANCE: " + info.distanceFromShipper!).createAttributedString(subString: info.distanceFromShipper! , subStringColor: .darkGray)
         rightSecondLabel.attributedText = ("STATUS: " + info.status!).createAttributedString(subString: info.status! , subStringColor: .darkGray)

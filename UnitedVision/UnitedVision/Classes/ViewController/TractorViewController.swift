@@ -9,7 +9,10 @@
 import UIKit
 import MapKit
 
-class TractorViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MKMapViewDelegate, TerminalTableCellDelegate {
+import GoogleMaps
+import GooglePlaces
+
+class TractorViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MKMapViewDelegate, TerminalTableCellDelegate, GMSMapViewDelegate {
 
     @IBOutlet weak var tableView : UITableView!
     
@@ -17,7 +20,10 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
    // @IBOutlet weak var mapView: MKMapView!
    // @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl : UISegmentedControl!
-
+    var searchLocation: CLLocation?
+    
+    var selectedRadius =  50
+    
     var showMap = false
 
     let tractorSearchInfo = TractorSearchInfo()
@@ -34,13 +40,14 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addUnderlineForSelectedSegment()
 
-//        self.fetchTractorLocations()
+        self.fetchTractorLocations()
         
         mapView.initialSetup()
-        
-        tractorArray = DataManager.sharedInstance.tractorList
-        self.addTractorAnnotations()
-        tableView.reloadData()
+        searchLocation = mapView.getCurrentLocation()
+
+//        tractorArray = DataManager.sharedInstance.tractorList
+//        self.addTractorAnnotations()
+//        tableView.reloadData()
         
         self.view.backgroundColor = UIColor.white
 
@@ -52,7 +59,6 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         {
             self.setNavigationBarItem()
         }
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,7 +91,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     @IBAction func filterButtonAction()
     {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "FilterViewController") as! FilterViewController
+        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TractorFilterViewController") as! TractorFilterViewController
         self.navigationController?.pushViewController(viewCtrl, animated: true)
     }
     
@@ -111,27 +117,33 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
                 self.addTractorAnnotations()
                 self.tableView.reloadData()
             }
-            
         })
     }
         
     
     func addTractorAnnotations()
     {
-        var annotationList = [MKPointAnnotation]()
+        var mapLocationList: [TractorInfo] = []
         
         for info in tractorArray
         {
-            let annotation = self.createAnnotation(coordinate: CLLocationCoordinate2DMake(info.latitude, info.longitude))
+//            let annotation = self.createAnnotation(coordinate: CLLocationCoordinate2DMake(info.latitude, info.longitude))
+//
+//            annotation.title =  "Tractor ID - \(info.tractorId!)"
+//            annotation.subtitle = "\(info.originCity!) - \(info.destinationCity!)"
+//
+//            annotationList.append(annotation)
             
-            annotation.title =  "Tractor ID - \(info.tractorId!)"
-            annotation.subtitle = "\(info.originCity!) - \(info.destinationCity!)"
-            
-            annotationList.append(annotation)
+            let dist = GMSGeometryDistance(CLLocationCoordinate2DMake(info.latitude,-info.longitude),
+                                           CLLocationCoordinate2DMake((searchLocation?.coordinate.latitude)!,
+                                                                      (searchLocation?.coordinate.longitude)!)) / 1609
+            if (Int(dist) <= selectedRadius) {
+                mapLocationList.append(info)
+            }
            
         }
-        mapView.map.addAnnotations(annotationList)
-        mapView.map.showAnnotations(annotationList, animated: true);
+        mapView.addTractorList(mapLocationList)
+        mapView.zoomMapToRadius(selectedRadius)
         
     }
 }
@@ -233,5 +245,33 @@ extension TractorViewController
     //        self.navigationController?.pushViewController(viewCtrl, animated: true)
     //    }
     
+}
+
+extension TractorViewController: GMSAutocompleteViewControllerDelegate {
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace){
+        dismiss(animated: true, completion: nil)
+        searchLocation = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        DispatchQueue.main.async { () -> Void in
+            self.mapView.setSearchLocation(self.searchLocation!)
+            //            self.mapView.moveMaptoLocation(location: self.searchLocation!)
+            self.addTractorAnnotations()
+        }
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        print("Error: ", error.localizedDescription)
+    }
+    
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
 }
 

@@ -17,8 +17,12 @@ let kServerUrl = "http://uv.agilink.net/api2/" //UIUtils.getServerURl()!
 
 let kDefaultRadius = 50 //UIUtils.getServerURl()!
 
+let kGoogleAPIKey = "AIzaSyA17-66jRmF_LAsluaLm42U255SKZsrY24"
+
 enum FilterType: Int {
-    case status = 0
+    case searchLocation = 0
+    case radius
+    case status
     case tractorType
     case trailerType
     case tractorTerminal
