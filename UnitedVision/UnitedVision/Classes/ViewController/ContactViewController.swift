@@ -44,11 +44,11 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
 
     func readPropertyList()
     {
-        if let list = UIUtils.parsePlist(ofName: "ContactInfo")
+        if let list = UIUtils.parsePlist(ofName: "ContactInfo") as? NSArray
         {
             for dict in list
             {
-                let info = ContactInfo(info: dict as NSDictionary)
+                let info = ContactInfo(info: dict as! NSDictionary)
                 contactList.append(info)
             }
         }

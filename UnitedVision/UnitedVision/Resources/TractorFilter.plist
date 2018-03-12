@@ -3,16 +3,18 @@
 <plist version="1.0">
 <dict>
 	<key>radius</key>
-	<integer>50</integer>
-	<key>searchLocation</key>
-	<string>Lafayette</string>
+	<string>50</string>
 	<key>status</key>
-	<string>Available</string>
-	<key>tractorType</key>
-	<string></string>
-	<key>trailerType</key>
-	<string></string>
-	<key>tractorTerminal</key>
-	<string></string>
+	<string>DP</string>
+	<key>city</key>
+	<string>Lafayette</string>
+	<key>state</key>
+	<string>LA</string>
+	<key>zip</key>
+	<string>70508</string>
+	<key>latitude</key>
+	<real>30.2241</real>
+	<key>longitude</key>
+	<real>-92.0198</real>
 </dict>
 </plist>

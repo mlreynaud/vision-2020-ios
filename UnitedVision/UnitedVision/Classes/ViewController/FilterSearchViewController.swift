@@ -14,8 +14,10 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var tableView : UITableView!
 
     var filterType : FilterType!
-    
+    var selectedValue : String = ""
     var filterList : [String] = []
+
+    var completionHandler: ((String)->Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,7 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
     //MARK: Button action methods
     @IBAction func doneButtonAction(_ sender: UIButton)
     {
+        self.completionHandler?(selectedValue)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -64,6 +67,10 @@ extension FilterSearchViewController
         cell.textLabel?.text = filterList[indexPath.row]
         
         return cell;
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedValue = filterList[indexPath.row]
     }
     
 }
@@ -121,21 +128,41 @@ extension FilterSearchViewController
     
     @objc func callSearchAPI(_ searchText: String)
     {
-        LoadingView.shared.showOverlay()
+//        LoadingView.shared.showOverlay()
         if (filterType == .trailerType)
         {
-            DataManager.sharedInstance.requestToSearchTerminal(searchText, completionHandler: {( status, tractorList) in
+            DataManager.sharedInstance.requestToSearchTerminal(searchText, completionHandler: {( status, results) in
                 
-                LoadingView.shared.hideOverlayView()
+                if let list = results
+                {
+                    self.filterList = list
+                }
+                else
+                {
+                    self.filterList = []
+                }
+                self.tableView.reloadData()
+
+//                LoadingView.shared.hideOverlayView()
                 
                 
             })
         }
         else  if (filterType == .tractorType){
             
-            DataManager.sharedInstance.requestToSearchTrailerType(searchText, completionHandler: {( status, tractorList) in
-                
-                LoadingView.shared.hideOverlayView()
+            DataManager.sharedInstance.requestToSearchTrailerType(searchText, completionHandler: {( status, results) in
+
+                 if let list = results
+                 {
+                    self.filterList = list
+                }
+                else
+                 {
+                    self.filterList = []
+                }
+                self.tableView.reloadData()
+
+//                LoadingView.shared.hideOverlayView()
                 
                 
             })

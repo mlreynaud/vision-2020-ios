@@ -202,10 +202,10 @@ class DataManager: NSObject {
     
     func requestToSearchTractor(_ info: TractorSearchInfo, completionHandler handler: @escaping ( Bool, [TractorInfo]?) -> () )
     {
-        
        // http://uv.agilink.net/api2/tractor/service/search?radius=100&city=Lafayette&state=LA&zip=70508&lat=30.2241&lon=-92.0198
         
-        let service: String =  "tractor/service/search?radius=100&city=Lafayette&state=LA&zip=70508&lat=30.2241&lon=-92.0198"
+        let params = self.createTractorSerachRequest(info)
+        let service: String =  "tractor/service/search?\(params)"
         
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {(data, error) in
@@ -239,71 +239,57 @@ class DataManager: NSObject {
         })
     }
     
-    func requestToSearchTrailerType(_ search: String, completionHandler handler: @escaping ( Bool, [TractorInfo]?) -> () )
+    func createTractorSerachRequest(_ searchInfo: TractorSearchInfo) -> String{
+        
+        var requestStr = "radius=\(searchInfo.radius)&city=\(searchInfo.city)&state=\(searchInfo.state)&zip=\(searchInfo.zip)&lat=\(searchInfo.latitude)&lon=\(searchInfo.longitude)&status=\(searchInfo.status)"
+        
+        if searchInfo.trailerType.count > 0
+        {
+            requestStr.append("&trailerType=\(searchInfo.trailerType))")
+        }
+        
+        if searchInfo.tractorType.count > 0
+        {
+            requestStr.append("&tractorType=\(searchInfo.tractorType)")
+        }
+        
+        return requestStr
+    }
+    
+    func requestToSearchTrailerType(_ search: String, completionHandler handler: @escaping ( Bool, [String]?) -> () )
     {
-        let service: String =  "trailer/service/lookup?Searchstr=\(search)"
+        let service: String =  "trailer/service/lookup?searchStr=\(search)"
         
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {(data, error) in
             
-//            var list = [TractorInfo]()
-//
-//            do {
-//
-//                guard   let outerJSON : String = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as? String,
-//                    outerJSON.count != 0,
-//                    let array =  try! JSONSerialization.jsonObject(with: outerJSON.data(using: .utf8)!, options: .allowFragments) as? NSArray
-//                    else {
-//                        handler(false, nil)
-//                        return
-//                }
-//
-//                for dict in array
-//                {
-//                    let info = TractorInfo(info: (dict as? NSDictionary)!)
-//                    list.append(info)
-//                }
-//            }
-//            catch{
-//                print(error)
-//            }
-//
-//            self.tractorList = list
-            handler(true, nil)
+            if (error != nil)
+            {
+                handler(false, nil)
+            }
+            
+            let array =  try! JSONSerialization.jsonObject(with: data as! Data, options: .allowFragments) as? NSArray
+            
+            handler(true, array as? [String])
         })
     }
     
-    func requestToSearchTerminal(_ search: String, completionHandler handler: @escaping ( Bool, [TractorInfo]?) -> () )
+    func requestToSearchTerminal(_ search: String, completionHandler handler: @escaping ( Bool, [String]?) -> () )
     {
-        let service: String =  "terminal/service/lookup?Searchstr=\(search)"
+        let service: String =  "terminal/service/lookup?searchStr=\(search)"
         
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {(data, error) in
             
-            //            var list = [TractorInfo]()
-            //
-            //            do {
-            //
-            //                guard   let outerJSON : String = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as? String,
-            //                    outerJSON.count != 0,
-            //                    let array =  try! JSONSerialization.jsonObject(with: outerJSON.data(using: .utf8)!, options: .allowFragments) as? NSArray
-            //                    else {
-            //                        handler(false, nil)
-            //                        return
-            //                }
-            //
-            //                for dict in array
-            //                {
-            //                    let info = TractorInfo(info: (dict as? NSDictionary)!)
-            //                    list.append(info)
-            //                }
-            //            }
-            //            catch{
-            //                print(error)
-            //            }
-            //
-            //            self.tractorList = list
-            handler(true, nil)
+            if (error != nil)
+            {
+                handler(false, nil)
+            }
+            
+             let array =  try! JSONSerialization.jsonObject(with: data as! Data, options: .allowFragments) as? NSArray
+            
+            handler(true, array as? [String])
+            
         })
     }
     
@@ -337,9 +323,11 @@ class DataManager: NSObject {
         return radiusList
     }
     
-
+    func fetchFilterDefaultValues() -> TractorSearchInfo
+    {
+        let dict = UIUtils.parsePlist(ofName: "TractorFilter") as! NSDictionary
+        let searchInfo = TractorSearchInfo(info: dict)
+        return searchInfo
+    }
     
- 
-    
-
 }

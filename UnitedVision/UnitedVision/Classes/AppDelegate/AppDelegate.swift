@@ -41,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        dataManager.parseLocationInfo()
 //        dataManager.parseTractorInfo()
         
-        
         self.customizeNavigationBar()
         self.createMenuView()
 

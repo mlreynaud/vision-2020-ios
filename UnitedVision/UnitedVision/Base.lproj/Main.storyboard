@@ -628,6 +628,9 @@
                                         <state key="normal" title="CANCEL">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="cancelButtonAction:" destination="MS5-OD-WCm" eventType="touchUpInside" id="MLc-uv-ojn"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -792,6 +795,9 @@
                                 <state key="normal" title="SEARCH">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="searchButtonAction" destination="eRj-mG-95u" eventType="touchUpInside" id="NVp-ho-xTN"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VIz-Zo-pBs">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
@@ -804,12 +810,18 @@
                                                 <state key="normal" title="RESET">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="resetButtonAction" destination="eRj-mG-95u" eventType="touchUpInside" id="a4q-3e-XTa"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPO-dm-Zhf">
                                                 <rect key="frame" x="187.5" y="0.0" width="187.5" height="50"/>
                                                 <state key="normal" title="SAVE DEFAULTS">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="saveDefaultsButtonAction" destination="eRj-mG-95u" eventType="touchUpInside" id="viC-o9-4Sc"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -1377,7 +1389,7 @@
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="cancelButtonAction:" destination="Fai-Ms-kFp" eventType="touchUpInside" id="xSb-To-H2M"/>
+                                            <action selector="cancelButtonAction:" destination="Fai-Ms-kFp" eventType="touchUpInside" id="Anq-Ha-v5g"/>
                                         </connections>
                                     </button>
                                 </subviews>

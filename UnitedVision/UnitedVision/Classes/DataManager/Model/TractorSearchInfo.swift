@@ -34,5 +34,20 @@ class TractorSearchInfo: NSObject {
     
     init(info : NSDictionary)
     {
+        self.radius = info["radius"] as! String
+        self.city = info["city"] as! String
+        self.state = info["state"] as! String
+        self.zip = info["zip"] as! String
+        self.status = info["status"] as! String
+
+        if let value =  (info.object(forKey: "latitude") as? NSNumber)?.doubleValue
+        {
+            latitude = value
+        }
+        
+        if let value =  (info.object(forKey: "longitude") as? NSNumber)?.doubleValue
+        {
+            longitude = value
+        }
     }
 }

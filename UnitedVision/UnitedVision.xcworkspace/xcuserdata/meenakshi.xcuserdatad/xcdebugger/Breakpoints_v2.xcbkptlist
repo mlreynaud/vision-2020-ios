@@ -9,118 +9,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "542438939.032459"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "request(toLogin:withPassword:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "542438939.065948"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "request(toLogin:withPassword:completionHandler:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "UnitedVision.DataManager.request(toLogin: Swift.String, withPassword: Swift.String, completionHandler: (Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "UnitedVision"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Other/Client%20Projects/united_vision_ios/UnitedVision/UnitedVision/Classes/DataManager/DataManager.swift"
-                  timestampString = "542438940.995497"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "126"
-                  endingLineNumber = "126"
-                  offsetFromSymbolStart = "779">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__ObjC.NSData&gt;, Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; () in UnitedVision.DataManager.request(toLogin: Swift.String, withPassword: Swift.String, completionHandler: (Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "UnitedVision"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Other/Client%20Projects/united_vision_ios/UnitedVision/UnitedVision/Classes/DataManager/DataManager.swift"
-                  timestampString = "542438940.999238"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "126"
-                  endingLineNumber = "126"
-                  offsetFromSymbolStart = "29">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "542438939.066591"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "313"
-            endingLineNumber = "313"
-            landmarkName = "checkUserType(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "542438939.067018"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "request(toLogin:withPassword:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UnitedVision/Classes/DataManager/WebServiceManager.swift"
-            timestampString = "542401424.675631"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "sendRequest(_:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/AppPrefData.swift"
             timestampString = "542401907.311799"
             startingColumnNumber = "9223372036854775807"
@@ -138,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/ViewController/ContactViewController.swift"
-            timestampString = "542393970.630675"
+            timestampString = "542570712.946484"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
@@ -154,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/ViewController/ContactViewController.swift"
-            timestampString = "542393970.631286"
+            timestampString = "542570712.94682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
@@ -170,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/ViewController/ContactViewController.swift"
-            timestampString = "542393970.63184"
+            timestampString = "542570712.94688"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "59"
@@ -185,44 +73,124 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "542438939.067443"
+            filePath = "UnitedVision/Classes/ViewController/TractorFilterViewController.swift"
+            timestampString = "542570712.9469351"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
-            landmarkName = "requestToSearchTerminal(_:completionHandler:)"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "searchButtonAction()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
+            timestampString = "542570712.9471509"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "requestToSearchTractor(_:completionHandler:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "UnitedVision.DataManager.requestToSearchTerminal(Swift.String, completionHandler: (Swift.Bool, Swift.Optional&lt;Swift.Array&lt;UnitedVision.TractorInfo&gt;&gt;) -&gt; ()) -&gt; ()"
+                  symbolName = "UnitedVision.DataManager.requestToSearchTractor(UnitedVision.TractorSearchInfo, completionHandler: (Swift.Bool, Swift.Optional&lt;Swift.Array&lt;UnitedVision.TractorInfo&gt;&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "UnitedVision"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Volumes/Other/Client%20Projects/united_vision_ios/UnitedVision/UnitedVision/Classes/DataManager/DataManager.swift"
-                  timestampString = "542438941.074158"
+                  timestampString = "542570713.218334"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "281"
-                  endingLineNumber = "281"
+                  startingLineNumber = "211"
+                  endingLineNumber = "211"
+                  offsetFromSymbolStart = "587">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__ObjC.NSData&gt;, Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; () in UnitedVision.DataManager.requestToSearchTractor(UnitedVision.TractorSearchInfo, completionHandler: (Swift.Bool, Swift.Optional&lt;Swift.Array&lt;UnitedVision.TractorInfo&gt;&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "UnitedVision"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Other/Client%20Projects/united_vision_ios/UnitedVision/UnitedVision/Classes/DataManager/DataManager.swift"
+                  timestampString = "542570713.221992"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "213"
+                  endingLineNumber = "213"
+                  offsetFromSymbolStart = "40">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
+            timestampString = "542570712.947733"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "requestToSearchTractor(_:completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
+            timestampString = "542570712.948045"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
+            landmarkName = "requestToSearchTrailerType(_:completionHandler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UnitedVision.DataManager.requestToSearchTrailerType(Swift.String, completionHandler: (Swift.Bool, Swift.Optional&lt;Swift.Array&lt;Swift.String&gt;&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "UnitedVision"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Other/Client%20Projects/united_vision_ios/UnitedVision/UnitedVision/Classes/DataManager/DataManager.swift"
+                  timestampString = "542570713.237711"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "264"
+                  endingLineNumber = "264"
                   offsetFromSymbolStart = "492">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__ObjC.NSData&gt;, Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; () in UnitedVision.DataManager.requestToSearchTerminal(Swift.String, completionHandler: (Swift.Bool, Swift.Optional&lt;Swift.Array&lt;UnitedVision.TractorInfo&gt;&gt;) -&gt; ()) -&gt; ()"
+                  symbolName = "closure #1 (Swift.Optional&lt;__ObjC.NSData&gt;, Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; () in UnitedVision.DataManager.requestToSearchTrailerType(Swift.String, completionHandler: (Swift.Bool, Swift.Optional&lt;Swift.Array&lt;Swift.String&gt;&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "UnitedVision"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Volumes/Other/Client%20Projects/united_vision_ios/UnitedVision/UnitedVision/Classes/DataManager/DataManager.swift"
-                  timestampString = "542438941.07938"
+                  timestampString = "542570713.241524"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "306"
-                  endingLineNumber = "306"
-                  offsetFromSymbolStart = "26">
+                  startingLineNumber = "266"
+                  endingLineNumber = "266"
+                  offsetFromSymbolStart = "29">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -234,141 +202,77 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "542438939.067783"
+            timestampString = "542570712.948338"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
-            landmarkName = "requestToSearchTractor(_:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "542438939.06813"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
-            landmarkName = "requestToSearchTractor(_:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "542438939.07038"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "requestToCheckTokenValidity(completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UnitedVision/Classes/DataManager/WebServiceManager.swift"
-            timestampString = "542401424.677785"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "createRequest(_:forMethod:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "542438939.07104"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "requestToCheckTokenValidity(completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "542438939.071503"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "325"
-            endingLineNumber = "325"
-            landmarkName = "checkUserType(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UnitedVision/Classes/AppDelegate/AppDelegate.swift"
-            timestampString = "542439344.8125269"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "applicationDidBecomeActive(_:)"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
+            landmarkName = "requestToSearchTrailerType(_:completionHandler:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "UnitedVision.AppDelegate.applicationDidBecomeActive(__ObjC.UIApplication) -&gt; ()"
+                  symbolName = "UnitedVision.DataManager.requestToSearchTrailerType(Swift.String, completionHandler: (Swift.Bool, Swift.Optional&lt;Swift.Array&lt;Swift.String&gt;&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "UnitedVision"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Other/Client%20Projects/united_vision_ios/UnitedVision/UnitedVision/Classes/AppDelegate/AppDelegate.swift"
-                  timestampString = "542439345.0492539"
+                  urlString = "file:///Volumes/Other/Client%20Projects/united_vision_ios/UnitedVision/UnitedVision/Classes/DataManager/DataManager.swift"
+                  timestampString = "542570713.251351"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "76"
-                  endingLineNumber = "76"
-                  offsetFromSymbolStart = "18">
+                  startingLineNumber = "274"
+                  endingLineNumber = "274"
+                  offsetFromSymbolStart = "642">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool, Swift.String) -&gt; () in UnitedVision.AppDelegate.applicationDidBecomeActive(__ObjC.UIApplication) -&gt; ()"
+                  symbolName = "closure #1 (Swift.Optional&lt;__ObjC.NSData&gt;, Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; () in UnitedVision.DataManager.requestToSearchTrailerType(Swift.String, completionHandler: (Swift.Bool, Swift.Optional&lt;Swift.Array&lt;Swift.String&gt;&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "UnitedVision"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Other/Client%20Projects/united_vision_ios/UnitedVision/UnitedVision/Classes/AppDelegate/AppDelegate.swift"
-                  timestampString = "542439345.0528179"
+                  urlString = "file:///Volumes/Other/Client%20Projects/united_vision_ios/UnitedVision/UnitedVision/Classes/DataManager/DataManager.swift"
+                  timestampString = "542570713.256271"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "78"
-                  endingLineNumber = "78"
-                  offsetFromSymbolStart = "36">
+                  startingLineNumber = "274"
+                  endingLineNumber = "274"
+                  offsetFromSymbolStart = "1043">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
+            timestampString = "542570712.948617"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
+            landmarkName = "requestToSearchTractor(_:completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
+            timestampString = "542570712.948867"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "requestToSearchTractor(_:completionHandler:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

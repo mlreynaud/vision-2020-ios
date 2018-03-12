@@ -22,6 +22,8 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
     let subList = ["Loaded", "HazMat"]
     var pickerToolbarView : UIView!
     
+    var searchCompletionHandler: ((TractorSearchInfo)->Void)?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,6 +32,7 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
         self.title = "Tractor Search Filter"
         // Do any additional setup after loading the view.
         
+        searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
         radiusList = DataManager.sharedInstance.getRadiusList()
         self.createPickerView()
     }
@@ -47,6 +50,7 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
     
     @IBAction func searchButtonAction(){
         
+        self.searchCompletionHandler?(searchInfo)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -120,7 +124,7 @@ extension TractorFilterViewController
                 self.showFilterPopup(filterType, withMultiSelection:false)
             case .trailerType:
                 self.showFilterSearchScreen(filterType)
-            case .tractorType:
+            case .tractorTerminal:
                 self.showFilterSearchScreen(filterType)
             default:
                 break
@@ -138,7 +142,7 @@ extension TractorFilterViewController
         var value : String
         switch filterType {
         case .searchLocation:
-            value = searchInfo.city + searchInfo.state + searchInfo.zip
+            value = String("\(searchInfo.city) \(searchInfo.state) \(searchInfo.zip) ") //searchInfo.city + searchInfo.state + searchInfo.zip
         case .radius:
             value = searchInfo.radius + "mi"
         case .status:
@@ -175,6 +179,16 @@ extension TractorFilterViewController
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "FilterSearchViewController") as! FilterSearchViewController
         viewCtrl.filterType = filterType
+        
+        viewCtrl.completionHandler = {(selectedValue) in
+            
+//            if filterType == .trailerType{
+//                self.searchInfo.trailerType = selectedValue
+//            }
+//
+//            self.tableView.reloadData()
+
+        }
         
         //        self.providesPresentationContextTransitionStyle = true
         //        self.definesPresentationContext = true

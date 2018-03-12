@@ -26,7 +26,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     
     var showMap = false
 
-    let tractorSearchInfo = TractorSearchInfo()
+    var tractorSearchInfo : TractorSearchInfo!
 
     var tractorArray: [TractorInfo] = []
 
@@ -40,6 +40,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addUnderlineForSelectedSegment()
 
+        tractorSearchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
         self.fetchTractorLocations()
         
         mapView.initialSetup()
@@ -92,6 +93,10 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TractorFilterViewController") as! TractorFilterViewController
+        viewCtrl.searchCompletionHandler = {(searchInfo) in
+            self.tractorSearchInfo = searchInfo
+            self.fetchTractorLocations()
+        }
         self.navigationController?.pushViewController(viewCtrl, animated: true)
     }
     
