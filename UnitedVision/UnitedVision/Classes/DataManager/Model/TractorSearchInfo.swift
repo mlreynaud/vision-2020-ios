@@ -49,5 +49,25 @@ class TractorSearchInfo: NSObject {
         {
             longitude = value
         }
+        
+        if let value = info.object(forKey: "tractorType") as? String
+        {
+            tractorType = value
+        }
+        
+        if let value = info.object(forKey: "trailerType") as? String
+        {
+            trailerType = value
+        }
+        
+        if let value = info.object(forKey: "terminalId") as? String
+        {
+            terminalId = value
+        }
+        
+        if let value = info.object(forKey: "tractorId") as? String
+        {
+            tractorId = value
+        }
     }
 }

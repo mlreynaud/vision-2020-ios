@@ -16,6 +16,7 @@ class DataManager: NSObject {
     var userLocation : CLLocationCoordinate2D?
     var locationList : [LocationInfo] = []
     var tractorList : [TractorInfo] = []
+    var tractorSearchInfo : TractorSearchInfo?
     
     var authToken = ""
     var userType : UserType = .none
@@ -28,9 +29,16 @@ class DataManager: NSObject {
     fileprivate override init() {
         let locationManager = LocationManager.sharedInstance
         locationManager.initializeLocationManager()
-         let appPref = AppPrefData.sharedInstance
+        
+        let appPref = AppPrefData.sharedInstance
         self.isLogin = appPref.isLogin
         self.authToken = appPref.authToken
+        
+        if let dict = appPref.searchDict
+        {
+            self.tractorSearchInfo = TractorSearchInfo(info: dict)
+        }
+        
     }
     
     func parseJSONData(_ data: Data?) -> (status: Bool, message: String, count: String, content: Any?){
@@ -245,7 +253,7 @@ class DataManager: NSObject {
         
         if searchInfo.trailerType.count > 0
         {
-            requestStr.append("&trailerType=\(searchInfo.trailerType))")
+            requestStr.append("&trailerType=\(searchInfo.trailerType.encodeString())")
         }
         
         if searchInfo.tractorType.count > 0

@@ -32,7 +32,8 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
         self.title = "Tractor Search Filter"
         // Do any additional setup after loading the view.
         
-        searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
+        searchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()
+        
         radiusList = DataManager.sharedInstance.getRadiusList()
         self.createPickerView()
     }
@@ -49,6 +50,9 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @IBAction func searchButtonAction(){
+        
+        DataManager.sharedInstance.tractorSearchInfo = searchInfo
+        AppPrefData.sharedInstance.saveAllData()
         
         self.searchCompletionHandler?(searchInfo)
         self.navigationController?.popViewController(animated: true)
@@ -182,11 +186,11 @@ extension TractorFilterViewController
         
         viewCtrl.completionHandler = {(selectedValue) in
             
-//            if filterType == .trailerType{
-//                self.searchInfo.trailerType = selectedValue
-//            }
-//
-//            self.tableView.reloadData()
+            if filterType == .trailerType{
+                self.searchInfo.trailerType = selectedValue
+            }
+
+            self.tableView.reloadData()
 
         }
         

@@ -14,6 +14,7 @@ class AppPrefData: NSObject {
     
     var authToken = ""
     var isLogin = false;
+    var searchDict: NSDictionary? = nil
 
     private override init() {
         super.init()
@@ -26,25 +27,11 @@ class AppPrefData: NSObject {
         {
             authToken = (dictionary["authToken"] as? String)!
             isLogin = dictionary["isLogin"] as! Bool
-            
-//            userDict = dictionary["UserInfo"] as! NSDictionary?
-//
-//            if dictionary["SwitchState"] != nil
-//            {
-//                myItemsSwitchState = dictionary["SwitchState"] as! Bool
-//            }
-//            else
-//            {
-//                myItemsSwitchState = false //true
-//            }
-//            homeSearchText = dictionary["HomeSearchText"] as! String?
-//
-//            loadFilterState(dictionary: dictionary as NSDictionary)
-//            DataManager.sharedInstance.userInfo = UserInfo(info: dictionary["UserInfo"] as! NSDictionary)
-            //            userInfo = UserInfo(info: dictionary["UserInfo"] as! NSDictionary)
+            searchDict = dictionary["TractorSearchDict"] as? NSDictionary
+
+
         }
     }
-
     
     func dataAsDictionary() ->  Dictionary<String, Any>
     {
@@ -52,14 +39,32 @@ class AppPrefData: NSObject {
         dictionary["authToken"] = self.authToken
         dictionary["isLogin"] = self.isLogin
         
-//        dictionary["StayLoggedIn"] = self.isLoggedIn
-//        dictionary["UserInfo"] = userDict
-//        dictionary["HomeSearchText"] = self.homeSearchText
-//        dictionary["SwitchState"] = self.myItemsSwitchState
-//        dictionary["CatFilterList"] = self.catFilterList
-//        dictionary["msdsFilterVal"] = self.msdsFilterVal
+        self.searchDict = self.createTractorSearchDict()
+        dictionary["TractorSearchDict"] = self.searchDict
         
         return dictionary
+    }
+    
+    func createTractorSearchDict()-> NSDictionary
+    {
+        var dict : [String:Any] = [:]
+        if let searchInfo = DataManager.sharedInstance.tractorSearchInfo
+        {
+             dict = ["city" : searchInfo.city, "state": searchInfo.state, "zip": searchInfo.state, "latitude": searchInfo.latitude, "longiude": searchInfo.longitude, "status": searchInfo.status, "radius": searchInfo.radius]
+            
+            if searchInfo.trailerType.count > 0
+            {
+                dict["trailerType"] = searchInfo.trailerType
+            }
+            
+            if searchInfo.tractorType.count > 0
+            {
+                dict["tractorType"] = searchInfo.tractorType
+            }
+        }
+        
+        
+        return dict as NSDictionary
     }
     
     func saveAppPreferenceData() {
