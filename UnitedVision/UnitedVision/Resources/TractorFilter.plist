@@ -10,6 +10,8 @@
 	<string>LA</string>
 	<key>zip</key>
 	<string>70508</string>
+	<key>status</key>
+	<string>DP</string>
 	<key>latitude</key>
 	<real>30.2241</real>
 	<key>longitude</key>

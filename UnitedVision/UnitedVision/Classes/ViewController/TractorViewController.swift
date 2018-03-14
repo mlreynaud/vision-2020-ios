@@ -37,12 +37,13 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addUnderlineForSelectedSegment()
 
-        tractorSearchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()
+        tractorSearchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
+        DataManager.sharedInstance.tractorSearchInfo = self.tractorSearchInfo
 
         self.fetchTractorLocations()
         
+        mapView.selectedRadius = Int((DataManager.sharedInstance.tractorSearchInfo?.radius)!)!
         mapView.initialSetup()
-        mapView.searchLocation = mapView.getCurrentLocation()
         mapView.mapFilterDelegate = self
 
 //        tractorArray = DataManager.sharedInstance.tractorList
@@ -110,6 +111,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     
     func fetchTractorLocations()
     {
+        
         LoadingView.shared.showOverlay()
         DataManager.sharedInstance.requestToSearchTractor(tractorSearchInfo, completionHandler: {( status, tractorList) in
             
@@ -129,25 +131,21 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     {
         var mapLocationList: [TractorInfo] = []
         
+        var searchLocation: CLLocation = CLLocation(latitude: tractorSearchInfo.latitude, longitude: tractorSearchInfo.longitude)
         for info in tractorArray
         {
-//            let annotation = self.createAnnotation(coordinate: CLLocationCoordinate2DMake(info.latitude, info.longitude))
-//
-//            annotation.title =  "Tractor ID - \(info.tractorId!)"
-//            annotation.subtitle = "\(info.originCity!) - \(info.destinationCity!)"
-//
-//            annotationList.append(annotation)
-            
             let dist = GMSGeometryDistance(CLLocationCoordinate2DMake(info.latitude,info.longitude),
-                                           CLLocationCoordinate2DMake((mapView.searchLocation?.coordinate.latitude)!,
-                                                                      (mapView.searchLocation?.coordinate.longitude)!)) / 1609
-            if (Int(dist) <= mapView.selectedRadius) {
+                                           searchLocation.coordinate) / 1609
+            if (Int(dist) <= Int(self.tractorSearchInfo.radius)!) {
                 mapLocationList.append(info)
             }
            
         }
+        
+        mapView.setSelectedRadius(Int(self.tractorSearchInfo.radius)!)
+        mapView.searchLocation = searchLocation
         mapView.addTractorList(mapLocationList)
-        mapView.zoomMapToRadius(mapView.selectedRadius)
+        mapView.zoomMapToRadius()
         
     }
 }
@@ -226,7 +224,21 @@ extension TractorViewController
 
 extension TractorViewController: MapFilterDelegate {
     func mapFilter(sender: MapView){
-        self.addTractorAnnotations()
+        self.tractorSearchInfo.latitude = sender.searchLocation.coordinate.latitude
+        self.tractorSearchInfo.longitude = sender.searchLocation.coordinate.longitude
+        
+        let geocoder: GMSGeocoder = GMSGeocoder()
+        geocoder.reverseGeocodeCoordinate(sender.searchLocation.coordinate) { (response, error) in
+            let address = response?.firstResult()
+            self.tractorSearchInfo.city = (address?.locality)!
+            self.tractorSearchInfo.state = (address?.administrativeArea)!
+            self.tractorSearchInfo.zip = (address?.postalCode)!
+        }
+        
+        self.tractorSearchInfo.radius = String(sender.selectedRadius)
+        
+        self.fetchTractorLocations()
+//        self.addTractorAnnotations()
     }
 }
 

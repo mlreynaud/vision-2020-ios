@@ -8,10 +8,13 @@
 
 
 import UIKit
+import GoogleMaps
+import GooglePlaces
 
 class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var checkboxSaveDefaults: UIButton!
     
     var searchInfo = TractorSearchInfo()
     
@@ -52,7 +55,9 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
     @IBAction func searchButtonAction(){
         
         DataManager.sharedInstance.tractorSearchInfo = searchInfo
-        AppPrefData.sharedInstance.saveAllData()
+        if checkboxSaveDefaults.isSelected {
+            AppPrefData.sharedInstance.saveAllData()
+        }
         
         self.searchCompletionHandler?(searchInfo)
         self.navigationController?.popViewController(animated: true)
@@ -69,12 +74,13 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @IBAction func saveDefaultsButtonAction(){
+        self.checkboxSaveDefaults.isSelected = !checkboxSaveDefaults.isSelected
         
-        searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
-        DataManager.sharedInstance.tractorSearchInfo = searchInfo
-        AppPrefData.sharedInstance.saveAllData()
+//        searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
+//        DataManager.sharedInstance.tractorSearchInfo = searchInfo
+//        AppPrefData.sharedInstance.saveAllData()
         
-        self.tableView.reloadData()
+//        self.tableView.reloadData()
     }
 
     /*
@@ -113,6 +119,19 @@ extension TractorFilterViewController
             
             cell.titleLabel.attributedText = (filterList[indexPath.section] + " " + filterValue).createAttributedString(subString: filterValue , subStringColor: kBlueColor)
             
+            cell.clearHandler = {
+                cell.titleLabel.attributedText = (self.filterList[indexPath.section] + " " + "").createAttributedString(subString: "" , subStringColor: kBlueColor)
+                
+//                cell.clearButton.isHidden = true
+                
+                if filterType == .tractorTerminal {
+                    self.searchInfo.terminalId = ""
+                }
+                else if filterType == .trailerType {
+                    self.searchInfo.trailerType = ""
+                }
+            }
+            
             return cell;
         }
        
@@ -130,6 +149,10 @@ extension TractorFilterViewController
         {
             let filterType = FilterType(rawValue: indexPath.section)!
             switch filterType {
+            case .searchLocation:
+                let autocompleteController = GMSAutocompleteViewController()
+                autocompleteController.delegate = self
+                present(autocompleteController, animated:true, completion: nil)
             case .radius:
                 pickerToolbarView.isHidden = false
                 pickerToolbarView.frame =  CGRect(x:0, y: self.view.bounds.size.height - 250 , width: self.view.bounds.size.width, height:250)
@@ -201,10 +224,11 @@ extension TractorFilterViewController
         viewCtrl.filterType = filterType
         
         viewCtrl.completionHandler = {(selectedValue) in
-            
-            if filterType == .trailerType{
+            if filterType == .tractorTerminal {
+                self.searchInfo.terminalId = selectedValue
+            }
+            else if filterType == .trailerType{
                 self.searchInfo.trailerType = selectedValue
-                
             }
 
             self.tableView.reloadData()
@@ -233,6 +257,7 @@ extension TractorFilterViewController
         pickerView.showsSelectionIndicator = true
         pickerView.backgroundColor = UIColor.white
         pickerView.isUserInteractionEnabled = true
+        pickerView.selectRow(radiusList.index(of: String(searchInfo.radius))!, inComponent: 0, animated: false)
         
         let toolBar = UIToolbar(frame: CGRect(x:0, y:0 , width: width, height:50))
         toolBar.barStyle = .default
@@ -259,7 +284,7 @@ extension TractorFilterViewController
     
     @objc func doneClick() {
         
-        DataManager.sharedInstance.radius = Int(searchInfo.radius)!
+        DataManager.sharedInstance.tractorSearchInfo?.radius = String(searchInfo.radius)
         pickerToolbarView.isHidden = true
 
         tableView.reloadData()
@@ -285,6 +310,39 @@ extension TractorFilterViewController
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return radiusList[row]
+    }
+}
+
+extension TractorFilterViewController: GMSAutocompleteViewControllerDelegate {
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace){
+        viewController.dismiss(animated: true, completion: nil)
+        self.searchInfo.latitude = place.coordinate.latitude
+        self.searchInfo.longitude = place.coordinate.longitude
+        
+        let geocoder: GMSGeocoder = GMSGeocoder()
+        geocoder.reverseGeocodeCoordinate(place.coordinate) { (response, error) in
+            let address = response?.firstResult()
+            self.searchInfo.city = (address?.locality)!
+            self.searchInfo.state = (address?.administrativeArea)!
+            self.searchInfo.zip = (address?.postalCode)!
+            self.tableView.reloadData()
+        }
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        print("Error: ", error.localizedDescription)
+    }
+    
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        viewController.dismiss(animated: true, completion: nil)
+    }
+    
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }
 

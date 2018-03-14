@@ -211,8 +211,8 @@ class DataManager: NSObject {
     func requestToSearchTractor(_ info: TractorSearchInfo, completionHandler handler: @escaping ( Bool, [TractorInfo]?) -> () )
     {
        // http://uv.agilink.net/api2/tractor/service/search?radius=100&city=Lafayette&state=LA&zip=70508&lat=30.2241&lon=-92.0198
-        
-        let params = self.createTractorSerachRequest(info)
+        //"radius=100&city=Lafayette&state=LA&zip=LA&lat=30.2241&lon=-92.0198&status=DP"
+        let params = createTractorSearchRequest(info)
         let service: String =  "tractor/service/search?\(params)"
         
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
@@ -247,10 +247,9 @@ class DataManager: NSObject {
         })
     }
     
-    func createTractorSerachRequest(_ searchInfo: TractorSearchInfo) -> String{
+    func createTractorSearchRequest(_ searchInfo: TractorSearchInfo) -> String{
         
-        var requestStr = "radius=\(searchInfo.radius)&city=\(searchInfo.city)&state=\(searchInfo.state)&zip=\(searchInfo.zip)&lat=\(searchInfo.latitude)&lon=\(searchInfo.longitude)"
-        
+        var requestStr = "radius=\(searchInfo.radius)&lat=\(searchInfo.latitude)&lon=\(searchInfo.longitude)&status=\(searchInfo.status)"
         if searchInfo.trailerType.count > 0
         {
             requestStr.append("&trailerType=\(searchInfo.trailerType.encodeString())")
@@ -264,7 +263,7 @@ class DataManager: NSObject {
         return requestStr
     }
     
-    func requestToSearchTrailerType(_ search: String, completionHandler handler: @escaping ( Bool, [String]?) -> () )
+    func requestToSearchTrailerType(_ search: String, completionHandler handler: @escaping ( Bool, [TrailerInfo]?) -> () )
     {
         let service: String =  "trailer/service/lookup?searchStr=\(search)"
         
@@ -276,9 +275,16 @@ class DataManager: NSObject {
                 handler(false, nil)
             }
             
-            let array =  try! JSONSerialization.jsonObject(with: data as! Data, options: .allowFragments) as? NSArray
+            var list = [TrailerInfo]()
             
-            handler(true, array as? [String])
+            let array =  try! JSONSerialization.jsonObject(with: data as! Data, options: .allowFragments) as! NSArray
+            
+            for dict in array {
+                let info = TrailerInfo(info: (dict as? NSDictionary)!)
+                list.append(info)
+            }
+            
+            handler(true, list)
         })
     }
     
@@ -333,7 +339,7 @@ class DataManager: NSObject {
     
     func fetchFilterDefaultValues() -> TractorSearchInfo
     {
-        let dict = UIUtils.parsePlist(ofName: "TractorFilter") as! NSDictionary
+        let dict = AppPrefData.sharedInstance.searchDict ?? UIUtils.parsePlist(ofName: "TractorFilter") as! NSDictionary
         let searchInfo = TractorSearchInfo(info: dict)
         return searchInfo
     }

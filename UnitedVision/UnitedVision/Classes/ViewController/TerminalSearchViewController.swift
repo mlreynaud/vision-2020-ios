@@ -76,11 +76,11 @@ class TerminalSearchViewController: BaseViewController, GMSMapViewDelegate {
     func fetchTerminalLocations()
     {
         LoadingView.shared.showOverlay()
-        DataManager.sharedInstance.requestToFetchTerminalLocations(completionHandler: {( status, tractorList) in
+        DataManager.sharedInstance.requestToFetchTerminalLocations(completionHandler: {( status, terminalList) in
             
             LoadingView.shared.hideOverlayView()
             
-            self.locationArray = tractorList! //DataManager.sharedInstance.tractorList
+            self.locationArray = terminalList! //DataManager.sharedInstance.tractorList
             self.mapLocations()
             
         })
@@ -98,7 +98,7 @@ class TerminalSearchViewController: BaseViewController, GMSMapViewDelegate {
         }
         
         mapView.addLocationList(mapLocationList)
-        mapView.zoomMapToRadius(mapView.selectedRadius)
+        mapView.zoomMapToRadius()
     }
 
 }

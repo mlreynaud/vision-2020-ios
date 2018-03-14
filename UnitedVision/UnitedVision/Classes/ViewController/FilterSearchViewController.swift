@@ -15,7 +15,7 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
 
     var filterType : FilterType!
     var selectedValue : String = ""
-    var filterList : [String] = []
+    var filterList : [AnyObject] = []
 
     var completionHandler: ((String)->Void)?
 
@@ -64,13 +64,23 @@ extension FilterSearchViewController
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSerachTableCell", for: indexPath)
         
-        cell.textLabel?.text = filterList[indexPath.row]
+        if (filterType == .tractorTerminal) {
+            cell.textLabel?.text = filterList[indexPath.row] as? String
+        }
+        else if (filterType == .trailerType) {
+            cell.textLabel?.text = (filterList[indexPath.row] as! TrailerInfo).descr!
+        }
         
         return cell;
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedValue = filterList[indexPath.row]
+        if (filterType == .tractorTerminal) {
+            selectedValue = filterList[indexPath.row] as! String
+        }
+        else if (filterType == .trailerType) {
+            selectedValue = (filterList[indexPath.row] as! TrailerInfo).id!
+        }
     }
     
 }
@@ -129,13 +139,13 @@ extension FilterSearchViewController
     @objc func callSearchAPI(_ searchText: String)
     {
 //        LoadingView.shared.showOverlay()
-        if (filterType == .trailerType)
+        if (filterType == .tractorTerminal)
         {
             DataManager.sharedInstance.requestToSearchTerminal(searchText, completionHandler: {( status, results) in
                 
                 if let list = results
                 {
-                    self.filterList = list
+                    self.filterList = list as [AnyObject]
                 }
                 else
                 {
@@ -148,7 +158,7 @@ extension FilterSearchViewController
                 
             })
         }
-        else  if (filterType == .tractorType){
+        else  if (filterType == .trailerType){
             
             DataManager.sharedInstance.requestToSearchTrailerType(searchText, completionHandler: {( status, results) in
 

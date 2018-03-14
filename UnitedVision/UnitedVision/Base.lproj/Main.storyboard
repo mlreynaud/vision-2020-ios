@@ -369,6 +369,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="40" id="gb6-Yq-qfC"/>
                                                             </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <state key="normal" image="ic_map_red"/>
                                                             <connections>
                                                                 <action selector="mapButtonAction:" destination="aro-pP-iT4" eventType="touchUpInside" id="4DK-St-7QK"/>
@@ -712,6 +713,13 @@
                                                         <constraint firstAttribute="height" constant="40" id="ZqY-r0-InZ"/>
                                                         <constraint firstAttribute="width" constant="40" id="gJG-zd-Yqv"/>
                                                     </constraints>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" image="ic_clear_black_48dp">
+                                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="clearButtonClick:" destination="bJj-AR-pC4" eventType="touchUpInside" id="gLZ-wv-c2G"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -730,6 +738,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="clearButton" destination="Dzi-fQ-dvH" id="Esr-Fv-MvQ"/>
                                             <outlet property="titleLabel" destination="RAz-Pj-FYK" id="4vk-bT-xrs"/>
                                         </connections>
                                     </tableViewCell>
@@ -835,6 +844,18 @@
                                     <constraint firstAttribute="bottom" secondItem="iwZ-gf-sa0" secondAttribute="bottom" id="cpK-VU-6AL"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYP-Pu-XqX">
+                                <rect key="frame" x="335" y="622" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="o9X-bQ-Ldf"/>
+                                    <constraint firstAttribute="width" constant="40" id="zI8-eG-Lxd"/>
+                                </constraints>
+                                <state key="normal" image="unchecked_checkbox"/>
+                                <state key="selected" image="checked_checkbox"/>
+                                <connections>
+                                    <action selector="saveDefaultsButtonAction" destination="eRj-mG-95u" eventType="touchUpInside" id="Wft-ih-k39"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -845,13 +866,16 @@
                             <constraint firstItem="VIz-Zo-pBs" firstAttribute="top" secondItem="AjU-9i-v7X" secondAttribute="bottom" id="YHP-s7-LAu"/>
                             <constraint firstItem="AjU-9i-v7X" firstAttribute="top" secondItem="t5n-fe-yiX" secondAttribute="bottom" id="icT-Lz-UIB"/>
                             <constraint firstItem="VIz-Zo-pBs" firstAttribute="leading" secondItem="vcs-LH-96a" secondAttribute="leading" id="jmC-a9-cCR"/>
+                            <constraint firstItem="vcs-LH-96a" firstAttribute="trailing" secondItem="hYP-Pu-XqX" secondAttribute="trailing" id="kg4-Ax-Zpd"/>
                             <constraint firstItem="t5n-fe-yiX" firstAttribute="top" secondItem="vcs-LH-96a" secondAttribute="top" id="lFe-1f-fop"/>
+                            <constraint firstItem="VIz-Zo-pBs" firstAttribute="bottom" secondItem="hYP-Pu-XqX" secondAttribute="bottom" constant="5" id="oDL-lF-NbD"/>
                             <constraint firstItem="vcs-LH-96a" firstAttribute="trailing" secondItem="VIz-Zo-pBs" secondAttribute="trailing" id="sBz-tM-0h4"/>
                             <constraint firstItem="AjU-9i-v7X" firstAttribute="trailing" secondItem="vcs-LH-96a" secondAttribute="trailing" id="wpX-86-XwP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vcs-LH-96a"/>
                     </view>
                     <connections>
+                        <outlet property="checkboxSaveDefaults" destination="hYP-Pu-XqX" id="02W-Eg-6Lf"/>
                         <outlet property="tableView" destination="AjU-9i-v7X" id="Vzl-bO-fY0"/>
                     </connections>
                 </viewController>
@@ -1426,6 +1450,7 @@
         <image name="ic_call_white" width="25" height="25"/>
         <image name="ic_cancel_circle_red" width="25" height="25"/>
         <image name="ic_check_circle_red" width="25" height="25"/>
+        <image name="ic_clear_black_48dp" width="36" height="36"/>
         <image name="ic_filter_white" width="25" height="25"/>
         <image name="ic_mail_white.png" width="24" height="24"/>
         <image name="ic_map_red" width="13" height="13"/>

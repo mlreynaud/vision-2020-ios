@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MapKit
 import GoogleMaps
 import GooglePlaces
 
@@ -84,7 +83,11 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
 //        locationManager.startUpdatingLocation()
 //        locationManager.delegate = self
         
+        radiusTextField.text = String("Radius: \(selectedRadius) mi")
+        
         zoomLevel = kDefaultZoom
+        
+        self.zoomMapToRadius()
     }
     
     func loadViewFromNib() ->UIView {
@@ -119,6 +122,11 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
 
     func setSearchLocation(_ location: CLLocation) {
         self.searchLocation = location
+    }
+    
+    func setSelectedRadius(_ radius: Int) {
+        self.selectedRadius = radius
+        self.radiusTextField.text = String("Radius: \(selectedRadius) mi")
     }
     
     func searchBarShouldBeginEditing(_ searchBar:UISearchBar) -> Bool {
@@ -165,38 +173,9 @@ extension MapView
 
 extension MapView
 {
-        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-            if overlay is MKCircle {
-                let circle = MKCircleRenderer(overlay: overlay)
-                circle.strokeColor = UIColor.darkGray
-                circle.fillColor = UIColor(white: 0, alpha: 0.2)
-                circle.lineWidth = 1
-                return circle
-            } else {
-                return MKPolylineRenderer()
-            }
-        }
-        
-        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
-        {
-            if annotation is MKUserLocation {
-                return nil
-            }
-            let reuseID = "pin"
-            var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseID) as? MKPinAnnotationView
-            if(pinView == nil) {
-                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
-                // pinView?.tintColor = UIColor.red
-                pinView!.canShowCallout = true
-                pinView!.animatesDrop = true
-            }
-            return pinView
-        }
-    
-        
         func addRadiusCircle()
         {
-            let meterRadius = DataManager.sharedInstance.radius * 1609
+            let meterRadius = selectedRadius * 1609
             let circle: GMSCircle = GMSCircle(position: (searchLocation?.coordinate)!,
                                               radius: CLLocationDistance(meterRadius))
             circle.map = map
@@ -208,7 +187,7 @@ extension MapView
         for location in locationList {
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: -location.longitude)
-            //            marker.snippet = location.detail
+            marker.snippet = location.detail
             marker.map = map
         }
         addRadiusCircle()
@@ -234,9 +213,9 @@ extension MapView
     }
 
     
-    func zoomMapToRadius(_ radius: Int) {
+    func zoomMapToRadius() {
         let center: CLLocationCoordinate2D = searchLocation!.coordinate
-        let meterRadius = CLLocationDistance(radius*1609)
+        let meterRadius = CLLocationDistance(selectedRadius*1609)
         let n: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 0)
         let e: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 90)
         let s: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 180)
@@ -257,6 +236,7 @@ extension MapView : UITextFieldDelegate, UIPickerViewDataSource
         let pickerView = UIPickerView()
         pickerView.delegate = self
         pickerView.dataSource = self
+        pickerView.selectRow(radiusList.index(of: String(selectedRadius))!, inComponent: 0, animated: false)
         
         let toolBar = UIToolbar()
         toolBar.barStyle = .default
@@ -280,7 +260,6 @@ extension MapView : UITextFieldDelegate, UIPickerViewDataSource
         radiusTextField.text = String("Radius: \(selectedRadius) mi")
         radiusTextField.resignFirstResponder()
         
-        DataManager.sharedInstance.radius = selectedRadius
         self.mapFilterDelegate?.mapFilter(sender: self)
     }
     

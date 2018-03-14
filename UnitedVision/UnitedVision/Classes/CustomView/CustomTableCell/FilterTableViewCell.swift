@@ -11,7 +11,10 @@ import UIKit
 class FilterTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
-
+    @IBOutlet weak var clearButton: UIButton!
+    
+    var clearHandler: (() -> Void)!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,6 +26,10 @@ class FilterTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func clearButtonClick(_ sender: Any) {
+        clearHandler()
+    }
+    
 }
 
 class CheckboxFilterTableCell: UITableViewCell {
