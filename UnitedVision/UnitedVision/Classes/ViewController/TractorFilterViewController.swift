@@ -60,10 +60,21 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
     
     @IBAction func resetButtonAction(){
         
+        if let dict = AppPrefData.sharedInstance.searchDict {
+            searchInfo = TractorSearchInfo(info: dict)
+            DataManager.sharedInstance.tractorSearchInfo = searchInfo
+        }
+        self.tableView.reloadData()
+
     }
     
     @IBAction func saveDefaultsButtonAction(){
         
+        searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
+        DataManager.sharedInstance.tractorSearchInfo = searchInfo
+        AppPrefData.sharedInstance.saveAllData()
+        
+        self.tableView.reloadData()
     }
 
     /*
@@ -170,6 +181,11 @@ extension TractorFilterViewController
             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "FilterPopupViewController") as! FilterPopupViewController
             viewCtrl.filterType = filterType
+            viewCtrl.tractorCompletionHandler = {(selectedTractorValue) in
+            
+                self.searchInfo.tractorType = selectedTractorValue
+                self.tableView.reloadData()
+            }
             
             //        self.providesPresentationContextTransitionStyle = true
             //        self.definesPresentationContext = true
@@ -188,6 +204,7 @@ extension TractorFilterViewController
             
             if filterType == .trailerType{
                 self.searchInfo.trailerType = selectedValue
+                
             }
 
             self.tableView.reloadData()

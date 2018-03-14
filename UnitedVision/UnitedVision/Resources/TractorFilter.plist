@@ -4,8 +4,6 @@
 <dict>
 	<key>radius</key>
 	<string>50</string>
-	<key>status</key>
-	<string>DP</string>
 	<key>city</key>
 	<string>Lafayette</string>
 	<key>state</key>

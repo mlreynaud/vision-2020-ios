@@ -50,7 +50,7 @@ class AppPrefData: NSObject {
         var dict : [String:Any] = [:]
         if let searchInfo = DataManager.sharedInstance.tractorSearchInfo
         {
-             dict = ["city" : searchInfo.city, "state": searchInfo.state, "zip": searchInfo.state, "latitude": searchInfo.latitude, "longiude": searchInfo.longitude, "status": searchInfo.status, "radius": searchInfo.radius]
+             dict = ["city" : searchInfo.city, "state": searchInfo.state, "zip": searchInfo.zip, "latitude": searchInfo.latitude, "longitude": searchInfo.longitude, "radius": searchInfo.radius]
             
             if searchInfo.trailerType.count > 0
             {

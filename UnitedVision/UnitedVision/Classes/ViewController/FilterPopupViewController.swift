@@ -15,8 +15,12 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     var filterType : FilterType!
     var isMultiSelectionAllow : Bool = false
     
+    var selectedValue = ""
     var selectedList: [String]? = []
     var filterList: [String] = []
+    
+    var tractorCompletionHandler: ((String)->Void)?
+    var lastIndexPath : IndexPath?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +38,9 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     //MARK: Button action methods
     @IBAction func doneButtonAction(_ sender: UIButton)
     {
+        if (filterType == .tractorType) {
+            self.tractorCompletionHandler?(selectedValue)
+        }
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -50,6 +57,7 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
        }
        else{
             filterList = ["Hot Shot", "One Ton", "Mini Float","Single Axle", "Tandem"]
+            selectedValue = (DataManager.sharedInstance.tractorSearchInfo?.tractorType)!
         }
         
         tableView.reloadData()
@@ -77,18 +85,54 @@ extension FilterPopupViewController
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CheckboxTableCell", for: indexPath) as! CheckboxTableCell
         
-        cell.titleLabel.text = filterList[indexPath.row]
+         let value = filterList[indexPath.row]
+        cell.titleLabel.text = value
         
         if (isMultiSelectionAllow)
         {
-            cell.imageView?.image = UIImage(named: "unchecked_checkbox")
+            cell.iconImageView?.image = UIImage(named: "unchecked_checkbox")
         }
         else
         {
-            cell.imageView?.image = UIImage(named: "radio_uncheck")
+            cell.iconImageView?.image = (selectedValue == value) ?  UIImage(named: "radio_check") : UIImage(named: "radio_uncheck")
         }
         
         return cell;
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        let cell = tableView.cellForRow(at: indexPath) as! CheckboxTableCell
+    
+        var lastSelectedCell : CheckboxTableCell?
+        if let lastIndexpath = lastIndexPath {
+            lastSelectedCell   = tableView.cellForRow(at: lastIndexpath) as? CheckboxTableCell
+        }
+        
+        let value = filterList[indexPath.row]
+
+        if (isMultiSelectionAllow)
+        {
+            
+        }
+        else
+        {
+            if (filterType == .tractorType)
+            {
+                if (value != selectedValue){
+                    selectedValue = filterList[indexPath.row]
+                     cell.iconImageView?.image = UIImage(named: "radio_check")
+                    lastSelectedCell?.iconImageView?.image  = UIImage(named: "radio_uncheck")
+                }
+                else
+                {
+                    selectedValue = ""
+                    cell.iconImageView?.image = UIImage(named: "radio_uncheck")
+                }
+                
+                lastIndexPath = indexPath
+            }
+        }
     }
     
 }

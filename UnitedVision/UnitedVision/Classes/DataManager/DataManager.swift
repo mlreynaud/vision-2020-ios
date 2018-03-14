@@ -249,7 +249,7 @@ class DataManager: NSObject {
     
     func createTractorSerachRequest(_ searchInfo: TractorSearchInfo) -> String{
         
-        var requestStr = "radius=\(searchInfo.radius)&city=\(searchInfo.city)&state=\(searchInfo.state)&zip=\(searchInfo.zip)&lat=\(searchInfo.latitude)&lon=\(searchInfo.longitude)&status=\(searchInfo.status)"
+        var requestStr = "radius=\(searchInfo.radius)&city=\(searchInfo.city)&state=\(searchInfo.state)&zip=\(searchInfo.zip)&lat=\(searchInfo.latitude)&lon=\(searchInfo.longitude)"
         
         if searchInfo.trailerType.count > 0
         {
@@ -258,7 +258,7 @@ class DataManager: NSObject {
         
         if searchInfo.tractorType.count > 0
         {
-            requestStr.append("&tractorType=\(searchInfo.tractorType)")
+            requestStr.append("&tractorType=\(searchInfo.tractorType.encodeString())")
         }
         
         return requestStr

@@ -562,10 +562,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fav-pz-tnU">
-                                <rect key="frame" x="20" y="183.5" width="335" height="300"/>
+                                <rect key="frame" x="20" y="133.5" width="335" height="400"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SPN-Cx-ffh">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="250"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SPN-Cx-ffh">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="350"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CheckboxTableCell" rowHeight="60" id="dxZ-3g-l59" customClass="CheckboxTableCell" customModule="UnitedVision" customModuleProvider="target">
@@ -609,7 +609,7 @@
                                         </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Agx-GH-npB">
-                                        <rect key="frame" x="245" y="250" width="80" height="50"/>
+                                        <rect key="frame" x="245" y="350" width="80" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="D0K-Tm-f7l"/>
                                             <constraint firstAttribute="height" constant="50" id="G8O-V1-3Ar"/>
@@ -623,7 +623,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rp9-xC-ls3">
-                                        <rect key="frame" x="160" y="250" width="80" height="50"/>
+                                        <rect key="frame" x="160" y="350" width="80" height="50"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="CANCEL">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -642,7 +642,7 @@
                                     <constraint firstItem="SPN-Cx-ffh" firstAttribute="top" secondItem="Fav-pz-tnU" secondAttribute="top" id="Vwe-4V-3pT"/>
                                     <constraint firstItem="rp9-xC-ls3" firstAttribute="height" secondItem="Agx-GH-npB" secondAttribute="height" id="aT4-wO-VcZ"/>
                                     <constraint firstAttribute="bottom" secondItem="SPN-Cx-ffh" secondAttribute="bottom" constant="50" id="bb4-P2-AqL"/>
-                                    <constraint firstAttribute="height" constant="300" id="dyg-aS-YSy"/>
+                                    <constraint firstAttribute="height" constant="400" id="dyg-aS-YSy"/>
                                     <constraint firstItem="Agx-GH-npB" firstAttribute="leading" secondItem="rp9-xC-ls3" secondAttribute="trailing" constant="5" id="kde-P2-AKB"/>
                                     <constraint firstItem="rp9-xC-ls3" firstAttribute="width" secondItem="Agx-GH-npB" secondAttribute="width" id="pFv-wF-UAd"/>
                                     <constraint firstItem="SPN-Cx-ffh" firstAttribute="leading" secondItem="Fav-pz-tnU" secondAttribute="leading" id="vXG-tT-5oH"/>

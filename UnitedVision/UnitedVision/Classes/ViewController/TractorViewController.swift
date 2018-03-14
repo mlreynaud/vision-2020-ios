@@ -38,7 +38,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         segmentedControl.addUnderlineForSelectedSegment()
 
         tractorSearchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()
-        
+
         self.fetchTractorLocations()
         
         mapView.initialSetup()
