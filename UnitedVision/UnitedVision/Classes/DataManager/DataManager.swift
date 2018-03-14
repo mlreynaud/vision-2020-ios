@@ -212,6 +212,7 @@ class DataManager: NSObject {
     {
        // http://uv.agilink.net/api2/tractor/service/search?radius=100&city=Lafayette&state=LA&zip=70508&lat=30.2241&lon=-92.0198
         
+        
         let params = self.createTractorSerachRequest(info)
         let service: String =  "tractor/service/search?\(params)"
         
@@ -219,6 +220,10 @@ class DataManager: NSObject {
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {(data, error) in
             
             var list = [TractorInfo]()
+            if (data == nil){
+                handler(false, list)
+                return
+            }
 
             do {
                 
@@ -230,13 +235,17 @@ class DataManager: NSObject {
 //                        return
 //                    }
 //
-                let array =  try! JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as! NSArray
-                
+                if let array =  try? JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as! NSArray
+               {
                 for dict in array
                 {
                     let info = TractorInfo(info: (dict as? NSDictionary)!)
                     list.append(info)
                 }
+                
+                }
+                
+                
             }
             catch{
                 print(error)
