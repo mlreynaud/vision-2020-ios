@@ -57,7 +57,9 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
        }
        else{
             filterList = ["Hot Shot", "One Ton", "Mini Float","Single Axle", "Tandem"]
-            selectedValue = (DataManager.sharedInstance.tractorSearchInfo?.tractorType)!
+            if let value = DataManager.sharedInstance.tractorSearchInfo?.tractorType{
+                selectedValue = value
+            }
         }
         
         tableView.reloadData()
