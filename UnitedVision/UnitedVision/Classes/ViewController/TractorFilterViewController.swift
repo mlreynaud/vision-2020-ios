@@ -130,16 +130,29 @@ extension TractorFilterViewController
                     self.searchInfo.trailerType = ""
                 }
             }
+            return cell
+        }
+        else {
             
-            return cell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CheckboxFilterTableCell", for: indexPath) as! CheckboxFilterTableCell
+            
+            let index = indexPath.section - filterList.count
+            cell.titleLabel.text = subList[index]
+            
+            let filterType = FilterType(rawValue: indexPath.section)!
+            
+            cell.valueChangeHandler = {(selected: Bool) in
+                if filterType == .loaded {
+                    self.searchInfo.loaded = selected
+                }
+                else if filterType == .hazmat {
+                    self.searchInfo.hazmat = selected
+                }
+            }
+            return cell
         }
        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CheckboxFilterTableCell", for: indexPath) as! CheckboxFilterTableCell
- 
-        let index = indexPath.section - filterList.count
-        cell.titleLabel.text = subList[index]
         
-        return cell;
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -191,6 +204,9 @@ extension TractorFilterViewController
             value = searchInfo.tractorType
         case .trailerType:
             value = searchInfo.trailerType
+        default:
+            value = ""
+            break
         }
         
         return value

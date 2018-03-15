@@ -292,6 +292,16 @@ class DataManager: NSObject {
             requestStr.append("&tractorType=\(searchInfo.tractorType.encodeString())")
         }
         
+        if searchInfo.hazmat
+        {
+            requestStr.append("&hazmat=Y")
+        }
+        
+        if searchInfo.loaded
+        {
+            requestStr.append("&loaded=Y")
+        }
+        
         return requestStr
     }
     

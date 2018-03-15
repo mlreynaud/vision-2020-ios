@@ -37,6 +37,8 @@ class CheckboxFilterTableCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var checkbox: UIButton!
     
+    var valueChangeHandler: ((_ selected: Bool) -> Void)!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -46,10 +48,12 @@ class CheckboxFilterTableCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
         checkbox.isSelected = selected
+        valueChangeHandler(selected)
     }
     
     @IBAction func checkBoxAction(_ sender: UIButton){
-        sender.isSelected = !sender.isSelected
+//        sender.isSelected = !sender.isSelected
+        self.isSelected = !self.isSelected
     }
     
 }

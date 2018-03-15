@@ -26,6 +26,8 @@ enum FilterType: Int {
     case tractorType
     case trailerType
     case tractorTerminal
+    case loaded
+    case hazmat
 }
 
 enum UserType: Int {

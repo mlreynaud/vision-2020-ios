@@ -11,8 +11,8 @@ import UIKit
 class TractorSearchInfo: NSObject {
 
     // optional
-    var hazmat : String = ""
-    var loaded : String = ""
+    var hazmat : Bool = false
+    var loaded : Bool = false
     var showLocal : String = ""
     var status = [String]()
     var terminalId : String = ""
