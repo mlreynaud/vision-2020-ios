@@ -12,8 +12,8 @@ class TrailerInfo: NSObject {
     var id: String?
     var descr: String?
     
-    init(info : NSDictionary) {
-        id = (info.object(forKey: "id") as? String) ?? ""
-        descr = (info.object(forKey: "descr") as? String) ?? ""
+    init(info : Dictionary<String, Any>) {
+        id = (info["id"] as? String) ?? ""
+        descr = (info["descr"] as? String) ?? ""
     }
 }

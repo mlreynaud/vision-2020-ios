@@ -35,13 +35,18 @@ class TerminalSearchViewController: BaseViewController, GMSMapViewDelegate {
         
         self.title = "Terminal Search"
         
-        mapView.initialSetup()
+        mapView.initialSetup(forType: .TerminalType)
         mapView.searchLocation = mapView.getCurrentLocation()
         mapView.mapFilterDelegate = self
         self.fetchTerminalLocations()
+        addSearchBarButton()
+    }
+    func addSearchBarButton() {
+        let searchBarBtn = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(TerminalSearchViewController.searchBarBtnPressed))
+        self.navigationItem.rightBarButtonItem = searchBarBtn
     }
     
-    
+
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .restricted:
@@ -79,26 +84,33 @@ class TerminalSearchViewController: BaseViewController, GMSMapViewDelegate {
         DataManager.sharedInstance.requestToFetchTerminalLocations(completionHandler: {( status, terminalList) in
             
             LoadingView.shared.hideOverlayView()
-            
-            self.locationArray = terminalList! //DataManager.sharedInstance.tractorList
-            self.mapLocations()
-            
+            if status {
+                self.locationArray = terminalList! //DataManager.sharedInstance.tractorList
+                self.mapLocations()
+            }
+            else{
+                UIUtils.showAlert(withTitle: kAppTitle, message: "Please check your internet connectivity", inContainer: self)
+            }
         })
     }
     
     func mapLocations() {
         var mapLocationList: [LocationInfo] = []
-        for location in locationArray {
-            let dist = GMSGeometryDistance(CLLocationCoordinate2DMake(location.latitude,-location.longitude),
-                                           CLLocationCoordinate2DMake((mapView.searchLocation?.coordinate.latitude)!,
-                                                                      (mapView.searchLocation?.coordinate.longitude)!)) / 1609
-            if (Int(dist) <= mapView.selectedRadius) {
-                mapLocationList.append(location)
+        if mapView.searchLocation != nil{
+            for location in locationArray {
+                let dist = GMSGeometryDistance(CLLocationCoordinate2DMake(location.latitude,-location.longitude),
+                                               CLLocationCoordinate2DMake((mapView.searchLocation?.coordinate.latitude)!,
+                                                                          (mapView.searchLocation?.coordinate.longitude)!)) / 1609
+                if (Int(dist) <= mapView.selectedRadius) {
+                    mapLocationList.append(location)
+                }
             }
         }
-        
         mapView.addLocationList(mapLocationList)
         mapView.zoomMapToRadius()
+    }
+    @objc func searchBarBtnPressed() {
+        self.mapView.presentAutoCompleteController()
     }
 
 }

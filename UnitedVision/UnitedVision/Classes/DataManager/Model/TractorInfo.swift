@@ -23,34 +23,35 @@ class TractorInfo: NSObject {
     var destinationCity: String?
     var originCity: String?
     var status: String?
-    var loaded: String?
     var reloadDate: String?
     
+    var loaded: String?
     var hazmat: String?
+    
     var latitude: Double = 0
     var longitude: Double = 0
     
-    init(info : NSDictionary)
+    init(info : Dictionary<String, Any>)
     {
-        tractorId = info.object(forKey: "tractorId") as? String
-        tractorType = info.object(forKey: "tractorType") as? String
-        tractorTypeDescr = info.object(forKey: "tractorTypeDescr") as? String
-        trailerType = info.object(forKey: "trailerType") as? String
-        trailerTypeDescr = info.object(forKey: "trailerTypeDescr") as? String
+        tractorId = info["tractorId"] as? String
+        tractorType = info["tractorType"] as? String
+        tractorTypeDescr = info["tractorTypeDescr"] as? String
+        trailerType = info["trailerType"] as? String
+        trailerTypeDescr = info["trailerTypeDescr"] as? String
         
-        trailerLength = info.object(forKey: "trailerLength") as? String
-        terminal = info.object(forKey: "terminal") as? String
-        distanceFromShipper = info.object(forKey: "distanceFromShipper") as? String
-        destinationCity = info.object(forKey: "destinationCity") as? String
-        originCity = info.object(forKey: "originCity") as? String
+        trailerLength = info["trailerLength"] as? String
+        terminal = info["terminal"] as? String
+        distanceFromShipper = info["distanceFromShipper"] as? String
+        destinationCity = info["destinationCity"] as? String
+        originCity = info["originCity"] as? String
         
-        status = info.object(forKey: "status") as? String
-        loaded = info.object(forKey: "loaded") as? String
-        reloadDate = info.object(forKey: "reloadDate") as? String
-        hazmat = info.object(forKey: "hazmat") as? String
+        status = info["status"] as? String
+        loaded = info["loaded"] as? String
+        reloadDate = info["reloadDate"] as? String
+        hazmat = info["hazmat"] as? String
         
-        latitude = info.value(forKey: "lat") as! Double
-        longitude = info.value(forKey: "lon") as! Double
+        latitude = info["lat"] as! Double
+        longitude = info["lon"] as! Double
 
     }
 

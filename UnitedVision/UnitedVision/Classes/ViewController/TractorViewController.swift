@@ -17,20 +17,19 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var tableView : UITableView!
     
     @IBOutlet weak var mapView: MapView!
-   // @IBOutlet weak var mapView: MKMapView!
-   // @IBOutlet weak var searchBar: UISearchBar!
+
     @IBOutlet weak var segmentedControl : UISegmentedControl!
     
     var showMap = false
 
     var tractorSearchInfo : TractorSearchInfo!
 
-    var tractorArray: [TractorInfo] = []
+    var tractorArray = [TractorInfo]()
+    
+    var searchBarBtn : UIBarButtonItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
         self.title = "Tractor Search"
         
@@ -43,7 +42,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         self.fetchTractorLocations()
         
         mapView.selectedRadius = Int((DataManager.sharedInstance.tractorSearchInfo?.radius)!)!
-        mapView.initialSetup()
+        mapView.initialSetup(forType: .TractorType)
         mapView.mapFilterDelegate = self
 
 //        tractorArray = DataManager.sharedInstance.tractorList
@@ -51,7 +50,14 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
 //        tableView.reloadData()
         
         self.view.backgroundColor = UIColor.white
-
+        addSearchBarButton()
+        tableView.register(UINib(nibName: "TerminalTableCell", bundle: Bundle.main), forCellReuseIdentifier: "TerminalTableCell")
+    }
+    func addSearchBarButton() {
+        searchBarBtn = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(TractorViewController.searchBarBtnPressed))
+        searchBarBtn?.isEnabled = false
+        searchBarBtn?.tintColor = .clear
+        self.navigationItem.rightBarButtonItem = searchBarBtn
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,12 +83,14 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         case 0:
             mapView.isHidden = true
             tableView.isHidden = false
-            
+            searchBarBtn?.isEnabled = false
+            searchBarBtn?.tintColor = .clear
             showMap = false
         case 1:
             mapView.isHidden = false
             tableView.isHidden = true
-            
+            searchBarBtn?.isEnabled = true
+            searchBarBtn?.tintColor = nil
             showMap = true
         default:
             break;
@@ -131,7 +139,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     {
         var mapLocationList: [TractorInfo] = []
         
-        var searchLocation: CLLocation = CLLocation(latitude: tractorSearchInfo.latitude, longitude: tractorSearchInfo.longitude)
+        let searchLocation: CLLocation = CLLocation(latitude: tractorSearchInfo.latitude, longitude: tractorSearchInfo.longitude)
         for info in tractorArray
         {
             let dist = GMSGeometryDistance(CLLocationCoordinate2DMake(info.latitude,info.longitude),
@@ -146,7 +154,9 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         mapView.searchLocation = searchLocation
         mapView.addTractorList(mapLocationList)
         mapView.zoomMapToRadius()
-        
+    }
+    @objc func searchBarBtnPressed() {
+        self.mapView.presentAutoCompleteController()
     }
 }
 
@@ -182,23 +192,15 @@ extension TractorViewController
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell : TerminalTableCell!
+        var cell : TerminalTableCell?
         
-        cell = tableView.dequeueReusableCell(withIdentifier: "TerminalTableCell", for: indexPath) as! TerminalTableCell
+        cell = tableView.dequeueReusableCell(withIdentifier: "TerminalTableCell", for: indexPath) as? TerminalTableCell
         
         let info = tractorArray[indexPath.section]
-        cell.showTractorInfo(info)
+        cell?.showTractorInfo(info)
+        cell?.delegate = self
         
-        cell.contentView.layer.cornerRadius = 5.0
-        cell.contentView.layer.borderColor  =  UIColor.clear.cgColor
-        cell.contentView.layer.borderWidth = 5.0
-        cell.contentView.layer.shadowOpacity = 0.5
-        cell.contentView.layer.shadowColor =  UIColor.lightGray.cgColor
-        cell.contentView.layer.shadowRadius = 5.0
-        cell.contentView.layer.shadowOffset = CGSize(width:5, height: 5)
-        cell.contentView.layer.masksToBounds = true
-        
-        return cell;
+        return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -210,35 +212,37 @@ extension TractorViewController
     
     //MARK- TerminalTableCell delegate methods
     
-    func callAtIndex (_ indexpath: IndexPath)
+    func callAtIndex (_ cell: TerminalTableCell)
     {
         
     }
     
-    func showMapAtIndex (_ indexpath: IndexPath)
+    func showMapAtIndex (_ cell: TerminalTableCell)
     {
-        
+        segmentedControl.selectedSegmentIndex = 1
+        segmentControlValueChanged(segmentedControl)
+        let indexPath = tableView.indexPath(for: cell)
+        mapView.mapBtnTapped(forTractorAt: indexPath!)
     }
-    
 }
 
 extension TractorViewController: MapFilterDelegate {
     func mapFilter(sender: MapView){
-        self.tractorSearchInfo.latitude = sender.searchLocation.coordinate.latitude
-        self.tractorSearchInfo.longitude = sender.searchLocation.coordinate.longitude
-        
-        let geocoder: GMSGeocoder = GMSGeocoder()
-        geocoder.reverseGeocodeCoordinate(sender.searchLocation.coordinate) { (response, error) in
-            let address = response?.firstResult()
-            self.tractorSearchInfo.city = (address?.locality)!
-            self.tractorSearchInfo.state = (address?.administrativeArea)!
-            self.tractorSearchInfo.zip = (address?.postalCode)!
+        if let searchLocation = sender.searchLocation{
+            self.tractorSearchInfo.latitude = searchLocation.coordinate.latitude
+            self.tractorSearchInfo.longitude = searchLocation.coordinate.longitude
+            
+            let geocoder: GMSGeocoder = GMSGeocoder()
+            geocoder.reverseGeocodeCoordinate(searchLocation.coordinate) { (response, error) in
+                let address = response?.firstResult()
+                self.tractorSearchInfo.city = (address?.locality)!
+                self.tractorSearchInfo.state = (address?.administrativeArea)!
+                self.tractorSearchInfo.zip = (address?.postalCode)!
+            }
+            
+            self.tractorSearchInfo.radius = String(sender.selectedRadius)
+            self.fetchTractorLocations()
         }
-        
-        self.tractorSearchInfo.radius = String(sender.selectedRadius)
-        
-        self.fetchTractorLocations()
-//        self.addTractorAnnotations()
     }
 }
 

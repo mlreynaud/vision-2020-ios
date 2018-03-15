@@ -32,24 +32,24 @@ class TractorSearchInfo: NSObject {
 
     }
     
-    init(info : NSDictionary)
+    init(info : Dictionary<String, Any>)
     {
-        if let value =  (info.object(forKey: "radius") as? String)
+        if let value =  (info["radius"] as? String)
         {
             radius = value
         }
         
-        if let value =  (info.object(forKey: "city") as? String)
+        if let value =  (info["city"] as? String)
         {
             city = value
         }
         
-        if let value =  (info.object(forKey: "state") as? String)
+        if let value =  (info["state"] as? String)
         {
             state = value
         }
         
-        if let value =  (info.object(forKey: "zip") as? String)
+        if let value =  (info["zip"] as? String)
         {
             zip = value
         }
@@ -58,37 +58,37 @@ class TractorSearchInfo: NSObject {
 //        self.zip = info["zip"] as! String
 //        self.status = info["status"] as! String
 
-        if let value =  (info.object(forKey: "latitude") as? NSNumber)?.doubleValue
+        if let value =  (info["latitude"] as? NSNumber)?.doubleValue
         {
             latitude = value
         }
         
-        if let value =  (info.object(forKey: "longitude") as? NSNumber)?.doubleValue
+        if let value =  (info["longitude"] as? NSNumber)?.doubleValue
         {
             longitude = value
         }
         
-        if let value =  (info.object(forKey: "status") as? String)
+        if let value =  (info["status"] as? String)
         {
             status = value
         }
         
-        if let value = info.object(forKey: "tractorType") as? String
+        if let value = info["tractorType"] as? String
         {
             tractorType = value
         }
         
-        if let value = info.object(forKey: "trailerType") as? String
+        if let value = info["trailerType"] as? String
         {
             trailerType = value
         }
         
-        if let value = info.object(forKey: "terminalId") as? String
+        if let value = info["terminalId"] as? String
         {
             terminalId = value
         }
         
-        if let value = info.object(forKey: "tractorId") as? String
+        if let value = info["tractorId"] as? String
         {
             tractorId = value
         }

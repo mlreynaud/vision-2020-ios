@@ -15,9 +15,9 @@ class LocationInfo: NSObject {
     var longitude: Double = 0
     var detail: String?
 
-    init(info : NSDictionary)
+    init(info : Dictionary<String, Any>)
     {
-        if let value = info.object(forKey: "id") as? String
+        if let value = info["id"] as? String
         {
             id = value
         }
@@ -25,17 +25,16 @@ class LocationInfo: NSObject {
 //        latitude = info.value(forKey: "lat") as! Double
 //        longitude = info.value(forKey: "lon") as! Double
         
-        if let value =  (info.object(forKey: "lat") as? NSNumber)?.doubleValue
-        {
+        if let value =  (info["lat"] as? NSNumber)?.doubleValue{
             latitude = value
         }
         
-        if let value =  (info.object(forKey: "lon") as? NSNumber)?.doubleValue
+        if let value =  (info["lon"] as? NSNumber)?.doubleValue
         {
             longitude = value
         }
        
-        detail = info.object(forKey: "description") as? String
+        detail = info["description"] as? String
     }
 
 }

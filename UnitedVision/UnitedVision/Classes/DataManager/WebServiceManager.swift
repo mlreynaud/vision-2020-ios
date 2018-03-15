@@ -10,7 +10,7 @@ import UIKit
 
 let kNetworkErrorMessage = "App encountered a Network connection problem. Please try again shortly."
 
-typealias CompletionHandlerClosureType = (_ data: NSData?, _ error: NSError?) -> ()
+typealias CompletionHandlerClosureType = (_ data: Data?, _ error: NSError?) -> ()
 typealias DownloadHandlerClosureType = (_ filepath: URL?, _ error: NSError?) -> ()
 
 var serviceCompletionHandler : CompletionHandlerClosureType?
@@ -156,7 +156,7 @@ class WebServiceManager: NSObject, URLSessionDelegate {
                 let responseStatusCode = httpResponse.statusCode
                 if responseStatusCode == 200
                 {
-                    serviceCompletionHandler!(receivedData as NSData?, error as NSError?)
+                    serviceCompletionHandler!(receivedData as Data?, error as NSError?)
                 }
                 else
                 {
