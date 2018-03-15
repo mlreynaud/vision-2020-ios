@@ -40,7 +40,7 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
     @IBOutlet var tractorDtlViewStatusLbl : UILabel!
     @IBOutlet var tractorDtlViewLoadedImgView : UIImageView!
     @IBOutlet var tractorDtlViewHazmatImgView : UIImageView!
-        
+    
     @IBOutlet var map: GMSMapView!
     var markers = [GoogleMapMarker]()
     
@@ -49,13 +49,13 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
     
     @IBOutlet weak var radiusTextField: UITextField!
     @IBOutlet weak var autocompleteTableView: UITableView!
-        
+    
     var searchLocation: CLLocation?
     var selectedRadius: Int = 50
     
     var radiusList : [String] = []
     var mapViewType: MapViewType?
-
+    
     let nibName = "MapView"
     var view : UIView!
     
@@ -96,23 +96,15 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
     {
         
         self.mapViewType = mapViewType
-
+        
         map.isMyLocationEnabled = true
         map.settings.myLocationButton = true
         map.settings.compassButton = true
-        map.padding = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
         map.delegate = self
         setupUpMyLocationBtn()
         searchLocation = self.getCurrentLocation()
         
         radiusList = DataManager.sharedInstance.getRadiusList()
-
-//        locationManager = CLLocationManager()
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        locationManager.requestAlwaysAuthorization()
-//        locationManager.distanceFilter = 50
-//        locationManager.startUpdatingLocation()
-//        locationManager.delegate = self
         
         radiusTextField.text = String("Radius: \(selectedRadius) mi")
         
@@ -123,8 +115,12 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
         tractorDetailView.isHidden =  mapViewType == .TractorType ? false : true
         
         zoomLevel = kDefaultZoom
+        
         self.zoomMapToRadius()
+        
+        addObserver(self, forKeyPath: #keyPath(map.selectedMarker), options: [.old, .new], context: nil)
     }
+    
     
     func setupUpMyLocationBtn(){
         
@@ -156,18 +152,18 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
             }
         }
     }
-        
-        
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        let userLocation = locations.last
-//        currentLocation = userLocation
-//        if searchLocation == nil {
-//            searchLocation = userLocation!
-//            moveMaptoLocation(location: currentLocation!)
-//        }
-//        locationManager.stopUpdatingLocation()
-//        
-//    }
+    
+    
+    //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    //        let userLocation = locations.last
+    //        currentLocation = userLocation
+    //        if searchLocation == nil {
+    //            searchLocation = userLocation!
+    //            moveMaptoLocation(location: currentLocation!)
+    //        }
+    //        locationManager.stopUpdatingLocation()
+    //
+    //    }
     
     
     @IBAction func zoomOutButtonClicked(sender: UIButton)
@@ -179,7 +175,7 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
     {
         self.map.animate(toZoom: self.map.camera.zoom - 0.5)
     }
-
+    
     func setSearchLocation(_ location: CLLocation) {
         self.searchLocation = location
     }
@@ -216,7 +212,7 @@ extension MapView
     func moveMapToCurrentLocation()
     {
         if let currentLocation = self.getCurrentLocation(){
-        self.moveMaptoLocation(location: currentLocation)
+            self.moveMaptoLocation(location: currentLocation)
         }
     }
     
@@ -263,7 +259,6 @@ extension MapView
         for location in locationList {
             let marker = GoogleMapMarker()
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: -location.longitude)
-            marker.snippet = location.detail
             marker.locationInfo = location
             marker.map = map
             markers.append(marker)
@@ -292,7 +287,7 @@ extension MapView
                                               zoom: self.zoomLevel)
         self.map.animate(to: camera)
     }
-
+    
     
     func zoomMapToRadius() {
         
@@ -309,22 +304,55 @@ extension MapView
             zoomLevel = map.camera.zoom
         }
     }
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
-        colorSelectedMarker(mapView, markerTapped: marker)
-        createMarkerDetailView(markerTapped: marker)
-        
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        searchLocation = getCurrentLocation()
+        mapFilterDelegate?.mapFilter(sender: self)
         return true
     }
-    func colorSelectedMarker(_ mapView: GMSMapView, markerTapped marker: GMSMarker){
-        if marker != mapView.selectedMarker, let selectedMarker = mapView.selectedMarker {
-            selectedMarker.icon = GMSMarker.markerImage(with: nil)
-            selectedMarker.map = nil
-        }
-        marker.map = map
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         mapView.selectedMarker = marker
-        marker.icon = GMSMarker.markerImage(with: .green)
+        //
+        //        colorSelectedMarker(mapView, markerTapped: marker)
+        //        createMarkerDetailView(markerTapped: marker)
+        //
+        return true
     }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == #keyPath(map.selectedMarker) {
+            let oldMarker: GMSMarker? = change?[.oldKey] as? GMSMarker
+            let newMarker: GMSMarker? = change?[.newKey] as? GMSMarker
+            if oldMarker != newMarker {
+                colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
+            }
+            if newMarker == nil {
+                hideDetailView()
+            }
+            else {
+                createMarkerDetailView(markerTapped: newMarker!)
+            }
+        }
+    }
+    
+    func colorSelectedMarker(oldMarker: GMSMarker?, newMarker: GMSMarker?) {
+        if oldMarker != newMarker {
+            oldMarker?.icon = GMSMarker.markerImage(with: nil)
+            newMarker?.icon = GMSMarker.markerImage(with: .green)
+        }
+    }
+    //    func colorSelectedMarker(_ mapView: GMSMapView, markerTapped marker: GMSMarker){
+    //        if marker != mapView.selectedMarker, let selectedMarker = mapView.selectedMarker {
+    //            selectedMarker.icon = GMSMarker.markerImage(with: nil)
+    ////            selectedMarker.map = nil
+    //        }
+    ////        marker.map = map
+    //        mapView.selectedMarker = marker
+    //        marker.icon = GMSMarker.markerImage(with: .green)
+    //    }
+    
+    
     func createMarkerDetailView(markerTapped marker: GMSMarker){
         let selectedMarker =  marker as! GoogleMapMarker
         if mapViewType == .TerminalType{
@@ -358,10 +386,10 @@ extension MapView
     
     func mapBtnTapped(forTractorAt index:IndexPath ){
         let selectedMarker = markers[index.item]
-//        selectedMarker.icon = GMSMarker.markerImage(with: .green)
-       _ = mapView(map, didTap: selectedMarker)
-//        selectedMarker.map = nil
-//        selectedMarker.map = map
+        //        selectedMarker.icon = GMSMarker.markerImage(with: .green)
+        _ = mapView(map, didTap: selectedMarker)
+        //        selectedMarker.map = nil
+        //        selectedMarker.map = map
     }
     
     @IBAction func terminalSearchCallBtnPressed(){
@@ -439,7 +467,7 @@ extension MapView: GMSAutocompleteViewControllerDelegate {
         viewController.dismiss(animated: true, completion: nil)
         searchLocation = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
         DispatchQueue.main.async { () -> Void in
-           
+            
             //            self.mapView.moveMaptoLocation(location: self.searchLocation!)
             self.mapFilterDelegate?.mapFilter(sender: self)
         }

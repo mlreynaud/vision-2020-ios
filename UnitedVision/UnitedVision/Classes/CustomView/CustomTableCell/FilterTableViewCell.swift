@@ -35,6 +35,7 @@ class FilterTableViewCell: UITableViewCell {
 class CheckboxFilterTableCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var checkbox: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,8 +44,8 @@ class CheckboxFilterTableCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
+        checkbox.isSelected = selected
     }
     
     @IBAction func checkBoxAction(_ sender: UIButton){

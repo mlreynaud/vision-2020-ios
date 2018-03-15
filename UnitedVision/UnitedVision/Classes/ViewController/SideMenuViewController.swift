@@ -15,6 +15,7 @@ enum LeftMenu: Int {
     case terminalSearch
     case contact
     case logout
+    case login
 }
 
 import UIKit
@@ -27,6 +28,7 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView : UITableView!
     var menus: [String] = []
     var imageList : [String] = []
+    var menuValues: [LeftMenu] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -65,12 +67,14 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
     func populateArray() {
         
         if (DataManager.sharedInstance.isLogin) {
-            menus = ["Home", "Tractor Search", "Terminal Search", "Contact", "Logout"]
+            menus = ["Home", "Tractor Search", "Terminal Search", "Contact", "Log Out"]
             imageList = ["ic_home","ic_truck_gray", "ic_location_black" ,"ic_call_black", "ic_logout"]
+            menuValues = [.home, .tractorSearch, .terminalSearch, .contact, .logout]
         }
         else{
-            menus = ["Home", "Tractor Search", "Terminal Search", "Contact"]
-            imageList = ["ic_home","ic_truck_gray", "ic_location_black" ,"ic_call_black"]
+            menus = ["Home", "Terminal Search", "Contact", "Log In"]
+            imageList = ["ic_home", "ic_location_black" ,"ic_call_black", "ic_login_red"]
+            menuValues = [.home, .terminalSearch, .contact, .login]
         }
         
         tableView.reloadData()
@@ -114,34 +118,37 @@ extension SideMenuViewController
         cell.titleLabel.text = menus[indexPath.row]
         cell.iconImageView.image = UIImage(named: imageList[indexPath.row])
         cell.iconImageView.tintColor = UIColor.gray
+        cell.menuValue = menuValues[indexPath.row].rawValue
         
         return cell;
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if let menu = LeftMenu(rawValue: indexPath.row) {
+        let menu = menuValues[indexPath.row]
             
-            switch menu{
+        switch menu {
 //            case .login:
 //                    self.showLoginView()
 //                    break;
-            case .logout:
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                appDelegate.logout()
-                self.slideMenuController()?.closeLeft()
-                break
-            default:
-                if let viewCtrl =  self.getViewControllerFor(menu: menu){
-                    let navCtrl = UINavigationController(rootViewController: viewCtrl)
-                    self.slideMenuController()?.changeMainViewController(navCtrl, close: true)
-                }
-                break
-                
-                
+        case .logout:
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.logout()
+            self.slideMenuController()?.closeLeft()
+            break
+        case .login:
+            signInButtonAction()
+        default:
+            if let viewCtrl =  self.getViewControllerFor(menu: menu){
+                let navCtrl = UINavigationController(rootViewController: viewCtrl)
+                self.slideMenuController()?.changeMainViewController(navCtrl, close: true)
             }
-           
+            break
+            
+            
         }
+       
+
     }
     
     func getViewControllerFor(menu: LeftMenu) -> UIViewController? {
