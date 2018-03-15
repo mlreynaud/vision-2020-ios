@@ -55,6 +55,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         
         let logo = UIImage(named: "uv1")
         let imageView = UIImageView(image:logo)
+        imageView.contentMode = .scaleAspectFit
         self.navigationItem.titleView = imageView
         
 //        tableView.allowMultipleSectionsOpen = true

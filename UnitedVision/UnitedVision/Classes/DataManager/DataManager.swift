@@ -34,7 +34,7 @@ class DataManager: NSObject {
         self.isLogin = appPref.isLogin
         self.authToken = appPref.authToken
         
-        if let dict = appPref.searchDict
+        if let dict = appPref.searchDict //, dict.count != 0
         {
             self.tractorSearchInfo = TractorSearchInfo(info: dict)
         }
@@ -74,7 +74,6 @@ class DataManager: NSObject {
     func readJSON(file filename: String) -> Data?
     {
         print(filename)
-        let filepath1 = Bundle.main.url(forResource: filename, withExtension: "json")
         if let filepath = Bundle.main.path(forResource: filename, ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: filepath), options: .alwaysMapped)
@@ -94,11 +93,11 @@ class DataManager: NSObject {
         let data = self.readJSON(file: "loctaion")
         var list = [LocationInfo]()
         
-        if let json = UIUtils.getJSONFromData(data as Data!) as? NSArray
+        if let json = UIUtils.getJSONFromData(data as Data!) as? [Dictionary<String, Any>]
         {
             for dict in json
             {
-                let info = LocationInfo(info: (dict as? NSDictionary)!)
+                let info = LocationInfo(info:dict)
                 list.append(info)
             }
         }
@@ -111,11 +110,11 @@ class DataManager: NSObject {
         let data = self.readJSON(file: "tractor")
         var list = [TractorInfo]()
         
-        if let json = UIUtils.getJSONFromData(data as Data!) as? NSArray
+        if let json = UIUtils.getJSONFromData(data as Data!) as? [Dictionary<String, Any>]
         {
             for dict in json
             {
-                let info = TractorInfo(info: (dict as? NSDictionary)!)
+                let info = TractorInfo(info:dict)
                 list.append(info)
             }
         }
@@ -132,6 +131,11 @@ class DataManager: NSObject {
        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: postParams) as URLRequest
        // let request = WebServiceManager.getRequest(service) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {[unowned self] (data, error) in
+            
+            if error != nil{
+                handler(false, "Login failed")
+                return
+            }
             
             guard  let responseStr : String = String(data: data! as Data, encoding: .utf8),
                     responseStr.count != 0
@@ -163,6 +167,11 @@ class DataManager: NSObject {
         let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: postParams) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {[unowned self] (data, error) in
             
+            if error != nil{
+                handler(false, "Invalid Token")
+                return
+            }
+            
             guard  let responseStr : String = String(data: data! as Data, encoding: .utf8),
                 responseStr.count != 0
                 else {
@@ -184,27 +193,31 @@ class DataManager: NSObject {
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {(data, error) in
             
-            var list = [LocationInfo]()
-
-            do {
-//                let outerJSON = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments)
-                let array =  try! JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as! NSArray
-
-                for dict in array
-                {
-                    let info = LocationInfo(info: (dict as? NSDictionary)!)
-                    list.append(info)
-                    //                let info = TractorInfo(info: (dict as? NSDictionary)!)
-                    //                list.append(info)
+            var responseArr = [LocationInfo]()
+            var status : Bool = false
+            
+            if error != nil {
+                handler(status, nil)
+                return
+            }
+            
+            do{
+                if let arr =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
+                    for dict in arr
+                    {
+                        let info = LocationInfo(info:dict)
+                        responseArr.append(info)
+                    }
+                    status = true
                 }
-                
             }
             catch{
                 print(error)
+                status = false
             }
-            
-            self.locationList = list
-            handler(true, list)
+            self.locationList = responseArr
+
+            handler(status, responseArr)
         })
     }
     
@@ -218,41 +231,30 @@ class DataManager: NSObject {
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {(data, error) in
             
-            var list = [TractorInfo]()
-            if (data == nil){
-                handler(false, list)
+            var responseArr = [TractorInfo]()
+            var status : Bool = false
+            
+            if error != nil {
+                handler(status, nil)
                 return
             }
-
-            do {
-                
-//                guard   let outerJSON : String = try JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as? String,
-//                     outerJSON.count != 0,
-//                    let array =  try! JSONSerialization.jsonObject(with: outerJSON.data(using: .utf8)!, options: .allowFragments) as? NSArray
-//                    else {
-//                        handler(false, nil)
-//                        return
-//                    }
-//
-                if let array =  try? JSONSerialization.jsonObject(with: data! as Data, options: .allowFragments) as! NSArray
-               {
-                for dict in array
-                {
-                    let info = TractorInfo(info: (dict as? NSDictionary)!)
-                    list.append(info)
+            
+            do{
+                if let arr =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
+                    for dict in arr
+                    {
+                        let info = TractorInfo(info:dict)
+                        responseArr.append(info)
+                    }
+                    status = true
                 }
-                
-                
-                }
-                
-                
             }
             catch{
                 print(error)
+                status = false
             }
-            
-            self.tractorList = list
-            handler(true, list)
+            self.tractorList = responseArr
+            handler(status, responseArr)
         })
     }
     
@@ -300,21 +302,29 @@ class DataManager: NSObject {
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {(data, error) in
             
-            if (error != nil)
-            {
-                handler(false, nil)
+            var responseArr = [TrailerInfo]()
+            var status : Bool = false
+            
+            if error != nil {
+                handler(status, nil)
+                return
             }
             
-            var list = [TrailerInfo]()
-            
-            let array =  try! JSONSerialization.jsonObject(with: data as! Data, options: .allowFragments) as! NSArray
-            
-            for dict in array {
-                let info = TrailerInfo(info: (dict as? NSDictionary)!)
-                list.append(info)
+            do{
+                if let arr =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
+                    for dict in arr
+                    {
+                        let info = TrailerInfo(info:dict)
+                        responseArr.append(info)
+                    }
+                    status = true
+                }
             }
-            
-            handler(true, list)
+            catch{
+                print(error)
+                status = false
+            }
+            handler(status, responseArr)
         })
     }
     
@@ -324,16 +334,25 @@ class DataManager: NSObject {
         
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {(data, error) in
+            var responseArr = [String]()
+            var status : Bool = false
             
             if (error != nil)
             {
-                handler(false, nil)
+                handler(status, nil)
+                return
             }
-            
-             let array =  try! JSONSerialization.jsonObject(with: data as! Data, options: .allowFragments) as? NSArray
-            
-            handler(true, array as? [String])
-            
+            do {
+                if let array =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [String]{
+                    responseArr.append(contentsOf: array)
+                    status = true
+                }
+            }
+            catch{
+                print(error)
+                status = false
+            }
+            handler(status, responseArr)
         })
     }
     
@@ -359,7 +378,7 @@ class DataManager: NSObject {
     {
         var radiusList : [String] = []
         var value = 25
-        for i in 1...20
+        for _ in 1...20
         {
             radiusList.append(String(value))
             value += 25
@@ -367,10 +386,13 @@ class DataManager: NSObject {
         return radiusList
     }
     
-    func fetchFilterDefaultValues() -> TractorSearchInfo
+    func fetchFilterDefaultValues() -> TractorSearchInfo?
     {
-        let dict = AppPrefData.sharedInstance.searchDict ?? UIUtils.parsePlist(ofName: "TractorFilter") as! NSDictionary
-        let searchInfo = TractorSearchInfo(info: dict)
+        var dict = AppPrefData.sharedInstance.searchDict
+        if dict == nil || (dict?.count)! < 0 {
+            dict = (UIUtils.parsePlist(ofName: "TractorFilter") as! Dictionary<String, Any>)
+        }
+        let searchInfo = TractorSearchInfo(info: dict!)
         return searchInfo
     }
     

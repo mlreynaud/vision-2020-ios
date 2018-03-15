@@ -14,7 +14,7 @@ class AppPrefData: NSObject {
     
     var authToken = ""
     var isLogin = false;
-    var searchDict: NSDictionary? = nil
+    var searchDict: Dictionary<String, Any>?
 
     private override init() {
         super.init()
@@ -27,9 +27,9 @@ class AppPrefData: NSObject {
         {
             authToken = (dictionary["authToken"] as? String)!
             isLogin = dictionary["isLogin"] as! Bool
-            searchDict = dictionary["TractorSearchDict"] as? NSDictionary
-
-
+            if let tractorSearchDict = dictionary["TractorSearchDict"] as? Dictionary<String,Any> , tractorSearchDict.count > 0{
+                searchDict = tractorSearchDict
+            }
         }
     }
     
@@ -45,9 +45,9 @@ class AppPrefData: NSObject {
         return dictionary
     }
     
-    func createTractorSearchDict()-> NSDictionary
+    func createTractorSearchDict()-> Dictionary<String, Any>
     {
-        var dict : [String:Any] = [:]
+        var dict = Dictionary<String, Any>()
         if let searchInfo = DataManager.sharedInstance.tractorSearchInfo
         {
              dict = ["city" : searchInfo.city, "state": searchInfo.state, "zip": searchInfo.zip, "latitude": searchInfo.latitude, "longitude": searchInfo.longitude, "radius": searchInfo.radius]
@@ -64,9 +64,7 @@ class AppPrefData: NSObject {
                 dict["tractorType"] = searchInfo.tractorType
             }
         }
-        
-        
-        return dict as NSDictionary
+        return dict
     }
     
     func saveAppPreferenceData() {

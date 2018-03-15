@@ -23,8 +23,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
-        
-        locationManager.startUpdatingLocation()
+        startUpdateLocation()
     }
     
     func startUpdateLocation()
@@ -51,13 +50,15 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation])
     {
-        let location = locations.last as! CLLocation
-        let currentLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        if !locations.isEmpty{
+            let location = locations.last! as CLLocation
+            let currentLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            
+            DataManager.sharedInstance.userLocation = currentLocation
+            
+            stopLocationUpdate()
+        }
         
-        DataManager.sharedInstance.userLocation = currentLocation
-        
-        locationManager.stopUpdatingLocation()
-
 //        latitude.text = String(format: "%.4f",
 //                               latestLocation.coordinate.latitude)
 //        longitude.text = String(format: "%.4f",

@@ -35,6 +35,11 @@ enum UserType: Int {
     case employee
 }
 
+enum MapViewType {
+    case TerminalType
+    case TractorType
+}
+
 let kAppTitle = "United Vision"
 
 let kBlueColor = UIColor(red: 38/255.0, green: 95.0/255.0, blue: 137.0/255.0, alpha: 1.0)

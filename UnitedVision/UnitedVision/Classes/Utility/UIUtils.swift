@@ -292,4 +292,7 @@ class UIUtils: NSObject {
         
         return plistDictionary
     }
+    class func returnCheckOrCrossImage(str : String) -> UIImage! {
+        return  str == "N" ? UIImage(named:"ic_cancel_circle_red") : UIImage(named:"ic_check_circle_green")
+    }
 }

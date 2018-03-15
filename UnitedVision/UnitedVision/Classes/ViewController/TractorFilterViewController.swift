@@ -35,7 +35,7 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
         self.title = "Tractor Search Filter"
         // Do any additional setup after loading the view.
         
-        searchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()
+        searchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()!
         
         radiusList = DataManager.sharedInstance.getRadiusList()
         self.createPickerView()

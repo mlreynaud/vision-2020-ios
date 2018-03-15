@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1405D6612059C7D000A8B0CA /* TrailerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1405D6602059C7D000A8B0CA /* TrailerInfo.swift */; };
+		B19CAE54205A544B00090F10 /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE53205A544B00090F10 /* MapView.xib */; };
+		B19CAE56205AA38B00090F10 /* TerminalTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */; };
 		BA44A0E8202DF91200DE6130 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0E6202DF91200DE6130 /* Main.storyboard */; };
 		BA44A0EA202DF91200DE6130 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0E9202DF91200DE6130 /* Assets.xcassets */; };
 		BA44A0ED202DF91200DE6130 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0EB202DF91200DE6130 /* LaunchScreen.storyboard */; };
@@ -42,7 +44,6 @@
 		BA5CE60D203AF8E400B14DB6 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE60C203AF8E400B14DB6 /* iCarousel.m */; };
 		BA5CE618203C282A00B14DB6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE617203C282A00B14DB6 /* String.swift */; };
 		BA5CE61A203D7E5000B14DB6 /* AutocompleteTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE619203D7E5000B14DB6 /* AutocompleteTableCell.swift */; };
-		BA84A37B204D5D33004E1410 /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA84A37A204D5D33004E1410 /* MapView.xib */; };
 		BA84A37D204D6066004E1410 /* FilterPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A37C204D6066004E1410 /* FilterPopupViewController.swift */; };
 		BA84A37F204D6540004E1410 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A37E204D6540004E1410 /* MapView.swift */; };
 		BA84A381204D6664004E1410 /* CheckboxTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A380204D6664004E1410 /* CheckboxTableCell.swift */; };
@@ -62,6 +63,8 @@
 /* Begin PBXFileReference section */
 		1405D6602059C7D000A8B0CA /* TrailerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerInfo.swift; sourceTree = "<group>"; };
 		231F842DF1EE3AC446A128CE /* Pods-UnitedVision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitedVision.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision.debug.xcconfig"; sourceTree = "<group>"; };
+		B19CAE53205A544B00090F10 /* MapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
+		B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TerminalTableCell.xib; sourceTree = "<group>"; };
 		B32E5ADD18A8E0C9A7676579 /* Pods-UnitedVision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitedVision.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision.release.xcconfig"; sourceTree = "<group>"; };
 		BA44A0DF202DF91200DE6130 /* UnitedVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitedVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA44A0E7202DF91200DE6130 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -101,7 +104,6 @@
 		BA5CE614203AFA8D00B14DB6 /* UnitedVision-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitedVision-Bridging-Header.h"; sourceTree = "<group>"; };
 		BA5CE617203C282A00B14DB6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		BA5CE619203D7E5000B14DB6 /* AutocompleteTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutocompleteTableCell.swift; sourceTree = "<group>"; };
-		BA84A37A204D5D33004E1410 /* MapView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
 		BA84A37C204D6066004E1410 /* FilterPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPopupViewController.swift; sourceTree = "<group>"; };
 		BA84A37E204D6540004E1410 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BA84A380204D6664004E1410 /* CheckboxTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxTableCell.swift; sourceTree = "<group>"; };
@@ -193,9 +195,10 @@
 		BA44A0F7202DF96D00DE6130 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				B19CAE53205A544B00090F10 /* MapView.xib */,
 				BA4D87A0204D1D0100FC78CA /* AccordionHeaderView.xib */,
-				BA84A37A204D5D33004E1410 /* MapView.xib */,
 				BA84A382204E752B004E1410 /* AutocompleteTableCell.xib */,
+				B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -398,7 +401,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA84A37B204D5D33004E1410 /* MapView.xib in Resources */,
+				B19CAE56205AA38B00090F10 /* TerminalTableCell.xib in Resources */,
 				BA44A0ED202DF91200DE6130 /* LaunchScreen.storyboard in Resources */,
 				BA44A116202DF96E00DE6130 /* tractor.json in Resources */,
 				BA84A3932051B2E1004E1410 /* ContactInfo.plist in Resources */,
@@ -408,6 +411,7 @@
 				BA4D87A1204D1D0100FC78CA /* AccordionHeaderView.xib in Resources */,
 				BA84A3992053AADC004E1410 /* TractorFilter.plist in Resources */,
 				BA44A0E8202DF91200DE6130 /* Main.storyboard in Resources */,
+				B19CAE54205A544B00090F10 /* MapView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

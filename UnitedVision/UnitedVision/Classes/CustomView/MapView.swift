@@ -10,41 +10,64 @@ import Foundation
 import GoogleMaps
 import GooglePlaces
 
+let kTractorViewHeight : CGFloat = 104
+let kTerminalViewHeight : CGFloat = 95
+
 protocol MapFilterDelegate: class {
     func mapFilter(sender: MapView)
 }
 
+class GoogleMapMarker : GMSMarker{
+    var locationInfo : LocationInfo?
+    var tractorInfo : TractorInfo?
+}
+
 class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManagerDelegate, UIPickerViewDelegate {
-        
+    
+    
+    @IBOutlet var terminalDetailView: UIView!
+    @IBOutlet var terminalDetailViewHeight: NSLayoutConstraint!
+    @IBOutlet var terminalDetailViewAddressLbl : UILabel!
+    
+    @IBOutlet var tractorDetailView: UIView!
+    @IBOutlet var tractorDetailViewHeight: NSLayoutConstraint!
+    @IBOutlet var tractorDtlViewTerminalLbl : UILabel!
+    @IBOutlet var tractorDtlViewDestLbl : UILabel!
+    @IBOutlet var tractorDtlViewTractorLbl : UILabel!
+    @IBOutlet var tractorDtlViewTrailerLbl : UILabel!
+    @IBOutlet var tractorDtlViewTrailerLenLbl : UILabel!
+    @IBOutlet var tractorDtlViewDistLbl : UILabel!
+    @IBOutlet var tractorDtlViewStatusLbl : UILabel!
+    @IBOutlet var tractorDtlViewLoadedImgView : UIImageView!
+    @IBOutlet var tractorDtlViewHazmatImgView : UIImageView!
         
     @IBOutlet var map: GMSMapView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    var markers = [GoogleMapMarker]()
+    
+    @IBOutlet var myLocationBtnOutlet: UIButton!
+    var myLocationBtn : UIButton?
     
     @IBOutlet weak var radiusTextField: UITextField!
     @IBOutlet weak var autocompleteTableView: UITableView!
         
-        var searchLocation: CLLocation!
-        var selectedRadius: Int = 50
+    var searchLocation: CLLocation?
+    var selectedRadius: Int = 50
     
     var radiusList : [String] = []
-    
+    var mapViewType: MapViewType?
+
     let nibName = "MapView"
     var view : UIView!
     
-    
-    
     weak var mapFilterDelegate: MapFilterDelegate?
     
-        var locationManager = CLLocationManager()
-        var currentLocation: CLLocation?
-        var placesClient: GMSPlacesClient!
-    
+    var locationManager = CLLocationManager()
+    var placesClient: GMSPlacesClient!
     
     var kDefaultZoom: Float = 8.0
     
-        var zoomLevel: Float = 15.0
-        
-        
+    var zoomLevel: Float = 15.0
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         xibSetUp()
@@ -62,17 +85,25 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
         addSubview(view)
     }
     
-    func initialSetup()
+    func loadViewFromNib() ->UIView {
+        let bundle = Bundle(for: type(of: self))
+        let nib = UINib(nibName: nibName, bundle: bundle)
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
+        return view
+    }
+    
+    func initialSetup(forType mapViewType : MapViewType)
     {
+        
+        self.mapViewType = mapViewType
+
         map.isMyLocationEnabled = true
         map.settings.myLocationButton = true
         map.settings.compassButton = true
         map.padding = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
         map.delegate = self
-        
+        setupUpMyLocationBtn()
         searchLocation = self.getCurrentLocation()
-        
-        searchBar.delegate = self
         
         radiusList = DataManager.sharedInstance.getRadiusList()
 
@@ -85,16 +116,45 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
         
         radiusTextField.text = String("Radius: \(selectedRadius) mi")
         
-        zoomLevel = kDefaultZoom
+        terminalDetailViewHeight.constant = 0
+        tractorDetailViewHeight.constant = 0
         
+        terminalDetailView.isHidden = mapViewType == .TerminalType ? false : true
+        tractorDetailView.isHidden =  mapViewType == .TractorType ? false : true
+        
+        zoomLevel = kDefaultZoom
         self.zoomMapToRadius()
     }
     
-    func loadViewFromNib() ->UIView {
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: nibName, bundle: bundle)
-        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
-        return view
+    func setupUpMyLocationBtn(){
+        
+        myLocationBtnOutlet.imageView?.contentMode = .scaleAspectFit
+        myLocationBtnOutlet.layer.masksToBounds = true
+        myLocationBtnOutlet.layer.shouldRasterize = true
+        myLocationBtnOutlet.layer.cornerRadius = myLocationBtnOutlet.frame.width/2
+        fetchMyLocationBtn()
+    }
+    
+    @IBAction func myLocationBtnPressed(){
+        myLocationBtn?.sendActions(for: .touchUpInside)
+    }
+    
+    func fetchMyLocationBtn(){
+        for view in map.subviews {
+            if  type(of: view).description()  == "GMSUISettingsPaddingView"{
+                for subView in view.subviews {
+                    if  type(of: subView).description()  == "GMSUISettingsView"{
+                        for settingSubView in subView.subviews{
+                            if  type(of: settingSubView).description()  == "GMSx_QTMButton"{
+                                myLocationBtn = settingSubView as? UIButton
+                                myLocationBtn?.isHidden = true
+                                return
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
         
         
@@ -129,13 +189,12 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
         self.radiusTextField.text = String("Radius: \(selectedRadius) mi")
     }
     
-    func searchBarShouldBeginEditing(_ searchBar:UISearchBar) -> Bool {
+    func presentAutoCompleteController(){
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
         
         let currentController = self.getCurrentViewController()
         currentController?.present(autocompleteController, animated:true, completion: nil)
-        return false;
     }
     
     func getCurrentViewController() -> UIViewController? {
@@ -156,51 +215,73 @@ extension MapView
 {
     func moveMapToCurrentLocation()
     {
-        let currentLocation = self.getCurrentLocation()
+        if let currentLocation = self.getCurrentLocation(){
         self.moveMaptoLocation(location: currentLocation)
-        
+        }
     }
     
-    func getCurrentLocation() -> CLLocation
+    func getCurrentLocation() -> CLLocation?
     {
-        let coordinate = DataManager.sharedInstance.userLocation
-        let currentLocation = CLLocation(latitude: (coordinate?.latitude)!, longitude: (coordinate?.longitude)!)
+        var currentLocation : CLLocation? = nil
+        if LocationManager.sharedInstance.checkLocationAuthorizationStatus() {
+            if let coordinate = DataManager.sharedInstance.userLocation {
+                currentLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            }
+        }
+        else{
+            UIUtils.showAlert(withTitle: kAppTitle, message: "Please Check your GPS permissions", inContainer: getCurrentViewController()!)
+        }
+        
         return currentLocation
     }
-
-    
 }
 
 extension MapView
 {
-        func addRadiusCircle()
-        {
+    func hideDetailView(){
+        tractorDetailView.isHidden = true
+        terminalDetailView.isHidden = true
+        tractorDetailViewHeight.constant = 0
+        terminalDetailViewHeight.constant = 0
+    }
+    
+    func addRadiusCircle()
+    {
+        if searchLocation != nil{
             let meterRadius = selectedRadius * 1609
             let circle: GMSCircle = GMSCircle(position: (searchLocation?.coordinate)!,
                                               radius: CLLocationDistance(meterRadius))
             circle.map = map
         }
+    }
     
     func addLocationList(_ locationList: [LocationInfo])
     {
+        markers.removeAll()
         map.clear()
+        hideDetailView()
         for location in locationList {
-            let marker = GMSMarker()
+            let marker = GoogleMapMarker()
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: -location.longitude)
             marker.snippet = location.detail
+            marker.locationInfo = location
             marker.map = map
+            markers.append(marker)
         }
         addRadiusCircle()
     }
     
     func addTractorList(_ tractorList: [TractorInfo])
     {
+        markers.removeAll()
         map.clear()
+        hideDetailView()
         for location in tractorList {
-            let marker = GMSMarker()
+            let marker = GoogleMapMarker()
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-            //            marker.snippet = location.detail
+            marker.tractorInfo = location
             marker.map = map
+            markers.append(marker)
         }
         addRadiusCircle()
     }
@@ -214,17 +295,80 @@ extension MapView
 
     
     func zoomMapToRadius() {
-        let center: CLLocationCoordinate2D = searchLocation!.coordinate
-        let meterRadius = CLLocationDistance(selectedRadius*1609)
-        let n: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 0)
-        let e: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 90)
-        let s: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 180)
-        let w: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 270)
         
-        var bounds: GMSCoordinateBounds = GMSCoordinateBounds.init()
-        bounds = bounds.includingCoordinate(n).includingCoordinate(e).includingCoordinate(s).includingCoordinate(w)
-        map.animate(with: GMSCameraUpdate.fit(bounds))
-        zoomLevel = map.camera.zoom
+        if let center: CLLocationCoordinate2D = searchLocation?.coordinate{
+            let meterRadius = CLLocationDistance(selectedRadius*1609)
+            let n: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 0)
+            let e: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 90)
+            let s: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 180)
+            let w: CLLocationCoordinate2D = GMSGeometryOffset(center, meterRadius, 270)
+            
+            var bounds: GMSCoordinateBounds = GMSCoordinateBounds.init()
+            bounds = bounds.includingCoordinate(n).includingCoordinate(e).includingCoordinate(s).includingCoordinate(w)
+            map.animate(with: GMSCameraUpdate.fit(bounds))
+            zoomLevel = map.camera.zoom
+        }
+    }
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
+        colorSelectedMarker(mapView, markerTapped: marker)
+        createMarkerDetailView(markerTapped: marker)
+        
+        return true
+    }
+    func colorSelectedMarker(_ mapView: GMSMapView, markerTapped marker: GMSMarker){
+        if marker != mapView.selectedMarker, let selectedMarker = mapView.selectedMarker {
+            selectedMarker.icon = GMSMarker.markerImage(with: nil)
+            selectedMarker.map = nil
+        }
+        marker.map = map
+        mapView.selectedMarker = marker
+        marker.icon = GMSMarker.markerImage(with: .green)
+    }
+    func createMarkerDetailView(markerTapped marker: GMSMarker){
+        let selectedMarker =  marker as! GoogleMapMarker
+        if mapViewType == .TerminalType{
+            if let htmlStr = selectedMarker.locationInfo?.detail{
+                terminalDetailViewAddressLbl.attributedText = htmlStr.htmlToAttributedString
+                terminalDetailViewHeight.constant = kTerminalViewHeight
+                tractorDetailView.isHidden = true
+                terminalDetailView.isHidden = false
+            }
+        }
+        else{
+            fillDataInTractorDetailView(tractorInfo: selectedMarker.tractorInfo)
+            tractorDetailViewHeight.constant = kTractorViewHeight
+            tractorDetailView.isHidden = false
+        }
+    }
+    
+    func fillDataInTractorDetailView(tractorInfo : TractorInfo?) {
+        if tractorInfo != nil {
+            tractorDtlViewTerminalLbl.text = tractorInfo?.terminal
+            tractorDtlViewDestLbl.text = tractorInfo?.destinationCity
+            tractorDtlViewTractorLbl.text = tractorInfo?.tractorType
+            tractorDtlViewTrailerLbl.text = tractorInfo?.trailerType
+            tractorDtlViewTrailerLenLbl.text = tractorInfo?.trailerLength
+            tractorDtlViewDistLbl.text = tractorInfo?.distanceFromShipper
+            tractorDtlViewStatusLbl.text = tractorInfo?.status
+            tractorDtlViewLoadedImgView.image = UIUtils.returnCheckOrCrossImage(str: (tractorInfo?.loaded) ?? "")
+            tractorDtlViewHazmatImgView.image = UIUtils.returnCheckOrCrossImage(str: (tractorInfo?.hazmat) ?? "")
+        }
+    }
+    
+    func mapBtnTapped(forTractorAt index:IndexPath ){
+        let selectedMarker = markers[index.item]
+//        selectedMarker.icon = GMSMarker.markerImage(with: .green)
+       _ = mapView(map, didTap: selectedMarker)
+//        selectedMarker.map = nil
+//        selectedMarker.map = map
+    }
+    
+    @IBAction func terminalSearchCallBtnPressed(){
+        
+    }
+    @IBAction func tractorSearchCallBtnPressed(){
+        
     }
 }
 
