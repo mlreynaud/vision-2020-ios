@@ -105,7 +105,6 @@ extension TractorFilterViewController
         return filterList.count + subList.count;
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if (indexPath.section < filterList.count)
@@ -184,15 +183,13 @@ extension TractorFilterViewController
         case .radius:
             value = searchInfo.radius + "mi"
         case .status:
-            value = searchInfo.status
+            value = searchInfo.status.joined(separator: ",")
         case .tractorTerminal:
             value = searchInfo.terminalId
         case .tractorType:
             value = searchInfo.tractorType
         case .trailerType:
             value = searchInfo.trailerType
-    
-            
         }
         
         return value
@@ -204,11 +201,18 @@ extension TractorFilterViewController
             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "FilterPopupViewController") as! FilterPopupViewController
             viewCtrl.filterType = filterType
+            viewCtrl.isMultiSelectionAllow = allow
             viewCtrl.tractorCompletionHandler = {(selectedTractorValue) in
             
                 self.searchInfo.tractorType = selectedTractorValue
                 self.tableView.reloadData()
             }
+        
+        viewCtrl.statusFilterCompletionHandler = { (selectedStatusList) in
+            
+            self.searchInfo.status = selectedStatusList
+            self.tableView.reloadData()
+        }
             
             //        self.providesPresentationContextTransitionStyle = true
             //        self.definesPresentationContext = true

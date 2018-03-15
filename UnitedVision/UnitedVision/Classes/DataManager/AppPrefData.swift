@@ -52,6 +52,8 @@ class AppPrefData: NSObject {
         {
              dict = ["city" : searchInfo.city, "state": searchInfo.state, "zip": searchInfo.zip, "latitude": searchInfo.latitude, "longitude": searchInfo.longitude, "radius": searchInfo.radius]
             
+            dict["status"] = searchInfo.status
+            
             if searchInfo.trailerType.count > 0
             {
                 dict["trailerType"] = searchInfo.trailerType

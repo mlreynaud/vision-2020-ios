@@ -242,6 +242,7 @@ class DataManager: NSObject {
                     list.append(info)
                 }
                 
+                
                 }
                 
                 
@@ -257,7 +258,28 @@ class DataManager: NSObject {
     
     func createTractorSearchRequest(_ searchInfo: TractorSearchInfo) -> String{
         
-        var requestStr = "radius=\(searchInfo.radius)&lat=\(searchInfo.latitude)&lon=\(searchInfo.longitude)&status=\(searchInfo.status)"
+        var requestStr = "radius=\(searchInfo.radius)&lat=\(searchInfo.latitude)&lon=\(searchInfo.longitude)"
+        
+        if (searchInfo.status.count > 0)
+        {
+            var statusList : [String] = []
+            for value in searchInfo.status
+            {
+                switch value
+                {
+                    case "Delivered":
+                        statusList.append("D")
+                    case "In Transit":
+                        statusList.append("P")
+                    default:
+                        break
+                }
+            }
+            let joined = statusList.joined(separator: ", ")
+            
+            requestStr.append("&status=\(joined)")
+        }
+        
         if searchInfo.trailerType.count > 0
         {
             requestStr.append("&trailerType=\(searchInfo.trailerType.encodeString())")

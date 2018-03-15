@@ -14,7 +14,7 @@ class TractorSearchInfo: NSObject {
     var hazmat : String = ""
     var loaded : String = ""
     var showLocal : String = ""
-    var status : String = ""
+    var status : [String] = []
     var terminalId : String = ""
     var tractorId : String = ""
     var tractorType : String = ""
@@ -68,7 +68,7 @@ class TractorSearchInfo: NSObject {
             longitude = value
         }
         
-        if let value =  (info.object(forKey: "status") as? String)
+        if let value =  (info.object(forKey: "status") as? [String])
         {
             status = value
         }
