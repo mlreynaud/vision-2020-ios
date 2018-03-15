@@ -66,6 +66,8 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
             if let status = DataManager.sharedInstance.tractorSearchInfo?.status
             {
                 selectedList = status
+                
+                isAllSelected = (selectedList.count == filterList.count) ? true : false
             }
        }
        else{
@@ -147,9 +149,17 @@ extension FilterPopupViewController
             {
                 if (selectedList.contains(value))
                 {
+                    if (isAllSelected)
+                    {
+                        let index = selectedList.index(of: "All")
+                        selectedList.remove(at: index!)
+                    }
                     isAllSelected = false
+
 //                    cell.iconImageView?.image = UIImage(named: "unchecked_checkbox")
-                    selectedList.remove(at: indexPath.row)
+                    let index = selectedList.index(of: value)
+                    selectedList.remove(at: index!)
+                    
                 }
                 else{
 //                    cell.iconImageView?.image = UIImage(named: "checked_checkbox")
@@ -157,7 +167,7 @@ extension FilterPopupViewController
                 }
             }
             
-            lastIndexPath = indexPath
+//            lastIndexPath = indexPath
             tableView.reloadData()
         }
         else

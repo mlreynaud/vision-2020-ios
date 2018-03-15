@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "542824827.9841599"
+            timestampString = "542832453.131826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "220"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "542824827.984697"
+            timestampString = "542832453.131952"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "249"
@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "542824827.985108"
+            timestampString = "542832453.1321141"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "217"
@@ -106,55 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/ViewController/TractorFilterViewController.swift"
-            timestampString = "542824827.9855731"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "UnitedVision.TractorFilterViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "UnitedVision"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Other/Client%20Projects/united_vision_ios/UnitedVision/UnitedVision/Classes/ViewController/TractorFilterViewController.swift"
-                  timestampString = "542824828.078177"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38"
-                  offsetFromSymbolStart = "455">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "implicit closure #1 : @autoclosure () throws -&gt; UnitedVision.TractorSearchInfo in UnitedVision.TractorFilterViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "UnitedVision"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Other/Client%20Projects/united_vision_ios/UnitedVision/UnitedVision/Classes/ViewController/TractorFilterViewController.swift"
-                  timestampString = "542824828.083759"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38"
-                  offsetFromSymbolStart = "4">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UnitedVision/Classes/ViewController/TractorFilterViewController.swift"
-            timestampString = "542824827.985677"
+            timestampString = "542832453.1321779"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "65"
@@ -186,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/ViewController/TractorFilterViewController.swift"
-            timestampString = "542824827.986015"
+            timestampString = "542832453.1322581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "58"

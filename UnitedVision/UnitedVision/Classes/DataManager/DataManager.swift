@@ -277,7 +277,7 @@ class DataManager: NSObject {
             }
             let joined = statusList.joined(separator: ", ")
             
-            requestStr.append("&status=\(joined)")
+            requestStr.append("&status=\(joined.encodeString())")
         }
         
         if searchInfo.trailerType.count > 0

@@ -183,7 +183,8 @@ extension TractorFilterViewController
         case .radius:
             value = searchInfo.radius + "mi"
         case .status:
-            value = searchInfo.status.joined(separator: ",")
+            let status = searchInfo.status.joined(separator: ",")
+            value = status.replacingOccurrences(of: "All,", with: "")
         case .tractorTerminal:
             value = searchInfo.terminalId
         case .tractorType:
@@ -209,7 +210,6 @@ extension TractorFilterViewController
             }
         
         viewCtrl.statusFilterCompletionHandler = { (selectedStatusList) in
-            
             self.searchInfo.status = selectedStatusList
             self.tableView.reloadData()
         }
