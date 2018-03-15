@@ -16,11 +16,15 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     var isMultiSelectionAllow : Bool = false
     
     var selectedValue = ""
-    var selectedList: [String]? = []
+    var selectedList: [String] = []
     var filterList: [String] = []
     
     var tractorCompletionHandler: ((String)->Void)?
+    var statusFilterCompletionHandler: (([String])->Void)?
+
     var lastIndexPath : IndexPath?
+    
+    var isAllSelected = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +45,11 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
         if (filterType == .tractorType) {
             self.tractorCompletionHandler?(selectedValue)
         }
+        if (filterType == .status)
+        {
+            self.statusFilterCompletionHandler?(selectedList)
+        }
+        
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -53,7 +62,11 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     {
        if (filterType == .status)
        {
-            filterList = ["Available", "In Transit", "Delivered","All"]
+            filterList = ["All", "In Transit", "Delivered"]
+            if let status = DataManager.sharedInstance.tractorSearchInfo?.status
+            {
+                selectedList = status
+            }
        }
        else{
             filterList = ["Hot Shot", "One Ton", "Mini Float","Single Axle", "Tandem"]
@@ -92,11 +105,21 @@ extension FilterPopupViewController
         
         if (isMultiSelectionAllow)
         {
-            cell.iconImageView?.image = UIImage(named: "unchecked_checkbox")
+            if (isAllSelected)
+            {
+                cell.iconImageView?.image = UIImage(named: "checked_checkbox")
+            }
+            else
+            {
+                cell.iconImageView?.image = (selectedList.contains(value)) ? UIImage(named: "checked_checkbox") : UIImage(named: "unchecked_checkbox")
+            }
         }
         else
         {
             cell.iconImageView?.image = (selectedValue == value) ?  UIImage(named: "radio_check") : UIImage(named: "radio_uncheck")
+            if (value == selectedValue){
+                lastIndexPath = indexPath
+            }
         }
         
         return cell;
@@ -115,7 +138,27 @@ extension FilterPopupViewController
 
         if (isMultiSelectionAllow)
         {
+            if (indexPath.row == 0)
+            {
+                isAllSelected = !isAllSelected
+                selectedList = (isAllSelected) ? filterList : []
+            }
+            else
+            {
+                if (selectedList.contains(value))
+                {
+                    isAllSelected = false
+//                    cell.iconImageView?.image = UIImage(named: "unchecked_checkbox")
+                    selectedList.remove(at: indexPath.row)
+                }
+                else{
+//                    cell.iconImageView?.image = UIImage(named: "checked_checkbox")
+                    selectedList.append(value)
+                }
+            }
             
+            lastIndexPath = indexPath
+            tableView.reloadData()
         }
         else
         {
