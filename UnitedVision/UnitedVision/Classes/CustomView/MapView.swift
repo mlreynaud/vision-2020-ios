@@ -322,14 +322,26 @@ extension MapView
             let oldMarker: GMSMarker? = change?[.oldKey] as? GMSMarker
             let newMarker: GMSMarker? = change?[.newKey] as? GMSMarker
             
-            if oldMarker == newMarker {
-                oldMarker?.icon = GMSMarker.markerImage(with: nil)
+            if oldMarker != newMarker {
+                colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
+            }
+            
+            if newMarker == nil {
                 hideDetailView()
             }
             else {
-                colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
                 createMarkerDetailView(markerTapped: newMarker)
             }
+            
+            // the following lines don't work whenever you tap off a marker on just the map -- the detail view still shows and it shouldn't
+//            if oldMarker == newMarker {
+//                oldMarker?.icon = GMSMarker.markerImage(with: nil)
+//                hideDetailView()
+//            }
+//            else {
+//                colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
+//                createMarkerDetailView(markerTapped: newMarker)
+//            }
         }
     }
     
