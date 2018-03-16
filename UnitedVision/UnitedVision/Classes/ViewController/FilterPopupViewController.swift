@@ -13,13 +13,11 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     @IBOutlet weak var tableView: UITableView!
     
     var filterType : FilterType!
-    var isMultiSelectionAllow : Bool = false
     
-    var selectedValue = ""
-    var selectedList: [String] = []
-    var filterList: [String] = []
+    var selectedList = [String]()
+    var filterList = [String]()
     
-    var tractorCompletionHandler: ((String)->Void)?
+    var tractorCompletionHandler: (([String])->Void)?
     var statusFilterCompletionHandler: (([String])->Void)?
 
     var lastIndexPath : IndexPath?
@@ -28,9 +26,10 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.fetchFilterList()
     }
 
@@ -43,7 +42,7 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     @IBAction func doneButtonAction(_ sender: UIButton)
     {
         if (filterType == .tractorType) {
-            self.tractorCompletionHandler?(selectedValue)
+            self.tractorCompletionHandler?(selectedList)
         }
         if (filterType == .status)
         {
@@ -60,36 +59,21 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     
     func fetchFilterList()
     {
-       if (filterType == .status)
-       {
-            filterList = ["All", "In Transit", "Delivered"]
-            if let status = DataManager.sharedInstance.tractorSearchInfo?.status
-            {
+        if (filterType == .status){
+            filterList = ["All","In Transit","Delivered"]
+            if let status = DataManager.sharedInstance.tractorSearchInfo?.status{
                 selectedList = status
-                
-                isAllSelected = (selectedList.count == filterList.count) ? true : false
-            }
-       }
-       else{
-            filterList = ["Hot Shot", "One Ton", "Mini Float","Single Axle", "Tandem"]
-            if let value = DataManager.sharedInstance.tractorSearchInfo?.tractorType{
-                selectedValue = value
             }
         }
-        
+        else{
+            filterList = ["All","Hot Shot","One Ton","Mini Float","Single Axle","Tandem"]
+            if let value = DataManager.sharedInstance.tractorSearchInfo?.tractorType{
+                selectedList = value
+            }
+        }
+        isAllSelected = (selectedList.count == filterList.count) ? true : false
         tableView.reloadData()
     }
-        
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension FilterPopupViewController
@@ -102,93 +86,56 @@ extension FilterPopupViewController
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CheckboxTableCell", for: indexPath) as! CheckboxTableCell
         
-         let value = filterList[indexPath.row]
+        let value = filterList[indexPath.row]
         cell.titleLabel.text = value
         
-        if (isMultiSelectionAllow)
-        {
-            if (isAllSelected)
-            {
-                cell.iconImageView?.image = UIImage(named: "checked_checkbox")
-            }
-            else
-            {
-                cell.iconImageView?.image = (selectedList.contains(value)) ? UIImage(named: "checked_checkbox") : UIImage(named: "unchecked_checkbox")
-            }
-        }
-        else
-        {
-            cell.iconImageView?.image = (selectedValue == value) ?  UIImage(named: "radio_check") : UIImage(named: "radio_uncheck")
-            if (value == selectedValue){
-                lastIndexPath = indexPath
-            }
+        let checkImage: UIImage?
+        let unCheckImage: UIImage?
+        if filterType == .status{
+            checkImage = UIImage(named: "checked_checkbox")
+            unCheckImage = UIImage(named: "unchecked_checkbox")
+        }else{
+            checkImage = UIImage(named: "radio_check")
+            unCheckImage = UIImage(named: "radio_uncheck")
         }
         
-        return cell;
+        if (isAllSelected){
+            cell.iconImageView?.image = checkImage
+        }
+        else{
+            cell.iconImageView?.image = (selectedList.contains(value)) ? checkImage : unCheckImage
+        }
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        let cell = tableView.cellForRow(at: indexPath) as! CheckboxTableCell
-    
-        var lastSelectedCell : CheckboxTableCell?
-        if let lastIndexpath = lastIndexPath {
-            lastSelectedCell   = tableView.cellForRow(at: lastIndexpath) as? CheckboxTableCell
-        }
+        let value = filterList[indexPath.item]
         
-        let value = filterList[indexPath.row]
-
-        if (isMultiSelectionAllow)
+        if (indexPath.item == 0)
         {
-            if (indexPath.row == 0)
-            {
-                isAllSelected = !isAllSelected
-                selectedList = (isAllSelected) ? filterList : []
-            }
-            else
-            {
-                if (selectedList.contains(value))
-                {
-                    if (isAllSelected)
-                    {
-                        let index = selectedList.index(of: "All")
-                        selectedList.remove(at: index!)
-                    }
-                    isAllSelected = false
-
-//                    cell.iconImageView?.image = UIImage(named: "unchecked_checkbox")
-                    let index = selectedList.index(of: value)
-                    selectedList.remove(at: index!)
-                    
-                }
-                else{
-//                    cell.iconImageView?.image = UIImage(named: "checked_checkbox")
-                    selectedList.append(value)
-                }
-            }
-            
-//            lastIndexPath = indexPath
-            tableView.reloadData()
+            isAllSelected = !isAllSelected
+            selectedList = (isAllSelected) ? filterList : [String]()
         }
         else
         {
-            if (filterType == .tractorType)
+            if (selectedList.contains(value))
             {
-                if (value != selectedValue){
-                    selectedValue = filterList[indexPath.row]
-                     cell.iconImageView?.image = UIImage(named: "radio_check")
-                    lastSelectedCell?.iconImageView?.image  = UIImage(named: "radio_uncheck")
-                }
-                else
+                if (isAllSelected)
                 {
-                    selectedValue = ""
-                    cell.iconImageView?.image = UIImage(named: "radio_uncheck")
+                    let index = selectedList.index(of: "All")
+                    selectedList.remove(at: index!)
                 }
-                
-                lastIndexPath = indexPath
+                isAllSelected = false
+                let index = selectedList.index(of: value)
+                selectedList.remove(at: index!)
+            }
+            else{
+                selectedList.append(value)
             }
         }
+        tableView.reloadData()
     }
-    
 }
+
 

@@ -127,9 +127,7 @@ class DataManager: NSObject {
         let service: String = String(format:"auth/service/login")
         
         let postParams = ["username": username.encodeString(), "password": password.encodeString()] as Dictionary<String, String>
-        //let postString = "username=\(username.encodeString())&password=\(password.encodeString())"
        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: postParams) as URLRequest
-       // let request = WebServiceManager.getRequest(service) as URLRequest
         WebServiceManager.sharedInstance.sendRequest(request, completionHandler: {[unowned self] (data, error) in
             
             if error != nil{
@@ -289,7 +287,8 @@ class DataManager: NSObject {
         
         if searchInfo.tractorType.count > 0
         {
-            requestStr.append("&tractorType=\(searchInfo.tractorType.encodeString())")
+            let joinedStr = searchInfo.tractorType.joined(separator: ",")
+            requestStr.append("&tractorType=\(joinedStr.encodeString())")
         }
         
         if searchInfo.hazmat
@@ -400,7 +399,7 @@ class DataManager: NSObject {
     {
         var dict = AppPrefData.sharedInstance.searchDict
         if dict == nil || (dict?.count)! < 0 {
-            dict = (UIUtils.parsePlist(ofName: "TractorFilter") as! Dictionary<String, Any>)
+            dict = UIUtils.parsePlist(ofName: "TractorFilter") as? Dictionary <String,Any>
         }
         let searchInfo = TractorSearchInfo(info: dict!)
         return searchInfo

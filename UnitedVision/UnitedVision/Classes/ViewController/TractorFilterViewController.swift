@@ -25,6 +25,8 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
     let subList = ["Loaded", "HazMat"]
     var pickerToolbarView : UIView!
     
+    var filterPopupVC : FilterPopupViewController?
+    
     var searchCompletionHandler: ((TractorSearchInfo)->Void)?
 
     override func viewDidLoad() {
@@ -39,6 +41,12 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
         
         radiusList = DataManager.sharedInstance.getRadiusList()
         self.createPickerView()
+        initiateFilterPopupVC()
+    }
+    
+    func initiateFilterPopupVC() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        filterPopupVC = storyBoard.instantiateViewController(withIdentifier: "FilterPopupViewController") as? FilterPopupViewController
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,35 +72,19 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @IBAction func resetButtonAction(){
-        
-        if let dict = AppPrefData.sharedInstance.searchDict {
-            searchInfo = TractorSearchInfo(info: dict)
-            DataManager.sharedInstance.tractorSearchInfo = searchInfo
-        }
+        searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()!
+        DataManager.sharedInstance.tractorSearchInfo = searchInfo
+        AppPrefData.sharedInstance.saveAllData()
         self.tableView.reloadData()
-
     }
     
     @IBAction func saveDefaultsButtonAction(){
+        if !checkboxSaveDefaults.isSelected{
+            DataManager.sharedInstance.tractorSearchInfo = searchInfo
+            AppPrefData.sharedInstance.saveAllData()
+        }
         self.checkboxSaveDefaults.isSelected = !checkboxSaveDefaults.isSelected
-        
-//        searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
-//        DataManager.sharedInstance.tractorSearchInfo = searchInfo
-//        AppPrefData.sharedInstance.saveAllData()
-        
-//        self.tableView.reloadData()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension TractorFilterViewController
@@ -114,14 +106,11 @@ extension TractorFilterViewController
             let filterType = FilterType(rawValue: indexPath.section)!
 
             let filterValue = self.getFilterTypeValue(filterType)
-//            cell.titleLabel.text = filterList[indexPath.section] +
             
             cell.titleLabel.attributedText = (filterList[indexPath.section] + " " + filterValue).createAttributedString(subString: filterValue , subStringColor: kBlueColor)
             
             cell.clearHandler = {
                 cell.titleLabel.attributedText = (self.filterList[indexPath.section] + " " + "").createAttributedString(subString: "" , subStringColor: kBlueColor)
-                
-//                cell.clearButton.isHidden = true
                 
                 if filterType == .tractorTerminal {
                     self.searchInfo.terminalId = ""
@@ -135,7 +124,6 @@ extension TractorFilterViewController
         else {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "CheckboxFilterTableCell", for: indexPath) as! CheckboxFilterTableCell
-            
             let index = indexPath.section - filterList.count
             cell.titleLabel.text = subList[index]
             
@@ -149,6 +137,18 @@ extension TractorFilterViewController
                     self.searchInfo.hazmat = selected
                 }
             }
+            
+            if filterType == .loaded {
+                if self.searchInfo.loaded{
+                    cell.checkBoxAction(nil)
+                }
+            }
+            else if filterType == .hazmat {
+                if self.searchInfo.hazmat{
+                    cell.checkBoxAction(nil)
+                }
+            }
+            
             return cell
         }
        
@@ -168,10 +168,8 @@ extension TractorFilterViewController
             case .radius:
                 pickerToolbarView.isHidden = false
                 pickerToolbarView.frame =  CGRect(x:0, y: self.view.bounds.size.height - 250 , width: self.view.bounds.size.width, height:250)
-            case .status:
-                self.showFilterPopup(filterType, withMultiSelection:true )
-            case .tractorType:
-                self.showFilterPopup(filterType, withMultiSelection:false)
+            case .status, .tractorType:
+                self.showFilterPopup(filterType)
             case .trailerType:
                 self.showFilterSearchScreen(filterType)
             case .tractorTerminal:
@@ -179,6 +177,18 @@ extension TractorFilterViewController
             default:
                 break
             }
+        }
+        else{
+
+            let filterType = FilterType(rawValue: indexPath.section)!
+            if filterType == .loaded {
+                self.searchInfo.loaded =  !self.searchInfo.loaded
+            }
+            else if filterType == .hazmat {
+                self.searchInfo.hazmat = !self.searchInfo.hazmat
+            }
+
+            tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
         }
         
         
@@ -201,7 +211,7 @@ extension TractorFilterViewController
         case .tractorTerminal:
             value = searchInfo.terminalId
         case .tractorType:
-            value = searchInfo.tractorType
+            value = searchInfo.tractorType.joined(separator:",")
         case .trailerType:
             value = searchInfo.trailerType
         default:
@@ -213,28 +223,21 @@ extension TractorFilterViewController
     }
     
     
-    func showFilterPopup(_ filterType: FilterType, withMultiSelection allow: Bool)
+    func showFilterPopup(_ filterType: FilterType)
     {
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "FilterPopupViewController") as! FilterPopupViewController
-            viewCtrl.filterType = filterType
-            viewCtrl.isMultiSelectionAllow = allow
-            viewCtrl.tractorCompletionHandler = {(selectedTractorValue) in
+        filterPopupVC?.filterType = filterType
+        filterPopupVC?.tractorCompletionHandler = {(selectedTractorValue) in
             
-                self.searchInfo.tractorType = selectedTractorValue
-                self.tableView.reloadData()
-            }
+            self.searchInfo.tractorType = selectedTractorValue
+            self.tableView.reloadData()
+        }
         
-        viewCtrl.statusFilterCompletionHandler = { (selectedStatusList) in
+        filterPopupVC?.statusFilterCompletionHandler = { (selectedStatusList) in
             self.searchInfo.status = selectedStatusList
             self.tableView.reloadData()
         }
-            
-            //        self.providesPresentationContextTransitionStyle = true
-            //        self.definesPresentationContext = true
-            viewCtrl.modalPresentationStyle = .overCurrentContext
-            
-            self.present(viewCtrl, animated: true, completion: nil)
+        filterPopupVC?.modalPresentationStyle = .overCurrentContext
+        self.present(filterPopupVC!, animated: true, completion: nil)
     }
     
     func showFilterSearchScreen(_ filterType: FilterType)
@@ -250,15 +253,9 @@ extension TractorFilterViewController
             else if filterType == .trailerType{
                 self.searchInfo.trailerType = selectedValue
             }
-
             self.tableView.reloadData()
-
         }
-        
-        //        self.providesPresentationContextTransitionStyle = true
-        //        self.definesPresentationContext = true
         viewCtrl.modalPresentationStyle = .overCurrentContext
-        
         self.present(viewCtrl, animated: true, completion: nil)
     }
 }

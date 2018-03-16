@@ -57,7 +57,6 @@ extension String {
         attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: color, range: range)
         
         return attributedString
-        
     }
     
     func  createUnderlineString(subString: String, underlineColor color: UIColor) -> NSAttributedString{

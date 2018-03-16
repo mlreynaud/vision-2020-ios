@@ -16,14 +16,13 @@ protocol TerminalTableCellDelegate : class{
 
 class TerminalTableCell: UITableViewCell {
     
-    @IBOutlet weak var leftFirstLabel: UILabel!
-    @IBOutlet weak var leftSecondLabel: UILabel!
-    @IBOutlet weak var leftThirdLabel: UILabel!
-    @IBOutlet weak var leftFourthLabel: UILabel!
-    @IBOutlet weak var leftFifthLabel: UILabel!
-
-    @IBOutlet weak var rightFirstLabel: UILabel!
-    @IBOutlet weak var rightSecondLabel: UILabel!
+    @IBOutlet var terminalLbl : UILabel!
+    @IBOutlet var destLbl : UILabel!
+    @IBOutlet var tractorLbl : UILabel!
+    @IBOutlet var trailerLbl : UILabel!
+    @IBOutlet var trailerLenLbl : UILabel!
+    @IBOutlet var distLbl : UILabel!
+    @IBOutlet var statusLbl : UILabel!
 
     @IBOutlet weak var loadedImageView: UIImageView!
     @IBOutlet weak var hazmatImageView: UIImageView!
@@ -67,15 +66,13 @@ class TerminalTableCell: UITableViewCell {
     
     func showTractorInfo(_ info:TractorInfo) {
         
-        leftFirstLabel.attributedText = ("TERMINAL: " + info.terminal!).createAttributedString(subString: info.terminal! , subStringColor: .darkGray)
-        leftSecondLabel.attributedText = ("DEST: " + info.destinationCity!).createAttributedString(subString: info.destinationCity! , subStringColor: .darkGray)
-        leftThirdLabel.attributedText = ("TRACTOR: " + info.tractorType!).createAttributedString(subString: info.tractorType! , subStringColor: .darkGray)
-        leftFourthLabel.attributedText = ("TRAILER: " + info.trailerType!).createAttributedString(subString: info.trailerType! , subStringColor: .darkGray)
-        
-        leftFifthLabel.attributedText = ("TRAILER LENGTH: " + info.trailerLength!).createAttributedString(subString: info.trailerLength! , subStringColor: .darkGray)
-        
-        rightFirstLabel.attributedText = ("DISTANCE: " + info.distanceFromShipper!).createAttributedString(subString: info.distanceFromShipper! , subStringColor: .darkGray)
-        rightSecondLabel.attributedText = ("STATUS: " + info.status!).createAttributedString(subString: info.status! , subStringColor: .darkGray)
+        terminalLbl.attributedText = info.terminal!.createUnderlineString(subString: "", underlineColor: .darkGray)
+        destLbl.attributedText = info.destinationCity!.createAttributedString(subString: "", subStringColor: .darkGray)
+        tractorLbl.attributedText = info.tractorType!.createAttributedString(subString: "", subStringColor: .darkGray)
+        trailerLbl.attributedText = info.trailerType!.createAttributedString(subString: "", subStringColor: .darkGray)
+        trailerLenLbl.attributedText = info.trailerLength!.createAttributedString(subString: "", subStringColor: .darkGray)
+        distLbl.attributedText = info.distanceFromShipper!.createAttributedString(subString: "", subStringColor: .darkGray)
+        statusLbl.attributedText = info.status!.createAttributedString(subString: "", subStringColor: .darkGray)
         loadedImageView.image = UIUtils.returnCheckOrCrossImage(str: info.loaded!)
         hazmatImageView.image =  UIUtils.returnCheckOrCrossImage(str: info.hazmat!)
     }

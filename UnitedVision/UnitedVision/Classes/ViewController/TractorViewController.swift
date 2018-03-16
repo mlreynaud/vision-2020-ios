@@ -36,7 +36,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addUnderlineForSelectedSegment()
 
-        tractorSearchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
+        tractorSearchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()!
         DataManager.sharedInstance.tractorSearchInfo = self.tractorSearchInfo
 
         self.fetchTractorLocations()
@@ -205,9 +205,7 @@ extension TractorViewController
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-//        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "MapViewController") as! TerminalSearchViewController
-//        self.navigationController?.pushViewController(viewCtrl, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     //MARK- TerminalTableCell delegate methods

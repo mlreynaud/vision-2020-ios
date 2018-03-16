@@ -17,7 +17,7 @@ class TractorSearchInfo: NSObject {
     var status = [String]()
     var terminalId : String = ""
     var tractorId : String = ""
-    var tractorType : String = ""
+    var tractorType = [String]()
     var trailerType : String = ""
     
     // required
@@ -53,11 +53,7 @@ class TractorSearchInfo: NSObject {
         {
             zip = value
         }
-//        self.city = info["city"] as! String
-//        self.state = info["state"] as! String
-//        self.zip = info["zip"] as! String
-//        self.status = info["status"] as! String
-
+        
         if let value =  (info["latitude"] as? NSNumber)?.doubleValue
         {
             latitude = value
@@ -73,7 +69,7 @@ class TractorSearchInfo: NSObject {
             status.append(value)
         }
         
-        if let value = info["tractorType"] as? String
+        if let value = info["tractorType"] as? [String]
         {
             tractorType = value
         }
@@ -91,6 +87,12 @@ class TractorSearchInfo: NSObject {
         if let value = info["tractorId"] as? String
         {
             tractorId = value
+        }
+        if let  value = info["loaded"] as? Bool{
+            loaded = value
+        }
+        if let  value = info["hazmat"] as? Bool{
+            hazmat = value
         }
     }
 }

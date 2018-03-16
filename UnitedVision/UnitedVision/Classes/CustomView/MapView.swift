@@ -117,8 +117,8 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
         zoomLevel = kDefaultZoom
         
         self.zoomMapToRadius()
-        
         addObserver(self, forKeyPath: #keyPath(map.selectedMarker), options: [.old, .new], context: nil)
+        
     }
     
     
@@ -239,6 +239,7 @@ extension MapView
         terminalDetailView.isHidden = true
         tractorDetailViewHeight.constant = 0
         terminalDetailViewHeight.constant = 0
+        terminalDetailView.layoutIfNeeded()
     }
     
     func addRadiusCircle()
@@ -313,10 +314,6 @@ extension MapView
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         mapView.selectedMarker = marker
-        //
-        //        colorSelectedMarker(mapView, markerTapped: marker)
-        //        createMarkerDetailView(markerTapped: marker)
-        //
         return true
     }
     
@@ -324,49 +321,36 @@ extension MapView
         if keyPath == #keyPath(map.selectedMarker) {
             let oldMarker: GMSMarker? = change?[.oldKey] as? GMSMarker
             let newMarker: GMSMarker? = change?[.newKey] as? GMSMarker
-            if oldMarker != newMarker {
-                colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
-            }
-            if newMarker == nil {
+            
+            if oldMarker == newMarker {
+                oldMarker?.icon = GMSMarker.markerImage(with: nil)
                 hideDetailView()
             }
             else {
-                createMarkerDetailView(markerTapped: newMarker!)
+                colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
+                createMarkerDetailView(markerTapped: newMarker)
             }
         }
     }
     
     func colorSelectedMarker(oldMarker: GMSMarker?, newMarker: GMSMarker?) {
-        if oldMarker != newMarker {
             oldMarker?.icon = GMSMarker.markerImage(with: nil)
             newMarker?.icon = GMSMarker.markerImage(with: .green)
-        }
     }
-    //    func colorSelectedMarker(_ mapView: GMSMapView, markerTapped marker: GMSMarker){
-    //        if marker != mapView.selectedMarker, let selectedMarker = mapView.selectedMarker {
-    //            selectedMarker.icon = GMSMarker.markerImage(with: nil)
-    ////            selectedMarker.map = nil
-    //        }
-    ////        marker.map = map
-    //        mapView.selectedMarker = marker
-    //        marker.icon = GMSMarker.markerImage(with: .green)
-    //    }
-    
-    
-    func createMarkerDetailView(markerTapped marker: GMSMarker){
-        let selectedMarker =  marker as! GoogleMapMarker
-        if mapViewType == .TerminalType{
-            if let htmlStr = selectedMarker.locationInfo?.detail{
+
+    func createMarkerDetailView(markerTapped marker: GMSMarker?){
+        if let selectedMarker =  marker as? GoogleMapMarker{
+            if let htmlStr = selectedMarker.locationInfo?.detail , mapViewType == .TerminalType{
                 terminalDetailViewAddressLbl.attributedText = htmlStr.htmlToAttributedString
                 terminalDetailViewHeight.constant = kTerminalViewHeight
                 tractorDetailView.isHidden = true
                 terminalDetailView.isHidden = false
             }
-        }
-        else{
-            fillDataInTractorDetailView(tractorInfo: selectedMarker.tractorInfo)
-            tractorDetailViewHeight.constant = kTractorViewHeight
-            tractorDetailView.isHidden = false
+            else{
+                fillDataInTractorDetailView(tractorInfo: selectedMarker.tractorInfo)
+                tractorDetailViewHeight.constant = kTractorViewHeight
+                tractorDetailView.isHidden = false
+            }
         }
     }
     
@@ -385,11 +369,10 @@ extension MapView
     }
     
     func mapBtnTapped(forTractorAt index:IndexPath ){
-        let selectedMarker = markers[index.item]
-        //        selectedMarker.icon = GMSMarker.markerImage(with: .green)
+        let selectedMarker = markers[index.section] as GMSMarker
         _ = mapView(map, didTap: selectedMarker)
-        //        selectedMarker.map = nil
-        //        selectedMarker.map = map
+        let location = CLLocation(latitude: selectedMarker.position.latitude, longitude: selectedMarker.position.longitude)
+        moveMaptoLocation(location: location)
     }
     
     @IBAction func terminalSearchCallBtnPressed(){

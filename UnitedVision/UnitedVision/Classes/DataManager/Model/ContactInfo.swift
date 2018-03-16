@@ -15,12 +15,12 @@ class ContactInfo: NSObject {
     var mobile: String?
     var email: String?
     
-    init(info : NSDictionary)
+    init(info : Dictionary<String, Any>)
     {
-        title = (info.object(forKey: "title") as? String) ?? ""
-        detail = (info.object(forKey: "detail") as? String) ?? ""
-        mobile = (info.object(forKey: "Mobile") as? String) ?? ""
-        email = (info.object(forKey: "Email") as? String) ?? ""
+        title = (info["title"] as? String) ?? ""
+        detail = (info["detail"] as? String) ?? ""
+        mobile = (info["Mobile"] as? String) ?? ""
+        email = (info["Email"] as? String) ?? ""
     }
 
 }

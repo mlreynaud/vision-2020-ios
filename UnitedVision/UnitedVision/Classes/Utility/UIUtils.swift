@@ -276,7 +276,7 @@ class UIUtils: NSObject {
         }
     }
     
-    class func parsePlist(ofName name: String) -> AnyObject? {
+    class func parsePlist(ofName name: String) -> Any? {
         
         // check if plist data available
         guard let plistURL = Bundle.main.url(forResource: name, withExtension: "plist"),
@@ -286,7 +286,7 @@ class UIUtils: NSObject {
         }
         
         // parse plist into [String: Anyobject]
-        guard let plistDictionary = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? AnyObject else {
+        guard let plistDictionary = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) else {
             return nil
         }
         

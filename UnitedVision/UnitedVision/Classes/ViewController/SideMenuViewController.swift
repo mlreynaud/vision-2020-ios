@@ -177,6 +177,7 @@ extension SideMenuViewController
         }
         return nil
     }
+
     
     func showLoginView()
     {
