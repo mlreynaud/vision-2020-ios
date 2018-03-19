@@ -11,6 +11,7 @@ import UIKit
 class FilterTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var clearButton: UIButton!
     
     var clearHandler: (() -> Void)!
@@ -35,22 +36,15 @@ class FilterTableViewCell: UITableViewCell {
 class CheckboxFilterTableCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var checkbox: UIButton!
-    var valueChangeHandler: ((_ selected: Bool) -> Void)!
+    @IBOutlet weak var iconImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.selectionStyle = UITableViewCellSelectionStyle.none
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        valueChangeHandler(checkbox.isSelected)
+        
     }
-    
-    @IBAction func checkBoxAction(_ sender: UIButton?){
-        self.isSelected = !self.isSelected
-        checkbox.isSelected = self.isSelected
-    }
-    
 }

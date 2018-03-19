@@ -119,7 +119,6 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     
     func fetchTractorLocations()
     {
-        
         LoadingView.shared.showOverlay()
         DataManager.sharedInstance.requestToSearchTractor(tractorSearchInfo, completionHandler: {( status, tractorList) in
             

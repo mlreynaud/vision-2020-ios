@@ -110,6 +110,10 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NUU-d2-d6r">
                                 <rect key="frame" x="223" y="45" width="45" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="WOq-Jp-Z8o"/>
+                                    <constraint firstAttribute="width" constant="45" id="pdO-Hi-fBF"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -126,6 +130,10 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hazmat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGf-Vi-zVG">
                                 <rect key="frame" x="303" y="45" width="47" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="2aY-qQ-kAt"/>
+                                    <constraint firstAttribute="width" constant="47" id="koB-A5-IVa"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -236,6 +244,7 @@
                             <constraint firstItem="Rfu-Jh-gMb" firstAttribute="centerY" secondItem="YPN-Kx-Cn8" secondAttribute="centerY" id="aYE-lQ-8r0"/>
                             <constraint firstItem="431-NU-gSY" firstAttribute="leading" secondItem="ddY-JE-f2k" secondAttribute="trailing" constant="4" id="cNY-gb-3Rq"/>
                             <constraint firstAttribute="height" constant="104" id="fvV-Fs-hGh"/>
+                            <constraint firstItem="eGf-Vi-zVG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rbu-MG-DAN" secondAttribute="trailing" constant="4" id="geU-tZ-sNv"/>
                             <constraint firstItem="LhZ-JF-Jev" firstAttribute="top" secondItem="jcD-1m-KXo" secondAttribute="bottom" constant="4" id="h72-2A-qGD"/>
                             <constraint firstItem="fg4-wH-dXx" firstAttribute="centerY" secondItem="jcD-1m-KXo" secondAttribute="centerY" id="iIG-Ib-5fp"/>
                             <constraint firstItem="yOh-JJ-v4R" firstAttribute="centerY" secondItem="oRe-4X-CzP" secondAttribute="centerY" id="k30-xK-Icc"/>

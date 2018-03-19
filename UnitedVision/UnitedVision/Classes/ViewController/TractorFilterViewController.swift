@@ -51,8 +51,7 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tableView.reloadData()
-
+//        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,6 +71,7 @@ class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @IBAction func resetButtonAction(){
+        AppPrefData.sharedInstance.searchDict = nil
         searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()!
         DataManager.sharedInstance.tractorSearchInfo = searchInfo
         AppPrefData.sharedInstance.saveAllData()
@@ -106,11 +106,11 @@ extension TractorFilterViewController
             let filterType = FilterType(rawValue: indexPath.section)!
 
             let filterValue = self.getFilterTypeValue(filterType)
-            
-            cell.titleLabel.attributedText = (filterList[indexPath.section] + " " + filterValue).createAttributedString(subString: filterValue , subStringColor: kBlueColor)
+            cell.titleLabel.text = filterList[indexPath.section]
+            cell.valueLabel.text = filterValue
             
             cell.clearHandler = {
-                cell.titleLabel.attributedText = (self.filterList[indexPath.section] + " " + "").createAttributedString(subString: "" , subStringColor: kBlueColor)
+               cell.valueLabel.text = ""
                 
                 if filterType == .tractorTerminal {
                     self.searchInfo.terminalId = ""
@@ -129,26 +129,12 @@ extension TractorFilterViewController
             
             let filterType = FilterType(rawValue: indexPath.section)!
             
-            cell.valueChangeHandler = {(selected: Bool) in
-                if filterType == .loaded {
-                    self.searchInfo.loaded = selected
-                }
-                else if filterType == .hazmat {
-                    self.searchInfo.hazmat = selected
-                }
+            if filterType == .loaded{
+                cell.iconImageView.isHighlighted = self.searchInfo.loaded
             }
-            
-            if filterType == .loaded {
-                if self.searchInfo.loaded{
-                    cell.checkBoxAction(nil)
-                }
+            else {
+                cell.iconImageView.isHighlighted = self.searchInfo.hazmat
             }
-            else if filterType == .hazmat {
-                if self.searchInfo.hazmat{
-                    cell.checkBoxAction(nil)
-                }
-            }
-            
             return cell
         }
        
@@ -179,7 +165,6 @@ extension TractorFilterViewController
             }
         }
         else{
-
             let filterType = FilterType(rawValue: indexPath.section)!
             if filterType == .loaded {
                 self.searchInfo.loaded =  !self.searchInfo.loaded
@@ -187,14 +172,8 @@ extension TractorFilterViewController
             else if filterType == .hazmat {
                 self.searchInfo.hazmat = !self.searchInfo.hazmat
             }
-
             tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
         }
-        
-        
-//        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "MapViewController") as! TerminalSearchViewController
-//        self.navigationController?.pushViewController(viewCtrl, animated: true)
     }
     
     func getFilterTypeValue(_ filterType: FilterType) -> String
@@ -211,17 +190,16 @@ extension TractorFilterViewController
         case .tractorTerminal:
             value = searchInfo.terminalId
         case .tractorType:
-            value = searchInfo.tractorType.joined(separator:",")
+            let tractorType = searchInfo.tractorType.joined(separator: ",")
+            value = tractorType.replacingOccurrences(of: "All,", with: "")
         case .trailerType:
             value = searchInfo.trailerType
         default:
             value = ""
             break
         }
-        
         return value
     }
-    
     
     func showFilterPopup(_ filterType: FilterType)
     {

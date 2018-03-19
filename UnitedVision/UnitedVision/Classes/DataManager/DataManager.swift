@@ -34,7 +34,7 @@ class DataManager: NSObject {
         self.isLogin = appPref.isLogin
         self.authToken = appPref.authToken
         
-        if let dict = appPref.searchDict //, dict.count != 0
+        if let dict = appPref.searchDict, dict.count != 0
         {
             self.tractorSearchInfo = TractorSearchInfo(info: dict)
         }
@@ -291,15 +291,8 @@ class DataManager: NSObject {
             requestStr.append("&tractorType=\(joinedStr.encodeString())")
         }
         
-        if searchInfo.hazmat
-        {
-            requestStr.append("&hazmat=Y")
-        }
-        
-        if searchInfo.loaded
-        {
-            requestStr.append("&loaded=Y")
-        }
+        requestStr.append("&hazmat=\(searchInfo.hazmat ? "Y" : "N")")
+        requestStr.append("&loaded=\(searchInfo.loaded ? "Y" : "N")")
         
         return requestStr
     }
@@ -398,7 +391,7 @@ class DataManager: NSObject {
     func fetchFilterDefaultValues() -> TractorSearchInfo?
     {
         var dict = AppPrefData.sharedInstance.searchDict
-        if dict == nil || (dict?.count)! < 0 {
+        if dict == nil || (dict?.count)! == 0 {
             dict = UIUtils.parsePlist(ofName: "TractorFilter") as? Dictionary <String,Any>
         }
         let searchInfo = TractorSearchInfo(info: dict!)

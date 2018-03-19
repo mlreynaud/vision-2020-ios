@@ -10,6 +10,7 @@
 		1405D6612059C7D000A8B0CA /* TrailerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1405D6602059C7D000A8B0CA /* TrailerInfo.swift */; };
 		B19CAE54205A544B00090F10 /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE53205A544B00090F10 /* MapView.xib */; };
 		B19CAE56205AA38B00090F10 /* TerminalTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */; };
+		B1D25656205FDBFB0089D055 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D25657205FDBFB0089D055 /* Pods_UnitedVision.framework */; };
 		BA44A0E8202DF91200DE6130 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0E6202DF91200DE6130 /* Main.storyboard */; };
 		BA44A0EA202DF91200DE6130 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0E9202DF91200DE6130 /* Assets.xcassets */; };
 		BA44A0ED202DF91200DE6130 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0EB202DF91200DE6130 /* LaunchScreen.storyboard */; };
@@ -57,7 +58,6 @@
 		BA84A3952052D5F0004E1410 /* ContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A3942052D5F0004E1410 /* ContactInfo.swift */; };
 		BA84A3972052F9B5004E1410 /* FilterSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A3962052F9B5004E1410 /* FilterSearchViewController.swift */; };
 		BA84A3992053AADC004E1410 /* TractorFilter.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA84A3982053AADC004E1410 /* TractorFilter.plist */; };
-		CA9B55882AE68F35E5223F55 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +65,9 @@
 		231F842DF1EE3AC446A128CE /* Pods-UnitedVision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitedVision.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision.debug.xcconfig"; sourceTree = "<group>"; };
 		B19CAE53205A544B00090F10 /* MapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
 		B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TerminalTableCell.xib; sourceTree = "<group>"; };
+		B1D2564E205FD41C0089D055 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		B1D25651205FDB260089D055 /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1D25657205FDBFB0089D055 /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B32E5ADD18A8E0C9A7676579 /* Pods-UnitedVision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitedVision.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision.release.xcconfig"; sourceTree = "<group>"; };
 		BA44A0DF202DF91200DE6130 /* UnitedVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitedVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA44A0E7202DF91200DE6130 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -125,7 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA9B55882AE68F35E5223F55 /* Pods_UnitedVision.framework in Frameworks */,
+				B1D25656205FDBFB0089D055 /* Pods_UnitedVision.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +147,9 @@
 		9D8F54E81A3BB5AFF971D2A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B1D25657205FDBFB0089D055 /* Pods_UnitedVision.framework */,
+				B1D25651205FDB260089D055 /* Pods_UnitedVision.framework */,
+				B1D2564E205FD41C0089D055 /* Accelerate.framework */,
 				E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */,
 			);
 			name = Frameworks;
@@ -659,13 +665,16 @@
 			baseConfigurationReference = 231F842DF1EE3AC446A128CE /* Pods-UnitedVision.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9YZK959BU8;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = UnitedVision/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Meenakshi-Pathani.UnitedVision";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/UnitedVision/Classes/AppDelegate/UnitedVision-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -677,13 +686,16 @@
 			baseConfigurationReference = B32E5ADD18A8E0C9A7676579 /* Pods-UnitedVision.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9YZK959BU8;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = UnitedVision/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Meenakshi-Pathani.UnitedVision";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/UnitedVision/Classes/AppDelegate/UnitedVision-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

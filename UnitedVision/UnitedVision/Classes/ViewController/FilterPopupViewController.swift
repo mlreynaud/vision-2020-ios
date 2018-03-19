@@ -71,6 +71,9 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
                 selectedList = value
             }
         }
+        if selectedList.contains("All"){
+            selectedList = filterList
+        }
         isAllSelected = (selectedList.count == filterList.count) ? true : false
         tableView.reloadData()
     }

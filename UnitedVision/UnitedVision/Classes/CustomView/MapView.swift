@@ -24,7 +24,6 @@ class GoogleMapMarker : GMSMarker{
 
 class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManagerDelegate, UIPickerViewDelegate {
     
-    
     @IBOutlet var terminalDetailView: UIView!
     @IBOutlet var terminalDetailViewHeight: NSLayoutConstraint!
     @IBOutlet var terminalDetailViewAddressLbl : UILabel!
@@ -321,27 +320,43 @@ extension MapView
         if keyPath == #keyPath(map.selectedMarker) {
             let oldMarker: GMSMarker? = change?[.oldKey] as? GMSMarker
             let newMarker: GMSMarker? = change?[.newKey] as? GMSMarker
-            
-            if oldMarker != newMarker {
-                colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
-            }
-            
             if newMarker == nil {
                 hideDetailView()
             }
+            if oldMarker == newMarker {
+                toggleMarkerColor(marker: oldMarker)
+                toggleDetailView(marker: oldMarker)
+            }
             else {
+                colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
                 createMarkerDetailView(markerTapped: newMarker)
             }
-            
-            // the following lines don't work whenever you tap off a marker on just the map -- the detail view still shows and it shouldn't
-//            if oldMarker == newMarker {
-//                oldMarker?.icon = GMSMarker.markerImage(with: nil)
-//                hideDetailView()
-//            }
-//            else {
-//                colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
-//                createMarkerDetailView(markerTapped: newMarker)
-//            }
+        }
+    }
+    func toggleMarkerColor(marker: GMSMarker?){
+        if marker != nil{
+            let redMarkerImg = GMSMarker.markerImage(with: nil)
+            let greenMarkerImg = GMSMarker.markerImage(with: .green)
+            if marker?.icon == redMarkerImg{
+                marker?.icon = greenMarkerImg
+            }
+            else{
+                marker?.icon = redMarkerImg
+            }
+        }
+    }
+    func toggleDetailView(marker: GMSMarker?){
+        if marker != nil{
+            let detailViewHeight = mapViewType == .TerminalType ? terminalDetailViewHeight : tractorDetailViewHeight
+            let detailView = mapViewType == .TerminalType ? terminalDetailView : tractorDetailView
+            if detailViewHeight?.constant == 0 {
+                createMarkerDetailView(markerTapped: marker)
+                detailView?.isHidden = false
+            }
+            else{
+                detailViewHeight?.constant = 0
+                detailView?.isHidden = true
+            }
         }
     }
     

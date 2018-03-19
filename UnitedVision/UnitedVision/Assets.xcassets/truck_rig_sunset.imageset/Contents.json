@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "truck_rig_sunset.PNG",
+      "filename" : "truck_rig_sunset-3.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "truck_rig_sunset-1.PNG",
+      "filename" : "truck_rig_sunset-4.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "truck_rig_sunset-2.PNG",
+      "filename" : "truck_rig_sunset.png",
       "scale" : "3x"
     }
   ],

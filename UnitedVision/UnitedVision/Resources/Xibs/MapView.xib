@@ -224,7 +224,7 @@
                             <color key="textColor" red="0.078431372550000003" green="0.33333333329999998" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3T-Wf-7xc">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Loaded" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3T-Wf-7xc">
                             <rect key="frame" x="215" y="45" width="45" height="16"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <nil key="textColor"/>
@@ -241,7 +241,7 @@
                             <rect key="frame" x="338" y="44.5" width="17" height="17"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hazmat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbs-XM-40r">
-                            <rect key="frame" x="287" y="45" width="47" height="16"/>
+                            <rect key="frame" x="285" y="45" width="49" height="16"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -304,6 +304,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="mZx-jf-5LZ" firstAttribute="leading" secondItem="Jcg-SR-JaC" secondAttribute="trailing" constant="4" id="1JF-Ks-GCb"/>
+                        <constraint firstItem="fbs-XM-40r" firstAttribute="leading" secondItem="IE7-1d-geB" secondAttribute="trailing" constant="4" id="32W-y8-RMH"/>
                         <constraint firstItem="93y-Iz-CiT" firstAttribute="centerY" secondItem="hQY-lY-DQ8" secondAttribute="centerY" id="4um-BU-NAc"/>
                         <constraint firstItem="Zwz-cD-qlA" firstAttribute="centerY" secondItem="7UU-N6-ef4" secondAttribute="centerY" id="5B1-Tf-N0g"/>
                         <constraint firstItem="OE6-qH-Te4" firstAttribute="top" secondItem="93y-Iz-CiT" secondAttribute="bottom" constant="4" id="5sP-16-a5f"/>
