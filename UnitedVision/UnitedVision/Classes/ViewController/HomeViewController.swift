@@ -13,9 +13,11 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     static fileprivate let kTableViewCellReuseIdentifier = "AccordionTableCell"
 
-    @IBOutlet weak  var carousel: iCarousel!
-    @IBOutlet weak var pageControl: UIPageControl!
-    @IBOutlet weak var collectionView : UICollectionView!
+    @IBOutlet weak  var tableView: UITableView!
+
+//    @IBOutlet weak  var carousel: iCarousel!
+//    @IBOutlet weak var pageControl: UIPageControl!
+//    @IBOutlet weak var collectionView : UICollectionView!
     
     var itemList : [String]!
     var imageList : [String]!
@@ -53,20 +55,14 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     {
         //self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: HomeViewController.kTableViewCellReuseIdentifier)
         
-        let logo = UIImage(named: "uv1")
+        let logo = UIImage(named: "uv_logo_nooutline") // uv1
         let imageView = UIImageView(image:logo)
-        imageView.contentMode = .scaleAspectFit
+//        imageView.contentMode = .scaleAspectFit
         self.navigationItem.titleView = imageView
         
 //        tableView.allowMultipleSectionsOpen = true
 //        tableView.register(UINib(nibName: "AccordionHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: AccordionHeaderView.kAccordionHeaderViewReuseIdentifier)
 
-        self.carousel.isPagingEnabled = true
-        self.carousel.type = .linear
-        self.carousel.dataSource = self
-        self.carousel.delegate = self
-        self.pageControl.numberOfPages = self.pageList.count
-        self.pageControl.currentPage = self.carousel.currentItemIndex
         
     }
     
@@ -85,18 +81,67 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
 
         }
         
-        collectionView.reloadData()
+        tableView.reloadData()
     }
 
-    @IBAction func updatePage(pageControl : UIPageControl)
-    {
-        //        [carousel scrollToItemAtIndex:pageControl.currentPage * 5 aimated:YES];
-        
-        self.carousel.scrollToItem(at: pageControl.currentPage, animated: true)
-    }
+   
 }
 
 //MARK: - TableView delgate
+
+extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+                return 4
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+    let identifier = String("Cell\(indexPath.row+1)")
+        var cell: UITableViewCell? = nil
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)  as! PageTableViewCell
+            cell.carousel.isPagingEnabled = true
+            cell.carousel.type = .linear
+            
+            cell.pageControl.numberOfPages = self.pageList.count
+            cell.pageControl.currentPage = cell.carousel.currentItemIndex
+            cell.carousel.dataSource = self
+            cell.carousel.delegate = self
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)  as! HomeTableViewCell
+            cell.collectionView.dataSource = self;
+            cell.collectionView.delegate = self;
+            return cell
+        default:
+            cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+            break
+        }
+        
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+ var height = 0
+        switch indexPath.row {
+        case 0:
+            height = 230
+        case 1:
+            height = 130
+        case 2:
+            height = 270
+        case 4:
+            height = 50
+        default:
+            height = 44
+        }
+    
+        return CGFloat(height)
+
+    }
+}
 
 //extension HomeViewController  {
 //    
@@ -243,10 +288,10 @@ extension HomeViewController
 //        return value
     }
     
-    func carouselCurrentItemIndexDidChange(_ carousel: iCarousel)
-    {
-        self.pageControl.currentPage = carousel.currentItemIndex
-    }
+//    func carouselCurrentItemIndexDidChange(_ carousel: iCarousel)
+//    {
+//        self.pageControl.currentPage = carousel.currentItemIndex
+//    }
 }
 
 extension HomeViewController : UICollectionViewDelegateFlowLayout

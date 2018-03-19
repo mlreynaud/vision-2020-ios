@@ -58,6 +58,10 @@
 		BA84A3952052D5F0004E1410 /* ContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A3942052D5F0004E1410 /* ContactInfo.swift */; };
 		BA84A3972052F9B5004E1410 /* FilterSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A3962052F9B5004E1410 /* FilterSearchViewController.swift */; };
 		BA84A3992053AADC004E1410 /* TractorFilter.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA84A3982053AADC004E1410 /* TractorFilter.plist */; };
+		BAC6CC9C205FD68600E79DE4 /* PageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC6CC9B205FD68600E79DE4 /* PageTableViewCell.swift */; };
+		BAC6CC9E205FD6DC00E79DE4 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC6CC9D205FD6DC00E79DE4 /* HomeTableViewCell.swift */; };
+		BAC6CCA0205FDC5C00E79DE4 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC6CC9F205FDC5C00E79DE4 /* NavigationBar.swift */; };
+		CA9B55882AE68F35E5223F55 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +124,9 @@
 		BA84A3942052D5F0004E1410 /* ContactInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfo.swift; sourceTree = "<group>"; };
 		BA84A3962052F9B5004E1410 /* FilterSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSearchViewController.swift; sourceTree = "<group>"; };
 		BA84A3982053AADC004E1410 /* TractorFilter.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TractorFilter.plist; sourceTree = "<group>"; };
+		BAC6CC9B205FD68600E79DE4 /* PageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTableViewCell.swift; sourceTree = "<group>"; };
+		BAC6CC9D205FD6DC00E79DE4 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		BAC6CC9F205FDC5C00E79DE4 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -261,6 +268,8 @@
 				BA4D87A6204D470300FC78CA /* FilterTableViewCell.swift */,
 				BA84A380204D6664004E1410 /* CheckboxTableCell.swift */,
 				BA84A38A20518F2E004E1410 /* ContactTableCell.swift */,
+				BAC6CC9B205FD68600E79DE4 /* PageTableViewCell.swift */,
+				BAC6CC9D205FD6DC00E79DE4 /* HomeTableViewCell.swift */,
 			);
 			path = CustomTableCell;
 			sourceTree = "<group>";
@@ -332,6 +341,7 @@
 				BA5CE6062036EBBF00B14DB6 /* UIViewController.swift */,
 				BA5CE617203C282A00B14DB6 /* String.swift */,
 				BA4D87982046FB7A00FC78CA /* UISegmentedControl.swift */,
+				BAC6CC9F205FDC5C00E79DE4 /* NavigationBar.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -491,6 +501,7 @@
 			files = (
 				BA5CE6092036EF3C00B14DB6 /* SideMenuTableCell.swift in Sources */,
 				BA84A381204D6664004E1410 /* CheckboxTableCell.swift in Sources */,
+				BAC6CC9E205FD6DC00E79DE4 /* HomeTableViewCell.swift in Sources */,
 				BA84A3972052F9B5004E1410 /* FilterSearchViewController.swift in Sources */,
 				BA4D87A5204D40FE00FC78CA /* CardView.swift in Sources */,
 				BA84A3952052D5F0004E1410 /* ContactInfo.swift in Sources */,
@@ -499,6 +510,7 @@
 				BA44A124202DF96E00DE6130 /* LoginViewController.swift in Sources */,
 				BA44A118202DF96E00DE6130 /* Defines.swift in Sources */,
 				BA4D87A7204D470300FC78CA /* FilterTableViewCell.swift in Sources */,
+				BAC6CCA0205FDC5C00E79DE4 /* NavigationBar.swift in Sources */,
 				BA44A11B202DF96E00DE6130 /* DataManager.swift in Sources */,
 				BA84A37F204D6540004E1410 /* MapView.swift in Sources */,
 				BA5CE6072036EBBF00B14DB6 /* UIViewController.swift in Sources */,
@@ -523,6 +535,7 @@
 				BA84A38D205194FD004E1410 /* HomeCollectionCell.swift in Sources */,
 				BA44A11D202DF96E00DE6130 /* LocationInfo.swift in Sources */,
 				BA4D879D204BD24F00FC78CA /* TractorFilterViewController.swift in Sources */,
+				BAC6CC9C205FD68600E79DE4 /* PageTableViewCell.swift in Sources */,
 				BA44A11E202DF96E00DE6130 /* TractorInfo.swift in Sources */,
 				BA44A11F202DF96E00DE6130 /* WebServiceManager.swift in Sources */,
 				BA44A125202DF96E00DE6130 /* TerminalSearchViewController.swift in Sources */,

@@ -83,6 +83,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor.white
         UINavigationBar.appearance().tintColor = kBlueColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : kBlueColor]
+        UINavigationBar.appearance().isTranslucent = false
+
     }
     
     func logout()
