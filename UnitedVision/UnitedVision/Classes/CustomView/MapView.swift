@@ -2,8 +2,8 @@
 //  MapView.swift
 //  UnitedVision
 //
-//  Created by Meenakshi Pathani on 05/03/18.
-//  Copyright © 2018 Meenakshi Pathani. All rights reserved.
+//  Created by Agilink on 05/03/18.
+//  Copyright © 2018 Agilink. All rights reserved.
 //
 
 import Foundation
@@ -258,6 +258,7 @@ extension MapView
         hideDetailView()
         for location in locationList {
             let marker = GoogleMapMarker()
+            marker.opacity = 0.7
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: -location.longitude)
             marker.locationInfo = location
             marker.map = map
@@ -323,14 +324,21 @@ extension MapView
             if newMarker == nil {
                 hideDetailView()
             }
-            if oldMarker == newMarker {
-                toggleMarkerColor(marker: oldMarker)
-                toggleDetailView(marker: oldMarker)
-            }
             else {
-                colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
                 createMarkerDetailView(markerTapped: newMarker)
             }
+            
+            colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
+            
+            // we don't need to deselect the marker if clicking on the same one
+//            if oldMarker == newMarker {
+//                toggleMarkerColor(marker: oldMarker)
+//                toggleDetailView(marker: oldMarker)
+//            }
+//            else {
+//                colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
+//                createMarkerDetailView(markerTapped: newMarker)
+//            }
         }
     }
     func toggleMarkerColor(marker: GMSMarker?){
@@ -361,8 +369,12 @@ extension MapView
     }
     
     func colorSelectedMarker(oldMarker: GMSMarker?, newMarker: GMSMarker?) {
-            oldMarker?.icon = GMSMarker.markerImage(with: nil)
-            newMarker?.icon = GMSMarker.markerImage(with: .green)
+        oldMarker?.icon = GMSMarker.markerImage(with: nil)
+        oldMarker?.opacity = 0.7
+        oldMarker?.zIndex = 0
+        newMarker?.icon = GMSMarker.markerImage(with: .green)
+        newMarker?.opacity = 1
+        newMarker?.zIndex = 1
     }
 
     func createMarkerDetailView(markerTapped marker: GMSMarker?){

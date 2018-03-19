@@ -2,8 +2,8 @@
 //  HomeTableViewCell.swift
 //  UnitedVision
 //
-//  Created by Meenakshi Pathani on 19/03/18.
-//  Copyright © 2018 Meenakshi Pathani. All rights reserved.
+//  Created by Agilink on 19/03/18.
+//  Copyright © 2018 Agilink. All rights reserved.
 //
 
 import UIKit

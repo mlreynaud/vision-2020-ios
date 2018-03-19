@@ -741,8 +741,14 @@
                                     <constraint firstAttribute="height" constant="40" id="o9X-bQ-Ldf"/>
                                     <constraint firstAttribute="width" constant="40" id="zI8-eG-Lxd"/>
                                 </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="unchecked_checkbox"/>
                                 <state key="selected" image="checked_checkbox"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="self.layer.borderColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="saveDefaultsButtonAction" destination="eRj-mG-95u" eventType="touchUpInside" id="Wft-ih-k39"/>
                                 </connections>
@@ -1341,6 +1347,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Ahn-TP-DYd"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MQ4-iF-e06" userLabel="First Responder" sceneMemberID="firstResponder"/>

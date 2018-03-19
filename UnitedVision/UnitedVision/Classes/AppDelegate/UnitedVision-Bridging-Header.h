@@ -2,8 +2,8 @@
 //  UnitedVision-Bridging-Header.h
 //  UnitedVision
 //
-//  Created by Meenakshi Pathani on 19/02/18.
-//  Copyright © 2018 Meenakshi Pathani. All rights reserved.
+//  Created by Agilink on 19/02/18.
+//  Copyright © 2018 Agilink. All rights reserved.
 //
 
 #ifndef UnitedVision_Bridging_Header_h

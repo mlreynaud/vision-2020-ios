@@ -2,8 +2,8 @@
 //  TractorInfo.swift
 //  UnitedVision
 //
-//  Created by Meenakshi Pathani on 07/02/18.
-//  Copyright © 2018 Meenakshi Pathani. All rights reserved.
+//  Created by Agilink on 07/02/18.
+//  Copyright © 2018 Agilink. All rights reserved.
 //
 
 import UIKit
