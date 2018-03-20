@@ -36,8 +36,8 @@ class AppPrefData: NSObject {
     func dataAsDictionary() ->  Dictionary<String, Any>
     {
         var dictionary = Dictionary<String, Any>()
-        dictionary["authToken"] = self.authToken
-        dictionary["isLogin"] = self.isLogin
+        dictionary["authToken"] = DataManager.sharedInstance.authToken
+        dictionary["isLogin"] = DataManager.sharedInstance.isLogin
         
         self.searchDict = self.createTractorSearchDict()
         dictionary["TractorSearchDict"] = self.searchDict

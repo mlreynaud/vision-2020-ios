@@ -78,21 +78,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-     func customizeNavigationBar()
-     {
+    func customizeNavigationBar()
+    {
         UINavigationBar.appearance().barTintColor = UIColor.white
         UINavigationBar.appearance().tintColor = kBlueColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : kBlueColor]
         UINavigationBar.appearance().isTranslucent = false
-
+        
     }
     
     func logout()
     {
         DataManager.sharedInstance.isLogin = false;
         DataManager.sharedInstance.authToken = "";
-        AppPrefData.sharedInstance.authToken = "";
+        AppPrefData.sharedInstance.saveAllData()
     }
-
 }
 

@@ -160,7 +160,7 @@ class WebServiceManager: NSObject, URLSessionDelegate {
                 }
                 else
                 {
-                    serviceCompletionHandler!(nil, error as NSError?)
+                    serviceCompletionHandler!((receivedData as Data?) ?? nil, error as NSError?)
                 }
             }
         });

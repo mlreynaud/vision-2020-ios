@@ -1,128 +1,182 @@
 //
-//  TractorFilterViewController.swift
+//  FilterViewController.swift
 //  UnitedVision
 //
-//  Created by Simrandeep Singh on 20/03/18.
+//  Created by Agilink on 04/03/18.
 //  Copyright © 2018 Agilink. All rights reserved.
 //
 
-import Foundation
+
 import UIKit
 import GoogleMaps
 import GooglePlaces
 
-class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource  {
-   
+class TractorFilterViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var checkboxSaveDefaults: UIButton!
+    
     var searchInfo = TractorSearchInfo()
     
     var radiusList : [String] = []
- 
+    
+    let filterList = ["Search Location", "Radius","Status", "Tractor Type", "Trailer Type", "Tractor Terminal"]
+    
+    let subList = ["Loaded", "HazMat"]
     var pickerToolbarView : UIView!
     
     var filterPopupVC : FilterPopupViewController?
     
     var searchCompletionHandler: ((TractorSearchInfo)->Void)?
-    
-    @IBOutlet var filterLbl: [UILabel]!
-    
-    @IBOutlet weak var searchLocCancelBtn: UIButton!
-    @IBOutlet weak var radiusCancelBtn: UIButton!
-    @IBOutlet weak var statusCancelBtn: UIButton!
-    @IBOutlet weak var tractorTypeCancelBtn: UIButton!
-    @IBOutlet weak var trailerTypeCancelBtn: UIButton!
-    @IBOutlet weak var tractorTerminalCancelBtn: UIButton!
-    
-    @IBOutlet weak var loadedCheckImgView: UIImageView!
-    @IBOutlet weak var hazmatCheckImgView: UIImageView!
-}
 
-extension TractorFilterViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Tractor Search Filter"
+        self.tableView.tableFooterView = UIView()
+
+        self.title = "Tractor Search Filter"
+        // Do any additional setup after loading the view.
         
         searchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()!
         
         radiusList = DataManager.sharedInstance.getRadiusList()
-        createPickerView()
+        self.createPickerView()
         initiateFilterPopupVC()
-        reloadLabels()
     }
     
     func initiateFilterPopupVC() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         filterPopupVC = storyBoard.instantiateViewController(withIdentifier: "FilterPopupViewController") as? FilterPopupViewController
     }
-    func reloadLabels(){
-        for index in 0...7{
-            reloadLabel(at: index)
-        }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        tableView.reloadData()
     }
-    func reloadLabel(at index:Int){
-        if index <= 5{
-            let filterType = FilterType(rawValue: index)
-            let filterLblValue = getValue(for: filterType!)
-            filterLbl[index].text = filterLblValue
-        }
-        else if index == 6{
-            loadedCheckImgView.isHighlighted = searchInfo.loaded
-        }
-        else{
-            hazmatCheckImgView.isHighlighted = searchInfo.hazmat
-        }
-    }
-}
 
-extension TractorFilterViewController{
-    @IBAction func topSearchBarTapped(_ sender: UIButton) {
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func searchButtonAction(){
+        
         DataManager.sharedInstance.tractorSearchInfo = searchInfo
-        //        if checkboxSaveDefaults.isSelected {
-        //            AppPrefData.sharedInstance.saveAllData()
-        //        }
+        if checkboxSaveDefaults.isSelected {
+            AppPrefData.sharedInstance.saveAllData()
+        }
         
         self.searchCompletionHandler?(searchInfo)
         self.navigationController?.popViewController(animated: true)
     }
-    @IBAction func resetBtnTapped(_ sender: UIButton) {
+    
+    @IBAction func resetButtonAction(){
         AppPrefData.sharedInstance.searchDict = nil
         searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()!
         DataManager.sharedInstance.tractorSearchInfo = searchInfo
         AppPrefData.sharedInstance.saveAllData()
-        //        self.tableView.reloadData()
-    }
-    @IBAction func saveDefaultsBtnTapped(_ sender: UIButton) {
-        //        if !checkboxSaveDefaults.isSelected{
-        DataManager.sharedInstance.tractorSearchInfo = searchInfo
-        AppPrefData.sharedInstance.saveAllData()
-        //        }
-        //        self.checkboxSaveDefaults.isSelected = !checkboxSaveDefaults.isSelected
+        self.tableView.reloadData()
     }
     
-//    enum FilterType: Int {
-//        case searchLocation = 0
-//        case radius
-//        case status
-//        case tractorType
-//        case trailerType
-//        case tractorTerminal
-//        case loaded
-//        case hazmat
-//    }
-    
-    @IBAction func filterBtnTapped(_ sender: UIButton) {
-        let filterType = FilterType(rawValue: sender.tag)!
-        
-    }
-    @IBAction func filterCancelBtnTapped(_ sender: UIButton) {
-        let filterType = FilterType(rawValue: sender.tag)!
-        
+    @IBAction func saveDefaultsButtonAction(){
+        if !checkboxSaveDefaults.isSelected{
+            DataManager.sharedInstance.tractorSearchInfo = searchInfo
+            AppPrefData.sharedInstance.saveAllData()
+        }
+        self.checkboxSaveDefaults.isSelected = !checkboxSaveDefaults.isSelected
     }
 }
 
-extension TractorFilterViewController{
+extension TractorFilterViewController
+{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
     
-    func getValue(for filterType: FilterType) -> String
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return filterList.count + subList.count;
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if (indexPath.section < filterList.count)
+        {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FilterTableViewCell", for: indexPath) as! FilterTableViewCell
+        
+            let filterType = FilterType(rawValue: indexPath.section)!
+
+            let filterValue = self.getFilterTypeValue(filterType)
+            cell.titleLabel.text = filterList[indexPath.section]
+            cell.valueLabel.text = filterValue
+            
+            cell.clearHandler = {
+               cell.valueLabel.text = ""
+                
+                if filterType == .tractorTerminal {
+                    self.searchInfo.terminalId = ""
+                }
+                else if filterType == .trailerType {
+                    self.searchInfo.trailerType = ""
+                }
+            }
+            return cell
+        }
+        else {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CheckboxFilterTableCell", for: indexPath) as! CheckboxFilterTableCell
+            let index = indexPath.section - filterList.count
+            cell.titleLabel.text = subList[index]
+            
+            let filterType = FilterType(rawValue: indexPath.section)!
+            
+            if filterType == .loaded{
+                cell.iconImageView.isHighlighted = self.searchInfo.loaded
+            }
+            else {
+                cell.iconImageView.isHighlighted = self.searchInfo.hazmat
+            }
+            return cell
+        }
+       
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        if (indexPath.section < filterList.count)
+        {
+            let filterType = FilterType(rawValue: indexPath.section)!
+            switch filterType {
+            case .searchLocation:
+                let autocompleteController = GMSAutocompleteViewController()
+                autocompleteController.delegate = self
+                present(autocompleteController, animated:true, completion: nil)
+            case .radius:
+                pickerToolbarView.isHidden = false
+                pickerToolbarView.frame =  CGRect(x:0, y: self.view.bounds.size.height - 250 , width: self.view.bounds.size.width, height:250)
+            case .status, .tractorType:
+                self.showFilterPopup(filterType)
+            case .trailerType:
+                self.showFilterSearchScreen(filterType)
+            case .tractorTerminal:
+                self.showFilterSearchScreen(filterType)
+            default:
+                break
+            }
+        }
+        else{
+            let filterType = FilterType(rawValue: indexPath.section)!
+            if filterType == .loaded {
+                self.searchInfo.loaded =  !self.searchInfo.loaded
+            }
+            else if filterType == .hazmat {
+                self.searchInfo.hazmat = !self.searchInfo.hazmat
+            }
+            tableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
+        }
+    }
+    
+    func getFilterTypeValue(_ filterType: FilterType) -> String
     {
         var value : String
         switch filterType {
@@ -153,12 +207,12 @@ extension TractorFilterViewController{
         filterPopupVC?.tractorCompletionHandler = {(selectedTractorValue) in
             
             self.searchInfo.tractorType = selectedTractorValue
-//            self.tableView.reloadData()
+            self.tableView.reloadData()
         }
         
         filterPopupVC?.statusFilterCompletionHandler = { (selectedStatusList) in
             self.searchInfo.status = selectedStatusList
-//            self.tableView.reloadData()
+            self.tableView.reloadData()
         }
         filterPopupVC?.modalPresentationStyle = .overCurrentContext
         self.present(filterPopupVC!, animated: true, completion: nil)
@@ -177,7 +231,7 @@ extension TractorFilterViewController{
             else if filterType == .trailerType{
                 self.searchInfo.trailerType = selectedValue
             }
-//            self.tableView.reloadData()
+            self.tableView.reloadData()
         }
         viewCtrl.modalPresentationStyle = .overCurrentContext
         self.present(viewCtrl, animated: true, completion: nil)
@@ -188,11 +242,11 @@ extension TractorFilterViewController
 {
     func createPickerView()
     {
-        let yValue = self.view.bounds.size.height - 250
-        let width = self.view.bounds.size.width
+         let yValue = self.view.bounds.size.height - 250
+         let width = self.view.bounds.size.width
         
         pickerToolbarView = UIView(frame: CGRect(x:0, y: yValue , width: width, height:250))
-        let pickerView = UIPickerView(frame: CGRect(x:0, y: 50 , width: width, height:200))
+       let pickerView = UIPickerView(frame: CGRect(x:0, y: 50 , width: width, height:200))
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.showsSelectionIndicator = true
@@ -219,22 +273,23 @@ extension TractorFilterViewController
         self.view.addSubview(pickerToolbarView)
         pickerToolbarView.isHidden = true
         pickerToolbarView.bringSubview(toFront: self.view)
-        //        radiusTextField.inputView = pickerView
-        //        radiusTextField.inputAccessoryView = toolBar
+//        radiusTextField.inputView = pickerView
+//        radiusTextField.inputAccessoryView = toolBar
     }
     
     @objc func doneClick() {
         
         DataManager.sharedInstance.tractorSearchInfo?.radius = String(searchInfo.radius)
         pickerToolbarView.isHidden = true
-        
+
+        tableView.reloadData()
     }
     
     @objc func cancelClick() {
-        //        radiusTextField.resignFirstResponder()
+//        radiusTextField.resignFirstResponder()
         pickerToolbarView.isHidden = true
     }
-    
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -265,6 +320,7 @@ extension TractorFilterViewController: GMSAutocompleteViewControllerDelegate {
             self.searchInfo.city = (address?.locality)!
             self.searchInfo.state = (address?.administrativeArea)!
             self.searchInfo.zip = (address?.postalCode)!
+            self.tableView.reloadData()
         }
     }
     

@@ -9,10 +9,11 @@
 import UIKit
 import FZAccordionTableView
 
-class HomeViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, iCarouselDataSource, iCarouselDelegate {
-    
+class HomeViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, iCarouselDataSource, iCarouselDelegate,SideMenuLogOutDelegate {
+   
     static fileprivate let kTableViewCellReuseIdentifier = "AccordionTableCell"
 
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak  var tableView: UITableView!
 
 //    @IBOutlet weak  var carousel: iCarousel!
@@ -57,7 +58,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         
         let logo = UIImage(named: "uv_logo_nooutline") // uv1
         let imageView = UIImageView(image:logo)
-//        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFit
         self.navigationItem.titleView = imageView
         
 //        tableView.allowMultipleSectionsOpen = true
@@ -83,8 +84,9 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         
         tableView.reloadData()
     }
-
-   
+    func sideMenuLogOutPressed() {
+        updateCollectionList()
+    }
 }
 
 //MARK: - TableView delgate
@@ -92,7 +94,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
 extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                return 4
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -114,6 +116,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)  as! HomeTableViewCell
             cell.collectionView.dataSource = self;
             cell.collectionView.delegate = self;
+            cell.collectionView.reloadData()
             return cell
         default:
             cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
@@ -124,7 +127,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
- var height = 0
+        var height = 0
         switch indexPath.row {
         case 0:
             height = 230

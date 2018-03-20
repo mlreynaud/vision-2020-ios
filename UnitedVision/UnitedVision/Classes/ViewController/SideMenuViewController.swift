@@ -9,13 +9,14 @@
 
 enum LeftMenu: Int {
     case home = 0
-//    case login
-//    case register
     case tractorSearch
     case terminalSearch
     case contact
     case logout
     case login
+}
+protocol SideMenuLogOutDelegate {
+    func sideMenuLogOutPressed()
 }
 
 import UIKit
@@ -24,33 +25,23 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var nameLabel : UILabel!
     @IBOutlet weak var signInButton : UIButton!
-
     @IBOutlet weak var tableView : UITableView!
+    
     var menus: [String] = []
     var imageList : [String] = []
     var menuValues: [LeftMenu] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setupInitialView()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func setupInitialView ()
-    {
-//        signInButton.isHidden = DataManager.sharedInstance.isLogin ? true : false
-       // nameLabel.text = DataManager.sharedInstance.isLogin ? "Welcome Meenakshi" : "Welcome Guest"
-        
+    {        
         self.populateArray()
         if (DataManager.sharedInstance.isLogin){
             let userName = DataManager.sharedInstance.userTypeStr
@@ -59,7 +50,6 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
         } else{
             let textString = "Welcome Sign In"
             nameLabel.attributedText = textString.createUnderlineString(subString: "Sign In", underlineColor: UIColor.black)
-
             signInButton.isHidden = false
         }
     }
@@ -82,28 +72,9 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
     
     @IBAction func signInButtonAction()
     {
-        self.slideMenuController()?.closeLeft()
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        
-        if let navCtrl = self.slideMenuController()?.mainViewController as? UINavigationController
-        {
-            navCtrl.pushViewController(viewCtrl, animated: true)
-        }
+        let index = menus.index(of:"Log In")
+        tableView(tableView, didSelectRowAt: IndexPath(item: index!, section: 0))
     }
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
 }
 
 extension SideMenuViewController
@@ -126,29 +97,33 @@ extension SideMenuViewController
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let menu = menuValues[indexPath.row]
-            
+        let navViewCtrl = slideMenuController()?.mainViewController as? UINavigationController
+        
         switch menu {
-//            case .login:
-//                    self.showLoginView()
-//                    break;
+        case .home:
+            navViewCtrl?.popToRootViewController(animated: true)
+            break
         case .logout:
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.logout()
-            self.slideMenuController()?.closeLeft()
-            break
-        case .login:
-            signInButtonAction()
-        default:
-            if let viewCtrl =  self.getViewControllerFor(menu: menu){
-                let navCtrl = UINavigationController(rootViewController: viewCtrl)
-                self.slideMenuController()?.changeMainViewController(navCtrl, close: true)
+            
+            if let navViewCtrl = slideMenuController()?.mainViewController as? UINavigationController{
+                if let topViewCtrl = navViewCtrl.topViewController{
+                    if let sideMenuDelegate = topViewCtrl as? SideMenuLogOutDelegate{
+                        sideMenuDelegate.sideMenuLogOutPressed()
+                    }
+                }
             }
             break
-            
-            
+        default:
+            let currVC = navViewCtrl?.topViewController
+            if let newVC = getViewControllerFor(menu: menu), object_getClassName(currVC) != object_getClassName(newVC){
+                navViewCtrl?.popToRootViewController(animated: false)
+                navViewCtrl?.pushViewController(newVC, animated: true)
+            }
+            break
         }
-       
-
+        self.slideMenuController()?.closeLeft()
     }
     
     func getViewControllerFor(menu: LeftMenu) -> UIViewController? {
@@ -156,10 +131,6 @@ extension SideMenuViewController
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
         switch menu {
-        case .home:
-            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-            return viewCtrl
-            
         case .terminalSearch:
             let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TerminalSearchViewController") as! TerminalSearchViewController
             return viewCtrl
@@ -171,23 +142,12 @@ extension SideMenuViewController
         case .contact:
             let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "ContactViewController") as! ContactViewController
             return viewCtrl
-           
+        case .login:
+            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            return viewCtrl
         default:
                 break
         }
         return nil
-    }
-
-    
-    func showLoginView()
-    {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        
-//        self.providesPresentationContextTransitionStyle = true
-//        self.definesPresentationContext = true
-        viewCtrl.modalPresentationStyle = .overCurrentContext
-
-        self.present(viewCtrl, animated: true, completion: nil)
     }
 }
