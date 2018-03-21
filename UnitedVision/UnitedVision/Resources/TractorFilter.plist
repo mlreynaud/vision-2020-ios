@@ -11,7 +11,14 @@
 	<key>zip</key>
 	<string>70508</string>
 	<key>status</key>
-	<string>All</string>
+	<array>
+		<string>In Transit</string>
+		<string>Delivered</string>
+	</array>
+	<key>tractorType</key>
+	<array>
+		<string>Hot Shot</string>
+	</array>
 	<key>latitude</key>
 	<real>30.2241</real>
 	<key>longitude</key>

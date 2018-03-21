@@ -16,6 +16,8 @@ protocol TerminalTableCellDelegate : class{
 
 class TerminalTableCell: UITableViewCell {
     
+    var tractorId: String?
+    
     @IBOutlet var terminalLbl : UILabel!
     @IBOutlet var destLbl : UILabel!
     @IBOutlet var tractorLbl : UILabel!
@@ -66,6 +68,7 @@ class TerminalTableCell: UITableViewCell {
     
     func showTractorInfo(_ info:TractorInfo) {
         
+        tractorId = info.tractorId
         terminalLbl.attributedText = info.terminal!.createUnderlineString(subString: "", underlineColor: .darkGray)
         destLbl.attributedText = info.destinationCity!.createAttributedString(subString: "", subStringColor: .darkGray)
         tractorLbl.attributedText = info.tractorType!.createAttributedString(subString: "", subStringColor: .darkGray)

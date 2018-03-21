@@ -295,4 +295,12 @@ class UIUtils: NSObject {
     class func returnCheckOrCrossImage(str : String) -> UIImage! {
         return  str == "N" ? UIImage(named:"ic_cancel_circle_red") : UIImage(named:"ic_check_circle_green")
     }
+    class func returnElement(with tag:Int, from array:[UIView]) -> UIView?{
+        for item in array {
+            if item.tag == tag{
+                return item
+            }
+        }
+        return nil
+    }
 }

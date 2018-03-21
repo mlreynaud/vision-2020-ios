@@ -54,13 +54,13 @@ class AppPrefData: NSObject {
             
             dict["status"] = searchInfo.status
             
-            if searchInfo.trailerType.count > 0
-            {
+            if searchInfo.trailerType.count > 0{
                 dict["trailerType"] = searchInfo.trailerType
             }
-            
-            if searchInfo.tractorType.count > 0
-            {
+            if searchInfo.terminalId.count > 0{
+                dict["terminalId"] = searchInfo.terminalId
+            }
+            if searchInfo.tractorType.count > 0{
                 dict["tractorType"] = searchInfo.tractorType
             }
         }

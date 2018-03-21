@@ -211,6 +211,7 @@ extension TractorViewController
     
     func callAtIndex (_ cell: TerminalTableCell)
     {
+        DataManager.sharedInstance.addNewCallLog(cell.tractorId!, userId:DataManager.sharedInstance.userTypeStr)
         
     }
     

@@ -92,17 +92,14 @@ class WebServiceManager: NSObject, URLSessionDelegate {
         return request
     }
     
-    func sendRequest(_ request: URLRequest, completionHandler handler: @escaping CompletionHandlerClosureType )
+    class func sendRequest(_ request: URLRequest, completionHandler handler: @escaping CompletionHandlerClosureType )
     {
-        print("Request- \(request)")
+        printWebRequest(request: request)
         
         serviceCompletionHandler = handler
         
-        if (UIUtils.isConnectedToNetwork() == false)
-        {
+        if (UIUtils.isConnectedToNetwork() == false){
             serviceCompletionHandler!(nil, NSError(domain: kNetworkErrorMessage, code: 0, userInfo: nil))
-            
-//            UIUtils.showAlert(withTitle: "Network Error", message: kNetworkErrorMessage, alertType: .info)
             return
         }
         
@@ -111,13 +108,15 @@ class WebServiceManager: NSObject, URLSessionDelegate {
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        let dataTask :URLSessionDataTask = defaultSession.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) in
+        let dataTask :URLSessionDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) in
             
             let endDate = NSDate()
             print("End date- \(endDate)")
             
             let timeInterval = endDate.timeIntervalSince(startDate as Date)
             print("App response time- \(timeInterval)")
+            
+            WebServiceManager.printResponse(response: data)
             
             DispatchQueue.main.async {
                 
@@ -167,6 +166,23 @@ class WebServiceManager: NSObject, URLSessionDelegate {
         
         dataTask.resume()
         
+    }
+    class func printWebRequest(request: URLRequest){
+        print("Request# \n URL : ",(request.url?.absoluteString as Any),"\n Headers : ",(request.allHTTPHeaderFields?.description as Any),"\n Request Method : ",(request.httpMethod?.description as Any))
+        if var jsonBody :Any? = request.httpBody{
+            do {
+                jsonBody = try JSONSerialization.jsonObject(with: request.httpBody!, options: JSONSerialization.ReadingOptions.mutableContainers) as? Data
+            } catch {
+                jsonBody = request.httpBody!
+            }
+            print("\n Body : ",jsonBody as Any)
+        }
+    }
+    class func printResponse(response: Data?){
+        if let res = response {
+            let resStr = String(data: res, encoding: String.Encoding.utf8)
+            print(resStr as Any)
+        }
     }
     
     func sendDownloadRequest(_ requestUrl: URL, completionHandler handler: @escaping DownloadHandlerClosureType )

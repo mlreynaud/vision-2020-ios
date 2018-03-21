@@ -13,26 +13,15 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
    
     static fileprivate let kTableViewCellReuseIdentifier = "AccordionTableCell"
 
-    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak  var tableView: UITableView!
-
-//    @IBOutlet weak  var carousel: iCarousel!
-//    @IBOutlet weak var pageControl: UIPageControl!
-//    @IBOutlet weak var collectionView : UICollectionView!
     
     var itemList : [String]!
     var imageList : [String]!
-
-//    @IBOutlet weak var tableView : FZAccordionTableView!
     
     let pageList = ["truck_red", "truck", "truck_rig_sunset"];
-        
-   
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
         self.initialSetup()
     }
     
@@ -42,10 +31,6 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         self.updateCollectionList()
         self.setNavigationBarItem()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -54,17 +39,10 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     func initialSetup()
     {
-        //self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: HomeViewController.kTableViewCellReuseIdentifier)
-        
         let logo = UIImage(named: "uv_logo_nooutline") // uv1
         let imageView = UIImageView(image:logo)
         imageView.contentMode = .scaleAspectFit
         self.navigationItem.titleView = imageView
-        
-//        tableView.allowMultipleSectionsOpen = true
-//        tableView.register(UINib(nibName: "AccordionHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: AccordionHeaderView.kAccordionHeaderViewReuseIdentifier)
-
-        
     }
     
     func updateCollectionList()
@@ -73,15 +51,12 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         {
             itemList = ["Contact Us", "Terminal Search", "Tractor Search"];
             imageList = ["ic_call_red", "ic_location_red", "ic_truck_red"];
-
         }
         else
         {
             itemList = ["Contact Us", "Terminal Search", "Login"];
             imageList = ["ic_call_red", "ic_location_red", "ic_login_red"];
-
         }
-        
         tableView.reloadData()
     }
     func sideMenuLogOutPressed() {
@@ -94,7 +69,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
 extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -106,7 +81,6 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)  as! PageTableViewCell
             cell.carousel.isPagingEnabled = true
             cell.carousel.type = .linear
-            
             cell.pageControl.numberOfPages = self.pageList.count
             cell.pageControl.currentPage = cell.carousel.currentItemIndex
             cell.carousel.dataSource = self
@@ -127,7 +101,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        var height = 0
+        var height: CGFloat = 0
         switch indexPath.row {
         case 0:
             height = 230
@@ -135,14 +109,10 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
             height = 130
         case 2:
             height = 270
-        case 4:
-            height = 50
         default:
             height = 44
         }
-    
-        return CGFloat(height)
-
+        return height
     }
 }
 
@@ -345,8 +315,14 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = ((self.view.frame.size.width - 10)/3.0)
-        return CGSize(width:110,height: 110)//CGSize(width: width, height: width)
+        let frameSize : CGSize?
+        if  UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
+            frameSize = CGSize(width: 180, height: 180)
+        }
+        else{
+            frameSize = CGSize(width: 110, height: 110)
+        }
+        return frameSize!
     }
 //    - (CGSize)collectionView:(UICollectionView *)collectionView
 //    layout:(UICollectionViewLayout*)collectionViewLayout
@@ -355,8 +331,6 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout
 //    CGFloat width = CGRectGetWidth(self.view.frame)/3.0f;
 //    return CGSizeMake(width, (width * 1.1f));
 //    }
-    
-        
 }
         
 
