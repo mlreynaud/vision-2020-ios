@@ -2,7 +2,7 @@
 //  TractorFilterViewController.swift
 //  UnitedVision
 //
-//  Created by Simrandeep Singh on 20/03/18.
+//  Created by Agilink on 20/03/18.
 //  Copyright © 2018 Agilink. All rights reserved.
 //
 
@@ -19,22 +19,23 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
     
     var radiusList : [String] = []
  
+    @IBOutlet weak var checkBoxImg: UIImageView!
+    
     var pickerToolbarView : UIView!
+    var pickerView : UIPickerView?
+    var toolBar : UIToolbar?
     
     var filterPopupVC : FilterPopupViewController?
     
     var searchCompletionHandler: ((TractorSearchInfo)->Void)?
     
-    @IBOutlet weak var saveDefaultsBtn: UIButton!
+    @IBOutlet weak var saveDefaultsView: UIView!
     
     @IBOutlet var filterLbl: [UILabel]!
     @IBOutlet var filterCancelBtn: [UIButton]!
     
     @IBOutlet weak var loadedCheckImgView: UIImageView!
     @IBOutlet weak var hazmatCheckImgView: UIImageView!
-}
-
-extension TractorFilterViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,13 +79,21 @@ extension TractorFilterViewController{
             }
         }
     }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        let yValue = size.height - 250
+        let width = size.width
+        pickerToolbarView.frame = CGRect(x:0, y: yValue , width: width, height:250)
+        pickerView?.frame = CGRect(x:0, y: 40 , width: width, height:210)
+        toolBar?.frame = CGRect(x:0, y:0 , width: width, height:50)
+    }
 }
 
 extension TractorFilterViewController{
     
     @IBAction func topSearchBarTapped(_ sender: UIButton) {
         DataManager.sharedInstance.tractorSearchInfo = searchInfo
-        if saveDefaultsBtn.isSelected {
+        if checkBoxImg.isHighlighted {
             AppPrefData.sharedInstance.saveAllData()
         }
         self.searchCompletionHandler?(searchInfo!)
@@ -99,12 +108,12 @@ extension TractorFilterViewController{
         reloadLabels()
     }
     
-    @IBAction func saveDefaultsBtnTapped(_ sender: UIButton) {
-        if saveDefaultsBtn.isSelected {
+    @IBAction func saveDefaultViewTapped(_ sender: Any) {
+        if checkBoxImg.isHighlighted {
             DataManager.sharedInstance.tractorSearchInfo = searchInfo
             AppPrefData.sharedInstance.saveAllData()
         }
-        saveDefaultsBtn.isSelected = !saveDefaultsBtn.isSelected
+        checkBoxImg.isHighlighted = !checkBoxImg.isHighlighted
     }
     
     @IBAction func filterBtnTapped(_ sender: UIButton) {
@@ -218,33 +227,44 @@ extension TractorFilterViewController
 {
     func createPickerView()
     {
+        if toolBar != nil{
+            toolBar?.removeFromSuperview()
+        }
+        if pickerView != nil{
+            pickerView?.removeFromSuperview()
+        }
+        if pickerToolbarView != nil{
+            pickerToolbarView.removeFromSuperview()
+        }
+        
         let yValue = self.view.bounds.size.height - 250
         let width = self.view.bounds.size.width
         
         pickerToolbarView = UIView(frame: CGRect(x:0, y: yValue , width: width, height:250))
-        let pickerView = UIPickerView(frame: CGRect(x:0, y: 50 , width: width, height:200))
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        pickerView.showsSelectionIndicator = true
-        pickerView.backgroundColor = UIColor.white
-        pickerView.isUserInteractionEnabled = true
-        pickerView.selectRow(radiusList.index(of:(searchInfo?.radius)!)!, inComponent: 0, animated: false)
+        pickerView = UIPickerView(frame: CGRect(x:0, y: 40 , width: width, height:210))
+        pickerView?.delegate = self
+        pickerView?.dataSource = self
+        pickerView?.showsSelectionIndicator = true
+        pickerView?.backgroundColor = UIColor.white
+        pickerView?.isUserInteractionEnabled = true
+        pickerView?.selectRow(radiusList.index(of:(searchInfo?.radius)!)!, inComponent: 0, animated: false)
         
-        let toolBar = UIToolbar(frame: CGRect(x:0, y:0 , width: width, height:50))
-        toolBar.barStyle = .default
-        toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.darkGray //UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
-        toolBar.sizeToFit()
+        toolBar = UIToolbar(frame: CGRect(x:0, y:0 , width: width, height:50))
+        toolBar?.barStyle = .default
+        toolBar?.isTranslucent = true
+        toolBar?.tintColor = UIColor.darkGray //UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
+        toolBar?.sizeToFit()
         
         // Adding Button ToolBar
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(TractorFilterViewController.doneClick))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(TractorFilterViewController.cancelClick))
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        toolBar.isUserInteractionEnabled = true
+        toolBar?.items = nil
+        toolBar?.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar?.isUserInteractionEnabled = true
         
-        pickerToolbarView.addSubview(toolBar)
-        pickerToolbarView.addSubview(pickerView)
+        pickerToolbarView.addSubview(toolBar!)
+        pickerToolbarView.addSubview(pickerView!)
         
         self.view.addSubview(pickerToolbarView)
         pickerToolbarView.isHidden = true

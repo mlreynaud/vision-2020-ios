@@ -76,6 +76,9 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
         super.init(frame: frame)
         xibSetUp()
     }
+    deinit{
+        removeObserver(self, forKeyPath: #keyPath(map.selectedMarker))
+    }
     
     func xibSetUp() {
         view = loadViewFromNib()
@@ -117,7 +120,6 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
         
         self.zoomMapToRadius()
         addObserver(self, forKeyPath: #keyPath(map.selectedMarker), options: [.old, .new], context: nil)
-        
     }
     
     

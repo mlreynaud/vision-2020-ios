@@ -74,7 +74,12 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     }
     
     //MARK-
-    
+
+    override func viewWillTransition(to size: CGSize, with coordinator:
+        UIViewControllerTransitionCoordinator) {
+        segmentedControl.updateUnderLineWidth(newWidth: size.width)
+    }
+        
     @IBAction func segmentControlValueChanged(_ sender: UISegmentedControl) {
         
         sender.changeUnderlinePosition()
@@ -212,7 +217,7 @@ extension TractorViewController
     func callAtIndex (_ cell: TerminalTableCell)
     {
         DataManager.sharedInstance.addNewCallLog(cell.tractorId!, userId:DataManager.sharedInstance.userTypeStr)
-        
+//        UIUtils.callPhoneNumber()
     }
     
     func showMapAtIndex (_ cell: TerminalTableCell)

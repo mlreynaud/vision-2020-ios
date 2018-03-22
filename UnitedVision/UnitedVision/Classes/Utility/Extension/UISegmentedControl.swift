@@ -41,6 +41,16 @@ extension UISegmentedControl{
             underline.frame.origin.x = underlineFinalXPosition
         })
     }
+    
+    func updateUnderLineWidth(newWidth: CGFloat){
+        guard let underline = self.viewWithTag(1) else {return}
+        let newUnderlineWidth = newWidth/CGFloat(numberOfSegments)
+        UIView.animate(withDuration: 0.1, animations: {
+            underline.frame = CGRect(x: underline.frame.origin.x, y: underline.frame.origin.y, width: newUnderlineWidth, height: underline.frame.size.height)
+            let underlineFinalXPosition = (newWidth / CGFloat(self.numberOfSegments)) * CGFloat(self.selectedSegmentIndex)
+            underline.frame.origin.x = underlineFinalXPosition
+        })
+    }
 }
 
 extension UIImage{

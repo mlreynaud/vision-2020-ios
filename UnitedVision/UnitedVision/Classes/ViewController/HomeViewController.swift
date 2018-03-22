@@ -42,6 +42,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         let logo = UIImage(named: "uv_logo_nooutline") // uv1
         let imageView = UIImageView(image:logo)
         imageView.contentMode = .scaleAspectFit
+        imageView.frame = CGRect(x: 0, y: 0, width: 200, height:32)
         self.navigationItem.titleView = imageView
     }
     
