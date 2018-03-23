@@ -153,7 +153,11 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
             }
         }
     }
-    
+    func parentVCOrientationChanged(){
+        if radiusTextField.isEditing{
+            radiusTextField.resignFirstResponder()
+        }
+    }
     
     //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     //        let userLocation = locations.last

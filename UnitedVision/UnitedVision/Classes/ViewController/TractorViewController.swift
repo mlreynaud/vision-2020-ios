@@ -12,8 +12,8 @@ import MapKit
 import GoogleMaps
 import GooglePlaces
 
-class TractorViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MKMapViewDelegate, TerminalTableCellDelegate, GMSMapViewDelegate {
-
+class TractorViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MKMapViewDelegate, TerminalTableCellDelegate, GMSMapViewDelegate,SideMenuLogOutDelegate {
+    
     @IBOutlet weak var tableView : UITableView!
     
     @IBOutlet weak var mapView: MapView!
@@ -78,6 +78,11 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     override func viewWillTransition(to size: CGSize, with coordinator:
         UIViewControllerTransitionCoordinator) {
         segmentedControl.updateUnderLineWidth(newWidth: size.width)
+        mapView.parentVCOrientationChanged()
+    }
+    
+    func sideMenuLogOutPressed() {
+        navigationController?.popToRootViewController(animated: true)
     }
         
     @IBAction func segmentControlValueChanged(_ sender: UISegmentedControl) {
