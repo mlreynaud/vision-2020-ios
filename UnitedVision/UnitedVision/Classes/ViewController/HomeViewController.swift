@@ -18,7 +18,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     var itemList : [String]!
     var imageList : [String]!
     
-    let pageList = ["truck_red", "truck", "truck_rig_sunset"];
+    let pageList = ["truck_red","truck_rig_sunset" ,"truck","truck2","truck3","truck4"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

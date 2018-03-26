@@ -18,14 +18,27 @@ class ContactTableCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-    
-   
+    func setCellData(contactInfo: ContactInfo, indexPath: IndexPath) {
+        titleLabel.text = contactInfo.title!
+        detailLabel.text = contactInfo.detail!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        
+        emailButton.isEnabled = (contactInfo.email!.count > 0) ? true : false
+        callButton.isEnabled = (contactInfo.mobile!.count > 0) ? true : false
+        
+        let isEmailInfoAvail = (contactInfo.email!.count > 0) ? true : false
+        emailButton.isEnabled = isEmailInfoAvail
+        emailButton.backgroundColor = isEmailInfoAvail ? UIColor(red: 200/255.0, green: 0/255.0, blue: 40/255.0, alpha: 1.0) : UIColor.lightGray
+
+        let isCallInfoAvail = (contactInfo.mobile!.count > 0) ? true : false
+        callButton.isEnabled = isCallInfoAvail
+        callButton.backgroundColor = isCallInfoAvail ? UIColor(red: 0/255.0, green: 184/255.0, blue: 0/255.0, alpha: 1.0) : UIColor.lightGray
+        
+        emailButton.tag = indexPath.row
+        callButton.tag = indexPath.row
+    }
 }

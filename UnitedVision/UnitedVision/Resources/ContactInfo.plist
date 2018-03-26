@@ -42,8 +42,7 @@ Phone: 337-291-6700
 		<key>title</key>
 		<string>Corporate Communications</string>
 		<key>detail</key>
-		<string>Corporate Communications
-337-291-6700</string>
+		<string>337-291-6700</string>
 		<key>Mobile</key>
 		<string>+13372916700</string>
 		<key>Email</key>
@@ -64,8 +63,7 @@ Phone: 337-291-6700
 		<key>title</key>
 		<string>Brokerage</string>
 		<key>detail</key>
-		<string>Agent Recruiting
-Carrier Registration</string>
+		<string></string>
 		<key>Mobile</key>
 		<string></string>
 		<key>Email</key>
@@ -75,8 +73,7 @@ Carrier Registration</string>
 		<key>title</key>
 		<string>Driver Verifications</string>
 		<key>detail</key>
-		<string>Driver Verifications
-</string>
+		<string></string>
 		<key>Mobile</key>
 		<string>+18009410947</string>
 		<key>Email</key>
@@ -86,8 +83,7 @@ Carrier Registration</string>
 		<key>title</key>
 		<string>Web Site Support</string>
 		<key>detail</key>
-		<string>Web Site Support
-800-270-3158</string>
+		<string>800-270-3158</string>
 		<key>Mobile</key>
 		<string>+18002703158</string>
 		<key>Email</key>
@@ -97,8 +93,7 @@ Carrier Registration</string>
 		<key>title</key>
 		<string>Logistics</string>
 		<key>detail</key>
-		<string>Logistics Inquiries
-800-880-8482
+		<string>800-880-8482
 </string>
 		<key>Mobile</key>
 		<string>+18008808482</string>

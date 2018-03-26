@@ -94,14 +94,21 @@
                         <action selector="myLocationBtnPressed" destination="-1" eventType="touchUpInside" id="HM0-Jb-aRy"/>
                     </connections>
                 </button>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Radius: 50mi" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OG5-Xq-3al">
-                    <rect key="frame" x="10" y="25" width="120" height="30"/>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" allowsEditingTextAttributes="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OG5-Xq-3al">
+                    <rect key="frame" x="10" y="25" width="120" height="25"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="120" id="ytJ-FD-ZS6"/>
+                        <constraint firstAttribute="height" constant="25" id="MEw-Kc-pbh"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="ytJ-FD-ZS6"/>
                     </constraints>
-                    <nil key="textColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <attributedString key="attributedText">
+                        <fragment content="Radius 50mi">
+                            <attributes>
+                                <font key="NSFont" metaFont="system" size="14"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="grN-j9-bMv"/>

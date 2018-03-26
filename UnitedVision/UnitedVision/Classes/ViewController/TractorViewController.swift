@@ -62,7 +62,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if (self.navigationController?.viewControllers[0].isKind(of: TractorViewController.self))!
+        if (self.navigationController?.topViewController?.isKind(of: TractorViewController.self))!
         {
             self.setNavigationBarItem()
         }
@@ -115,6 +115,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
             self.tractorSearchInfo = searchInfo
             self.fetchTractorLocations()
         }
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
         self.navigationController?.pushViewController(viewCtrl, animated: true)
     }
     

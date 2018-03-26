@@ -21,6 +21,8 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
  
     @IBOutlet weak var checkBoxImg: UIImageView!
     
+    @IBOutlet weak var applyBtnView: UIView!
+    
     var pickerToolbarView : UIView!
     var pickerView : UIPickerView?
     var toolBar : UIToolbar?
@@ -31,6 +33,7 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
     
     @IBOutlet weak var saveDefaultsView: UIView!
     
+    @IBOutlet weak var resetBtnView: UIView!
     @IBOutlet var filterLbl: [UILabel]!
     @IBOutlet var filterCancelBtn: [UIButton]!
     
@@ -41,9 +44,7 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
         super.viewDidLoad()
         
         title = "Tractor Search Filter"
-        
         searchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()!
-        
         radiusList = DataManager.sharedInstance.getRadiusList()
         createPickerView()
         initiateFilterPopupVC()
@@ -91,7 +92,7 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
 
 extension TractorFilterViewController{
     
-    @IBAction func topSearchBarTapped(_ sender: UIButton) {
+    @IBAction func topApplyBtnPressed(_ sender: UIControl) {
         DataManager.sharedInstance.tractorSearchInfo = searchInfo
         if checkBoxImg.isHighlighted {
             AppPrefData.sharedInstance.saveAllData()
@@ -100,7 +101,7 @@ extension TractorFilterViewController{
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func resetBtnTapped(_ sender: UIButton) {
+    @IBAction func resetBtnPressed(_ sender: UIControl) {
         AppPrefData.sharedInstance.searchDict = nil
         searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
         DataManager.sharedInstance.tractorSearchInfo = searchInfo

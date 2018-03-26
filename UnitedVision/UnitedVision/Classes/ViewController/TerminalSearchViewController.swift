@@ -40,12 +40,16 @@ class TerminalSearchViewController: BaseViewController, GMSMapViewDelegate {
         mapView.mapFilterDelegate = self
         self.fetchTerminalLocations()
         addSearchBarButton()
+        setupHamburgerMenu()
     }
     func addSearchBarButton() {
         let searchBarBtn = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(TerminalSearchViewController.searchBarBtnPressed))
         self.navigationItem.rightBarButtonItem = searchBarBtn
     }
-    
+    func setupHamburgerMenu(){
+        navigationItem.hidesBackButton = true
+        
+    }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
@@ -65,7 +69,7 @@ class TerminalSearchViewController: BaseViewController, GMSMapViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if (self.navigationController?.viewControllers[0].isKind(of: TerminalSearchViewController.self) )!
+        if (self.navigationController?.topViewController?.isKind(of: TerminalSearchViewController.self) )!
         {
             self.setNavigationBarItem()
         }
@@ -112,6 +116,7 @@ class TerminalSearchViewController: BaseViewController, GMSMapViewDelegate {
             }
         }
         mapView.addLocationList(mapLocationList)
+        mapView.addSearchCentreMarker()
         mapView.zoomMapToRadius()
     }
     @objc func searchBarBtnPressed() {

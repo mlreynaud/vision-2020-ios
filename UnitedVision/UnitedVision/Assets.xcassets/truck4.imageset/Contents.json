@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "truck.jpg",
+      "filename" : "truck4.jpeg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "truck-1.jpg",
+      "filename" : "truck4-1.jpeg",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "truck-2.jpg",
+      "filename" : "truck4-2.jpeg",
       "scale" : "3x"
     }
   ],

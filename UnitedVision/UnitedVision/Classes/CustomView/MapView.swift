@@ -57,6 +57,7 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
     
     let nibName = "MapView"
     var view : UIView!
+    var markerIcon: UIView?
     
     weak var mapFilterDelegate: MapFilterDelegate?
     
@@ -108,27 +109,24 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
         
         radiusList = DataManager.sharedInstance.getRadiusList()
         
-        radiusTextField.text = String("Radius: \(selectedRadius) mi")
+        radiusTextField.attributedText = String("Radius \(selectedRadius) mi").createAttributedString(subString: "\(selectedRadius) mi", subStringColor: .blue)
         
         terminalDetailViewHeight.constant = 0
         tractorDetailViewHeight.constant = 0
         
         terminalDetailView.isHidden = mapViewType == .TerminalType ? false : true
         tractorDetailView.isHidden =  mapViewType == .TractorType ? false : true
+        markerIcon = mapViewType == .TerminalType ? UIImageView(image: UIImage(named:"uv_shield_50")?.withRenderingMode(.alwaysTemplate)) : nil
         
         zoomLevel = kDefaultZoom
         
         self.zoomMapToRadius()
         addObserver(self, forKeyPath: #keyPath(map.selectedMarker), options: [.old, .new], context: nil)
     }
-    
-    
+   
     func setupUpMyLocationBtn(){
         
         myLocationBtnOutlet.imageView?.contentMode = .scaleAspectFit
-        myLocationBtnOutlet.layer.masksToBounds = true
-        myLocationBtnOutlet.layer.shouldRasterize = true
-        myLocationBtnOutlet.layer.cornerRadius = myLocationBtnOutlet.frame.width/2
         fetchMyLocationBtn()
     }
     
@@ -187,7 +185,9 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
     
     func setSelectedRadius(_ radius: Int) {
         self.selectedRadius = radius
-        self.radiusTextField.text = String("Radius: \(selectedRadius) mi")
+        radiusTextField.attributedText = String("Radius \(selectedRadius) mi").createAttributedString(subString: "\(selectedRadius) mi", subStringColor: .blue)
+
+        
     }
     
     func presentAutoCompleteController(){
@@ -253,7 +253,22 @@ extension MapView
             let meterRadius = selectedRadius * 1609
             let circle: GMSCircle = GMSCircle(position: (searchLocation?.coordinate)!,
                                               radius: CLLocationDistance(meterRadius))
+            if mapViewType == .TerminalType{
+                circle.strokeColor = UIColor(hexString:"884286f4")
+                circle.strokeWidth = 4.0
+                circle.fillColor = UIColor(hexString: "224286f4")
+            }
             circle.map = map
+        }
+    }
+    func addSearchCentreMarker() {
+        if let searchCentrePosition = searchLocation{
+            let marker = GoogleMapMarker()
+            marker.opacity = 0.7
+            marker.position = CLLocationCoordinate2D(latitude: searchCentrePosition.coordinate.latitude, longitude: searchCentrePosition.coordinate.longitude)
+            marker.iconView = UIImageView(image: UIImage(named: "search_loc_marker")?.withRenderingMode(.alwaysTemplate))
+            marker.map = map
+            markers.append(marker)
         }
     }
     
@@ -267,6 +282,9 @@ extension MapView
             marker.opacity = 0.7
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: -location.longitude)
             marker.locationInfo = location
+            if markerIcon != nil{
+                marker.iconView = markerIcon
+            }
             marker.map = map
             markers.append(marker)
         }
@@ -385,6 +403,9 @@ extension MapView
 
     func createMarkerDetailView(markerTapped marker: GMSMarker?){
         if let selectedMarker =  marker as? GoogleMapMarker{
+            if selectedMarker.locationInfo == nil && selectedMarker.tractorInfo == nil {
+                return
+            }
             if let htmlStr = selectedMarker.locationInfo?.detail , mapViewType == .TerminalType{
                 terminalDetailViewAddressLbl.attributedText = htmlStr.htmlToAttributedString
                 terminalDetailViewHeight.constant = kTerminalViewHeight
@@ -454,14 +475,23 @@ extension MapView : UITextFieldDelegate, UIPickerViewDataSource
         radiusTextField.inputView = pickerView
         radiusTextField.inputAccessoryView = toolBar
     }
-    
+
     @objc func doneClick() {
         
-        radiusTextField.text = String("Radius: \(selectedRadius) mi")
+        radiusTextField.attributedText = String("Radius \(selectedRadius) mi").createAttributedString(subString: "\(selectedRadius) mi", subStringColor: .blue)
+        
+//        setAttributedStr(attributedStr:attribStr , to: radiusTextField)
         radiusTextField.resignFirstResponder()
         
         self.mapFilterDelegate?.mapFilter(sender: self)
     }
+//    func setAttributedStr(attributedStr: NSAttributedString,to textField:UITextField){
+//        let mutableArrtribStr = NSMutableAttributedString(attributedString: radiusTextField.attributedText!)
+//        mutableArrtribStr.setAttributes([:], range: NSRange(0..<mutableArrtribStr.string.count))
+//        textField.attributedText = attributedStr
+////        attributedString.setAttributes([:], range: NSRange(0..<self.count))
+//
+//    }
     
     @objc func cancelClick() {
         radiusTextField.resignFirstResponder()

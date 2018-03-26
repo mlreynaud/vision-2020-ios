@@ -96,18 +96,8 @@ extension ContactViewController
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableCell", for: indexPath) as! ContactTableCell
-        
         let info = contactList[indexPath.row]
-        
-        cell.titleLabel.text = info.title!
-        cell.detailLabel.text = info.detail!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        
-        cell.emailButton.isHidden = (info.email!.count > 0) ? false : true
-        cell.callButton.isHidden = (info.mobile!.count > 0) ? false : true
-        
-        cell.emailButton.tag = indexPath.row
-        cell.callButton.tag = indexPath.row
-
+        cell.setCellData(contactInfo: info, indexPath: indexPath)
         return cell;
     }
 
