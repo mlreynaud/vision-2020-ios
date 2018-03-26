@@ -274,9 +274,9 @@ class DataManager: NSObject {
                         break
                 }
             }
-            let joined = statusList.joined(separator: ", ")
+            let joined = statusList.map { $0.encodeString() }.joined(separator: "&status=")
             
-            requestStr.append("&status=\(joined.encodeString())")
+            requestStr.append("&status=\(joined)")
         }
         
         if searchInfo.trailerType.count > 0
@@ -286,8 +286,8 @@ class DataManager: NSObject {
         
         if searchInfo.tractorType.count > 0
         {
-            let joinedStr = searchInfo.tractorType.joined(separator: ",")
-            requestStr.append("&tractorType=\(joinedStr.encodeString())")
+            let joinedStr = searchInfo.tractorType.map { $0.encodeString() }.joined(separator: "&tractorType=")
+            requestStr.append("&tractorType=\(joinedStr)")
         }
         
         requestStr.append("&hazmat=\(searchInfo.hazmat ? "Y" : "N")")

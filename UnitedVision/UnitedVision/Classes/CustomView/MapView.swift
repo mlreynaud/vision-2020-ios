@@ -253,11 +253,11 @@ extension MapView
             let meterRadius = selectedRadius * 1609
             let circle: GMSCircle = GMSCircle(position: (searchLocation?.coordinate)!,
                                               radius: CLLocationDistance(meterRadius))
-            if mapViewType == .TerminalType{
-                circle.strokeColor = UIColor(hexString:"884286f4")
-                circle.strokeWidth = 4.0
-                circle.fillColor = UIColor(hexString: "224286f4")
-            }
+            
+            circle.strokeColor = UIColor(hexString:"884286f4")
+            circle.strokeWidth = 4.0
+            circle.fillColor = UIColor(hexString: "224286f4")
+        
             circle.map = map
         }
     }
