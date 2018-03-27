@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TractorSearchInfo: NSObject {
+class TractorSearchInfo {
 
     // optional
     var hazmat : Bool = false
@@ -83,3 +83,4 @@ class TractorSearchInfo: NSObject {
         }
     }
 }
+

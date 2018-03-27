@@ -13,7 +13,7 @@ import GooglePlaces
 
 let numberOfFilterLbls = 7
 
-class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource  {
+class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource,SideMenuLogOutDelegate  {
    
     var searchInfo : TractorSearchInfo?
     
@@ -49,11 +49,16 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
         createPickerView()
         initiateFilterPopupVC()
         reloadLabels()
+        checkIfSavedFiltersSelected()
     }
     
     func initiateFilterPopupVC() {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         filterPopupVC = storyBoard.instantiateViewController(withIdentifier: "FilterPopupViewController") as? FilterPopupViewController
+    }
+    
+    func sideMenuLogOutPressed() {
+        navigationController?.popToRootViewController(animated: true)
     }
     
     func reloadLabels(){
@@ -110,7 +115,12 @@ extension TractorFilterViewController{
     }
     
     @IBAction func saveDefaultViewTapped(_ sender: Any) {
-        if checkBoxImg.isHighlighted {
+        if !checkBoxImg.isHighlighted {
+            DataManager.sharedInstance.tractorSearchInfo = searchInfo
+            AppPrefData.sharedInstance.saveAllData()
+        }
+        else{
+            searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
             DataManager.sharedInstance.tractorSearchInfo = searchInfo
             AppPrefData.sharedInstance.saveAllData()
         }
@@ -138,6 +148,7 @@ extension TractorFilterViewController{
             searchInfo?.hazmat = !(searchInfo?.hazmat)!
             reloadLabel(at: FilterType.hazmat.rawValue)
         }
+        checkIfSavedFiltersSelected()
     }
     @IBAction func filterCancelBtnTapped(_ sender: UIButton) {
         if let defaultTractorInfo = DataManager.sharedInstance.fetchFilterDefaultValues(){
@@ -155,6 +166,34 @@ extension TractorFilterViewController{
                 break
             }
             reloadLabel(at: sender.tag)
+        }
+    }
+    func checkIfSavedFiltersSelected() {
+        if let defaultTractorInfo = DataManager.sharedInstance.fetchFilterDefaultValues(){
+            var result : Bool = true
+            result = (searchInfo?.hazmat)! == defaultTractorInfo.hazmat &&
+                (searchInfo?.loaded)! == defaultTractorInfo.loaded &&
+                (searchInfo?.showLocal)! == defaultTractorInfo.showLocal &&
+                (searchInfo?.terminalId)! == defaultTractorInfo.terminalId &&
+                (searchInfo?.tractorId)! == defaultTractorInfo.tractorId &&
+                (searchInfo?.tractorType)! == defaultTractorInfo.tractorType &&
+                (searchInfo?.trailerType)! == defaultTractorInfo.trailerType &&
+                (searchInfo?.radius)! == defaultTractorInfo.radius &&
+                (searchInfo?.city)! == defaultTractorInfo.city &&
+                (searchInfo?.state)! == defaultTractorInfo.state &&
+                (searchInfo?.zip)! == defaultTractorInfo.zip &&
+                (searchInfo?.latitude)! == defaultTractorInfo.latitude &&
+                (searchInfo?.longitude)! == defaultTractorInfo.longitude
+            
+            for (index, value) in (searchInfo?.status.enumerated())! {
+                result = (value == defaultTractorInfo.status[index]) && result
+            }
+            for (index, value) in (searchInfo?.tractorType.enumerated())! {
+                result = (value == defaultTractorInfo.tractorType[index]) && result
+            }
+            if result {
+                checkBoxImg.isHighlighted = true
+            }
         }
     }
 }
@@ -311,7 +350,7 @@ extension TractorFilterViewController: GMSAutocompleteViewControllerDelegate {
             let address = response?.firstResult()
             self.searchInfo?.city = (address?.locality)!
             self.searchInfo?.state = (address?.administrativeArea)!
-            self.searchInfo?.zip = (address?.postalCode)!
+            self.searchInfo?.zip = (address?.postalCode) ?? ""
             self.reloadLabel(at: FilterType.searchLocation.rawValue)
         }
     }

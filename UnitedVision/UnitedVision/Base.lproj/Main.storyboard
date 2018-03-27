@@ -595,7 +595,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7qd-bo-nGD" customClass="CardView" customModule="UnitedVision" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="367" height="50"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check_circle_red" translatesAutoresizingMaskIntoConstraints="NO" id="Ard-Fg-g68">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_marker_red" translatesAutoresizingMaskIntoConstraints="NO" id="Ard-Fg-g68">
                                                                 <rect key="frame" x="10" y="5" width="40" height="40"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="NVC-R9-Hgl"/>
@@ -671,7 +671,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A56-AO-BWJ" customClass="CardView" customModule="UnitedVision" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="367" height="50"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check_circle_red" translatesAutoresizingMaskIntoConstraints="NO" id="FDL-ch-Ehy">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_radius_red" translatesAutoresizingMaskIntoConstraints="NO" id="FDL-ch-Ehy">
                                                                 <rect key="frame" x="10" y="5" width="40" height="40"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="ePl-Ge-aZe"/>
@@ -735,7 +735,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tEV-Vs-RMB" customClass="CardView" customModule="UnitedVision" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="367" height="50"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check_circle_red" translatesAutoresizingMaskIntoConstraints="NO" id="Jxz-j8-g3g">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_status_red" translatesAutoresizingMaskIntoConstraints="NO" id="Jxz-j8-g3g">
                                                                 <rect key="frame" x="10" y="5" width="40" height="40"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="d1X-iu-emP"/>
@@ -812,7 +812,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ea3-9Y-vVX" customClass="CardView" customModule="UnitedVision" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="367" height="50"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check_circle_red" translatesAutoresizingMaskIntoConstraints="NO" id="9X2-Vq-dcf">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_truck_red" translatesAutoresizingMaskIntoConstraints="NO" id="9X2-Vq-dcf">
                                                                 <rect key="frame" x="10" y="5" width="40" height="40"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="V6h-VN-Zcy"/>
@@ -886,7 +886,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BIA-Mc-rPG" customClass="CardView" customModule="UnitedVision" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="367" height="50"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check_circle_red" translatesAutoresizingMaskIntoConstraints="NO" id="3wZ-Ej-gJX">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_trailer_red" translatesAutoresizingMaskIntoConstraints="NO" id="3wZ-Ej-gJX">
                                                                 <rect key="frame" x="10" y="5" width="40" height="40"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="LIi-OQ-b5U"/>
@@ -960,7 +960,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZDj-gQ-D11" customClass="CardView" customModule="UnitedVision" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="367" height="50"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check_circle_red" translatesAutoresizingMaskIntoConstraints="NO" id="bXm-3v-jyq">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_location_red" translatesAutoresizingMaskIntoConstraints="NO" id="bXm-3v-jyq">
                                                                 <rect key="frame" x="10" y="5" width="40" height="40"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="QvC-Le-UUe"/>
@@ -1215,10 +1215,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unchecked_checkbox" highlightedImage="checked_checkbox" translatesAutoresizingMaskIntoConstraints="NO" id="GwW-ke-1hS">
-                                                        <rect key="frame" x="132" y="11" width="30" height="30"/>
+                                                        <rect key="frame" x="132" y="13.5" width="25" height="25"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="XwE-93-Mjj"/>
-                                                            <constraint firstAttribute="width" constant="30" id="gJH-2L-ujC"/>
+                                                            <constraint firstAttribute="height" constant="25" id="XwE-93-Mjj"/>
+                                                            <constraint firstAttribute="width" constant="25" id="gJH-2L-ujC"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
@@ -1856,11 +1856,16 @@
         <image name="Vsion2020Splash" width="549" height="333"/>
         <image name="checked_checkbox" width="25" height="25"/>
         <image name="ic_call_white" width="25" height="25"/>
-        <image name="ic_check_circle_red" width="25" height="25"/>
         <image name="ic_clear_black_48dp" width="36" height="36"/>
         <image name="ic_filter_white" width="25" height="25"/>
+        <image name="ic_location_red" width="24" height="24"/>
         <image name="ic_mail_white.png" width="24" height="24"/>
+        <image name="ic_marker_red" width="32" height="32"/>
+        <image name="ic_radius_red" width="16" height="16"/>
         <image name="ic_reset_white" width="16" height="16"/>
+        <image name="ic_status_red" width="16" height="16"/>
+        <image name="ic_trailer_red" width="16" height="16"/>
+        <image name="ic_truck_red" width="24" height="24"/>
         <image name="unchecked_checkbox" width="25" height="25"/>
     </resources>
 </document>

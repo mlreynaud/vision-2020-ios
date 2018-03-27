@@ -135,6 +135,10 @@ extension FilterPopupViewController
             }
             else{
                 selectedList.append(value)
+                if selectedList.count == filterList.count - 1 {
+                    selectedList.append("All")
+                    isAllSelected = true
+                }
             }
         }
         tableView.reloadData()

@@ -246,7 +246,7 @@ extension TractorViewController: MapFilterDelegate {
                 let address = response?.firstResult()
                 self.tractorSearchInfo.city = (address?.locality)!
                 self.tractorSearchInfo.state = (address?.administrativeArea)!
-                self.tractorSearchInfo.zip = (address?.postalCode)!
+                self.tractorSearchInfo.zip = (address?.postalCode) ?? ""
             }
             
             self.tractorSearchInfo.radius = String(sender.selectedRadius)

@@ -47,6 +47,8 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
     var myLocationBtn : UIButton?
     
     @IBOutlet weak var radiusTextField: UITextField!
+    @IBOutlet weak var radiusLbl: UILabel!
+    
     @IBOutlet weak var autocompleteTableView: UITableView!
     
     var searchLocation: CLLocation?
@@ -109,7 +111,7 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
         
         radiusList = DataManager.sharedInstance.getRadiusList()
         
-        radiusTextField.attributedText = String("Radius \(selectedRadius) mi").createAttributedString(subString: "\(selectedRadius) mi", subStringColor: .blue)
+        radiusLbl.attributedText = String("Radius \(selectedRadius) mi").createAttributedString(subString: "\(selectedRadius) mi", subStringColor: .blue)
         
         terminalDetailViewHeight.constant = 0
         tractorDetailViewHeight.constant = 0
@@ -157,18 +159,6 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
         }
     }
     
-    //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    //        let userLocation = locations.last
-    //        currentLocation = userLocation
-    //        if searchLocation == nil {
-    //            searchLocation = userLocation!
-    //            moveMaptoLocation(location: currentLocation!)
-    //        }
-    //        locationManager.stopUpdatingLocation()
-    //
-    //    }
-    
-    
     @IBAction func zoomOutButtonClicked(sender: UIButton)
     {
         self.map.animate(toZoom: self.map.camera.zoom + 0.5)
@@ -185,9 +175,7 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
     
     func setSelectedRadius(_ radius: Int) {
         self.selectedRadius = radius
-        radiusTextField.attributedText = String("Radius \(selectedRadius) mi").createAttributedString(subString: "\(selectedRadius) mi", subStringColor: .blue)
-
-        
+        radiusLbl.attributedText = String("Radius \(selectedRadius) mi").createAttributedString(subString: "\(selectedRadius) mi", subStringColor: .blue)
     }
     
     func presentAutoCompleteController(){
@@ -298,6 +286,7 @@ extension MapView
         hideDetailView()
         for location in tractorList {
             let marker = GoogleMapMarker()
+            marker.opacity = 0.7
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             marker.tractorInfo = location
             marker.map = map
@@ -327,6 +316,13 @@ extension MapView
             bounds = bounds.includingCoordinate(n).includingCoordinate(e).includingCoordinate(s).includingCoordinate(w)
             map.animate(with: GMSCameraUpdate.fit(bounds))
             zoomLevel = map.camera.zoom
+        }
+    }
+    
+    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+        searchLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        DispatchQueue.main.async { () -> Void in
+            self.mapFilterDelegate?.mapFilter(sender: self)
         }
     }
     
@@ -452,68 +448,60 @@ extension MapView
 
 extension MapView : UITextFieldDelegate, UIPickerViewDataSource
 {
+    
     func createPickerView()
     {
         let pickerView = UIPickerView()
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.selectRow(radiusList.index(of: String(selectedRadius))!, inComponent: 0, animated: false)
-        
+
         let toolBar = UIToolbar()
         toolBar.barStyle = .default
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.darkGray //UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
         toolBar.sizeToFit()
-        
+
         // Adding Button ToolBar
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(MapView.doneClick))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(MapView.cancelClick))
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
-        
+
         radiusTextField.inputView = pickerView
         radiusTextField.inputAccessoryView = toolBar
     }
 
     @objc func doneClick() {
-        
-        radiusTextField.attributedText = String("Radius \(selectedRadius) mi").createAttributedString(subString: "\(selectedRadius) mi", subStringColor: .blue)
-        
-//        setAttributedStr(attributedStr:attribStr , to: radiusTextField)
+
+        radiusLbl.attributedText = String("Radius \(selectedRadius) mi").createAttributedString(subString: "\(selectedRadius) mi", subStringColor: .blue)
+
         radiusTextField.resignFirstResponder()
-        
-        self.mapFilterDelegate?.mapFilter(sender: self)
+
+        mapFilterDelegate?.mapFilter(sender: self)
     }
-//    func setAttributedStr(attributedStr: NSAttributedString,to textField:UITextField){
-//        let mutableArrtribStr = NSMutableAttributedString(attributedString: radiusTextField.attributedText!)
-//        mutableArrtribStr.setAttributes([:], range: NSRange(0..<mutableArrtribStr.string.count))
-//        textField.attributedText = attributedStr
-////        attributedString.setAttributes([:], range: NSRange(0..<self.count))
-//
-//    }
     
     @objc func cancelClick() {
         radiusTextField.resignFirstResponder()
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField)
-    {
-        self.createPickerView()
+    func textFieldDidBeginEditing(_ textField: UITextField){
+        createPickerView()
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return radiusList.count
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedRadius =  Int(radiusList[row])!
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return radiusList[row]
     }
@@ -525,8 +513,6 @@ extension MapView: GMSAutocompleteViewControllerDelegate {
         viewController.dismiss(animated: true, completion: nil)
         searchLocation = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
         DispatchQueue.main.async { () -> Void in
-            
-            //            self.mapView.moveMaptoLocation(location: self.searchLocation!)
             self.mapFilterDelegate?.mapFilter(sender: self)
         }
     }
