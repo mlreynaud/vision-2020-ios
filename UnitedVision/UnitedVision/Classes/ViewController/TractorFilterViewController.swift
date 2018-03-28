@@ -46,7 +46,7 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
         title = "Tractor Search Filter"
         searchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()!
         radiusList = DataManager.sharedInstance.getRadiusList()
-        createPickerView()
+        createPickerView(forSize:view.frame.size)
         initiateFilterPopupVC()
         reloadLabels()
         checkIfSavedFiltersSelected()
@@ -78,20 +78,18 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
             let filterType = FilterType(rawValue: index)
             let filterLblValue = getValue(for: filterType!, from: searchInfo!) as! String
             filterLbl[index].text = filterLblValue
-            if filterType == .trailerType || filterType == .tractorTerminal{
+            if filterType == .trailerType || filterType == .tractorTerminal || filterType == .status || filterType == .tractorType{
                 if let filterCancelButton = UIUtils.returnElement(with: index, from: filterCancelBtn){
                     filterCancelButton.isHidden = filterLblValue.isEmpty
                 }
             }
         }
+        checkIfSavedFiltersSelected()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        let yValue = size.height - 250
-        let width = size.width
-        pickerToolbarView.frame = CGRect(x:0, y: yValue , width: width, height:250)
-        pickerView?.frame = CGRect(x:0, y: 40 , width: width, height:210)
-        toolBar?.frame = CGRect(x:0, y:0 , width: width, height:50)
+        cancelClick()
+        createPickerView(forSize: size)
     }
 }
 
@@ -112,6 +110,7 @@ extension TractorFilterViewController{
         DataManager.sharedInstance.tractorSearchInfo = searchInfo
         AppPrefData.sharedInstance.saveAllData()
         reloadLabels()
+        checkIfSavedFiltersSelected()
     }
     
     @IBAction func saveDefaultViewTapped(_ sender: Any) {
@@ -137,6 +136,7 @@ extension TractorFilterViewController{
         case .radius:
             pickerToolbarView.isHidden = false
             pickerToolbarView.frame =  CGRect(x:0, y: view.bounds.size.height - 250 , width: view.bounds.size.width, height:250)
+            toolBar?.frame = CGRect(x:0, y:0 , width: view.bounds.size.width, height:50)
         case .status, .tractorType:
             showFilterPopup(filterType)
         case .trailerType, .tractorTerminal:
@@ -148,16 +148,15 @@ extension TractorFilterViewController{
             searchInfo?.hazmat = !(searchInfo?.hazmat)!
             reloadLabel(at: FilterType.hazmat.rawValue)
         }
-        checkIfSavedFiltersSelected()
     }
     @IBAction func filterCancelBtnTapped(_ sender: UIButton) {
         if let defaultTractorInfo = DataManager.sharedInstance.fetchFilterDefaultValues(){
             let filterType = FilterType(rawValue: sender.tag)!
             switch filterType {
             case .status:
-                searchInfo?.status = defaultTractorInfo.status
+                searchInfo?.status.removeAll() //defaultTractorInfo.status
             case .tractorType:
-                searchInfo?.tractorType = defaultTractorInfo.tractorType
+                searchInfo?.tractorType.removeAll() //defaultTractorInfo.tractorType
             case .trailerType:
                 searchInfo?.trailerType = defaultTractorInfo.trailerType
             case .tractorTerminal:
@@ -184,16 +183,23 @@ extension TractorFilterViewController{
                 (searchInfo?.zip)! == defaultTractorInfo.zip &&
                 (searchInfo?.latitude)! == defaultTractorInfo.latitude &&
                 (searchInfo?.longitude)! == defaultTractorInfo.longitude
-            
-            for (index, value) in (searchInfo?.status.enumerated())! {
-                result = (value == defaultTractorInfo.status[index]) && result
+            if searchInfo?.status.count != defaultTractorInfo.status.count {
+                result = false
             }
-            for (index, value) in (searchInfo?.tractorType.enumerated())! {
-                result = (value == defaultTractorInfo.tractorType[index]) && result
+            else{
+                for (index, value) in (searchInfo?.status.enumerated())! {
+                    result = (value == defaultTractorInfo.status[index]) && result
+                }
             }
-            if result {
-                checkBoxImg.isHighlighted = true
+            if searchInfo?.tractorType.count != defaultTractorInfo.tractorType.count {
+                result = false
             }
+            else{
+                for (index, value) in (searchInfo?.tractorType.enumerated())! {
+                    result = (value == defaultTractorInfo.tractorType[index]) && result
+                }
+            }
+            checkBoxImg.isHighlighted = result
         }
     }
 }
@@ -209,13 +215,21 @@ extension TractorFilterViewController{
         case .radius:
             value = "\(tractorSearchInfo.radius)mi"
         case .status:
-            let status = tractorSearchInfo.status.joined(separator: ",")
-            value = status.replacingOccurrences(of: "All,", with: "")
+            var statusList = tractorSearchInfo.status
+            if statusList.contains("All"){
+                statusList.removeAll()
+                statusList.append("All")
+            }
+            value = statusList.joined(separator: ",")
         case .tractorTerminal:
             value = tractorSearchInfo.terminalId
         case .tractorType:
-            let tractorType = tractorSearchInfo.tractorType.joined(separator: ",")
-            value = tractorType.replacingOccurrences(of: "All,", with: "")
+            var tractorTypeList = tractorSearchInfo.tractorType
+            if tractorTypeList.contains("All"){
+                tractorTypeList.removeAll()
+                tractorTypeList.append("All")
+            }
+            value = tractorTypeList.joined(separator: ",")
         case .trailerType:
             value = tractorSearchInfo.trailerType
         case .loaded:
@@ -228,9 +242,9 @@ extension TractorFilterViewController{
     
     func showFilterPopup(_ filterType: FilterType)
     {
+        DataManager.sharedInstance.tractorSearchInfo = searchInfo
         filterPopupVC?.filterType = filterType
         filterPopupVC?.tractorCompletionHandler = {(selectedTractorValue) in
-            
             self.searchInfo?.tractorType = selectedTractorValue
             self.reloadLabel(at:FilterType.tractorType.rawValue)
         }
@@ -265,7 +279,7 @@ extension TractorFilterViewController{
 
 extension TractorFilterViewController
 {
-    func createPickerView()
+    func createPickerView(forSize size: CGSize)
     {
         if toolBar != nil{
             toolBar?.removeFromSuperview()
@@ -277,8 +291,8 @@ extension TractorFilterViewController
             pickerToolbarView.removeFromSuperview()
         }
         
-        let yValue = self.view.bounds.size.height - 250
-        let width = self.view.bounds.size.width
+        let yValue = size.height - 250
+        let width = size.width
         
         pickerToolbarView = UIView(frame: CGRect(x:0, y: yValue , width: width, height:250))
         pickerView = UIPickerView(frame: CGRect(x:0, y: 40 , width: width, height:210))

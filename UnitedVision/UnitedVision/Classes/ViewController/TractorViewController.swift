@@ -139,6 +139,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
             {
                 self.tractorArray = (tractorList)! //DataManager.sharedInstance.tractorList
                 self.addTractorAnnotations()
+                self.mapView.addSearchCentreMarker()
                 self.tableView.reloadData()
             }
         })

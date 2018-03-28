@@ -257,8 +257,18 @@ class DataManager: NSObject {
     
     func createTractorSearchRequest(_ searchInfo: TractorSearchInfo) -> String{
         
+        func remove(str: String, fromList list: [String]) -> [String]{
+            var mutList = list
+            if mutList.contains(str){
+                mutList.remove(at: mutList.index(of: str)!)
+            }
+            return mutList
+        }
+        
         var requestStr = "radius=\(searchInfo.radius)&lat=\(searchInfo.latitude)&lon=\(searchInfo.longitude)"
         
+        requestStr.append("&status=")
+        searchInfo.status = remove(str: "All", fromList: searchInfo.status)
         if (searchInfo.status.count > 0)
         {
             var statusList : [String] = []
@@ -276,7 +286,7 @@ class DataManager: NSObject {
             }
             let joined = statusList.map { $0.encodeString() }.joined(separator: "&status=")
             
-            requestStr.append("&status=\(joined)")
+            requestStr.append("\(joined)")
         }
         
         if searchInfo.trailerType.count > 0
@@ -284,14 +294,23 @@ class DataManager: NSObject {
             requestStr.append("&trailerType=\(searchInfo.trailerType.encodeString())")
         }
         
-        if searchInfo.tractorType.count > 0
-        {
+        searchInfo.tractorType = remove(str: "All", fromList: searchInfo.tractorType)
+
+        if searchInfo.tractorType.count > 0{
             let joinedStr = searchInfo.tractorType.map { $0.encodeString() }.joined(separator: "&tractorType=")
             requestStr.append("&tractorType=\(joinedStr)")
         }
+        if searchInfo.terminalId.count > 0{
+            requestStr.append("&terminalId=\(searchInfo.terminalId.encodeString())")
+        }
         
-        requestStr.append("&hazmat=\(searchInfo.hazmat ? "Y" : "N")")
-        requestStr.append("&loaded=\(searchInfo.loaded ? "Y" : "N")")
+        if searchInfo.hazmat{
+            requestStr.append("&hazmat=Y")
+        }
+        
+        if searchInfo.loaded{
+            requestStr.append("&loaded=Y")
+        }
         
         return requestStr
     }

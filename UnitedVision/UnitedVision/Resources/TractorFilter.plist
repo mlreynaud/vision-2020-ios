@@ -12,8 +12,7 @@
 	<string>70508</string>
 	<key>status</key>
 	<array>
-		<string>In Transit</string>
-		<string>Delivered</string>
+		<string>All</string>
 	</array>
 	<key>tractorType</key>
 	<array>

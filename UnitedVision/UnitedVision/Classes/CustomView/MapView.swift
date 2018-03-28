@@ -59,7 +59,6 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
     
     let nibName = "MapView"
     var view : UIView!
-    var markerIcon: UIView?
     
     weak var mapFilterDelegate: MapFilterDelegate?
     
@@ -118,7 +117,6 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
         
         terminalDetailView.isHidden = mapViewType == .TerminalType ? false : true
         tractorDetailView.isHidden =  mapViewType == .TractorType ? false : true
-        markerIcon = mapViewType == .TerminalType ? UIImageView(image: UIImage(named:"uv_shield_50")?.withRenderingMode(.alwaysTemplate)) : nil
         
         zoomLevel = kDefaultZoom
         
@@ -270,9 +268,6 @@ extension MapView
             marker.opacity = 0.7
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: -location.longitude)
             marker.locationInfo = location
-            if markerIcon != nil{
-                marker.iconView = markerIcon
-            }
             marker.map = map
             markers.append(marker)
         }

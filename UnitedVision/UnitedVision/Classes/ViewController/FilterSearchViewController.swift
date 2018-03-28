@@ -18,11 +18,13 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
     var filterList : [AnyObject] = []
 
     var completionHandler: ((String)->Void)?
+    
+    @IBOutlet weak var centreLbl: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        centreLbl.isHidden = filterType == .trailerType
+        callSearchAPI("")
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,22 +43,14 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
     {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension FilterSearchViewController
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if filterType == .tractorTerminal{
+            centreLbl.isHidden =  filterList.count > 0
+        }
         return filterList.count;
     }
     
@@ -110,7 +104,10 @@ extension FilterSearchViewController
         guard (text.count != 0) else{
             
             searchBar.text = ""
-        
+            self.filterList.removeAll()
+            callSearchAPI("")
+            self.tableView.reloadData()
+
             
             
 //            if isLogin && (headerView?.myItemsSwitch.isOn)!

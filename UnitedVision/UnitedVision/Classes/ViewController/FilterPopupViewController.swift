@@ -23,13 +23,14 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     var lastIndexPath : IndexPath?
     
     var isAllSelected = false
-
+        
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        isAllSelected = false
         self.fetchFilterList()
     }
 
@@ -71,10 +72,11 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
                 selectedList = value
             }
         }
-        if selectedList.contains("All"){
+        
+        if selectedList.contains("All") || selectedList.count == filterList.count - 1{
             selectedList = filterList
+            isAllSelected = true
         }
-        isAllSelected = (selectedList.count == filterList.count) ? true : false
         tableView.reloadData()
     }
 }

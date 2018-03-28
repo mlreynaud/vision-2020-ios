@@ -358,7 +358,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A7i-Lb-e29">
-                    <rect key="frame" x="10" y="25" width="90" height="25"/>
+                    <rect key="frame" x="6" y="21" width="98" height="33"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="textColor"/>
@@ -397,12 +397,12 @@
                 <constraint firstItem="rN9-rU-81U" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="eoD-3c-Ttf"/>
                 <constraint firstItem="uZK-gi-YGb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="DAp-NC-HYY" secondAttribute="bottom" constant="20" id="fen-pY-wDC"/>
                 <constraint firstItem="QwD-J8-iQl" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="h6m-TX-SGM"/>
-                <constraint firstItem="A7i-Lb-e29" firstAttribute="height" secondItem="h7R-Ex-5mN" secondAttribute="height" id="hb1-B8-3hF"/>
+                <constraint firstItem="A7i-Lb-e29" firstAttribute="height" secondItem="h7R-Ex-5mN" secondAttribute="height" constant="8" id="hb1-B8-3hF"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="uZK-gi-YGb" secondAttribute="trailing" constant="8" id="jvQ-6R-GwK"/>
-                <constraint firstItem="A7i-Lb-e29" firstAttribute="width" secondItem="h7R-Ex-5mN" secondAttribute="width" id="odz-uF-jeW"/>
-                <constraint firstItem="A7i-Lb-e29" firstAttribute="top" secondItem="h7R-Ex-5mN" secondAttribute="top" id="sRU-Ir-r09"/>
+                <constraint firstItem="A7i-Lb-e29" firstAttribute="width" secondItem="h7R-Ex-5mN" secondAttribute="width" constant="8" id="odz-uF-jeW"/>
+                <constraint firstItem="A7i-Lb-e29" firstAttribute="top" secondItem="h7R-Ex-5mN" secondAttribute="top" constant="-4" id="sRU-Ir-r09"/>
                 <constraint firstItem="h7R-Ex-5mN" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="5" id="uAZ-RS-II1"/>
-                <constraint firstItem="A7i-Lb-e29" firstAttribute="leading" secondItem="h7R-Ex-5mN" secondAttribute="leading" id="uCl-vR-9I2"/>
+                <constraint firstItem="A7i-Lb-e29" firstAttribute="leading" secondItem="h7R-Ex-5mN" secondAttribute="leading" constant="-4" id="uCl-vR-9I2"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ETF-4U-9Td" secondAttribute="bottom" constant="8" id="uby-ii-UvU"/>
                 <constraint firstItem="uZK-gi-YGb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="uzc-cs-edo"/>
             </constraints>

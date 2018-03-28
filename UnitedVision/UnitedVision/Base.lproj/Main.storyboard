@@ -1827,21 +1827,32 @@
                                     <constraint firstAttribute="trailing" secondItem="u4Z-Z8-baj" secondAttribute="trailing" id="zXS-dO-YGQ"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Text to Start Searching" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfH-Tp-B94">
+                                <rect key="frame" x="77.5" y="323" width="220" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="n6o-hh-dTU" firstAttribute="top" secondItem="OH1-26-I3P" secondAttribute="top" id="2eJ-L0-Moq"/>
                             <constraint firstItem="n6o-hh-dTU" firstAttribute="bottom" secondItem="OH1-26-I3P" secondAttribute="bottom" id="EJX-30-KTV"/>
+                            <constraint firstItem="BfH-Tp-B94" firstAttribute="centerY" secondItem="Bjv-M4-PEq" secondAttribute="centerY" id="GDh-1m-M6a"/>
+                            <constraint firstItem="OH1-26-I3P" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BfH-Tp-B94" secondAttribute="trailing" constant="20" id="JTV-g6-MpP"/>
                             <constraint firstItem="OH1-26-I3P" firstAttribute="trailing" secondItem="qrM-Yo-PPZ" secondAttribute="trailing" constant="20" id="VDx-CA-8fQ"/>
                             <constraint firstItem="qrM-Yo-PPZ" firstAttribute="centerX" secondItem="Bjv-M4-PEq" secondAttribute="centerX" id="W4n-hn-fFj"/>
+                            <constraint firstItem="BfH-Tp-B94" firstAttribute="centerX" secondItem="Bjv-M4-PEq" secondAttribute="centerX" id="bTb-8o-5Hi"/>
                             <constraint firstItem="OH1-26-I3P" firstAttribute="trailing" secondItem="n6o-hh-dTU" secondAttribute="trailing" id="d4B-3d-XFr"/>
                             <constraint firstItem="qrM-Yo-PPZ" firstAttribute="leading" secondItem="OH1-26-I3P" secondAttribute="leading" constant="20" id="dwg-zV-y4z"/>
                             <constraint firstItem="n6o-hh-dTU" firstAttribute="leading" secondItem="OH1-26-I3P" secondAttribute="leading" id="r04-5g-66A"/>
+                            <constraint firstItem="BfH-Tp-B94" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OH1-26-I3P" secondAttribute="leading" constant="20" id="tO6-Zy-tmO"/>
                             <constraint firstItem="qrM-Yo-PPZ" firstAttribute="centerY" secondItem="Bjv-M4-PEq" secondAttribute="centerY" id="zLj-dw-uel"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OH1-26-I3P"/>
                     </view>
                     <connections>
+                        <outlet property="centreLbl" destination="BfH-Tp-B94" id="dfC-1B-BCc"/>
                         <outlet property="searchBar" destination="u4Z-Z8-baj" id="kR9-Xc-PBJ"/>
                         <outlet property="tableView" destination="gLG-vY-FIr" id="sui-LU-cnC"/>
                     </connections>
