@@ -15,6 +15,11 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
 
     @IBOutlet weak  var tableView: UITableView!
     
+    @IBOutlet weak var bottomView: UIView!
+    var viewHeight:CGFloat = 0
+    var screenHeight:CGFloat = 0
+    var screenWidth:CGFloat = 0
+    
     var itemList : [String]!
     var imageList : [String]!
     var contentStr = "UNITED VISION LOGISTICS has 138 years of combined experience and an established presence across the United States."
@@ -23,20 +28,40 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.isScrollEnabled = false
         self.initialSetup()
 //        fetchHomeContent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        updateSizeVariables()
         self.updateCollectionList()
         self.setNavigationBarItem()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func updateSizeVariables(){
+        screenWidth = self.view.frame.size.width;
+        screenHeight = self.view.frame.size.height;
+//        screenWidth = UIScreen.main.bounds.size.width
+//        screenHeight = UIScreen.main.bounds.size.height
+//        let topBarHeight : CGFloat  = UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.height ?? 0);
+        viewHeight = CGFloat(screenHeight - bottomView.frame.size.height)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        screenWidth = size.width;
+        screenHeight = size.height;
+        
+//        let topBarHeight : CGFloat  = UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.height ?? 0);
+        viewHeight = CGFloat(screenHeight  - bottomView.frame.size.height)
+        print("View height is ",viewHeight)
+        tableView.reloadData();
     }
     
     func initialSetup()
@@ -126,11 +151,14 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
         var height: CGFloat = 0
         switch indexPath.row {
         case 0:
-            height = 230
+            height = CGFloat(viewHeight*(2/5))
+        //            height = 230
         case 1:
-            height = 130
+            height = CGFloat(viewHeight*(1/5))
+        //            height = 130
         case 2:
-            height = 270
+            height = max(CGFloat(viewHeight*(2/5)), 100)
+        //            height = 270
         default:
             height = 44
         }
@@ -239,9 +267,8 @@ extension HomeViewController
             //don't do anything specific to the index within
             //this `if ... else` statement because the view will be
             //recycled and used with other index values later
-            itemView = UIImageView(frame: CGRect(x: 0, y: 0, width: 320, height: 230))
+            itemView = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: viewHeight*(2/5)))
             itemView.contentMode = .scaleAspectFill
-            
         }
 
         let imageName = pageList[index]
@@ -342,7 +369,7 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout
             frameSize = CGSize(width: 180, height: 180)
         }
         else{
-            frameSize = CGSize(width: 110, height: 110)
+            frameSize = CGSize(width: 92, height: 92)
         }
         return frameSize!
     }
