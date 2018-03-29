@@ -17,12 +17,14 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     var itemList : [String]!
     var imageList : [String]!
+    var contentStr = "UNITED VISION LOGISTICS has 138 years of combined experience and an established presence across the United States."
     
     let pageList = ["truck_red","truck_rig_sunset" ,"truck","truck2","truck3","truck4"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetup()
+//        fetchHomeContent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +46,21 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         imageView.contentMode = .scaleAspectFit
         imageView.frame = CGRect(x: 0, y: 0, width: 200, height:32)
         self.navigationItem.titleView = imageView
+    }
+    func fetchHomeContent() {
+        LoadingView.shared.showOverlay()
+        DataManager.sharedInstance.fetchHomeContent { (status, string, error) in
+            LoadingView.shared.hideOverlayView()
+            if status{
+                if string != nil, (string?.isEmpty)!{
+                    self.contentStr = string!
+                    self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
+                }
+            }
+            else{
+                UIUtils.showAlert(withTitle: kAppTitle, message: error?.localizedDescription ?? "Something went wrong,Please try again later", inContainer: self)
+            }
+        }
     }
     
     func updateCollectionList()
@@ -86,6 +103,10 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource{
             cell.pageControl.currentPage = cell.carousel.currentItemIndex
             cell.carousel.dataSource = self
             cell.carousel.delegate = self
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)  as! HomeContentViewCell
+            cell.contentLbl.text = contentStr
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)  as! HomeTableViewCell

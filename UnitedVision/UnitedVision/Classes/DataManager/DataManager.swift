@@ -18,6 +18,7 @@ class DataManager: NSObject {
     var tractorList : [TractorInfo] = []
     var tractorSearchInfo : TractorSearchInfo?
     
+    var userName: String?
     var authToken = ""
     var userType : UserType = .none
     var userTypeStr : String = ""
@@ -33,7 +34,7 @@ class DataManager: NSObject {
         let appPref = AppPrefData.sharedInstance
         self.isLogin = appPref.isLogin
         self.authToken = appPref.authToken
-        
+        self.userName = appPref.userName
         if let dict = appPref.searchDict, dict.count != 0
         {
             self.tractorSearchInfo = TractorSearchInfo(info: dict)
@@ -296,9 +297,28 @@ class DataManager: NSObject {
         
         searchInfo.tractorType = remove(str: "All", fromList: searchInfo.tractorType)
 
-        if searchInfo.tractorType.count > 0{
-            let joinedStr = searchInfo.tractorType.map { $0.encodeString() }.joined(separator: "&tractorType=")
-            requestStr.append("&tractorType=\(joinedStr)")
+        if searchInfo.tractorType.count > 0 {
+            var tractorTypeList = [String]()
+            for tractorType in searchInfo.tractorType
+            {
+                switch tractorType
+                {
+                case "Hot Shot":
+                    tractorTypeList.append("HS")
+                case "One Ton":
+                    tractorTypeList.append("OTF")
+                case "Mini Float":
+                    tractorTypeList.append("MF")
+                case "Single Axle":
+                    tractorTypeList.append("SA")
+                case "Tandem":
+                    tractorTypeList.append("TAN")
+                default:
+                    break
+                }
+            }
+            let joinedStr = tractorTypeList.map { $0.encodeString() }.joined(separator: "&tractorTypes=")
+            requestStr.append("&tractorTypes=\(joinedStr)")
         }
         if searchInfo.terminalId.count > 0{
             requestStr.append("&terminalId=\(searchInfo.terminalId.encodeString())")
@@ -379,7 +399,8 @@ class DataManager: NSObject {
     func addNewCallLog(_ tractorId: String,userId: String) {
         //http://uv.agilink.net/api2/tractor/service/callLog/?tractorId=1&userId=test
         let service: String =  "tractor/service/callLog?tractorId=\(tractorId)&userId=\(userId)"
-        let request: URLRequest = WebServiceManager.postRequest(url: service, withPostString: "") as URLRequest
+        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: Dictionary<String,Any>()) as URLRequest
+        
         WebServiceManager.sendRequest(request) { (data, error) in
             if error != nil{
                 print(error as Any)
@@ -391,6 +412,58 @@ class DataManager: NSObject {
                     print(data as Any)
                     return
             }
+        }
+    }
+    
+    func fetchContactList(completionHandler handler: @escaping ( Bool, [Dictionary<String, Any>]?,Error?) -> ()) {
+        let service: String =  "content/service/contacts"
+        let request: URLRequest = WebServiceManager.getRequest(service)
+        WebServiceManager.sendRequest(request) { (data, error) in
+            var responseArr = [Dictionary<String, Any>]()
+            var status : Bool = false
+            
+            if (error != nil || data == nil)
+            {
+                handler(status, nil, error)
+                return
+            }
+            do {
+                if let array =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
+                    responseArr.append(contentsOf: array)
+                    status = true
+                }
+            }
+            catch{
+                print("\nError - ",error,"\n Response Data - ",data as Any)
+                status = false
+            }
+            handler(status, responseArr, error)
+        }
+    }
+    
+    func fetchHomeContent(completionHandler handler: @escaping (Bool,String?,Error?) -> ()){
+        let service: String =  "content/service/home"
+        let request: URLRequest = WebServiceManager.getRequest(service)
+        WebServiceManager.sendRequest(request) { (data, error) in
+            var responseStr = String()
+            var status : Bool = false
+            
+            if (error != nil || data == nil)
+            {
+                handler(status, nil, error)
+                return
+            }
+            do {
+                if let respStr =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? String{
+                    responseStr.append(respStr)
+                    status = true
+                }
+            }
+            catch{
+                print("\nError - ",error,"\n Response Data - ",data as Any)
+                status = false
+            }
+            handler(status, responseStr, error)
         }
     }
     

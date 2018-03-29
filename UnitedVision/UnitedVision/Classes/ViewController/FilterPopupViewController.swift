@@ -61,7 +61,7 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     func fetchFilterList()
     {
         if (filterType == .status){
-            filterList = ["All","In Transit","Delivered"]
+            filterList = ["All","In Transit","Available"]
             if let status = DataManager.sharedInstance.tractorSearchInfo?.status{
                 selectedList = status
             }
@@ -94,21 +94,19 @@ extension FilterPopupViewController
         let value = filterList[indexPath.row]
         cell.titleLabel.text = value
         
-        let checkImage: UIImage?
-        let unCheckImage: UIImage?
-        if filterType == .status{
-            checkImage = UIImage(named: "checked_checkbox")
-            unCheckImage = UIImage(named: "unchecked_checkbox")
-        }else{
-            checkImage = UIImage(named: "radio_check")
-            unCheckImage = UIImage(named: "radio_uncheck")
-        }
-        
+//        let checkImage: UIImage?
+//        let unCheckImage: UIImage?
+//
+//        checkImage = UIImage(named: "checked_checkbox_black")
+//        unCheckImage = UIImage(named: "unchecked_checkbox_black")
+//
         if (isAllSelected){
-            cell.iconImageView?.image = checkImage
+//            cell.iconImageView?.image = checkImage
+            cell.iconImageView.isHighlighted = true
         }
         else{
-            cell.iconImageView?.image = (selectedList.contains(value)) ? checkImage : unCheckImage
+//            cell.iconImageView?.image = (selectedList.contains(value)) ? checkImage : unCheckImage
+            cell.iconImageView.isHighlighted = selectedList.contains(value)
         }
         return cell
     }

@@ -19,4 +19,9 @@ class BaseViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return false
     }
+    func setTitleView(withTitle title: String,Frame frame:CGRect?) {
+        let titleView = TitleView.loadViewFromNib()
+        titleView.setTitle(Title: title, Frame: frame)
+        self.navigationItem.titleView = titleView
+    }
 }

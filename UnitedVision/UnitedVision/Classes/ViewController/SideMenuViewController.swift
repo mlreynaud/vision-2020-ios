@@ -58,12 +58,12 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
         
         if (DataManager.sharedInstance.isLogin) {
             menus = ["Home", "Tractor Search", "Terminal Search", "Contact", "Log Out"]
-            imageList = ["ic_home","ic_truck_gray", "ic_location_black" ,"ic_call_black", "ic_logout"]
+            imageList = ["ic_home","ic_truck_gray", "ic_location_grey" ,"ic_call_black", "ic_logout"]
             menuValues = [.home, .tractorSearch, .terminalSearch, .contact, .logout]
         }
         else{
             menus = ["Home", "Terminal Search", "Contact", "Log In"]
-            imageList = ["ic_home", "ic_location_black" ,"ic_call_black", "ic_login_red"]
+            imageList = ["ic_home", "ic_location_grey" ,"ic_call_black", "ic_login_grey"]
             menuValues = [.home, .terminalSearch, .contact, .login]
         }
         

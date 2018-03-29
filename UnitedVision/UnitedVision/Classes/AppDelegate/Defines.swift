@@ -44,4 +44,6 @@ enum MapViewType {
 
 let kAppTitle = "United Vision"
 
+let kdefaultTractorNumber = "18008808482"
+
 let kBlueColor = UIColor(red: 38/255.0, green: 95.0/255.0, blue: 137.0/255.0, alpha: 1.0)

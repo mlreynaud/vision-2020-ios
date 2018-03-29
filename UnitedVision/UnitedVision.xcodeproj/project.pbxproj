@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1405D6612059C7D000A8B0CA /* TrailerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1405D6602059C7D000A8B0CA /* TrailerInfo.swift */; };
+		B11138FE206CD306009D45ED /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11138FD206CD306009D45ED /* TitleView.swift */; };
+		B1113900206CD337009D45ED /* TitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B11138FF206CD337009D45ED /* TitleView.xib */; };
 		B146C173206139E400BAF474 /* TractorFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B146C172206139E400BAF474 /* TractorFilterViewController.swift */; };
 		B19CAE54205A544B00090F10 /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE53205A544B00090F10 /* MapView.xib */; };
 		B19CAE56205AA38B00090F10 /* TerminalTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */; };
@@ -64,6 +66,8 @@
 /* Begin PBXFileReference section */
 		1405D6602059C7D000A8B0CA /* TrailerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerInfo.swift; sourceTree = "<group>"; };
 		231F842DF1EE3AC446A128CE /* Pods-UnitedVision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitedVision.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision.debug.xcconfig"; sourceTree = "<group>"; };
+		B11138FD206CD306009D45ED /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		B11138FF206CD337009D45ED /* TitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleView.xib; sourceTree = "<group>"; };
 		B146C172206139E400BAF474 /* TractorFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TractorFilterViewController.swift; sourceTree = "<group>"; };
 		B19CAE53205A544B00090F10 /* MapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
 		B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TerminalTableCell.xib; sourceTree = "<group>"; };
@@ -157,6 +161,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B11138FC206CD2F3009D45ED /* CustomTitleView */ = {
+			isa = PBXGroup;
+			children = (
+				B11138FD206CD306009D45ED /* TitleView.swift */,
+			);
+			path = CustomTitleView;
+			sourceTree = "<group>";
+		};
 		BA44A0D6202DF91200DE6130 = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +219,7 @@
 				BA4D87A0204D1D0100FC78CA /* AccordionHeaderView.xib */,
 				BA84A382204E752B004E1410 /* AutocompleteTableCell.xib */,
 				B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */,
+				B11138FF206CD337009D45ED /* TitleView.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -236,6 +249,7 @@
 		BA44A0FC202DF96E00DE6130 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				B11138FC206CD2F3009D45ED /* CustomTitleView */,
 				BA44A0FD202DF96E00DE6130 /* CustomCollectionCell */,
 				BA44A0FF202DF96E00DE6130 /* CustomTableCell */,
 				BA44A101202DF96E00DE6130 /* LoadingView.swift */,
@@ -421,6 +435,7 @@
 				BA84A3992053AADC004E1410 /* TractorFilter.plist in Resources */,
 				BA44A0E8202DF91200DE6130 /* Main.storyboard in Resources */,
 				B19CAE54205A544B00090F10 /* MapView.xib in Resources */,
+				B1113900206CD337009D45ED /* TitleView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +542,7 @@
 				BA84A38D205194FD004E1410 /* HomeCollectionCell.swift in Sources */,
 				BA44A11D202DF96E00DE6130 /* LocationInfo.swift in Sources */,
 				BAC6CC9C205FD68600E79DE4 /* PageTableViewCell.swift in Sources */,
+				B11138FE206CD306009D45ED /* TitleView.swift in Sources */,
 				BA44A11E202DF96E00DE6130 /* TractorInfo.swift in Sources */,
 				BA44A11F202DF96E00DE6130 /* WebServiceManager.swift in Sources */,
 				BA44A125202DF96E00DE6130 /* TerminalSearchViewController.swift in Sources */,
@@ -671,7 +687,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 27Z29K4YUS;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = UnitedVision/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -692,7 +708,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 27Z29K4YUS;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = UnitedVision/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -14,18 +14,38 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
 {
     @IBOutlet weak  var tableView: UITableView!
     
-    var contactList :[ContactInfo] = []
+    var contactInfoList :[ContactInfo] = []
     
-    let departmentList = ["Corporate Headquarters", "Sales", "Driver opprtunities", "Corporate Communications", "Operations", "Brokerage", "Driver Verifications", "Website Support", "Logistics", "Safety", "Driver Qualtifications"]
+//    let departmentList = ["Corporate Headquarters", "Sales", "Driver opprtunities", "Corporate Communications", "Operations", "Brokerage", "Driver Verifications", "Website Support", "Logistics", "Safety", "Driver Qualtifications"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
         self.title = "Contact Info"
-        
-        self.readPropertyList();
+        tableView.estimatedRowHeight = 70
+        tableView.contentInset = .zero
+        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedSectionHeaderHeight = 0
+        tableView.sectionHeaderHeight = 0
+        fetchContactList()
+//        self.readPropertyList();
+    }
+    func fetchContactList() {
+        LoadingView.shared.showOverlay()
+
+        DataManager.sharedInstance.fetchContactList { (status, contactList, error) in
+            LoadingView.shared.hideOverlayView()
+
+            if status{
+                for contactDict in contactList!{
+                    let contactInfo = ContactInfo(info: contactDict)
+                    self.contactInfoList.append(contactInfo)
+                }
+                self.tableView.reloadData()
+            }
+            else{
+                UIUtils.showAlert(withTitle: kAppTitle, message: error?.localizedDescription ?? "Something went wrong,Please try again later", inContainer: self)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,27 +62,27 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
         
     }
 
-    func readPropertyList()
-    {
-        if let list = UIUtils.parsePlist(ofName: "ContactInfo") as? Array<Any>
-        {
-            for dict in list
-            {
-                let info = ContactInfo(info: dict as! Dictionary<String, Any>)
-                contactList.append(info)
-            }
-        }
-    }
+//    func readPropertyList()
+//    {
+//        if let list = UIUtils.parsePlist(ofName: "ContactInfo") as? Array<Any>
+//        {
+//            for dict in list
+//            {
+//                let info = ContactInfo(info: dict as! Dictionary<String, Any>)
+//                contactList.append(info)
+//            }
+//        }
+//    }
     
     @IBAction func callButtonAction(_ sender: UIButton)
     {
-        let info = contactList[sender.tag]
-        UIUtils.callPhoneNumber(info.mobile!)
+        let info = contactInfoList[sender.tag]
+        UIUtils.callPhoneNumber(info.phone!)
     }
     
     @IBAction func mailButtonAction(_ sender: UIButton)
     {
-        let info = contactList[sender.tag]
+        let info = contactInfoList[sender.tag]
         let mailComposeViewController = configureMailComposer(info.email!)
         if MFMailComposeViewController.canSendMail(){
             self.present(mailComposeViewController, animated: true, completion: nil)
@@ -90,15 +110,18 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
 extension ContactViewController
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contactList.count;
+        return contactInfoList.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableCell", for: indexPath) as! ContactTableCell
-        let info = contactList[indexPath.row]
+        let info = contactInfoList[indexPath.row]
         cell.setCellData(contactInfo: info, indexPath: indexPath)
         return cell;
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
 
 }

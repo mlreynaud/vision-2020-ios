@@ -28,8 +28,8 @@ class TerminalTableCell: UITableViewCell {
 
     @IBOutlet weak var loadedImageView: UIImageView!
     @IBOutlet weak var hazmatImageView: UIImageView!
-    @IBOutlet weak var mapBtn: UIButton!
     
+    @IBOutlet weak var mapBtnView: UIView!
     weak var delegate: TerminalTableCellDelegate?
     
     required init?(coder aDecoder: NSCoder) {
@@ -61,7 +61,6 @@ class TerminalTableCell: UITableViewCell {
         contentView.layer.shadowRadius = 5.0
         contentView.layer.shadowOffset = CGSize(width:5, height: 5)
         contentView.layer.masksToBounds = true
-        mapBtn.imageView?.contentMode = .scaleAspectFit
         loadedImageView.image = UIImage(named:"ic_cancel_circle_red")
         hazmatImageView.image = UIImage(named:"ic_cancel_circle_red")
     }
@@ -72,7 +71,9 @@ class TerminalTableCell: UITableViewCell {
         terminalLbl.attributedText = info.terminal!.createUnderlineString(subString: "", underlineColor: .darkGray)
         destLbl.attributedText = info.destinationCity!.createAttributedString(subString: "", subStringColor: .darkGray)
         tractorLbl.attributedText = info.tractorType!.createAttributedString(subString: "", subStringColor: .darkGray)
+        
         trailerLbl.attributedText = info.trailerType!.createAttributedString(subString: "", subStringColor: .darkGray)
+        
         trailerLenLbl.attributedText = info.trailerLength!.createAttributedString(subString: "", subStringColor: .darkGray)
         distLbl.attributedText = info.distanceFromShipper!.createAttributedString(subString: "", subStringColor: .darkGray)
         statusLbl.attributedText = info.status!.createAttributedString(subString: "", subStringColor: .darkGray)
@@ -82,7 +83,7 @@ class TerminalTableCell: UITableViewCell {
     
     //MARK- Button Action methods
     
-    @IBAction func mapButtonAction(_ sender : UIButton) {
+    @IBAction func mapBtnPressed(_ sender: Any) {
         delegate?.showMapAtIndex(self)
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: BaseViewController {
+class LoginViewController: BaseViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailTextfield : UITextField!
     @IBOutlet weak var passwordTextfield : UITextField!
@@ -22,6 +22,8 @@ class LoginViewController: BaseViewController {
         
         emailTextfield.text = "customer" // ""owner.operator
         passwordTextfield.text = "uvlgo4it"
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,6 +34,10 @@ class LoginViewController: BaseViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func viewTapped() {
+        view.endEditing(true)
     }
     
     // MARK: - Button Action
@@ -45,7 +51,6 @@ class LoginViewController: BaseViewController {
                 UIUtils.showAlert(withTitle: kAppTitle, message: "Please enter a valid useranme or password.", inContainer: self)
                 return
         }
-
         LoadingView.shared.showOverlay()
         DataManager.sharedInstance.request(toLogin: username, withPassword: password, completionHandler: {(status, errorMessage) in
             
@@ -53,6 +58,7 @@ class LoginViewController: BaseViewController {
             
             if (status)
             {
+                DataManager.sharedInstance.userName = username
                 DataManager.sharedInstance.isLogin = true
                 AppPrefData.sharedInstance.isLogin = true
                 AppPrefData.sharedInstance.saveAllData()
@@ -65,6 +71,11 @@ class LoginViewController: BaseViewController {
             }
         })
     }
+}
 
-
+extension LoginViewController{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

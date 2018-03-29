@@ -32,16 +32,18 @@ class TerminalSearchViewController: BaseViewController, GMSMapViewDelegate {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
-        self.title = "Terminal Search"
+        setTitleView(withTitle: "Terminal Search", Frame: nil)
         
         mapView.initialSetup(forType: .TerminalType)
         mapView.searchLocation = mapView.getCurrentLocation()
         mapView.mapFilterDelegate = self
         self.fetchTerminalLocations()
         addSearchBarButton()
+        
         setupHamburgerMenu()
+
     }
+    
     func addSearchBarButton() {
         let searchBarBtn = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(TerminalSearchViewController.searchBarBtnPressed))
         self.navigationItem.rightBarButtonItem = searchBarBtn

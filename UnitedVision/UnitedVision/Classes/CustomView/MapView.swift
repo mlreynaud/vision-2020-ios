@@ -20,6 +20,14 @@ protocol MapFilterDelegate: class {
 class GoogleMapMarker : GMSMarker{
     var locationInfo : LocationInfo?
     var tractorInfo : TractorInfo?
+    var selectedMarkerImg : UIImage?
+    var unSelectedMarkerImg : UIImage?
+    
+    func setMarkerIconImg() {
+//        if let locInfo = locationInfo{
+//
+//        }
+    }
 }
 
 class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManagerDelegate, UIPickerViewDelegate {
@@ -50,6 +58,9 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
     @IBOutlet weak var radiusLbl: UILabel!
     
     @IBOutlet weak var autocompleteTableView: UITableView!
+    
+    var detailViewTractorInfo : TractorInfo?
+    var detailViewLocationInfo : LocationInfo?
     
     var searchLocation: CLLocation?
     var selectedRadius: Int = 50
@@ -243,7 +254,6 @@ extension MapView
             circle.strokeColor = UIColor(hexString:"884286f4")
             circle.strokeWidth = 4.0
             circle.fillColor = UIColor(hexString: "224286f4")
-        
             circle.map = map
         }
     }
@@ -269,6 +279,7 @@ extension MapView
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: -location.longitude)
             marker.locationInfo = location
             marker.map = map
+            marker.setMarkerIconImg()
             markers.append(marker)
         }
         addRadiusCircle()
@@ -398,12 +409,14 @@ extension MapView
                 return
             }
             if let htmlStr = selectedMarker.locationInfo?.detail , mapViewType == .TerminalType{
+                detailViewLocationInfo = selectedMarker.locationInfo
                 terminalDetailViewAddressLbl.attributedText = htmlStr.htmlToAttributedString
                 terminalDetailViewHeight.constant = kTerminalViewHeight
                 tractorDetailView.isHidden = true
                 terminalDetailView.isHidden = false
             }
             else{
+                detailViewTractorInfo = selectedMarker.tractorInfo
                 fillDataInTractorDetailView(tractorInfo: selectedMarker.tractorInfo)
                 tractorDetailViewHeight.constant = kTractorViewHeight
                 tractorDetailView.isHidden = false
@@ -433,10 +446,16 @@ extension MapView
     }
     
     @IBAction func terminalSearchCallBtnPressed(){
-        
+        if let locationInfo = detailViewLocationInfo{
+            let phNumber = UIUtils.extractPhNumFromHtml(Html: locationInfo.detail!)
+            UIUtils.callPhoneNumber(phNumber)
+        }
     }
     @IBAction func tractorSearchCallBtnPressed(){
-        
+        if let tratorInfo = detailViewTractorInfo{
+            DataManager.sharedInstance.addNewCallLog(tratorInfo.tractorId!, userId:DataManager.sharedInstance.userName!)
+        }
+        UIUtils.callPhoneNumber(kdefaultTractorNumber)
     }
 }
 

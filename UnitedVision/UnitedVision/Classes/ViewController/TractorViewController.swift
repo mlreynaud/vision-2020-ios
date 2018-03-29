@@ -31,8 +31,8 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Tractor Search"
-        
+        setTitleView(withTitle: "Tractor Search", Frame: nil)
+
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addUnderlineForSelectedSegment()
 
@@ -223,8 +223,8 @@ extension TractorViewController
     
     func callAtIndex (_ cell: TerminalTableCell)
     {
-        DataManager.sharedInstance.addNewCallLog(cell.tractorId!, userId:DataManager.sharedInstance.userTypeStr)
-//        UIUtils.callPhoneNumber()
+        DataManager.sharedInstance.addNewCallLog(cell.tractorId!, userId:DataManager.sharedInstance.userName!)
+        UIUtils.callPhoneNumber(kdefaultTractorNumber)
     }
     
     func showMapAtIndex (_ cell: TerminalTableCell)

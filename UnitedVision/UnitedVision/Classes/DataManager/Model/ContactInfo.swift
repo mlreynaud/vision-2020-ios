@@ -10,17 +10,17 @@ import UIKit
 
 class ContactInfo: NSObject {
     
-    var title: String?
-    var detail: String?
-    var mobile: String?
+    var name: String?
+    var sequence: String?
+    var phone: String?
     var email: String?
     
     init(info : Dictionary<String, Any>)
     {
-        title = (info["title"] as? String) ?? ""
-        detail = (info["detail"] as? String) ?? ""
-        mobile = (info["Mobile"] as? String) ?? ""
-        email = (info["Email"] as? String) ?? ""
+        name = (info["name"] as? String) ?? ""
+        sequence = (info["sequence"] as? String) ?? ""
+        phone = (info["phone"] as? String) ?? ""
+        email = (info["email"] as? String) ?? ""
     }
 
 }

@@ -105,10 +105,20 @@ extension TractorFilterViewController{
     }
     
     @IBAction func resetBtnPressed(_ sender: UIControl) {
-        AppPrefData.sharedInstance.searchDict = nil
-        searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
-        DataManager.sharedInstance.tractorSearchInfo = searchInfo
-        AppPrefData.sharedInstance.saveAllData()
+        if let defaultTractorInfo = DataManager.sharedInstance.fetchFilterDefaultValues(){
+            searchInfo?.city = defaultTractorInfo.city
+            searchInfo?.state = defaultTractorInfo.state
+            searchInfo?.zip = defaultTractorInfo.zip
+            searchInfo?.radius = defaultTractorInfo.radius
+            searchInfo?.trailerType = defaultTractorInfo.trailerType
+            searchInfo?.terminalId = defaultTractorInfo.terminalId
+            searchInfo?.latitude = defaultTractorInfo.latitude
+            searchInfo?.longitude = defaultTractorInfo.longitude
+            searchInfo?.status.removeAll()
+            searchInfo?.tractorType.removeAll()
+            searchInfo?.loaded = false
+            searchInfo?.hazmat = false
+        }
         reloadLabels()
         checkIfSavedFiltersSelected()
     }

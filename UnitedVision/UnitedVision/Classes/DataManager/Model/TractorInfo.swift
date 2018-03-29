@@ -52,7 +52,6 @@ class TractorInfo: NSObject {
         
         latitude = info["lat"] as! Double
         longitude = info["lon"] as! Double
-
     }
 
 }

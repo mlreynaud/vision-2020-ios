@@ -264,7 +264,7 @@ class UIUtils: NSObject {
     
     class func callPhoneNumber(_ number : String)
     {
-        if let url = URL(string: "tel://\(number)"), UIApplication.shared.canOpenURL(url) {
+        if let url = URL(string: "telprompt://\(number)"), UIApplication.shared.canOpenURL(url) {
             if #available(iOS 10, *) {
                 UIApplication.shared.open(url)
             } else {
@@ -302,6 +302,24 @@ class UIUtils: NSObject {
             }
         }
         return nil
+    }
+    class func extractPhNumFromHtml(Html html:String) -> String{
+        var phNumber = String()
+        if let range = html.range(of: "href='tel:") {
+            let hreftag = html[range.upperBound...]
+            let remainingString = hreftag
+            let splitString = remainingString.split(separator:"'", maxSplits: 1)
+            let strings:[String] = splitString.map { String($0) }
+            if strings.count > 0{
+                phNumber = strings.first!
+                print("First Part - ",strings[0])
+            }
+        }
+        else{
+            print("not found")
+        }
+
+        return phNumber
     }
 }
 extension UIColor {

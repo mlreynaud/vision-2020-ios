@@ -14,6 +14,7 @@ class AppPrefData: NSObject {
     
     var authToken = ""
     var isLogin = false;
+    var userName: String?
     var searchDict: Dictionary<String, Any>?
 
     private override init() {
@@ -27,6 +28,7 @@ class AppPrefData: NSObject {
         {
             authToken = (dictionary["authToken"] as? String)!
             isLogin = dictionary["isLogin"] as! Bool
+            userName = dictionary["userName"] as? String
             if let tractorSearchDict = dictionary["TractorSearchDict"] as? Dictionary<String,Any> , tractorSearchDict.count > 0{
                 searchDict = tractorSearchDict
             }
@@ -38,7 +40,9 @@ class AppPrefData: NSObject {
         var dictionary = Dictionary<String, Any>()
         dictionary["authToken"] = DataManager.sharedInstance.authToken
         dictionary["isLogin"] = DataManager.sharedInstance.isLogin
-        
+        if DataManager.sharedInstance.userName != nil{
+            dictionary["userName"] = DataManager.sharedInstance.userName
+        }
         self.searchDict = self.createTractorSearchDict()
         dictionary["TractorSearchDict"] = self.searchDict
         

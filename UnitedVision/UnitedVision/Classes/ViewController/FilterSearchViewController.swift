@@ -23,7 +23,6 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        centreLbl.isHidden = filterType == .trailerType
         callSearchAPI("")
     }
 
@@ -48,9 +47,7 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
 extension FilterSearchViewController
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if filterType == .tractorTerminal{
-            centreLbl.isHidden =  filterList.count > 0
-        }
+        centreLbl.isHidden =  filterList.count > 0
         return filterList.count;
     }
     
@@ -64,6 +61,7 @@ extension FilterSearchViewController
         else if (filterType == .trailerType) {
             cell.textLabel?.text = (filterList[indexPath.row] as! TrailerInfo).descr!
         }
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 15)
         
         return cell;
     }
