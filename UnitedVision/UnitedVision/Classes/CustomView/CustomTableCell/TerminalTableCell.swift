@@ -72,7 +72,7 @@ class TerminalTableCell: UITableViewCell {
         destLbl.attributedText = info.destinationCity!.createAttributedString(subString: "", subStringColor: .darkGray)
         tractorLbl.attributedText = info.tractorType!.createAttributedString(subString: "", subStringColor: .darkGray)
         
-        trailerLbl.attributedText = info.trailerType!.createAttributedString(subString: "", subStringColor: .darkGray)
+        trailerLbl.attributedText = info.trailerTypeDescr!.createAttributedString(subString: "", subStringColor: .darkGray)
         
         trailerLenLbl.attributedText = info.trailerLength!.createAttributedString(subString: "", subStringColor: .darkGray)
         distLbl.attributedText = info.distanceFromShipper!.createAttributedString(subString: "", subStringColor: .darkGray)
