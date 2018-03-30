@@ -26,11 +26,44 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     let pageList = ["truck_red","truck_rig_sunset" ,"truck","truck2","truck3","truck4"]
     
+    var beginTime: Date?
+    var initialViewScreen: UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        showInitialViewScreen()
+        checkToken()
         tableView.isScrollEnabled = false
         self.initialSetup()
-//        fetchHomeContent()
+        fetchHomeContent()
+    }
+    func showInitialViewScreen(){
+        initialViewScreen = InitialViewScreen.loadViewFromNib()
+        let window = UIApplication.shared.keyWindow
+        initialViewScreen?.frame = window!.bounds;
+        initialViewScreen?.clipsToBounds = true
+        window!.addSubview(initialViewScreen!)
+    }
+    
+    @objc func removeInitialViewScreen(){
+        UIView.animate(withDuration: 0.5, animations: {
+            self.initialViewScreen?.alpha = 0.0
+        }) { (_) in
+            self.initialViewScreen?.removeFromSuperview()
+        }
+    }
+    func checkToken() {
+        beginTime = Date()
+        DataManager.sharedInstance.requestToCheckTokenValidity(completionHandler: {(status, message) in
+            DataManager.sharedInstance.isLogin = status ? true : false
+            let timeNow = Date()
+            if timeNow.timeIntervalSince(self.beginTime!) > 2{
+                self.removeInitialViewScreen()
+            }
+            else{
+                Timer.scheduledTimer(timeInterval: 2 - timeNow.timeIntervalSince(self.beginTime!), target: self, selector: #selector(self.removeInitialViewScreen), userInfo: nil, repeats: false)
+            }
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,12 +106,11 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         self.navigationItem.titleView = imageView
     }
     func fetchHomeContent() {
-        LoadingView.shared.showOverlay()
-        DataManager.sharedInstance.fetchHomeContent { (status, string, error) in
-            LoadingView.shared.hideOverlayView()
+        DataManager.sharedInstance.getHomeContent { (status, string, error) in
             if status{
-                if string != nil, (string?.isEmpty)!{
-                    self.contentStr = string!
+                if let receivedString = string {
+                    print(receivedString)
+                    self.contentStr = receivedString
                     self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
                 }
             }

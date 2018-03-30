@@ -13,7 +13,7 @@ let kNetworkErrorMessage = "App encountered a Network connection problem. Please
 typealias CompletionHandlerClosureType = (_ data: Data?, _ error: NSError?) -> ()
 typealias DownloadHandlerClosureType = (_ filepath: URL?, _ error: NSError?) -> ()
 
-var serviceCompletionHandler : CompletionHandlerClosureType?
+//var serviceCompletionHandler : CompletionHandlerClosureType?
 
 class WebServiceManager: NSObject, URLSessionDelegate {
     
@@ -96,10 +96,8 @@ class WebServiceManager: NSObject, URLSessionDelegate {
     {
         printWebRequest(request: request)
         
-        serviceCompletionHandler = handler
-        
         if (UIUtils.isConnectedToNetwork() == false){
-            serviceCompletionHandler!(nil, NSError(domain: kNetworkErrorMessage, code: 0, userInfo: nil))
+            handler(nil, NSError(domain: kNetworkErrorMessage, code: 0, userInfo: nil))
             return
         }
         
@@ -125,7 +123,7 @@ class WebServiceManager: NSObject, URLSessionDelegate {
                 guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
                     else {
                         print("error: not a valid http response")
-                        serviceCompletionHandler!(nil, error as NSError?)
+                        handler(nil, error as NSError?)
                         return
                 }
                 
@@ -155,11 +153,11 @@ class WebServiceManager: NSObject, URLSessionDelegate {
                 let responseStatusCode = httpResponse.statusCode
                 if responseStatusCode == 200
                 {
-                    serviceCompletionHandler!(receivedData as Data?, error as NSError?)
+                    handler(receivedData as Data?, error as NSError?)
                 }
                 else
                 {
-                    serviceCompletionHandler!((receivedData as Data?) ?? nil, error as NSError?)
+                    handler((receivedData as Data?) ?? nil, error as NSError?)
                 }
             }
         });

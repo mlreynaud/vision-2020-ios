@@ -11,7 +11,6 @@ import UIKit
 protocol TerminalTableCellDelegate : class{
     func callAtIndex (_ cell: TerminalTableCell)
     func showMapAtIndex (_ cell: TerminalTableCell)
-
 }
 
 class TerminalTableCell: UITableViewCell {

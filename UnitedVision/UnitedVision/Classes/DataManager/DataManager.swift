@@ -186,7 +186,7 @@ class DataManager: NSObject {
     
     func requestToFetchTerminalLocations (completionHandler handler: @escaping ( Bool, [LocationInfo]?) -> () ) {
         
-        let service: String = "location/service/active"
+        let service: String = "terminal/service/active"
         
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
         WebServiceManager.sendRequest(request, completionHandler: {(data, error) in
@@ -441,11 +441,11 @@ class DataManager: NSObject {
         }
     }
     
-    func fetchHomeContent(completionHandler handler: @escaping (Bool,String?,Error?) -> ()){
+    func getHomeContent(completionHandler handler: @escaping (Bool,String?,Error?) -> ()){
         let service: String =  "content/service/home"
         let request: URLRequest = WebServiceManager.getRequest(service)
         WebServiceManager.sendRequest(request) { (data, error) in
-            var responseStr = String()
+            var responseStr:String?
             var status : Bool = false
             
             if (error != nil || data == nil)
@@ -453,15 +453,10 @@ class DataManager: NSObject {
                 handler(status, nil, error)
                 return
             }
-            do {
-                if let respStr =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? String{
-                    responseStr.append(respStr)
-                    status = true
-                }
-            }
-            catch{
-                print("\nError - ",error,"\n Response Data - ",data as Any)
-                status = false
+            if let respStr = String(data: data!, encoding: String.Encoding.utf8){
+                responseStr = respStr
+                status = true
+                print(responseStr as Any)
             }
             handler(status, responseStr, error)
         }

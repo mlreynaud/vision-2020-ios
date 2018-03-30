@@ -20,13 +20,57 @@ protocol MapFilterDelegate: class {
 class GoogleMapMarker : GMSMarker{
     var locationInfo : LocationInfo?
     var tractorInfo : TractorInfo?
-    var selectedMarkerImg : UIImage?
-    var unSelectedMarkerImg : UIImage?
+    let selectedMarkerImg : UIImage = GMSMarker.markerImage(with: .green)
+    let unSelectedMarkerImg : UIImage = GMSMarker.markerImage(with: nil)
     
-    func setMarkerIconImg() {
-//        if let locInfo = locationInfo{
-//
-//        }
+    let headQuarterSelectedImg = UIImageView(image: UIImage(named: "uv_shield_50_green")!)
+    let headQuarterUnSelectedImg = UIImageView(image: UIImage(named: "uv_shield_50")!)
+    
+    override init() {
+        super.init()
+        headQuarterSelectedImg.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        headQuarterUnSelectedImg.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+    }
+    
+    func setMarker(){
+        if tractorInfo != nil{
+            icon = unSelectedMarkerImg
+        }
+        else if locationInfo != nil{
+            if locationInfo?.corporateOffice == "Y"{
+                iconView = headQuarterUnSelectedImg
+            }
+            else {
+                icon = unSelectedMarkerImg
+            }
+        }
+    }
+    
+    func toggleMarkerSelection(){
+        if tractorInfo != nil{
+            icon = icon == unSelectedMarkerImg ?  selectedMarkerImg : unSelectedMarkerImg
+        }
+        else if locationInfo != nil{
+            if locationInfo?.corporateOffice == "Y"{
+                iconView = iconView == headQuarterSelectedImg ? headQuarterUnSelectedImg : headQuarterSelectedImg
+            }
+            else{
+                icon = icon == unSelectedMarkerImg ?  selectedMarkerImg : unSelectedMarkerImg
+            }
+        }
+    }
+    func colorMarkerGreen(){
+        if tractorInfo != nil{
+            icon = selectedMarkerImg
+        }
+        else if locationInfo != nil{
+            if locationInfo?.corporateOffice == "Y"{
+                iconView = headQuarterSelectedImg
+            }
+            else {
+                icon = selectedMarkerImg
+            }
+        }
     }
 }
 
@@ -34,6 +78,8 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
     
     @IBOutlet var terminalDetailView: UIView!
     @IBOutlet var terminalDetailViewHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var terminalDetailViewDescLbl: UILabel!
     @IBOutlet var terminalDetailViewAddressLbl : UILabel!
     
     @IBOutlet var tractorDetailView: UIView!
@@ -276,10 +322,10 @@ extension MapView
         for location in locationList {
             let marker = GoogleMapMarker()
             marker.opacity = 0.7
-            marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: -location.longitude)
+            marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             marker.locationInfo = location
             marker.map = map
-            marker.setMarkerIconImg()
+            marker.setMarker()
             markers.append(marker)
         }
         addRadiusCircle()
@@ -296,6 +342,7 @@ extension MapView
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             marker.tractorInfo = location
             marker.map = map
+            marker.setMarker()
             markers.append(marker)
         }
         addRadiusCircle()
@@ -368,15 +415,8 @@ extension MapView
         }
     }
     func toggleMarkerColor(marker: GMSMarker?){
-        if marker != nil{
-            let redMarkerImg = GMSMarker.markerImage(with: nil)
-            let greenMarkerImg = GMSMarker.markerImage(with: .green)
-            if marker?.icon == redMarkerImg{
-                marker?.icon = greenMarkerImg
-            }
-            else{
-                marker?.icon = redMarkerImg
-            }
+        if marker != nil, let googleMarker = marker as? GoogleMapMarker{
+            googleMarker.toggleMarkerSelection()
         }
     }
     func toggleDetailView(marker: GMSMarker?){
@@ -395,12 +435,14 @@ extension MapView
     }
     
     func colorSelectedMarker(oldMarker: GMSMarker?, newMarker: GMSMarker?) {
-        oldMarker?.icon = GMSMarker.markerImage(with: nil)
-        oldMarker?.opacity = 0.7
-        oldMarker?.zIndex = 0
-        newMarker?.icon = GMSMarker.markerImage(with: .green)
-        newMarker?.opacity = 1
-        newMarker?.zIndex = 1
+        if let oldGoogleMarker = oldMarker as? GoogleMapMarker,let newGoogleMarker = newMarker as? GoogleMapMarker{
+            oldGoogleMarker.setMarker()
+            oldGoogleMarker.opacity = 0.7
+            oldGoogleMarker.zIndex = 0
+            newGoogleMarker.colorMarkerGreen()
+            newGoogleMarker.opacity = 1
+            newGoogleMarker.zIndex = 1
+        }
     }
 
     func createMarkerDetailView(markerTapped marker: GMSMarker?){
@@ -408,9 +450,10 @@ extension MapView
             if selectedMarker.locationInfo == nil && selectedMarker.tractorInfo == nil {
                 return
             }
-            if let htmlStr = selectedMarker.locationInfo?.detail , mapViewType == .TerminalType{
-                detailViewLocationInfo = selectedMarker.locationInfo
-                terminalDetailViewAddressLbl.attributedText = htmlStr.htmlToAttributedString
+            if let locInfo =  selectedMarker.locationInfo, mapViewType == .TerminalType{
+                detailViewLocationInfo = locInfo
+                terminalDetailViewDescLbl.text = locInfo.terminalDescr ?? ""
+                terminalDetailViewAddressLbl.attributedText = locInfo.returnDetailLblStr()
                 terminalDetailViewHeight.constant = kTerminalViewHeight
                 tractorDetailView.isHidden = true
                 terminalDetailView.isHidden = false
@@ -447,10 +490,12 @@ extension MapView
     
     @IBAction func terminalSearchCallBtnPressed(){
         if let locationInfo = detailViewLocationInfo{
-            let phNumber = UIUtils.extractPhNumFromHtml(Html: locationInfo.detail!)
-            UIUtils.callPhoneNumber(phNumber)
+            if let phNumber = locationInfo.phone{
+                UIUtils.callPhoneNumber(phNumber)
+            }
         }
     }
+    
     @IBAction func tractorSearchCallBtnPressed(){
         if let tratorInfo = detailViewTractorInfo{
             DataManager.sharedInstance.addNewCallLog(tratorInfo.tractorId!, userId:DataManager.sharedInstance.userName!)

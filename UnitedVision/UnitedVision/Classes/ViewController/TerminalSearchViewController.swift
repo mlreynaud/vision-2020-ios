@@ -109,7 +109,7 @@ class TerminalSearchViewController: BaseViewController, GMSMapViewDelegate {
         var mapLocationList: [LocationInfo] = []
         if mapView.searchLocation != nil{
             for location in locationArray {
-                let dist = GMSGeometryDistance(CLLocationCoordinate2DMake(location.latitude,-location.longitude),
+                let dist = GMSGeometryDistance(CLLocationCoordinate2DMake(location.latitude,location.longitude),
                                                CLLocationCoordinate2DMake((mapView.searchLocation?.coordinate.latitude)!,
                                                                           (mapView.searchLocation?.coordinate.longitude)!)) / 1609
                 if (Int(dist) <= mapView.selectedRadius) {
