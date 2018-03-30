@@ -23,7 +23,6 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        callSearchAPI("")
     }
 
     override func didReceiveMemoryWarning() {
@@ -103,10 +102,7 @@ extension FilterSearchViewController
             
             searchBar.text = ""
             self.filterList.removeAll()
-            callSearchAPI("")
             self.tableView.reloadData()
-
-            
             
 //            if isLogin && (headerView?.myItemsSwitch.isOn)!
 //            {

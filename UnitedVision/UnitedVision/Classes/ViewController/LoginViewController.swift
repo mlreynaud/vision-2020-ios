@@ -18,8 +18,8 @@ class LoginViewController: BaseViewController, UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
         
-        self.title = "Login"
-        
+//        self.title = "Login"
+        setTitleView(withTitle: "Login", Frame: nil)
         emailTextfield.text = "customer" // ""owner.operator
         passwordTextfield.text = "uvlgo4it"
         
