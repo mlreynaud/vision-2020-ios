@@ -19,7 +19,7 @@ class TractorInfo: NSObject {
     var trailerLength : String?
     var terminal : String?
     
-    var distanceFromShipper: String?
+    var distanceFromShipper: Float?
     var destinationCity: String?
     var originCity: String?
     var status: String?
@@ -41,11 +41,13 @@ class TractorInfo: NSObject {
         
         trailerLength = info["trailerLength"] as? String
         terminal = info["terminal"] as? String
-        distanceFromShipper = info["distanceFromShipper"] as? String
+        let distStr = info["distanceFromShipper"] as? NSString
+        distanceFromShipper = distStr?.floatValue
         destinationCity = info["destinationCity"] as? String
         originCity = info["originCity"] as? String
         
-        status = info["status"] as? String
+        let statusStr = info["status"] as? String
+        status = statusStr == "Delivered" ? "Available" : statusStr
         loaded = info["loaded"] as? String
         reloadDate = info["reloadDate"] as? String
         hazmat = info["hazmat"] as? String

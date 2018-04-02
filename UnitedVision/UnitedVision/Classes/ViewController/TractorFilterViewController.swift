@@ -221,7 +221,7 @@ extension TractorFilterViewController{
         var value: Any
         switch filterType {
         case .searchLocation:
-            value = "\(tractorSearchInfo.city) \(tractorSearchInfo.state) \(tractorSearchInfo.zip)" //searchInfo.city + searchInfo.state + searchInfo.zip
+            value = "\(tractorSearchInfo.city), \(tractorSearchInfo.state), \(tractorSearchInfo.zip)" //searchInfo.city + searchInfo.state + searchInfo.zip
         case .radius:
             value = "\(tractorSearchInfo.radius)mi"
         case .status:

@@ -435,14 +435,14 @@ extension MapView
     }
     
     func colorSelectedMarker(oldMarker: GMSMarker?, newMarker: GMSMarker?) {
-        if let oldGoogleMarker = oldMarker as? GoogleMapMarker,let newGoogleMarker = newMarker as? GoogleMapMarker{
-            oldGoogleMarker.setMarker()
-            oldGoogleMarker.opacity = 0.7
-            oldGoogleMarker.zIndex = 0
-            newGoogleMarker.colorMarkerGreen()
-            newGoogleMarker.opacity = 1
-            newGoogleMarker.zIndex = 1
-        }
+        let oldGoogleMarker = oldMarker as? GoogleMapMarker
+        let newGoogleMarker = newMarker as? GoogleMapMarker
+        oldGoogleMarker?.setMarker()
+        oldGoogleMarker?.opacity = 0.7
+        oldGoogleMarker?.zIndex = 0
+        newGoogleMarker?.colorMarkerGreen()
+        newGoogleMarker?.opacity = 1
+        newGoogleMarker?.zIndex = 1
     }
 
     func createMarkerDetailView(markerTapped marker: GMSMarker?){
@@ -474,7 +474,8 @@ extension MapView
             tractorDtlViewTractorLbl.text = tractorInfo?.tractorType
             tractorDtlViewTrailerLbl.text = tractorInfo?.trailerType
             tractorDtlViewTrailerLenLbl.text = tractorInfo?.trailerLength
-            tractorDtlViewDistLbl.text = tractorInfo?.distanceFromShipper
+            let distStr = "\(tractorInfo?.distanceFromShipper ?? 0.00)"
+            tractorDtlViewDistLbl.text = distStr == "0.00" ? "" : distStr
             tractorDtlViewStatusLbl.text = tractorInfo?.status
             tractorDtlViewLoadedImgView.image = UIUtils.returnCheckOrCrossImage(str: (tractorInfo?.loaded) ?? "")
             tractorDtlViewHazmatImgView.image = UIUtils.returnCheckOrCrossImage(str: (tractorInfo?.hazmat) ?? "")

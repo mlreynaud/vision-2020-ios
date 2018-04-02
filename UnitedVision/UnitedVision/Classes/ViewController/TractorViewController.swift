@@ -26,8 +26,6 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
 
     var tractorArray = [TractorInfo]()
     
-    var searchBarBtn : UIBarButtonItem?
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,12 +49,20 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         
         self.view.backgroundColor = UIColor.white
         addSearchBarButton()
+        addSortBarBtn()
         tableView.register(UINib(nibName: "TerminalTableCell", bundle: Bundle.main), forCellReuseIdentifier: "TerminalTableCell")
     }
+    
     func addSearchBarButton() {
-        searchBarBtn = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(TractorViewController.searchBarBtnPressed))
-        searchBarBtn?.isEnabled = false
-        searchBarBtn?.tintColor = .clear
+        let searchBarBtn = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(TractorViewController.searchBarBtnPressed))
+        self.navigationItem.rightBarButtonItem = searchBarBtn
+    }
+    
+    func addSortBarBtn() {
+        let sortBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+        sortBtn.setImage(UIImage(named: "ic_sort_blue"), for: .normal)
+        sortBtn.addTarget(self, action:  #selector(sortBtnPressed), for: .touchUpInside)
+        let searchBarBtn = UIBarButtonItem(customView: sortBtn)
         self.navigationItem.rightBarButtonItem = searchBarBtn
     }
     
@@ -93,15 +99,13 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         case 0:
             mapView.isHidden = true
             tableView.isHidden = false
-            searchBarBtn?.isEnabled = false
-            searchBarBtn?.tintColor = .clear
             showMap = false
+            addSortBarBtn()
         case 1:
             mapView.isHidden = false
             tableView.isHidden = true
-            searchBarBtn?.isEnabled = true
-            searchBarBtn?.tintColor = nil
             showMap = true
+            addSearchBarButton()
         default:
             break;
         }
@@ -169,6 +173,36 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     @objc func searchBarBtnPressed() {
         self.mapView.presentAutoCompleteController()
     }
+    @objc func sortBtnPressed() {
+        let tractorSortVC = TractorSortViewController.initiateTractorSortVC()
+        tractorSortVC.sortCompletionHandler = { (selectedSortType) in
+            if selectedSortType != nil {
+                self.performListSortingFor(SortType: selectedSortType!)
+            }
+        }
+        tractorSortVC.modalPresentationStyle = .overCurrentContext
+        self.present(tractorSortVC, animated: true, completion: nil)
+    }
+    
+    func performListSortingFor(SortType sortType:TractorSortType){
+        if sortType == .EDestinationCity {
+           tractorArray = tractorArray.sorted(by: { ($0.destinationCity ?? "")! <  ($1.destinationCity ?? "")! })
+        }
+        else if sortType == .EDistance {
+            tractorArray = tractorArray.sorted(by: { ($0.distanceFromShipper)! <  ($1.distanceFromShipper)! })
+        }
+        else if sortType == .ETractorType {
+            tractorArray = tractorArray.sorted(by: { ($0.tractorType ?? "")! <  ($1.tractorType ?? "")! })
+        }
+        else if sortType == .ETerminal {
+            tractorArray = tractorArray.sorted(by: { ($0.terminal ?? "")! <  ($1.terminal ?? "")! })
+        }
+        else if sortType == .EStatus {
+            tractorArray = tractorArray.sorted(by: { ($0.status ?? "")! <  ($1.status ?? "")! })
+        }
+        tableView.reloadData()
+    }
+
 }
 
 //MARK: - TableView delgate

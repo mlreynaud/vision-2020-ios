@@ -11,11 +11,13 @@
 		B11138FE206CD306009D45ED /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11138FD206CD306009D45ED /* TitleView.swift */; };
 		B1113900206CD337009D45ED /* TitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B11138FF206CD337009D45ED /* TitleView.xib */; };
 		B12DA933206E9A2700481787 /* InitialViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12DA932206E9A2700481787 /* InitialViewScreen.swift */; };
-		B12DA935206E9A8900481787 /* InitialViewScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B12DA934206E9A8900481787 /* InitialViewScreen.xib */; };
 		B146C173206139E400BAF474 /* TractorFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B146C172206139E400BAF474 /* TractorFilterViewController.swift */; };
+		B18B3CB320722FA2002C241D /* SlideViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B3CB220722FA2002C241D /* SlideViewCell.swift */; };
+		B18B3CB920725AED002C241D /* TractorSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B3CB820725AED002C241D /* TractorSortViewController.swift */; };
 		B19CAE54205A544B00090F10 /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE53205A544B00090F10 /* MapView.xib */; };
 		B19CAE56205AA38B00090F10 /* TerminalTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */; };
 		B1D25656205FDBFB0089D055 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D25657205FDBFB0089D055 /* Pods_UnitedVision.framework */; };
+		B1D265B7206FB73B00CC3B73 /* InitialViewScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1D265B6206FB73B00CC3B73 /* InitialViewScreen.xib */; };
 		BA44A0E8202DF91200DE6130 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0E6202DF91200DE6130 /* Main.storyboard */; };
 		BA44A0EA202DF91200DE6130 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0E9202DF91200DE6130 /* Assets.xcassets */; };
 		BA44A0ED202DF91200DE6130 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0EB202DF91200DE6130 /* LaunchScreen.storyboard */; };
@@ -56,13 +58,10 @@
 		BA84A387204E99C4004E1410 /* TractorSearchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A386204E99C4004E1410 /* TractorSearchInfo.swift */; };
 		BA84A38920518C3B004E1410 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A38820518C3B004E1410 /* ContactViewController.swift */; };
 		BA84A38B20518F2E004E1410 /* ContactTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A38A20518F2E004E1410 /* ContactTableCell.swift */; };
-		BA84A38D205194FD004E1410 /* HomeCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A38C205194FD004E1410 /* HomeCollectionCell.swift */; };
 		BA84A3932051B2E1004E1410 /* ContactInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA84A3922051B2E1004E1410 /* ContactInfo.plist */; };
 		BA84A3952052D5F0004E1410 /* ContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A3942052D5F0004E1410 /* ContactInfo.swift */; };
 		BA84A3972052F9B5004E1410 /* FilterSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A3962052F9B5004E1410 /* FilterSearchViewController.swift */; };
 		BA84A3992053AADC004E1410 /* TractorFilter.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA84A3982053AADC004E1410 /* TractorFilter.plist */; };
-		BAC6CC9C205FD68600E79DE4 /* PageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC6CC9B205FD68600E79DE4 /* PageTableViewCell.swift */; };
-		BAC6CC9E205FD6DC00E79DE4 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC6CC9D205FD6DC00E79DE4 /* HomeTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,13 +70,15 @@
 		B11138FD206CD306009D45ED /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		B11138FF206CD337009D45ED /* TitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleView.xib; sourceTree = "<group>"; };
 		B12DA932206E9A2700481787 /* InitialViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewScreen.swift; sourceTree = "<group>"; };
-		B12DA934206E9A8900481787 /* InitialViewScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InitialViewScreen.xib; sourceTree = "<group>"; };
 		B146C172206139E400BAF474 /* TractorFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TractorFilterViewController.swift; sourceTree = "<group>"; };
+		B18B3CB220722FA2002C241D /* SlideViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewCell.swift; sourceTree = "<group>"; };
+		B18B3CB820725AED002C241D /* TractorSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TractorSortViewController.swift; sourceTree = "<group>"; };
 		B19CAE53205A544B00090F10 /* MapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
 		B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TerminalTableCell.xib; sourceTree = "<group>"; };
 		B1D2564E205FD41C0089D055 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		B1D25651205FDB260089D055 /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D25657205FDBFB0089D055 /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1D265B6206FB73B00CC3B73 /* InitialViewScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewScreen.xib; sourceTree = "<group>"; };
 		B32E5ADD18A8E0C9A7676579 /* Pods-UnitedVision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitedVision.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision.release.xcconfig"; sourceTree = "<group>"; };
 		BA44A0DF202DF91200DE6130 /* UnitedVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitedVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA44A0E7202DF91200DE6130 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -123,13 +124,10 @@
 		BA84A386204E99C4004E1410 /* TractorSearchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TractorSearchInfo.swift; sourceTree = "<group>"; };
 		BA84A38820518C3B004E1410 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
 		BA84A38A20518F2E004E1410 /* ContactTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableCell.swift; sourceTree = "<group>"; };
-		BA84A38C205194FD004E1410 /* HomeCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionCell.swift; sourceTree = "<group>"; };
 		BA84A3922051B2E1004E1410 /* ContactInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ContactInfo.plist; sourceTree = "<group>"; };
 		BA84A3942052D5F0004E1410 /* ContactInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfo.swift; sourceTree = "<group>"; };
 		BA84A3962052F9B5004E1410 /* FilterSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSearchViewController.swift; sourceTree = "<group>"; };
 		BA84A3982053AADC004E1410 /* TractorFilter.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TractorFilter.plist; sourceTree = "<group>"; };
-		BAC6CC9B205FD68600E79DE4 /* PageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTableViewCell.swift; sourceTree = "<group>"; };
-		BAC6CC9D205FD6DC00E79DE4 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		E057C3EAB43E766E8136BF1E /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -219,6 +217,7 @@
 		BA44A0F7202DF96D00DE6130 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				B1D265B6206FB73B00CC3B73 /* InitialViewScreen.xib */,
 				B19CAE53205A544B00090F10 /* MapView.xib */,
 				BA4D87A0204D1D0100FC78CA /* AccordionHeaderView.xib */,
 				BA84A382204E752B004E1410 /* AutocompleteTableCell.xib */,
@@ -260,7 +259,6 @@
 				BA4D879E204D1CD700FC78CA /* AccordionHeaderView.swift */,
 				BA84A37E204D6540004E1410 /* MapView.swift */,
 				B12DA932206E9A2700481787 /* InitialViewScreen.swift */,
-				B12DA934206E9A8900481787 /* InitialViewScreen.xib */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -268,7 +266,7 @@
 		BA44A0FD202DF96E00DE6130 /* CustomCollectionCell */ = {
 			isa = PBXGroup;
 			children = (
-				BA84A38C205194FD004E1410 /* HomeCollectionCell.swift */,
+				B18B3CB220722FA2002C241D /* SlideViewCell.swift */,
 			);
 			path = CustomCollectionCell;
 			sourceTree = "<group>";
@@ -282,8 +280,6 @@
 				BA4D879A204BBEA600FC78CA /* TerminalTableCell.swift */,
 				BA84A380204D6664004E1410 /* CheckboxTableCell.swift */,
 				BA84A38A20518F2E004E1410 /* ContactTableCell.swift */,
-				BAC6CC9B205FD68600E79DE4 /* PageTableViewCell.swift */,
-				BAC6CC9D205FD6DC00E79DE4 /* HomeTableViewCell.swift */,
 			);
 			path = CustomTableCell;
 			sourceTree = "<group>";
@@ -345,6 +341,7 @@
 				BA84A38820518C3B004E1410 /* ContactViewController.swift */,
 				BA84A3962052F9B5004E1410 /* FilterSearchViewController.swift */,
 				B146C172206139E400BAF474 /* TractorFilterViewController.swift */,
+				B18B3CB820725AED002C241D /* TractorSortViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -433,7 +430,7 @@
 				B19CAE56205AA38B00090F10 /* TerminalTableCell.xib in Resources */,
 				BA44A0ED202DF91200DE6130 /* LaunchScreen.storyboard in Resources */,
 				BA44A116202DF96E00DE6130 /* tractor.json in Resources */,
-				B12DA935206E9A8900481787 /* InitialViewScreen.xib in Resources */,
+				B1D265B7206FB73B00CC3B73 /* InitialViewScreen.xib in Resources */,
 				BA84A3932051B2E1004E1410 /* ContactInfo.plist in Resources */,
 				BA44A0EA202DF91200DE6130 /* Assets.xcassets in Resources */,
 				BA84A383204E752B004E1410 /* AutocompleteTableCell.xib in Resources */,
@@ -516,9 +513,9 @@
 			files = (
 				B146C173206139E400BAF474 /* TractorFilterViewController.swift in Sources */,
 				B12DA933206E9A2700481787 /* InitialViewScreen.swift in Sources */,
+				B18B3CB320722FA2002C241D /* SlideViewCell.swift in Sources */,
 				BA5CE6092036EF3C00B14DB6 /* SideMenuTableCell.swift in Sources */,
 				BA84A381204D6664004E1410 /* CheckboxTableCell.swift in Sources */,
-				BAC6CC9E205FD6DC00E79DE4 /* HomeTableViewCell.swift in Sources */,
 				BA84A3972052F9B5004E1410 /* FilterSearchViewController.swift in Sources */,
 				BA4D87A5204D40FE00FC78CA /* CardView.swift in Sources */,
 				BA84A3952052D5F0004E1410 /* ContactInfo.swift in Sources */,
@@ -528,6 +525,7 @@
 				BA44A118202DF96E00DE6130 /* Defines.swift in Sources */,
 				BA44A11B202DF96E00DE6130 /* DataManager.swift in Sources */,
 				BA84A37F204D6540004E1410 /* MapView.swift in Sources */,
+				B18B3CB920725AED002C241D /* TractorSortViewController.swift in Sources */,
 				BA5CE6072036EBBF00B14DB6 /* UIViewController.swift in Sources */,
 				BA5CE61A203D7E5000B14DB6 /* AutocompleteTableCell.swift in Sources */,
 				BA84A38B20518F2E004E1410 /* ContactTableCell.swift in Sources */,
@@ -547,9 +545,7 @@
 				BA84A387204E99C4004E1410 /* TractorSearchInfo.swift in Sources */,
 				BA44A123202DF96E00DE6130 /* TractorViewController.swift in Sources */,
 				BA44A117202DF96E00DE6130 /* AppDelegate.swift in Sources */,
-				BA84A38D205194FD004E1410 /* HomeCollectionCell.swift in Sources */,
 				BA44A11D202DF96E00DE6130 /* LocationInfo.swift in Sources */,
-				BAC6CC9C205FD68600E79DE4 /* PageTableViewCell.swift in Sources */,
 				B11138FE206CD306009D45ED /* TitleView.swift in Sources */,
 				BA44A11E202DF96E00DE6130 /* TractorInfo.swift in Sources */,
 				BA44A11F202DF96E00DE6130 /* WebServiceManager.swift in Sources */,
