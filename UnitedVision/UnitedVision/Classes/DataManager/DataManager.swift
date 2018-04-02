@@ -277,7 +277,7 @@ class DataManager: NSObject {
             {
                 switch value
                 {
-                    case "Delivered":
+                    case "Available":
                         statusList.append("D")
                     case "In Transit":
                         statusList.append("P")
@@ -454,7 +454,7 @@ class DataManager: NSObject {
                 return
             }
             if let respStr = String(data: data!, encoding: String.Encoding.utf8){
-                responseStr = respStr
+                responseStr = respStr.replacingOccurrences(of: "\"", with: "")
                 status = true
                 print(responseStr as Any)
             }

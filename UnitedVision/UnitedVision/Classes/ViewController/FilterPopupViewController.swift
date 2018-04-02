@@ -94,18 +94,10 @@ extension FilterPopupViewController
         let value = filterList[indexPath.row]
         cell.titleLabel.text = value
         
-//        let checkImage: UIImage?
-//        let unCheckImage: UIImage?
-//
-//        checkImage = UIImage(named: "checked_checkbox_black")
-//        unCheckImage = UIImage(named: "unchecked_checkbox_black")
-//
         if (isAllSelected){
-//            cell.iconImageView?.image = checkImage
             cell.iconImageView.isHighlighted = true
         }
         else{
-//            cell.iconImageView?.image = (selectedList.contains(value)) ? checkImage : unCheckImage
             cell.iconImageView.isHighlighted = selectedList.contains(value)
         }
         return cell

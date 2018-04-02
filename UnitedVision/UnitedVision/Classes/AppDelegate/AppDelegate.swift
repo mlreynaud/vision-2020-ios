@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
         
-        SlideMenuOptions.leftViewWidth = 300
+        SlideMenuOptions.leftViewWidth = min(UIScreen.main.bounds.size.width*(4/5),300)
 
         let slideMenuController = SlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
         slideMenuController.automaticallyAdjustsScrollViewInsets = true
