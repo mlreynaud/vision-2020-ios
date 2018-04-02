@@ -75,6 +75,7 @@ class TerminalTableCell: UITableViewCell {
         
         trailerLenLbl.attributedText = info.trailerLength!.createAttributedString(subString: "", subStringColor: .darkGray)
         distLbl.attributedText = info.distanceFromShipper!.createAttributedString(subString: "", subStringColor: .darkGray)
+        
         statusLbl.attributedText = info.status!.createAttributedString(subString: "", subStringColor: .darkGray)
         loadedImageView.image = UIUtils.returnCheckOrCrossImage(str: info.loaded!)
         hazmatImageView.image =  UIUtils.returnCheckOrCrossImage(str: info.hazmat!)

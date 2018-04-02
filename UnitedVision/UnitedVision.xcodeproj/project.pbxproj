@@ -277,13 +277,13 @@
 			isa = PBXGroup;
 			children = (
 				BA44A100202DF96E00DE6130 /* AccordionTableCell.swift */,
-				BA5CE6082036EF3C00B14DB6 /* SideMenuTableCell.swift */,
 				BA5CE619203D7E5000B14DB6 /* AutocompleteTableCell.swift */,
-				BA4D879A204BBEA600FC78CA /* TerminalTableCell.swift */,
 				BA84A380204D6664004E1410 /* CheckboxTableCell.swift */,
 				BA84A38A20518F2E004E1410 /* ContactTableCell.swift */,
-				BAC6CC9B205FD68600E79DE4 /* PageTableViewCell.swift */,
 				BAC6CC9D205FD6DC00E79DE4 /* HomeTableViewCell.swift */,
+				BAC6CC9B205FD68600E79DE4 /* PageTableViewCell.swift */,
+				BA5CE6082036EF3C00B14DB6 /* SideMenuTableCell.swift */,
+				BA4D879A204BBEA600FC78CA /* TerminalTableCell.swift */,
 			);
 			path = CustomTableCell;
 			sourceTree = "<group>";
@@ -695,11 +695,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KG92UA29VW;
 				INFOPLIST_FILE = UnitedVision/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.agilink.unitedvision;
+				PRODUCT_BUNDLE_IDENTIFIER = com.uvlogistics.vision2020;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -716,11 +716,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KG92UA29VW;
 				INFOPLIST_FILE = UnitedVision/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.agilink.unitedvision;
+				PRODUCT_BUNDLE_IDENTIFIER = com.uvlogistics.vision2020;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

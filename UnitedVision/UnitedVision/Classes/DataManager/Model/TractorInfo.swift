@@ -45,7 +45,7 @@ class TractorInfo: NSObject {
         destinationCity = info["destinationCity"] as? String
         originCity = info["originCity"] as? String
         
-        status = info["status"] as? String
+        status = (info["status"] as? String)?.replacingOccurrences(of: "Delivered", with: "Available")
         loaded = info["loaded"] as? String
         reloadDate = info["reloadDate"] as? String
         hazmat = info["hazmat"] as? String
