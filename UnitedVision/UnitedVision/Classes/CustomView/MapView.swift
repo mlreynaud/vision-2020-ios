@@ -321,9 +321,16 @@ extension MapView
         hideDetailView()
         for location in locationList {
             let marker = GoogleMapMarker()
-            marker.opacity = 0.7
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             marker.locationInfo = location
+            if mapViewType == .TerminalType && location.corporateOffice == "Y" {
+                marker.zIndex = 1
+                marker.opacity = 0.9
+            }
+            else {
+                marker.zIndex = 0
+                marker.opacity = 0.7
+            }
             marker.map = map
             marker.setMarker()
             markers.append(marker)
@@ -438,11 +445,20 @@ extension MapView
         let oldGoogleMarker = oldMarker as? GoogleMapMarker
         let newGoogleMarker = newMarker as? GoogleMapMarker
         oldGoogleMarker?.setMarker()
-        oldGoogleMarker?.opacity = 0.7
-        oldGoogleMarker?.zIndex = 0
         newGoogleMarker?.colorMarkerGreen()
-        newGoogleMarker?.opacity = 1
-        newGoogleMarker?.zIndex = 1
+        
+        if mapViewType == .TerminalType {
+            oldGoogleMarker?.opacity = oldGoogleMarker?.locationInfo?.corporateOffice == "Y" ? 0.9 : 0.7
+            newGoogleMarker?.opacity = 1
+            oldGoogleMarker?.zIndex = oldGoogleMarker?.locationInfo?.corporateOffice == "Y" ? 1 : 0
+            newGoogleMarker?.zIndex = 2
+            
+        } else {
+            oldGoogleMarker?.opacity = 0.7
+            newGoogleMarker?.opacity = 1
+            oldGoogleMarker?.zIndex = 0
+            newGoogleMarker?.zIndex = 1
+        }
     }
 
     func createMarkerDetailView(markerTapped marker: GMSMarker?){
