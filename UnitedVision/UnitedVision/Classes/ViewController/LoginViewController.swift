@@ -71,6 +71,10 @@ class LoginViewController: BaseViewController, UITextFieldDelegate {
             }
         })
     }
+    @IBAction func registerBtnPressed(_ sender: Any) {
+        let registerVC = storyboard?.instantiateViewController(withIdentifier: "RegisterViewController")
+        self.navigationController?.pushViewController(registerVC!, animated: true)
+    }
 }
 
 extension LoginViewController{
