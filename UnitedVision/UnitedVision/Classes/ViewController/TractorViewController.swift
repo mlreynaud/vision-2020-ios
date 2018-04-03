@@ -279,8 +279,8 @@ extension TractorViewController: MapFilterDelegate {
             let geocoder: GMSGeocoder = GMSGeocoder()
             geocoder.reverseGeocodeCoordinate(searchLocation.coordinate) { (response, error) in
                 let address = response?.firstResult()
-                self.tractorSearchInfo.city = (address?.locality)!
-                self.tractorSearchInfo.state = (address?.administrativeArea)!
+                self.tractorSearchInfo.city = (address?.locality) ?? ""
+                self.tractorSearchInfo.state = (address?.administrativeArea) ?? ""
                 self.tractorSearchInfo.zip = (address?.postalCode) ?? ""
             }
             
