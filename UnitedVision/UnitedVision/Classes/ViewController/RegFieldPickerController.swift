@@ -45,8 +45,9 @@ class RegFieldPickerController: UIViewController, UITableViewDataSource, UITable
     }
     
     @IBAction func doneTapped(_ sender: Any) {
-        let selectedIndex = tableView.indexPathForSelectedRow
-        fieldCompletionHandler!(dataList[(selectedIndex?.row)!])
+        if let selectedIndex = tableView.indexPathForSelectedRow{
+            fieldCompletionHandler!(dataList[selectedIndex.row])
+        }
         self.dismiss(animated: true, completion: nil)
     }
 }
