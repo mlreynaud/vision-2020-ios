@@ -74,11 +74,11 @@ class TerminalTableCell: UITableViewCell {
         trailerLbl.attributedText = info.trailerTypeDescr!.createAttributedString(subString: "", subStringColor: .darkGray)
         
         trailerLenLbl.attributedText = info.trailerLength!.createAttributedString(subString: "", subStringColor: .darkGray)
-        let distStr = "\(info.distanceFromShipper ?? 0.00)"
-        distLbl.attributedText = (distStr == "0.00" ? "" : distStr).createAttributedString(subString: "", subStringColor: .darkGray)
+        let distStr = "\(info.distanceFromShipper ?? 0.00)mi"
+        distLbl.attributedText = (distStr == "0.00mi" ? "" : distStr).createAttributedString(subString: "", subStringColor: .darkGray)
         statusLbl.attributedText = info.status!.createAttributedString(subString: "", subStringColor: .darkGray)
-        loadedImageView.image = UIUtils.returnCheckOrCrossImage(str: info.loaded!)
-        hazmatImageView.image =  UIUtils.returnCheckOrCrossImage(str: info.hazmat!)
+        loadedImageView.image = UIUtils.returnCheckOrCrossImage(str: info.loaded ?? "")
+        hazmatImageView.image =  UIUtils.returnCheckOrCrossImage(str: info.hazmat ?? "")
     }
     
     //MARK- Button Action methods

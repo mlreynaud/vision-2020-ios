@@ -28,7 +28,10 @@ class LoginViewController: BaseViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.setNavigationBarItem()
+        if (self.navigationController?.topViewController?.isKind(of: LoginViewController.self) )!
+        {
+            self.setNavigationBarItem()
+        }
     }
 
     override func didReceiveMemoryWarning() {

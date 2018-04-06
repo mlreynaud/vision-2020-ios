@@ -40,17 +40,13 @@ class TerminalSearchViewController: BaseViewController, GMSMapViewDelegate {
         self.fetchTerminalLocations()
         addSearchBarButton()
         
-        setupHamburgerMenu()
+        navigationItem.hidesBackButton = true
 
     }
     
     func addSearchBarButton() {
         let searchBarBtn = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(TerminalSearchViewController.searchBarBtnPressed))
         self.navigationItem.rightBarButtonItem = searchBarBtn
-    }
-    func setupHamburgerMenu(){
-        navigationItem.hidesBackButton = true
-        
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
