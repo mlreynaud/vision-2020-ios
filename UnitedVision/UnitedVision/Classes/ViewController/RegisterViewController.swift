@@ -60,6 +60,8 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var selectedCarrierNumberTypeLbl: UILabel!
     @IBOutlet weak var selectedCarrierStateLbl: UILabel!
     
+    @IBOutlet weak var emailField: UITextField!
+    
     var dataValidationArr: [Dictionary<String,Any>]?
     var usStateDict: Dictionary<String,String>?
     var userTypeDict: Dictionary<String,String>?
@@ -136,10 +138,17 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
                 UIUtils.showAlert(withTitle: kAppTitle, message: "Some Of the fields have been left emptied", inContainer: self)
                 return
             }
+            
             if !agreeToTerms {
                 UIUtils.showAlert(withTitle: kAppTitle, message: "I Agree to Terms not selected", inContainer: self)
                 return
             }
+            
+            if !(emailField.text?.isValidEmail)!{
+                UIUtils.showAlert(withTitle: kAppTitle, message: "Incorrect Email Format", inContainer: self)
+                return
+            }
+            
             let passWordField =  textFieldArr?.last
             let confirmPassWordField = textFieldArr![(textFieldArr?.count)! - 2]
             if passWordField?.text != confirmPassWordField.text

@@ -72,6 +72,7 @@ extension FilterSearchViewController
         else if (filterType == .trailerType) {
             selectedValue = (filterList[indexPath.row] as! TrailerInfo).id!
         }
+        dismissKeyboard()
     }
     
 }

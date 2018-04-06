@@ -24,7 +24,8 @@ class ContactTableCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     func setCellData(contactInfo: ContactInfo, indexPath: IndexPath) {
-        titleLabel.text = contactInfo.name!
+        titleLabel.text = contactInfo.name ?? ""
+        detailLabel.text = contactInfo.phone ?? ""
         
         emailButton.isEnabled = (contactInfo.email!.count > 0) ? true : false
         callButton.isEnabled = (contactInfo.phone!.count > 0) ? true : false
