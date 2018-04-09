@@ -64,7 +64,6 @@
 		BA84A387204E99C4004E1410 /* TractorSearchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A386204E99C4004E1410 /* TractorSearchInfo.swift */; };
 		BA84A38920518C3B004E1410 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A38820518C3B004E1410 /* ContactViewController.swift */; };
 		BA84A38B20518F2E004E1410 /* ContactTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A38A20518F2E004E1410 /* ContactTableCell.swift */; };
-		BA84A3932051B2E1004E1410 /* ContactInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA84A3922051B2E1004E1410 /* ContactInfo.plist */; };
 		BA84A3952052D5F0004E1410 /* ContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A3942052D5F0004E1410 /* ContactInfo.swift */; };
 		BA84A3972052F9B5004E1410 /* FilterSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA84A3962052F9B5004E1410 /* FilterSearchViewController.swift */; };
 		BA84A3992053AADC004E1410 /* TractorFilter.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA84A3982053AADC004E1410 /* TractorFilter.plist */; };
@@ -136,7 +135,6 @@
 		BA84A386204E99C4004E1410 /* TractorSearchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TractorSearchInfo.swift; sourceTree = "<group>"; };
 		BA84A38820518C3B004E1410 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
 		BA84A38A20518F2E004E1410 /* ContactTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableCell.swift; sourceTree = "<group>"; };
-		BA84A3922051B2E1004E1410 /* ContactInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ContactInfo.plist; sourceTree = "<group>"; };
 		BA84A3942052D5F0004E1410 /* ContactInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfo.swift; sourceTree = "<group>"; };
 		BA84A3962052F9B5004E1410 /* FilterSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSearchViewController.swift; sourceTree = "<group>"; };
 		BA84A3982053AADC004E1410 /* TractorFilter.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TractorFilter.plist; sourceTree = "<group>"; };
@@ -220,7 +218,6 @@
 				BA44A0F5202DF96D00DE6130 /* location.json */,
 				BA44A0F6202DF96D00DE6130 /* tractor.json */,
 				BA44A0F7202DF96D00DE6130 /* Xibs */,
-				BA84A3922051B2E1004E1410 /* ContactInfo.plist */,
 				BA84A3982053AADC004E1410 /* TractorFilter.plist */,
 				B1A3F850207385D600A9D83B /* RegisterCellInfo.plist */,
 				B16D11F32073F2CA00769329 /* USState.plist */,
@@ -451,7 +448,6 @@
 				BA44A116202DF96E00DE6130 /* tractor.json in Resources */,
 				B1A3F851207385D600A9D83B /* RegisterCellInfo.plist in Resources */,
 				B1D265B7206FB73B00CC3B73 /* InitialViewScreen.xib in Resources */,
-				BA84A3932051B2E1004E1410 /* ContactInfo.plist in Resources */,
 				BA44A0EA202DF91200DE6130 /* Assets.xcassets in Resources */,
 				BA84A383204E752B004E1410 /* AutocompleteTableCell.xib in Resources */,
 				BA44A115202DF96E00DE6130 /* location.json in Resources */,

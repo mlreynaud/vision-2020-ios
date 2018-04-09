@@ -310,8 +310,11 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jcg-SR-JaC">
-                            <rect key="frame" x="115.5" y="92.5" width="58.5" height="0.0"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jcg-SR-JaC">
+                            <rect key="frame" x="115.5" y="84.5" width="58.5" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="fjn-fW-YvR"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -342,10 +345,11 @@
                         <constraint firstItem="C4U-SR-u1w" firstAttribute="centerY" secondItem="hQY-lY-DQ8" secondAttribute="centerY" id="62c-PW-f6t"/>
                         <constraint firstItem="53C-87-9Ir" firstAttribute="leading" secondItem="uZK-gi-YGb" secondAttribute="leading" constant="4" id="6yl-IX-AAM"/>
                         <constraint firstItem="fbs-XM-40r" firstAttribute="centerY" secondItem="e3T-Wf-7xc" secondAttribute="centerY" id="DEM-MH-Fsh"/>
+                        <constraint firstAttribute="bottom" secondItem="Jcg-SR-JaC" secondAttribute="bottom" constant="4" id="EJp-Ta-gFa"/>
                         <constraint firstItem="Jcg-SR-JaC" firstAttribute="leading" secondItem="53C-87-9Ir" secondAttribute="trailing" constant="4" id="FTk-75-Rxb"/>
+                        <constraint firstItem="Jan-mm-NiB" firstAttribute="top" secondItem="Zwz-cD-qlA" secondAttribute="bottom" constant="4" id="G1R-b3-hJN"/>
                         <constraint firstItem="mZx-jf-5LZ" firstAttribute="leading" secondItem="C4U-SR-u1w" secondAttribute="trailing" constant="4" id="GcY-en-qYv"/>
                         <constraint firstAttribute="trailing" secondItem="xSr-Cf-J5X" secondAttribute="trailing" constant="4" id="H98-v8-gK4"/>
-                        <constraint firstItem="BlJ-ev-rWJ" firstAttribute="top" secondItem="7UU-N6-ef4" secondAttribute="bottom" constant="4" id="HsB-pe-BaX"/>
                         <constraint firstItem="CvS-xz-V97" firstAttribute="width" secondItem="IE7-1d-geB" secondAttribute="width" id="Lj6-j3-MOB"/>
                         <constraint firstItem="mZx-jf-5LZ" firstAttribute="height" secondItem="uZK-gi-YGb" secondAttribute="height" constant="-20" id="M3W-vX-ec0"/>
                         <constraint firstItem="Zwz-cD-qlA" firstAttribute="leading" secondItem="7UU-N6-ef4" secondAttribute="trailing" constant="4" id="MSF-nK-pY4"/>
@@ -367,7 +371,6 @@
                         <constraint firstItem="4os-PB-l6V" firstAttribute="centerY" secondItem="93y-Iz-CiT" secondAttribute="centerY" id="eWR-iq-YKF"/>
                         <constraint firstItem="mZx-jf-5LZ" firstAttribute="leading" secondItem="lAR-pU-Eh1" secondAttribute="trailing" constant="4" id="exu-ib-cTK"/>
                         <constraint firstItem="mZx-jf-5LZ" firstAttribute="centerY" secondItem="uZK-gi-YGb" secondAttribute="centerY" id="fhc-An-Tth"/>
-                        <constraint firstAttribute="bottom" secondItem="53C-87-9Ir" secondAttribute="bottom" constant="4" id="gHH-ma-rq4"/>
                         <constraint firstItem="mZx-jf-5LZ" firstAttribute="leading" secondItem="Jan-mm-NiB" secondAttribute="trailing" constant="4" id="gK9-21-b0W"/>
                         <constraint firstItem="OE6-qH-Te4" firstAttribute="leading" secondItem="93y-Iz-CiT" secondAttribute="leading" id="gsV-qE-sP2"/>
                         <constraint firstItem="4os-PB-l6V" firstAttribute="top" secondItem="uZK-gi-YGb" secondAttribute="top" constant="4" id="hhH-BF-iXs"/>
@@ -375,7 +378,6 @@
                         <constraint firstItem="4os-PB-l6V" firstAttribute="leading" secondItem="93y-Iz-CiT" secondAttribute="trailing" constant="4" id="ije-gt-mOs"/>
                         <constraint firstItem="CvS-xz-V97" firstAttribute="height" secondItem="IE7-1d-geB" secondAttribute="height" id="kY8-J0-0u3"/>
                         <constraint firstItem="xSr-Cf-J5X" firstAttribute="centerY" secondItem="OE6-qH-Te4" secondAttribute="centerY" id="lV2-MJ-YGU"/>
-                        <constraint firstItem="53C-87-9Ir" firstAttribute="top" secondItem="BlJ-ev-rWJ" secondAttribute="bottom" constant="4" id="mDQ-hG-OJI"/>
                         <constraint firstItem="lAR-pU-Eh1" firstAttribute="leading" secondItem="0AW-DL-Tto" secondAttribute="trailing" constant="4" id="oRG-Vr-2pB"/>
                         <constraint firstItem="Jcg-SR-JaC" firstAttribute="centerY" secondItem="53C-87-9Ir" secondAttribute="centerY" id="qsV-T4-6F8"/>
                         <constraint firstItem="IE7-1d-geB" firstAttribute="centerY" secondItem="e3T-Wf-7xc" secondAttribute="centerY" id="sUb-zL-Wft"/>
@@ -386,6 +388,7 @@
                         <constraint firstItem="e3T-Wf-7xc" firstAttribute="top" secondItem="OE6-qH-Te4" secondAttribute="bottom" constant="4" id="ukb-4L-iAG"/>
                         <constraint firstItem="Jan-mm-NiB" firstAttribute="centerY" secondItem="BlJ-ev-rWJ" secondAttribute="centerY" id="wCV-lu-cow"/>
                         <constraint firstAttribute="trailing" secondItem="qfe-KA-v0Z" secondAttribute="trailing" constant="8" id="wzS-Eg-JBl"/>
+                        <constraint firstItem="Jcg-SR-JaC" firstAttribute="top" secondItem="Jan-mm-NiB" secondAttribute="bottom" constant="4" id="x8Z-AF-SvY"/>
                         <constraint firstItem="C4U-SR-u1w" firstAttribute="leading" secondItem="hQY-lY-DQ8" secondAttribute="trailing" constant="4" id="yyY-3D-axM"/>
                     </constraints>
                 </view>
