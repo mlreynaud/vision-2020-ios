@@ -16,22 +16,17 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     var contactInfoList :[ContactInfo] = []
     
-//    let departmentList = ["Corporate Headquarters", "Sales", "Driver opprtunities", "Corporate Communications", "Operations", "Brokerage", "Driver Verifications", "Website Support", "Logistics", "Safety", "Driver Qualtifications"]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.title = "Contact Info"
         setTitleView(withTitle: "Contact Info", Frame: nil)
         tableView.estimatedRowHeight = 70
         tableView.contentInset = .zero
         tableView.rowHeight = UITableViewAutomaticDimension
-//        tableView.estimatedSectionHeaderHeight = 0
         tableView.sectionHeaderHeight = 0
         
         navigationItem.hidesBackButton = true
 
         fetchContactList()
-//        self.readPropertyList();
     }
     func fetchContactList() {
         LoadingView.shared.showOverlay()
@@ -65,18 +60,6 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
     }
-
-//    func readPropertyList()
-//    {
-//        if let list = UIUtils.parsePlist(ofName: "ContactInfo") as? Array<Any>
-//        {
-//            for dict in list
-//            {
-//                let info = ContactInfo(info: dict as! Dictionary<String, Any>)
-//                contactList.append(info)
-//            }
-//        }
-//    }
     
     @IBAction func callButtonAction(_ sender: UIButton)
     {
@@ -101,7 +84,6 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
         mailComposeVC.mailComposeDelegate = self
         mailComposeVC.setToRecipients([receipient])
         mailComposeVC.setSubject("United Vision")
-//        mailComposeVC.setMessageBody(self.textViewBody.text!, isHTML: false)
         return mailComposeVC
     }
     

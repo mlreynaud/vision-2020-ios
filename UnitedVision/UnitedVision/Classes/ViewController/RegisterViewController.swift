@@ -167,11 +167,8 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
         let isSuccess = true
         for textField in textFieldArr!{
             let validDict = dataValidationArr![textField.tag]
-            let maxLength = validDict["maxLength"] as! NSNumber.IntegerLiteralType
-            if (textField.text?.count)! >= maxLength{
-                return false
-            }
-            if textField.text?.count == 0 && validDict["Required"] as! Bool {
+            let maxLength = validDict["maxLength"] as! Int
+            if (textField.text?.count)! == 0 || (textField.text?.count)! >= maxLength{
                 return false
             }
         }
