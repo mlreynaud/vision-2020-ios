@@ -3,94 +3,134 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>paramKey</key>
+		<string>firstName</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>lastName</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>email</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>companyName</string>
 		<key>maxLength</key>
 		<integer>250</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>jobTitle</string>
 		<key>maxLength</key>
 		<integer>100</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>phone</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>addr1</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>addr2</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>city</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>state</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>zip</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>userType</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>payeeId</string>
 		<key>maxLength</key>
 		<integer>8</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>driverId</string>
 		<key>maxLength</key>
 		<integer>8</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>customerId</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>carrierNumberType</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>carrierNumber</string>
 		<key>maxLength</key>
 		<integer>12</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>carrierState</string>
 		<key>maxLength</key>
 		<integer>2</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>dotOrFid</string>
 		<key>maxLength</key>
 		<integer>11</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>userId</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
+		<key>paramKey</key>
+		<string>password</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>
 	<dict>
-		<key>maxLength</key>
-		<integer>75</integer>
-	</dict>
-	<dict>
+		<key>paramKey</key>
+		<string>passwordConfirm</string>
 		<key>maxLength</key>
 		<integer>75</integer>
 	</dict>

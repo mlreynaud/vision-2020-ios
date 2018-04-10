@@ -8,12 +8,17 @@
 
 import UIKit
 
-enum RegCellType : Int{
-    case ENormal = 0
-    case EList = 1
-    case ECheckBox = 2
-    case EPassword = 3
-}
+let kRegDataValidpList = "RegDataValidation"
+let kUsStatepList = "USState"
+let kUserTypepList = "UserType"
+let kCarrierNumTypepList = "CarrierNumberType"
+
+let kMaxLengthKey = "maxLength"
+
+let kCustomerKey = "Customer"
+let kIntrastateKey = "Intrastate"
+let kCarrierKey = "Carrier"
+let kOwnerDriverKey = "Owner\\Driver"
 
 enum RegDataField: Int{
     case EFirstName = 1
@@ -42,11 +47,11 @@ enum RegDataField: Int{
     static func pListName(regDataField:RegDataField) -> String? {
         switch regDataField {
         case RegDataField.EState, RegDataField.ECarrierState:
-            return "USState"
+            return kUsStatepList
         case RegDataField.EUserType:
-            return "UserType"
+            return kUserTypepList
         case RegDataField.ECarrierNumType:
-            return "CarrierNumberType"
+            return kCarrierNumTypepList
         default:
             return nil
         }
@@ -61,6 +66,8 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var selectedCarrierStateLbl: UILabel!
     
     @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var confirmPassField: UITextField!
     
     var dataValidationArr: [Dictionary<String,Any>]?
     var usStateDict: Dictionary<String,String>?
@@ -71,24 +78,20 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var carrierNumTypeBtn: UIButton!
     @IBOutlet weak var carrierStateBtn: UIButton!
     
-    var textFieldArr: [UITextField]?
+    @IBOutlet var textFields: [UITextField]!
     
     var agreeToTerms: Bool = false
     
-    var selectedState: String?
-    var selectedUserType: String?
-    var selectedCarrierNumberType: String?
-    var selectedCarrierState: String?
+    var selectedState = String()
+    var selectedUserType = String()
+    var selectedCarrierNumberType = String()
+    var selectedCarrierState = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setTitleView(withTitle: "Register", Frame: nil)
+        tableView.separatorStyle = .none
         fetchDataFromPlists()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        fetchTextFields()
         reloadTextFieldsBackground()
         reloadDropDownBtns()
     }
@@ -100,11 +103,27 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func fetchDataFromPlists() {
-        dataValidationArr = UIUtils.parsePlist(ofName: "RegisterCellInfo") as? [Dictionary<String, Any>]
-        usStateDict = UIUtils.parsePlist(ofName: "USState") as? Dictionary<String, String>
-        userTypeDict = UIUtils.parsePlist(ofName: "UserType") as? Dictionary<String, String>
-        carrierNumberTypeDict = UIUtils.parsePlist(ofName: "CarrierNumberType") as? Dictionary<String, String>
+        dataValidationArr = UIUtils.parsePlist(ofName: kRegDataValidpList) as? [Dictionary<String, Any>]
+        usStateDict = UIUtils.parsePlist(ofName: kUsStatepList) as? Dictionary<String, String>
+        userTypeDict = UIUtils.parsePlist(ofName: kUserTypepList) as? Dictionary<String, String>
+        carrierNumberTypeDict = UIUtils.parsePlist(ofName: kCarrierNumTypepList) as? Dictionary<String, String>
     }
+    
+    func reloadTextFieldsBackground() {
+        for textField in textFields!{
+            _ = textFieldShouldBeginEditing(textField)
+        }
+    }
+    
+    func reloadDropDownBtns() {
+        carrierNumTypeBtn.isUserInteractionEnabled = selectedUserType != userTypeDict![kCarrierKey] ? false : true
+        carrierNumTypeBtn.backgroundColor = selectedUserType != userTypeDict![kCarrierKey] ? UIColor.lightGray : UIColor.clear
+        carrierStateBtn.isUserInteractionEnabled = selectedCarrierNumberType != carrierNumberTypeDict![kIntrastateKey] ? false : true
+        carrierStateBtn.backgroundColor = selectedCarrierNumberType != carrierNumberTypeDict![kIntrastateKey] ? UIColor.lightGray : UIColor.clear
+    }
+    
+}
+extension RegisterViewController{
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return super.tableView(tableView, numberOfRowsInSection: section)
@@ -120,12 +139,30 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if indexPath.row == 12{
-            return nil
+}
+
+enum RegError :Error{
+    case EEmptyFields
+    case EAgreeToTerms
+    case EInvalidEmail
+    case EInvalidPass
+}
+extension RegError : LocalizedError{
+    public var errorDescription: String? {
+        switch self {
+        case .EEmptyFields:
+            return "Some Of the fields have been left emptied"
+        case .EAgreeToTerms:
+            return "I Agree to Terms not selected"
+        case .EInvalidEmail:
+            return "Incorrect Email Format"
+        case .EInvalidPass:
+            return "Passwords don't match"
         }
-        return indexPath
     }
+}
+
+extension RegisterViewController{
     
     @IBAction func agreeToTermsPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
@@ -133,69 +170,136 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func registerBtnPressed(_ sender: Any) {
-        if checkForTextLength(){
-            if !(selectedCarrierNumberType == "" || selectedState == "" || selectedUserType == "" || selectedCarrierState == ""){
-                UIUtils.showAlert(withTitle: kAppTitle, message: "Some Of the fields have been left emptied", inContainer: self)
-                return
-            }
-            
-            if !agreeToTerms {
-                UIUtils.showAlert(withTitle: kAppTitle, message: "I Agree to Terms not selected", inContainer: self)
-                return
-            }
-            
+        
+        do{
+            try checkForTextLength()
             if !(emailField.text?.isValidEmail)!{
-                UIUtils.showAlert(withTitle: kAppTitle, message: "Incorrect Email Format", inContainer: self)
-                return
+                throw RegError.EInvalidEmail
             }
-            
-            let passWordField =  textFieldArr?.last
-            let confirmPassWordField = textFieldArr![(textFieldArr?.count)! - 2]
-            if passWordField?.text != confirmPassWordField.text
-            {
-                UIUtils.showAlert(withTitle: kAppTitle, message: "Passwords don't match", inContainer: self)
-                return
+            if passwordField?.text != confirmPassField.text{
+                throw RegError.EInvalidPass
             }
-            // Hit API
+            if !agreeToTerms{
+                throw RegError.EAgreeToTerms
+            }
         }
-        else {
-            UIUtils.showAlert(withTitle: kAppTitle, message: "Some Of the fields have been left emptied", inContainer: self)
+        catch{
+            UIUtils.showAlert(withTitle: kAppTitle, message: (error as! RegError).errorDescription!, inContainer: self)
+            return
+        }
+        performRegistration()
+    }
+    
+    func checkForTextLength() throws {
+        for i in 1...7{
+            let textField = textFields[i]
+            if (textField.text?.isBlank())! {
+                throw RegError.EEmptyFields
+            }
+        }
+        
+        if selectedState.isBlank() {
+            throw RegError.EEmptyFields
+        }
+        
+        let cityTextField = textFields[9]
+        if (cityTextField.text?.isBlank())!{
+            throw RegError.EEmptyFields
+        }
+        
+        if selectedUserType.isBlank(){
+            throw RegError.EEmptyFields
+        }
+        
+        let isPayeeIdReq = selectedUserType != userTypeDict![kCustomerKey]
+        if isPayeeIdReq, let payeeIdField = UIUtils.returnElement(with: RegDataField.EPayeeID.rawValue, from: textFields) as? UITextField{
+            if (payeeIdField.text?.isBlank())! {
+                throw RegError.EEmptyFields
+            }
+        }
+        
+        let isDriverIdReq = selectedUserType == userTypeDict![kOwnerDriverKey]
+        if isDriverIdReq, let driverIdField = UIUtils.returnElement(with: RegDataField.EDriverID.rawValue, from: textFields) as? UITextField{
+            if (driverIdField.text?.isBlank())!{
+                throw RegError.EEmptyFields
+            }
+        }
+        
+        let isCustIdReq = selectedUserType == userTypeDict![kCustomerKey]
+        if isCustIdReq, let custIdField = UIUtils.returnElement(with: RegDataField.ECusID.rawValue, from: textFields) as? UITextField{
+            if (custIdField.text?.isBlank())!{
+                throw RegError.EEmptyFields
+            }
+        }
+        
+        let isCarrierNumTypeReq = selectedUserType == userTypeDict![kCarrierKey]
+        if isCarrierNumTypeReq, selectedCarrierNumberType.isBlank(){
+            throw RegError.EEmptyFields
+        }
+        
+        let isCarrierNumReq = selectedUserType == userTypeDict![kCarrierKey]
+        if isCarrierNumReq, let carrierNumField = UIUtils.returnElement(with: RegDataField.ECarrierNum.rawValue, from: textFields) as? UITextField{
+            if (carrierNumField.text?.isBlank())!{
+                throw RegError.EEmptyFields
+            }
+        }
+        
+        let isCarrierStateReq = selectedCarrierNumberType == carrierNumberTypeDict![kIntrastateKey]
+        if isCarrierStateReq, selectedCarrierState.isBlank() {
+            throw RegError.EEmptyFields
+        }
+        
+        let dotOrFidReq = selectedUserType == userTypeDict![kCarrierKey]
+        if dotOrFidReq, let dotOrFidField = UIUtils.returnElement(with: RegDataField.EDotFid.rawValue, from: textFields) as? UITextField{
+            if (dotOrFidField.text?.isBlank())!{
+                throw RegError.EEmptyFields
+            }
+        }
+        
+        for textFieldTag in (RegDataField.EUserID.rawValue...RegDataField.EConfirmPass.rawValue){
+            let textField = UIUtils.returnElement(with: textFieldTag, from: textFields) as? UITextField
+            if (textField?.text?.isBlank())!{
+                throw RegError.EEmptyFields
+            }
         }
     }
     
-    func checkForTextLength() -> Bool {
-        let isSuccess = true
-        for textField in textFieldArr!{
-            let validDict = dataValidationArr![textField.tag]
-            let maxLength = validDict["maxLength"] as! Int
-            if (textField.text?.count)! == 0 || (textField.text?.count)! >= maxLength{
-                return false
+    func performRegistration(){
+        let paramDict = createParamDict()
+        DataManager.sharedInstance.performRegistrationWith(paramDict: paramDict) { (status, str, error) in
+            let messageStr = str ?? error?.localizedDescription ?? kNetworkErrorMessage
+                UIUtils.showAlert(withTitle: kAppTitle, message: messageStr, inContainer: self, completionCallbackHandler: {
+                    if status{
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                })
+        }
+    }
+    func createParamDict() -> Dictionary<String,Any>{
+        var paramDict = Dictionary<String, Any>()
+        for fieldIndex in (1...22){
+            let regFieldType = RegDataField(rawValue: fieldIndex)!
+            switch regFieldType{
+            case .EState:
+                paramDict["state"] = selectedState
+            case .EUserType:
+                paramDict["userType"] = selectedUserType
+            case .ECarrierNumType:
+                paramDict["carrierNumberType"] = selectedCarrierNumberType
+            case .ECarrierState:
+                paramDict["carrierState"] = selectedCarrierState
+            default:
+                let textField = UIUtils.returnElement(with: fieldIndex, from: textFields) as! UITextField
+                let fieldValidDict = dataValidationArr![fieldIndex-1]
+                let key = fieldValidDict["paramKey"] as! String
+                paramDict[key] = textField.text
             }
         }
-        return isSuccess
+        paramDict["agreeToTerms"] = agreeToTerms ? "Y" : "N"
+        return paramDict
     }
-    
-    func fetchTextFields() {
-        textFieldArr = [UITextField]()
-        for tag in 1...22{
-            if let textField = view.viewWithTag(tag) as? UITextField{
-                textFieldArr?.append(textField)
-            }
-        }
-    }
-    
-    func reloadTextFieldsBackground() {
-        for textField in textFieldArr!{
-            _ = textFieldShouldBeginEditing(textField)
-        }
-    }
-    
-    func reloadDropDownBtns() {
-        carrierNumTypeBtn.isUserInteractionEnabled = selectedUserType != userTypeDict!["Carrier"] ? false : true
-        carrierNumTypeBtn.backgroundColor = selectedUserType != userTypeDict!["Carrier"] ? UIColor.lightGray : UIColor.clear
-        carrierStateBtn.isUserInteractionEnabled = selectedCarrierNumberType != carrierNumberTypeDict!["Intrastate"] ? false : true
-        carrierStateBtn.backgroundColor = selectedCarrierNumberType != carrierNumberTypeDict!["Intrastate"] ? UIColor.lightGray : UIColor.clear
-    }
+}
+extension RegisterViewController{
     
     @IBAction func dropDownPressed(_ sender: UIButton) {
         let tag = sender.tag
@@ -221,56 +325,63 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
             if selectedStr != nil {
                 if regDataField == .EState{
                     self.selectedStateLbl.text = selectedStr
-                    self.selectedState = self.usStateDict![selectedStr!]
+                    self.selectedState = self.usStateDict![selectedStr!]!
                 }
                 else if regDataField == .EUserType{
                     self.selectedUserTypeLbl.text = selectedStr
-                    self.selectedUserType = self.userTypeDict![selectedStr!]
+                    self.selectedUserType = self.userTypeDict![selectedStr!]!
                 }
                 else if regDataField == .ECarrierNumType{
                     self.selectedCarrierNumberTypeLbl.text = selectedStr
-                    self.selectedCarrierNumberType = self.carrierNumberTypeDict![selectedStr!]
+                    self.selectedCarrierNumberType = self.carrierNumberTypeDict![selectedStr!]!
                 }
                 else if regDataField == .ECarrierState{
                     self.selectedCarrierStateLbl.text = selectedStr
-                    self.selectedCarrierState = self.usStateDict![selectedStr!]
+                    self.selectedCarrierState = self.usStateDict![selectedStr!]!
                 }
                 self.reloadTextFieldsBackground()
                 self.reloadDropDownBtns()
+                self.view.endEditing(true)
             }
         }
         regFieldPicker.modalPresentationStyle = .overCurrentContext
         self.present(regFieldPicker, animated: true, completion: nil)
     }
-   
+}
+
+extension RegisterViewController{
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        var should: Bool = true
-        let tag = textField.tag
-        let regDataField = RegDataField(rawValue: tag)
-        if regDataField == .EPayeeID && selectedUserType == userTypeDict!["Customer"] {
-            should = false
-        }
-        else if regDataField == .EDriverID && selectedUserType != userTypeDict!["Owner\\Driver"]{
-            should = false
-        }
-        else if regDataField == .ECusID && selectedUserType != userTypeDict!["Customer"]{
-            should = false
-        }
-        else if (regDataField == .ECarrierNum || regDataField == .EDotFid) && selectedUserType != userTypeDict!["Carrier"]{
-            should = false
-        }
-        else if regDataField == .ECarrierState && selectedCarrierState != carrierNumberTypeDict!["Intrastate"]{
-            should = false
-        }
-        textField.backgroundColor = should ? UIColor.white : UIColor.lightGray
-        return should
+        var shouldBeginEdit = false
+        shouldBeginEdit = isTextFieldRequired(textField: textField)
+        return shouldBeginEdit
     }
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return true
+    func isTextFieldRequired(textField: UITextField) -> Bool{
+        var isRequired: Bool = true
+        let tag = textField.tag
+        let regDataField : RegDataField = RegDataField(rawValue: tag)!
+        switch regDataField {
+        case .EPayeeID:
+            isRequired = selectedUserType != userTypeDict![kCustomerKey]
+        case .EDriverID:
+            isRequired = selectedUserType == userTypeDict![kOwnerDriverKey]
+        case .ECusID:
+            isRequired = selectedUserType == userTypeDict![kCustomerKey]
+        case .ECarrierNum, .EDotFid:
+            isRequired = selectedUserType == userTypeDict![kCarrierKey]
+        case .ECarrierState:
+            isRequired = selectedCarrierState == carrierNumberTypeDict![kIntrastateKey]
+        default:
+            break
+        }
+        textField.backgroundColor = isRequired ? UIColor.white : UIColor.lightGray
+        return isRequired
     }
 }
+
+
+

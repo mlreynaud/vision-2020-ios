@@ -462,6 +462,27 @@ class DataManager: NSObject {
         }
     }
     
+    func performRegistrationWith(paramDict: Dictionary<String, Any>, completionHandler handler: @escaping (Bool,String?,Error?) -> ()){
+        let service: String =  "registration/service/register"
+        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: paramDict) as URLRequest
+        WebServiceManager.sendRequest(request) { (data, error) in
+            var responseStr:String?
+            var status : Bool = false
+            
+            if (error != nil || data == nil)
+            {
+                handler(status, nil, error)
+                return
+            }
+            if let respStr = String(data: data!, encoding: String.Encoding.utf8){
+                responseStr = respStr.replacingOccurrences(of: "\"", with: "")
+                status = true
+                print(responseStr as Any)
+            }
+            handler(status, responseStr, error)
+        }
+    }
+    
     func checkUserType(_ user: String) -> UserType
     {
         var type : UserType = .none

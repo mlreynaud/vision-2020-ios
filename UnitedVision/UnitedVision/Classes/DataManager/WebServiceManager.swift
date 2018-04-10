@@ -157,7 +157,12 @@ class WebServiceManager: NSObject, URLSessionDelegate {
                 }
                 else
                 {
-                    handler((receivedData as Data?) ?? nil, error as NSError?)
+                    var cusError: NSError?
+                    if error == nil{
+                        let errStr = String(data:receivedData, encoding: String.Encoding.utf8)
+                        cusError = NSError(domain: errStr ?? kNetworkErrorMessage, code: 0, userInfo: nil)
+                    }
+                    handler((receivedData as Data?) ?? nil, error as NSError? ?? cusError )
                 }
             }
         });

@@ -1982,16 +1982,16 @@
                                                 <rect key="frame" x="119.5" y="0.0" width="107.5" height="107"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AqI-k0-kzR">
-                                                        <rect key="frame" x="5.5" y="16" width="97.5" height="74.5"/>
+                                                        <rect key="frame" x="6" y="16" width="97.5" height="74.5"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_location_red" translatesAutoresizingMaskIntoConstraints="NO" id="9mA-4b-grB">
-                                                                <rect key="frame" x="31.5" y="0.5" width="35.5" height="36"/>
+                                                                <rect key="frame" x="32" y="0.5" width="35.5" height="36"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="9mA-4b-grB" secondAttribute="height" multiplier="1:1" id="efF-6y-eVy"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terminal Search" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nIs-2u-9Uw">
-                                                                <rect key="frame" x="0.5" y="38.5" width="97.5" height="36"/>
+                                                                <rect key="frame" x="1" y="38.5" width="97.5" height="36"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="36" id="FZ8-CR-ZuQ"/>
                                                                 </constraints>
@@ -2013,7 +2013,7 @@
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="irE-4q-8hO">
-                                                        <rect key="frame" x="0.5" y="0.0" width="107.5" height="107"/>
+                                                        <rect key="frame" x="1" y="0.0" width="107.5" height="107"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal">
@@ -2047,13 +2047,13 @@
                                                         <rect key="frame" x="35.5" y="25" width="37.5" height="56.5"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_login_red" highlightedImage="ic_truck_red" translatesAutoresizingMaskIntoConstraints="NO" id="V8O-Dp-dkm">
-                                                                <rect key="frame" x="1.5" y="0.5" width="36" height="36"/>
+                                                                <rect key="frame" x="2" y="0.5" width="36" height="36"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="V8O-Dp-dkm" secondAttribute="height" multiplier="1:1" id="VIw-x9-Vxz"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bJB-mZ-Mo5">
-                                                                <rect key="frame" x="0.0" y="38.5" width="37.5" height="18"/>
+                                                                <rect key="frame" x="0.5" y="38.5" width="37.5" height="18"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="LHr-e2-b1p"/>
                                                                 </constraints>
@@ -2507,7 +2507,7 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="2zR-Tg-QXd" id="ujp-rJ-6ym"/>
                                                     </connections>
@@ -2573,7 +2573,7 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="2zR-Tg-QXd" id="mvh-UA-oQG"/>
                                                     </connections>
@@ -2741,7 +2741,7 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="2zR-Tg-QXd" id="jEf-qK-djd"/>
                                                     </connections>
@@ -2831,7 +2831,7 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="2zR-Tg-QXd" id="MbA-oS-foc"/>
                                                     </connections>
@@ -2841,7 +2841,7 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="2zR-Tg-QXd" id="V1K-Aw-nXz"/>
                                                     </connections>
@@ -2871,7 +2871,7 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="2zR-Tg-QXd" id="Uaf-yE-936"/>
                                                     </connections>
@@ -2961,7 +2961,7 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="2zR-Tg-QXd" id="tHh-QG-6xC"/>
                                                     </connections>
@@ -3051,7 +3051,7 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="2zR-Tg-QXd" id="87K-Oe-YDK"/>
                                                     </connections>
@@ -3218,12 +3218,32 @@
                     <connections>
                         <outlet property="carrierNumTypeBtn" destination="o7G-MY-6V5" id="NQP-cc-k2d"/>
                         <outlet property="carrierStateBtn" destination="MHu-oR-rS5" id="qkE-dC-E8M"/>
+                        <outlet property="confirmPassField" destination="wlG-LH-fhD" id="Abk-C6-k85"/>
                         <outlet property="emailField" destination="hVQ-Uk-Lsh" id="NVL-3O-iWa"/>
+                        <outlet property="passwordField" destination="hvf-7l-mOS" id="4h5-8c-PVI"/>
                         <outlet property="selectedCarrierNumberTypeLbl" destination="bD4-6G-2gO" id="PGe-rQ-RMA"/>
                         <outlet property="selectedCarrierStateLbl" destination="sNZ-uD-pGk" id="CIS-Uz-hyx"/>
                         <outlet property="selectedStateLbl" destination="0yd-o3-r69" id="jHP-uC-wKM"/>
                         <outlet property="selectedUserTypeLbl" destination="rVX-94-Ovw" id="eSZ-uH-yvB"/>
                         <outlet property="userTypeBtn" destination="uof-8s-LzO" id="dbn-xp-asJ"/>
+                        <outletCollection property="textFields" destination="blU-Zc-sd4" collectionClass="NSMutableArray" id="4pb-fJ-dze"/>
+                        <outletCollection property="textFields" destination="EPe-G8-rtn" collectionClass="NSMutableArray" id="9OW-5M-Qr9"/>
+                        <outletCollection property="textFields" destination="hVQ-Uk-Lsh" collectionClass="NSMutableArray" id="BDF-S5-61O"/>
+                        <outletCollection property="textFields" destination="aVb-Li-5IK" collectionClass="NSMutableArray" id="EeD-NC-Lxp"/>
+                        <outletCollection property="textFields" destination="dMd-uz-joB" collectionClass="NSMutableArray" id="p8S-rA-OAM"/>
+                        <outletCollection property="textFields" destination="Frh-Cs-2ge" collectionClass="NSMutableArray" id="eu1-9x-076"/>
+                        <outletCollection property="textFields" destination="kvq-15-0xq" collectionClass="NSMutableArray" id="ewM-gb-KKI"/>
+                        <outletCollection property="textFields" destination="XG4-xW-eGX" collectionClass="NSMutableArray" id="F0e-nK-TOn"/>
+                        <outletCollection property="textFields" destination="dlY-zs-GoZ" collectionClass="NSMutableArray" id="mQL-sp-mCd"/>
+                        <outletCollection property="textFields" destination="ABr-q3-Ckg" collectionClass="NSMutableArray" id="Zut-hq-GCV"/>
+                        <outletCollection property="textFields" destination="cOW-0o-ucc" collectionClass="NSMutableArray" id="w4z-z5-bRL"/>
+                        <outletCollection property="textFields" destination="Kh7-H4-xG2" collectionClass="NSMutableArray" id="0jr-EZ-B7b"/>
+                        <outletCollection property="textFields" destination="Vv1-nT-ooM" collectionClass="NSMutableArray" id="oye-fo-SJy"/>
+                        <outletCollection property="textFields" destination="ROS-zr-THq" collectionClass="NSMutableArray" id="ecU-x8-InN"/>
+                        <outletCollection property="textFields" destination="nd7-Az-3CB" collectionClass="NSMutableArray" id="I1x-RM-VPD"/>
+                        <outletCollection property="textFields" destination="zVh-Ib-nku" collectionClass="NSMutableArray" id="TGf-mO-IIE"/>
+                        <outletCollection property="textFields" destination="hvf-7l-mOS" collectionClass="NSMutableArray" id="FIk-Bx-6CY"/>
+                        <outletCollection property="textFields" destination="wlG-LH-fhD" collectionClass="NSMutableArray" id="EuW-V1-MkQ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fhm-eA-Obf" userLabel="First Responder" sceneMemberID="firstResponder"/>
