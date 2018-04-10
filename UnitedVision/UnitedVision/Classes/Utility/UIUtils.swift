@@ -118,6 +118,18 @@ class UIUtils: NSObject {
         container.present(alertController, animated: true, completion: nil)
     }
     
+    class func showAlert (withTitle title: String, message msg: String, inContainer container: UIViewController, completionCallbackHandler handler: (() -> Void)? = nil)
+    {
+        let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        
+        let defaultAction = UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .default, handler: { (action: UIAlertAction) -> (Void)
+            in
+            handler? ()
+        })
+        alertController.addAction(defaultAction)
+        container.present(alertController, animated: true, completion: nil)
+    }
+    
     //MARK: - File Handling methods
     
     class func documentDirectoryWithSubpath(subpath: String?) -> String {
@@ -339,5 +351,13 @@ extension UIColor {
             (a, r, g, b) = (255, 0, 0, 0)
         }
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
+    }
+}
+
+extension String{
+    func isBlank() -> Bool{
+        var isBlank = true
+        isBlank = self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0
+        return isBlank
     }
 }

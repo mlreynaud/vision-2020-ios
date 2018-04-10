@@ -19,7 +19,7 @@
 		B19CAE54205A544B00090F10 /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE53205A544B00090F10 /* MapView.xib */; };
 		B19CAE56205AA38B00090F10 /* TerminalTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */; };
 		B1A3F84520737A4F00A9D83B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A3F84420737A4F00A9D83B /* RegisterViewController.swift */; };
-		B1A3F851207385D600A9D83B /* RegisterCellInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1A3F850207385D600A9D83B /* RegisterCellInfo.plist */; };
+		B1A3F851207385D600A9D83B /* RegDataValidation.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1A3F850207385D600A9D83B /* RegDataValidation.plist */; };
 		B1A875592074E7D300FE11A5 /* UserType.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1A875582074E7D300FE11A5 /* UserType.plist */; };
 		B1A8755B2074E86100FE11A5 /* CarrierNumberType.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1A8755A2074E86100FE11A5 /* CarrierNumberType.plist */; };
 		B1D25656205FDBFB0089D055 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D25657205FDBFB0089D055 /* Pods_UnitedVision.framework */; };
@@ -83,7 +83,7 @@
 		B19CAE53205A544B00090F10 /* MapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
 		B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TerminalTableCell.xib; sourceTree = "<group>"; };
 		B1A3F84420737A4F00A9D83B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		B1A3F850207385D600A9D83B /* RegisterCellInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RegisterCellInfo.plist; sourceTree = "<group>"; };
+		B1A3F850207385D600A9D83B /* RegDataValidation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RegDataValidation.plist; sourceTree = "<group>"; };
 		B1A875582074E7D300FE11A5 /* UserType.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserType.plist; sourceTree = "<group>"; };
 		B1A8755A2074E86100FE11A5 /* CarrierNumberType.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = CarrierNumberType.plist; sourceTree = "<group>"; };
 		B1D2564E205FD41C0089D055 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -219,7 +219,7 @@
 				BA44A0F6202DF96D00DE6130 /* tractor.json */,
 				BA44A0F7202DF96D00DE6130 /* Xibs */,
 				BA84A3982053AADC004E1410 /* TractorFilter.plist */,
-				B1A3F850207385D600A9D83B /* RegisterCellInfo.plist */,
+				B1A3F850207385D600A9D83B /* RegDataValidation.plist */,
 				B16D11F32073F2CA00769329 /* USState.plist */,
 				B1A875582074E7D300FE11A5 /* UserType.plist */,
 				B1A8755A2074E86100FE11A5 /* CarrierNumberType.plist */,
@@ -446,7 +446,7 @@
 				BA44A0ED202DF91200DE6130 /* LaunchScreen.storyboard in Resources */,
 				B1A8755B2074E86100FE11A5 /* CarrierNumberType.plist in Resources */,
 				BA44A116202DF96E00DE6130 /* tractor.json in Resources */,
-				B1A3F851207385D600A9D83B /* RegisterCellInfo.plist in Resources */,
+				B1A3F851207385D600A9D83B /* RegDataValidation.plist in Resources */,
 				B1D265B7206FB73B00CC3B73 /* InitialViewScreen.xib in Resources */,
 				BA44A0EA202DF91200DE6130 /* Assets.xcassets in Resources */,
 				BA84A383204E752B004E1410 /* AutocompleteTableCell.xib in Resources */,
