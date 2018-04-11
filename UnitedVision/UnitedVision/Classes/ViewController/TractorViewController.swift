@@ -29,7 +29,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setTitleView(withTitle: "Tractor Search", Frame: nil)
+        setTitleView(withTitle: "TRACTOR SEARCH", Frame: nil)
 
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addUnderlineForSelectedSegment()
@@ -43,14 +43,11 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         mapView.initialSetup(forType: .TractorType)
         mapView.mapFilterDelegate = self
 
-//        tractorArray = DataManager.sharedInstance.tractorList
-//        self.addTractorAnnotations()
-//        tableView.reloadData()
-        
         self.view.backgroundColor = UIColor.white
         addSearchBarButton()
         addSortBarBtn()
         tableView.register(UINib(nibName: "TerminalTableCell", bundle: Bundle.main), forCellReuseIdentifier: "TerminalTableCell")
+        tableView.separatorStyle = .none
     }
     
     func addSearchBarButton() {
@@ -126,9 +123,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     func createAnnotation(coordinate:CLLocationCoordinate2D) -> MKPointAnnotation
     {
         let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate //CLLocationCoordinate2DMake(info.latitude, info.longitude)
-        
-        //        annotation.subtitle = (info.originCity)! + "-" + (info.destinationCity)!
+        annotation.coordinate = coordinate
         return annotation
     }
     
@@ -181,6 +176,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
             }
         }
         tractorSortVC.modalPresentationStyle = .overCurrentContext
+        tractorSortVC.modalTransitionStyle = .crossDissolve
         self.present(tractorSortVC, animated: true, completion: nil)
     }
     

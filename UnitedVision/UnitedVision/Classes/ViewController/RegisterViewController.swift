@@ -89,18 +89,18 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTitleView(withTitle: "Register", Frame: nil)
+        setTitleView(withTitle: "REGISTER", Frame: nil)
         tableView.separatorStyle = .none
         fetchDataFromPlists()
         reloadTextFieldsBackground()
         reloadDropDownBtns()
     }
     
-    func setTitleView(withTitle title: String,Frame frame:CGRect?) {
-        let titleView = TitleView.loadViewFromNib()
-        titleView.setTitle(Title: title, Frame: frame)
-        self.navigationItem.titleView = titleView
-    }
+//    func setTitleView(withTitle title: String,Frame frame:CGRect?) {
+//        let titleView = TitleView.loadViewFromNib()
+//        titleView.setTitle(Title: title, Frame: frame)
+//        self.navigationItem.titleView = titleView
+//    }
     
     func fetchDataFromPlists() {
         dataValidationArr = UIUtils.parsePlist(ofName: kRegDataValidpList) as? [Dictionary<String, Any>]
@@ -344,6 +344,7 @@ extension RegisterViewController{
                 self.view.endEditing(true)
             }
         }
+        regFieldPicker.modalTransitionStyle = .crossDissolve
         regFieldPicker.modalPresentationStyle = .overCurrentContext
         self.present(regFieldPicker, animated: true, completion: nil)
     }

@@ -24,7 +24,7 @@ class LoadingView: UIView {
         overlayView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
         overlayView.clipsToBounds = true
 
-        rotationIcon.image = UIImage(named: "loaderArrow")
+        rotationIcon.image = UIImage(named: "ic_reset_white")
         rotationIcon.contentMode = .scaleAspectFill
         rotationIcon.frame = CGRect(x: 0, y: 0, width: 70, height: 70)
         rotationIcon.center = overlayView.center
@@ -47,6 +47,7 @@ class LoadingView: UIView {
     }
     
     func showOverlay() {
+        rotated()
         animateLoader()
         let window = UIApplication.shared.keyWindow
         window!.addSubview(overlayView)
