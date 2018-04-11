@@ -20,6 +20,8 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
 
     @IBOutlet weak var segmentedControl : UISegmentedControl!
     
+    @IBOutlet weak var filterBtnView: UIView!
+    
     var showMap = false
 
     var tractorSearchInfo : TractorSearchInfo!
@@ -206,21 +208,13 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
 extension TractorViewController
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (tractorArray.count == 0) ? 0 : 1
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-//        return tractorArray.count;
-        
-        var numOfSections: Int = 0
-        if tractorArray.count != 0
-        {
+        var numOfRows: Int = 0
+        if tractorArray.count != 0{
             tableView.separatorStyle = .singleLine
-            numOfSections            = tractorArray.count
+            numOfRows = tractorArray.count
             tableView.backgroundView = nil
         }
-        else
-        {
+        else{
             let noDataLabel: UILabel     = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
             noDataLabel.text          = "No data available"
             noDataLabel.textColor     = UIColor.black
@@ -228,16 +222,19 @@ extension TractorViewController
             tableView.backgroundView  = noDataLabel
             tableView.separatorStyle  = .none
         }
-        return numOfSections
+        return numOfRows
     }
-
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return (tractorArray.count == 0) ? 0 : 1
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : TerminalTableCell?
         
         cell = tableView.dequeueReusableCell(withIdentifier: "TerminalTableCell", for: indexPath) as? TerminalTableCell
         
-        let info = tractorArray[indexPath.section]
+        let info = tractorArray[indexPath.row]
         cell?.showTractorInfo(info)
         cell?.delegate = self
         
