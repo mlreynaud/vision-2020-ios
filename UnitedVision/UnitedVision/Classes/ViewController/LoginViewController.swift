@@ -8,18 +8,17 @@
 
 import UIKit
 
-class LoginViewController: BaseViewController, UITextFieldDelegate {
+let kHeightOfOtherRows = CGFloat(422)
+let kDefaultHeightOfEmptyRow = CGFloat(44)
+
+class LoginViewController: UITableViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailTextfield : UITextField!
     @IBOutlet weak var passwordTextfield : UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-//        self.title = "Login"
-        setTitleView(withTitle: "Login", Frame: nil)
+        setTitleView(withTitle: "LOGIN", Frame: nil)
         emailTextfield.text = "customer" // ""owner.operator
         passwordTextfield.text = "uvlgo4it"
         
@@ -77,6 +76,20 @@ class LoginViewController: BaseViewController, UITextFieldDelegate {
     @IBAction func registerBtnPressed(_ sender: Any) {
         let registerVC = storyboard?.instantiateViewController(withIdentifier: "RegisterViewController")
         self.navigationController?.pushViewController(registerVC!, animated: true)
+    }
+    @IBAction func callBtnPressed(_ sender: Any) {
+    }
+    @IBAction func emailBtnPressed(_ sender: Any) {
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 5{
+            let emptyRowHeight = tableView.frame.height - kHeightOfOtherRows
+            return max(emptyRowHeight,kDefaultHeightOfEmptyRow)
+        }
+        else{
+            return super.tableView(tableView, heightForRowAt: indexPath)
+        }
     }
 }
 

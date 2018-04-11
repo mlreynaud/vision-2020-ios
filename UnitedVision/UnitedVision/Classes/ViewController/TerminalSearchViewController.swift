@@ -32,7 +32,7 @@ class TerminalSearchViewController: BaseViewController, GMSMapViewDelegate {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        setTitleView(withTitle: "Terminal Search", Frame: nil)
+        setTitleView(withTitle: "TERMINAL SEARCH", Frame: nil)
         
         mapView.initialSetup(forType: .TerminalType)
         mapView.searchLocation = mapView.getCurrentLocation()

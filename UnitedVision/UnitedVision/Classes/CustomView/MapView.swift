@@ -406,19 +406,9 @@ extension MapView
             }
             else {
                 createMarkerDetailView(markerTapped: newMarker)
+                moveMaptoLocation(location:CLLocation(latitude: (newMarker?.position.latitude)!, longitude: (newMarker?.position.longitude)!))
             }
-            
             colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
-            
-            // we don't need to deselect the marker if clicking on the same one
-//            if oldMarker == newMarker {
-//                toggleMarkerColor(marker: oldMarker)
-//                toggleDetailView(marker: oldMarker)
-//            }
-//            else {
-//                colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
-//                createMarkerDetailView(markerTapped: newMarker)
-//            }
         }
     }
     func toggleMarkerColor(marker: GMSMarker?){

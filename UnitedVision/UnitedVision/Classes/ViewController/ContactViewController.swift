@@ -18,7 +18,7 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTitleView(withTitle: "Contact Info", Frame: nil)
+        setTitleView(withTitle: "CONTACT INFO", Frame: nil)
         tableView.estimatedRowHeight = 70
         tableView.contentInset = .zero
         tableView.rowHeight = UITableViewAutomaticDimension

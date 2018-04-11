@@ -103,12 +103,12 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
     func populateArray() {
         
         if (DataManager.sharedInstance.isLogin) {
-            menus = ["HOME", "TERMINAL SEARCH", "TRACTOR SEARCH", "CONTACT", "LOG OUT"]
+            menus = ["Home", "Terminal Search", "Tractor Search", "Contact", "Log Out"]
             imageList = ["ic_home","ic_location_grey", "ic_truck_gray" ,"ic_call_black", "ic_logout"]
             menuValues = [.home, .terminalSearch, .tractorSearch, .contact, .logout]
         }
         else{
-            menus = ["HOME", "TERMINAL SEARCH", "CONTACT", "LOG IN"]
+            menus = ["Home", "Terminal Search", "Contact", "Log In"]
             imageList = ["ic_home", "ic_location_grey" ,"ic_call_black", "ic_login_grey"]
             menuValues = [.home, .terminalSearch, .contact, .login]
         }

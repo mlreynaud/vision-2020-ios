@@ -263,6 +263,7 @@ extension TractorFilterViewController{
             self.searchInfo?.status = selectedStatusList
             self.reloadLabel(at:FilterType.status.rawValue)
         }
+        filterPopupVC?.modalTransitionStyle = .crossDissolve
         filterPopupVC?.modalPresentationStyle = .overCurrentContext
         self.present(filterPopupVC!, animated: true, completion: nil)
     }
@@ -282,6 +283,7 @@ extension TractorFilterViewController{
             }
             self.reloadLabel(at: filterType.rawValue)
         }
+        viewCtrl.modalTransitionStyle = .crossDissolve
         viewCtrl.modalPresentationStyle = .overCurrentContext
         self.present(viewCtrl, animated: true, completion: nil)
     }

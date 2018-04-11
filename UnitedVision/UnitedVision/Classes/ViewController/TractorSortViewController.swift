@@ -43,7 +43,7 @@ class TractorSortViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.separatorStyle = .none
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -63,5 +63,8 @@ class TractorSortViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         sortCompletionHandler!(TractorSortType.array[indexPath.row])
         self.dismiss(animated: true, completion: nil)
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.frame.height/CGFloat(TractorSortType.array.count)
     }
 }
