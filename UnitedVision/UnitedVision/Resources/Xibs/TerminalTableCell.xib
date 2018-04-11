@@ -244,10 +244,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPN-hC-iFj">
-                                        <rect key="frame" x="4" y="98.5" width="65" height="30"/>
+                                        <rect key="frame" x="4" y="98.5" width="71.5" height="30"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWo-Eh-4rV" customClass="UIControl">
-                                                <rect key="frame" x="17.5" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="21" y="0.0" width="30" height="30"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_map_red" translatesAutoresizingMaskIntoConstraints="NO" id="zNw-BL-Tg8">
                                                         <rect key="frame" x="5" y="5" width="20" height="20"/>
@@ -298,7 +298,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="AGD-Wn-WN8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qPN-hC-iFj" secondAttribute="trailing" id="2JF-be-Drs"/>
+                                    <constraint firstItem="AGD-Wn-WN8" firstAttribute="leading" secondItem="qPN-hC-iFj" secondAttribute="trailing" id="2JF-be-Drs"/>
                                     <constraint firstItem="AGD-Wn-WN8" firstAttribute="height" secondItem="qPN-hC-iFj" secondAttribute="height" id="3Ss-wq-etY"/>
                                     <constraint firstAttribute="trailing" secondItem="AGD-Wn-WN8" secondAttribute="trailing" constant="4" id="3YB-FX-8cL"/>
                                     <constraint firstItem="qPN-hC-iFj" firstAttribute="leading" secondItem="94L-Gx-JbO" secondAttribute="leading" constant="4" id="5F4-Uq-Sfv"/>
@@ -307,7 +307,6 @@
                                     <constraint firstAttribute="trailing" secondItem="Rfu-Jh-gMb" secondAttribute="trailing" constant="2" id="FVd-xt-vIN"/>
                                     <constraint firstItem="YPN-Kx-Cn8" firstAttribute="leading" secondItem="94L-Gx-JbO" secondAttribute="leading" constant="4" id="GVl-No-WyA"/>
                                     <constraint firstItem="Rfu-Jh-gMb" firstAttribute="centerY" secondItem="YPN-Kx-Cn8" secondAttribute="centerY" id="H58-Ac-LHq"/>
-                                    <constraint firstItem="AGD-Wn-WN8" firstAttribute="width" secondItem="qPN-hC-iFj" secondAttribute="width" id="OGq-fl-tan"/>
                                     <constraint firstItem="2FL-Mp-8BA" firstAttribute="leading" secondItem="94L-Gx-JbO" secondAttribute="leading" constant="4" id="QkU-aZ-4C1"/>
                                     <constraint firstAttribute="trailing" secondItem="ZkN-zQ-sQa" secondAttribute="trailing" constant="2" id="Rhr-AH-yfd"/>
                                     <constraint firstItem="ZkN-zQ-sQa" firstAttribute="centerY" secondItem="2FL-Mp-8BA" secondAttribute="centerY" id="SLs-oy-mOE"/>
