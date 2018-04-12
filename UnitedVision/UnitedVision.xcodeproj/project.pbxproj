@@ -17,13 +17,15 @@
 		B18B3CB320722FA2002C241D /* SlideViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B3CB220722FA2002C241D /* SlideViewCell.swift */; };
 		B18B3CB920725AED002C241D /* TractorSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B3CB820725AED002C241D /* TractorSortViewController.swift */; };
 		B19CAE54205A544B00090F10 /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE53205A544B00090F10 /* MapView.xib */; };
-		B19CAE56205AA38B00090F10 /* TerminalTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */; };
+		B19CAE56205AA38B00090F10 /* TractorTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE55205AA38B00090F10 /* TractorTableCell.xib */; };
 		B1A3F84520737A4F00A9D83B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A3F84420737A4F00A9D83B /* RegisterViewController.swift */; };
 		B1A3F851207385D600A9D83B /* RegDataValidation.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1A3F850207385D600A9D83B /* RegDataValidation.plist */; };
 		B1A875592074E7D300FE11A5 /* UserType.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1A875582074E7D300FE11A5 /* UserType.plist */; };
 		B1A8755B2074E86100FE11A5 /* CarrierNumberType.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1A8755A2074E86100FE11A5 /* CarrierNumberType.plist */; };
 		B1D25656205FDBFB0089D055 /* Pods_UnitedVision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D25657205FDBFB0089D055 /* Pods_UnitedVision.framework */; };
 		B1D265B7206FB73B00CC3B73 /* InitialViewScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1D265B6206FB73B00CC3B73 /* InitialViewScreen.xib */; };
+		B1EA42B9207F6FFD001147E9 /* TerminalTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1EA42B8207F6FFD001147E9 /* TerminalTableCell.xib */; };
+		B1EA42BB207F7304001147E9 /* TerminalTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EA42BA207F7304001147E9 /* TerminalTableCell.swift */; };
 		BA44A0E8202DF91200DE6130 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0E6202DF91200DE6130 /* Main.storyboard */; };
 		BA44A0EA202DF91200DE6130 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0E9202DF91200DE6130 /* Assets.xcassets */; };
 		BA44A0ED202DF91200DE6130 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0EB202DF91200DE6130 /* LaunchScreen.storyboard */; };
@@ -46,7 +48,7 @@
 		BA44A126202DF96E00DE6130 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A113202DF96E00DE6130 /* HomeViewController.swift */; };
 		BA44A127202DF96E00DE6130 /* TerminalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */; };
 		BA4D87992046FB7A00FC78CA /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4D87982046FB7A00FC78CA /* UISegmentedControl.swift */; };
-		BA4D879B204BBEA600FC78CA /* TerminalTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4D879A204BBEA600FC78CA /* TerminalTableCell.swift */; };
+		BA4D879B204BBEA600FC78CA /* TractorTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4D879A204BBEA600FC78CA /* TractorTableCell.swift */; };
 		BA4D879F204D1CD700FC78CA /* AccordionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4D879E204D1CD700FC78CA /* AccordionHeaderView.swift */; };
 		BA4D87A1204D1D0100FC78CA /* AccordionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4D87A0204D1D0100FC78CA /* AccordionHeaderView.xib */; };
 		BA4D87A5204D40FE00FC78CA /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4D87A4204D40FE00FC78CA /* CardView.swift */; };
@@ -81,7 +83,7 @@
 		B18B3CB220722FA2002C241D /* SlideViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewCell.swift; sourceTree = "<group>"; };
 		B18B3CB820725AED002C241D /* TractorSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TractorSortViewController.swift; sourceTree = "<group>"; };
 		B19CAE53205A544B00090F10 /* MapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
-		B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TerminalTableCell.xib; sourceTree = "<group>"; };
+		B19CAE55205AA38B00090F10 /* TractorTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TractorTableCell.xib; sourceTree = "<group>"; };
 		B1A3F84420737A4F00A9D83B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		B1A3F850207385D600A9D83B /* RegDataValidation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RegDataValidation.plist; sourceTree = "<group>"; };
 		B1A875582074E7D300FE11A5 /* UserType.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserType.plist; sourceTree = "<group>"; };
@@ -90,6 +92,8 @@
 		B1D25651205FDB260089D055 /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D25657205FDBFB0089D055 /* Pods_UnitedVision.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_UnitedVision.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D265B6206FB73B00CC3B73 /* InitialViewScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialViewScreen.xib; sourceTree = "<group>"; };
+		B1EA42B8207F6FFD001147E9 /* TerminalTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TerminalTableCell.xib; sourceTree = "<group>"; };
+		B1EA42BA207F7304001147E9 /* TerminalTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalTableCell.swift; sourceTree = "<group>"; };
 		B32E5ADD18A8E0C9A7676579 /* Pods-UnitedVision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitedVision.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision.release.xcconfig"; sourceTree = "<group>"; };
 		BA44A0DF202DF91200DE6130 /* UnitedVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitedVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA44A0E7202DF91200DE6130 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -115,7 +119,7 @@
 		BA44A113202DF96E00DE6130 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalDetailViewController.swift; sourceTree = "<group>"; };
 		BA4D87982046FB7A00FC78CA /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
-		BA4D879A204BBEA600FC78CA /* TerminalTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalTableCell.swift; sourceTree = "<group>"; };
+		BA4D879A204BBEA600FC78CA /* TractorTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TractorTableCell.swift; sourceTree = "<group>"; };
 		BA4D879E204D1CD700FC78CA /* AccordionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionHeaderView.swift; sourceTree = "<group>"; };
 		BA4D87A0204D1D0100FC78CA /* AccordionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccordionHeaderView.xib; sourceTree = "<group>"; };
 		BA4D87A4204D40FE00FC78CA /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -234,8 +238,9 @@
 				B19CAE53205A544B00090F10 /* MapView.xib */,
 				BA4D87A0204D1D0100FC78CA /* AccordionHeaderView.xib */,
 				BA84A382204E752B004E1410 /* AutocompleteTableCell.xib */,
-				B19CAE55205AA38B00090F10 /* TerminalTableCell.xib */,
+				B19CAE55205AA38B00090F10 /* TractorTableCell.xib */,
 				B11138FF206CD337009D45ED /* TitleView.xib */,
+				B1EA42B8207F6FFD001147E9 /* TerminalTableCell.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -292,7 +297,8 @@
 				BA84A380204D6664004E1410 /* CheckboxTableCell.swift */,
 				BA84A38A20518F2E004E1410 /* ContactTableCell.swift */,
 				BA5CE6082036EF3C00B14DB6 /* SideMenuTableCell.swift */,
-				BA4D879A204BBEA600FC78CA /* TerminalTableCell.swift */,
+				BA4D879A204BBEA600FC78CA /* TractorTableCell.swift */,
+				B1EA42BA207F7304001147E9 /* TerminalTableCell.swift */,
 			);
 			path = CustomTableCell;
 			sourceTree = "<group>";
@@ -442,7 +448,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B19CAE56205AA38B00090F10 /* TerminalTableCell.xib in Resources */,
+				B19CAE56205AA38B00090F10 /* TractorTableCell.xib in Resources */,
 				BA44A0ED202DF91200DE6130 /* LaunchScreen.storyboard in Resources */,
 				B1A8755B2074E86100FE11A5 /* CarrierNumberType.plist in Resources */,
 				BA44A116202DF96E00DE6130 /* tractor.json in Resources */,
@@ -456,6 +462,7 @@
 				BA84A3992053AADC004E1410 /* TractorFilter.plist in Resources */,
 				BA44A0E8202DF91200DE6130 /* Main.storyboard in Resources */,
 				B19CAE54205A544B00090F10 /* MapView.xib in Resources */,
+				B1EA42B9207F6FFD001147E9 /* TerminalTableCell.xib in Resources */,
 				B1113900206CD337009D45ED /* TitleView.xib in Resources */,
 				B16D11F42073F2CA00769329 /* USState.plist in Resources */,
 			);
@@ -551,8 +558,9 @@
 				BA84A38B20518F2E004E1410 /* ContactTableCell.swift in Sources */,
 				BA44A127202DF96E00DE6130 /* TerminalDetailViewController.swift in Sources */,
 				BA44A121202DF96E00DE6130 /* BaseViewController.swift in Sources */,
+				B1EA42BB207F7304001147E9 /* TerminalTableCell.swift in Sources */,
 				BA44A11C202DF96E00DE6130 /* LocationManager.swift in Sources */,
-				BA4D879B204BBEA600FC78CA /* TerminalTableCell.swift in Sources */,
+				BA4D879B204BBEA600FC78CA /* TractorTableCell.swift in Sources */,
 				BA44A11A202DF96E00DE6130 /* LoadingView.swift in Sources */,
 				BA44A119202DF96E00DE6130 /* AccordionTableCell.swift in Sources */,
 				1405D6612059C7D000A8B0CA /* TrailerInfo.swift in Sources */,

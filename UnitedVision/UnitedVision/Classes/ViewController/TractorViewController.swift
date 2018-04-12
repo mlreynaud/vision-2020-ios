@@ -12,7 +12,7 @@ import MapKit
 import GoogleMaps
 import GooglePlaces
 
-class TractorViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MKMapViewDelegate, TerminalTableCellDelegate, GMSMapViewDelegate,SideMenuLogOutDelegate {
+class TractorViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MKMapViewDelegate, TractorTableCellDelegate, GMSMapViewDelegate,SideMenuLogOutDelegate {
     
     @IBOutlet weak var tableView : UITableView!
     
@@ -48,7 +48,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         self.view.backgroundColor = UIColor.white
         addSearchBarButton()
         addSortBarBtn()
-        tableView.register(UINib(nibName: "TerminalTableCell", bundle: Bundle.main), forCellReuseIdentifier: "TerminalTableCell")
+        tableView.register(UINib(nibName: "TractorTableCell", bundle: Bundle.main), forCellReuseIdentifier: "TractorTableCell")
         tableView.separatorStyle = .none
     }
     
@@ -230,13 +230,13 @@ extension TractorViewController
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell : TerminalTableCell?
+        var cell : TractorTableCell?
         
-        cell = tableView.dequeueReusableCell(withIdentifier: "TerminalTableCell", for: indexPath) as? TerminalTableCell
+        cell = tableView.dequeueReusableCell(withIdentifier: "TractorTableCell", for: indexPath) as? TractorTableCell
         
         let info = tractorArray[indexPath.row]
-        cell?.showTractorInfo(info)
         cell?.delegate = self
+        cell?.setTractorInfo(tractorInfo: info)
         
         return cell!
     }
@@ -246,15 +246,9 @@ extension TractorViewController
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    //MARK- TerminalTableCell delegate methods
+    //MARK- TractorTableCell delegate methods
     
-    func callAtIndex (_ cell: TerminalTableCell)
-    {
-        DataManager.sharedInstance.addNewCallLog(cell.tractorId!, userId:DataManager.sharedInstance.userName!)
-        UIUtils.callPhoneNumber(kdefaultTractorNumber)
-    }
-    
-    func showMapAtIndex (_ cell: TerminalTableCell)
+    func showMapAtIndex (_ cell: TractorTableCell)
     {
         segmentedControl.selectedSegmentIndex = 1
         segmentControlValueChanged(segmentedControl)
