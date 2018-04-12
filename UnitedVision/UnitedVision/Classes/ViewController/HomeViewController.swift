@@ -125,6 +125,8 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
             btnViewHeight.constant = (newSize.height-40)*(2/5)
             centreHomeContentHeight.constant = (newSize.height - 40)*(1/5)
             }
+        self.collectionView.reloadData()
+
     }
     
     func fetchHomeContent() {

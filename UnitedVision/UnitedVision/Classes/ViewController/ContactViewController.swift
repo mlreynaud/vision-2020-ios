@@ -9,6 +9,7 @@
 import UIKit
 import MessageUI
 
+let kCorpHeadQuarterPhNo = "3372916700"
 
 class ContactViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate
 {
@@ -16,9 +17,12 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     var contactInfoList :[ContactInfo] = []
     
+    @IBOutlet var corpHeadQuarterCell: UITableViewCell!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setTitleView(withTitle: "CONTACT INFO", Frame: nil)
+        
         tableView.estimatedRowHeight = 70
         tableView.contentInset = .zero
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -28,6 +32,7 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
 
         fetchContactList()
     }
+    
     func fetchContactList() {
         LoadingView.shared.showOverlay()
 
@@ -39,6 +44,7 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
                     let contactInfo = ContactInfo(info: contactDict)
                     self.contactInfoList.append(contactInfo)
                 }
+                self.tableView.dataSource = self
                 self.tableView.reloadData()
             }
             else{
@@ -91,20 +97,27 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
         controller.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func corpHeadQuarterCallBtnTapped(_ sender: Any) {
+        UIUtils.callPhoneNumber(kCorpHeadQuarterPhNo)
+    }
 }
 
 extension ContactViewController
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contactInfoList.count;
+        return contactInfoList.count + 1;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableCell", for: indexPath) as! ContactTableCell
-        let info = contactInfoList[indexPath.row]
-        cell.setCellData(contactInfo: info, indexPath: indexPath)
-        return cell;
+        if indexPath.row == 0{
+            return corpHeadQuarterCell
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableCell", for: indexPath) as! ContactTableCell
+            let info = contactInfoList[indexPath.row - 1]
+            cell.setCellData(contactInfo: info, indexPath: indexPath)
+            return cell
+        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension

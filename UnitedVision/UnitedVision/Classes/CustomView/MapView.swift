@@ -18,7 +18,7 @@ protocol MapFilterDelegate: class {
 }
 
 class GoogleMapMarker : GMSMarker{
-    var locationInfo : LocationInfo?
+    var locationInfo = [LocationInfo]()
     var tractorInfo : TractorInfo?
     let selectedMarkerImg : UIImage = GMSMarker.markerImage(with: .green)
     let unSelectedMarkerImg : UIImage = GMSMarker.markerImage(with: nil)
@@ -36,8 +36,8 @@ class GoogleMapMarker : GMSMarker{
         if tractorInfo != nil{
             icon = unSelectedMarkerImg
         }
-        else if locationInfo != nil{
-            if locationInfo?.corporateOffice == "Y"{
+        else if locationInfo.count != 0 {
+            if locationInfo.first?.corporateOffice! == "Y"{
                 iconView = headQuarterUnSelectedImg
             }
             else {
@@ -50,8 +50,8 @@ class GoogleMapMarker : GMSMarker{
         if tractorInfo != nil{
             icon = icon == unSelectedMarkerImg ?  selectedMarkerImg : unSelectedMarkerImg
         }
-        else if locationInfo != nil{
-            if locationInfo?.corporateOffice == "Y"{
+        else if locationInfo.count != 0{
+            if locationInfo.first?.corporateOffice! == "Y"{
                 iconView = iconView == headQuarterSelectedImg ? headQuarterUnSelectedImg : headQuarterSelectedImg
             }
             else{
@@ -63,8 +63,8 @@ class GoogleMapMarker : GMSMarker{
         if tractorInfo != nil{
             icon = selectedMarkerImg
         }
-        else if locationInfo != nil{
-            if locationInfo?.corporateOffice == "Y"{
+        else if locationInfo.count != 0{
+            if locationInfo.first?.corporateOffice! == "Y"{
                 iconView = headQuarterSelectedImg
             }
             else {
@@ -76,26 +76,14 @@ class GoogleMapMarker : GMSMarker{
 
 class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManagerDelegate, UIPickerViewDelegate {
     
-    @IBOutlet var terminalDetailView: UIView!
-    @IBOutlet var terminalDetailViewHeight: NSLayoutConstraint!
-    
-    @IBOutlet weak var terminalDetailViewDescLbl: UILabel!
-    @IBOutlet var terminalDetailViewAddressLbl : UILabel!
-    
-    @IBOutlet var tractorDetailView: UIView!
-    @IBOutlet var tractorDetailViewHeight: NSLayoutConstraint!
-    @IBOutlet var tractorDtlViewTerminalLbl : UILabel!
-    @IBOutlet var tractorDtlViewDestLbl : UILabel!
-    @IBOutlet var tractorDtlViewTractorLbl : UILabel!
-    @IBOutlet var tractorDtlViewTrailerLbl : UILabel!
-    @IBOutlet var tractorDtlViewTrailerLenLbl : UILabel!
-    @IBOutlet var tractorDtlViewDistLbl : UILabel!
-    @IBOutlet var tractorDtlViewStatusLbl : UILabel!
-    @IBOutlet var tractorDtlViewLoadedImgView : UIImageView!
-    @IBOutlet var tractorDtlViewHazmatImgView : UIImageView!
+    @IBOutlet weak var detailTableViewContainer: UIView!
+    @IBOutlet weak var detailTableView: UITableView!
+    @IBOutlet weak var detailTableViewheight: NSLayoutConstraint!
     
     @IBOutlet var map: GMSMapView!
     var markers = [GoogleMapMarker]()
+    var detailViewArr = [GoogleMapMarker]()
+    var cellIdentifier: String?
     
     @IBOutlet var myLocationBtnOutlet: UIButton!
     var myLocationBtn : UIButton?
@@ -153,36 +141,31 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
         return view
     }
     
-    func initialSetup(forType mapViewType : MapViewType)
-    {
-        
+    func initialSetup(forType mapViewType : MapViewType) {
         self.mapViewType = mapViewType
-        
+        updateGoogleMapSettings()
+        setupUpMyLocationBtn()
+        updateSettingVariables()
+        zoomMapToRadius()
+        setupTableView()
+        addObserver(self, forKeyPath: #keyPath(map.selectedMarker), options: [.old, .new], context: nil)
+    }
+    
+    func updateGoogleMapSettings(){
         map.isMyLocationEnabled = true
         map.settings.myLocationButton = true
         map.settings.compassButton = true
         map.delegate = self
-        setupUpMyLocationBtn()
+    }
+    
+    func updateSettingVariables(){
         searchLocation = self.getCurrentLocation()
-        
         radiusList = DataManager.sharedInstance.getRadiusList()
-        
         radiusLbl.attributedText = String("Radius \(selectedRadius) mi").createAttributedString(subString: "\(selectedRadius) mi", subStringColor: .blue)
-        
-        terminalDetailViewHeight.constant = 0
-        tractorDetailViewHeight.constant = 0
-        
-        terminalDetailView.isHidden = mapViewType == .TerminalType ? false : true
-        tractorDetailView.isHidden =  mapViewType == .TractorType ? false : true
-        
         zoomLevel = kDefaultZoom
-        
-        self.zoomMapToRadius()
-        addObserver(self, forKeyPath: #keyPath(map.selectedMarker), options: [.old, .new], context: nil)
     }
    
     func setupUpMyLocationBtn(){
-        
         myLocationBtnOutlet.imageView?.contentMode = .scaleAspectFit
         fetchMyLocationBtn()
     }
@@ -208,6 +191,7 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
             }
         }
     }
+    
     func parentVCOrientationChanged(){
         if radiusTextField.isEditing{
             radiusTextField.resignFirstResponder()
@@ -282,13 +266,6 @@ extension MapView
 
 extension MapView
 {
-    func hideDetailView(){
-        tractorDetailView.isHidden = true
-        terminalDetailView.isHidden = true
-        tractorDetailViewHeight.constant = 0
-        terminalDetailViewHeight.constant = 0
-        terminalDetailView.layoutIfNeeded()
-    }
     
     func addRadiusCircle()
     {
@@ -318,31 +295,41 @@ extension MapView
     {
         markers.removeAll()
         map.clear()
-        hideDetailView()
         for location in locationList {
-            let marker = GoogleMapMarker()
-            marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-            marker.locationInfo = location
-            if mapViewType == .TerminalType && location.corporateOffice == "Y" {
-                marker.zIndex = 1
-                marker.opacity = 0.9
+            if !checkIfMarkerWithLocationExists(locationInfo: location){
+                let marker = GoogleMapMarker()
+                marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+                marker.locationInfo.append(location)
+                if mapViewType == .TerminalType && location.corporateOffice == "Y" {
+                    marker.zIndex = 1
+                    marker.opacity = 0.9
+                }
+                else {
+                    marker.zIndex = 0
+                    marker.opacity = 0.7
+                }
+                marker.map = map
+                marker.setMarker()
+                markers.append(marker)
             }
-            else {
-                marker.zIndex = 0
-                marker.opacity = 0.7
-            }
-            marker.map = map
-            marker.setMarker()
-            markers.append(marker)
         }
         addRadiusCircle()
+    }
+    func checkIfMarkerWithLocationExists(locationInfo: LocationInfo) -> Bool{
+        var ifAlreadyExists = false
+        for marker in markers{
+            if marker.locationInfo.first?.longitude == locationInfo.longitude , marker.locationInfo.first?.latitude == locationInfo.latitude{
+                marker.locationInfo.append(locationInfo)
+                ifAlreadyExists = true
+            }
+        }
+        return ifAlreadyExists
     }
     
     func addTractorList(_ tractorList: [TractorInfo])
     {
         markers.removeAll()
         map.clear()
-        hideDetailView()
         for location in tractorList {
             let marker = GoogleMapMarker()
             marker.opacity = 0.7
@@ -402,32 +389,19 @@ extension MapView
             let oldMarker: GMSMarker? = change?[.oldKey] as? GMSMarker
             let newMarker: GMSMarker? = change?[.newKey] as? GMSMarker
             if newMarker == nil {
-                hideDetailView()
+                detailViewArr.removeAll()
             }
             else {
                 createMarkerDetailView(markerTapped: newMarker)
                 moveMaptoLocation(location:CLLocation(latitude: (newMarker?.position.latitude)!, longitude: (newMarker?.position.longitude)!))
             }
             colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
+            setupDetailTableViewHeight()
         }
     }
     func toggleMarkerColor(marker: GMSMarker?){
         if marker != nil, let googleMarker = marker as? GoogleMapMarker{
             googleMarker.toggleMarkerSelection()
-        }
-    }
-    func toggleDetailView(marker: GMSMarker?){
-        if marker != nil{
-            let detailViewHeight = mapViewType == .TerminalType ? terminalDetailViewHeight : tractorDetailViewHeight
-            let detailView = mapViewType == .TerminalType ? terminalDetailView : tractorDetailView
-            if detailViewHeight?.constant == 0 {
-                createMarkerDetailView(markerTapped: marker)
-                detailView?.isHidden = false
-            }
-            else{
-                detailViewHeight?.constant = 0
-                detailView?.isHidden = true
-            }
         }
     }
     
@@ -438,9 +412,9 @@ extension MapView
         newGoogleMarker?.colorMarkerGreen()
         
         if mapViewType == .TerminalType {
-            oldGoogleMarker?.opacity = oldGoogleMarker?.locationInfo?.corporateOffice == "Y" ? 0.9 : 0.7
+            oldGoogleMarker?.opacity = oldGoogleMarker?.locationInfo.first?.corporateOffice == "Y" ? 0.9 : 0.7
             newGoogleMarker?.opacity = 1
-            oldGoogleMarker?.zIndex = oldGoogleMarker?.locationInfo?.corporateOffice == "Y" ? 1 : 0
+            oldGoogleMarker?.zIndex = oldGoogleMarker?.locationInfo.first?.corporateOffice == "Y" ? 1 : 0
             newGoogleMarker?.zIndex = 2
             
         } else {
@@ -453,55 +427,28 @@ extension MapView
 
     func createMarkerDetailView(markerTapped marker: GMSMarker?){
         if let selectedMarker =  marker as? GoogleMapMarker{
-            if selectedMarker.locationInfo == nil && selectedMarker.tractorInfo == nil {
+            if selectedMarker.locationInfo.count == 0 && selectedMarker.tractorInfo == nil {
                 return
             }
-            if let locInfo =  selectedMarker.locationInfo, mapViewType == .TerminalType{
+            if let locInfo =  selectedMarker.locationInfo.first, mapViewType == .TerminalType{
                 detailViewLocationInfo = locInfo
-                terminalDetailViewDescLbl.text = locInfo.terminalDescr ?? ""
-                terminalDetailViewAddressLbl.attributedText = locInfo.returnDetailLblStr()
-                terminalDetailViewHeight.constant = kTerminalViewHeight
-                tractorDetailView.isHidden = true
-                terminalDetailView.isHidden = false
+                detailViewArr.removeAll()
             }
             else{
                 detailViewTractorInfo = selectedMarker.tractorInfo
-                fillDataInTractorDetailView(tractorInfo: selectedMarker.tractorInfo)
-                tractorDetailViewHeight.constant = kTractorViewHeight
-                tractorDetailView.isHidden = false
+                detailViewArr.removeAll()
             }
-        }
-    }
-    
-    func fillDataInTractorDetailView(tractorInfo : TractorInfo?) {
-        if tractorInfo != nil {
-            tractorDtlViewTerminalLbl.text = tractorInfo?.terminal
-            tractorDtlViewDestLbl.text = tractorInfo?.destinationCity
-            tractorDtlViewTractorLbl.text = tractorInfo?.tractorType
-            tractorDtlViewTrailerLbl.text = tractorInfo?.trailerType
-            tractorDtlViewTrailerLenLbl.text = tractorInfo?.trailerLength
-            let distStr = "\(tractorInfo?.distanceFromShipper ?? 0.00)"
-            tractorDtlViewDistLbl.text = distStr == "0.00" ? "" : distStr
-            tractorDtlViewStatusLbl.text = tractorInfo?.status
-            tractorDtlViewLoadedImgView.image = UIUtils.returnCheckOrCrossImage(str: (tractorInfo?.loaded) ?? "")
-            tractorDtlViewHazmatImgView.image = UIUtils.returnCheckOrCrossImage(str: (tractorInfo?.hazmat) ?? "")
+            detailViewArr.append(selectedMarker)
         }
     }
     
     func mapBtnTapped(forTractorAt index:IndexPath ){
-        let selectedMarker = markers[index.section] as GMSMarker
+        let selectedMarker = markers[index.row] as GMSMarker
         _ = mapView(map, didTap: selectedMarker)
         let location = CLLocation(latitude: selectedMarker.position.latitude, longitude: selectedMarker.position.longitude)
         moveMaptoLocation(location: location)
     }
     
-    @IBAction func terminalSearchCallBtnPressed(){
-        if let locationInfo = detailViewLocationInfo{
-            if let phNumber = locationInfo.phone{
-                UIUtils.callPhoneNumber(phNumber)
-            }
-        }
-    }
     
     @IBAction func tractorSearchCallBtnPressed(){
         if let tratorInfo = detailViewTractorInfo{
@@ -597,6 +544,88 @@ extension MapView: GMSAutocompleteViewControllerDelegate {
     
     func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+}
+
+extension MapView : UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate{
+    
+    func setupTableView(){
+        if mapViewType == .TerminalType{
+            detailTableView.register(UINib(nibName: "TerminalTableCell", bundle: Bundle.main), forCellReuseIdentifier: "TerminalTableCell")
+            cellIdentifier = "TerminalTableCell"
+            detailTableView.estimatedRowHeight = 95
+        }
+        else{
+            detailTableView.register(UINib(nibName: "TractorTableCell", bundle: Bundle.main), forCellReuseIdentifier: "TractorTableCell")
+            cellIdentifier = "TractorTableCell"
+            detailTableView.estimatedRowHeight = 105
+        }
+        detailTableView.rowHeight = UITableViewAutomaticDimension
+        detailTableView.allowsSelection = false
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == detailTableView{
+            if scrollView.contentOffset.y < 0{
+                UIView.animate(withDuration: 0.3) {
+                    self.detailTableViewheight.constant = 0
+                    self.detailTableViewContainer.layoutIfNeeded()
+                }
+            }
+        }
+    }
+    
+    func setupDetailTableViewHeight() {
+        detailTableView.reloadData()
+        detailTableView.layoutIfNeeded()
+        let newHeight = min(view.frame.height*(2/3), detailTableView.contentSize.height)
+        UIView.animate(withDuration: 0.3) {
+            self.detailTableViewheight.constant = newHeight
+            self.detailTableViewContainer.layoutIfNeeded()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if mapViewType == .TerminalType{
+            return detailViewArr.first?.locationInfo.count ?? 0
+        }
+        else{
+           return detailViewArr.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if mapViewType == .TerminalType{
+            return dequeueTerminalCell(tableView:tableView ,indexPath:indexPath)
+        }
+        else{
+            return dequeueTractorCell(tableView:tableView,indexPath:indexPath)
+        }
+    }
+    
+    func dequeueTerminalCell(tableView: UITableView, indexPath: IndexPath) -> TerminalTableCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier!, for: indexPath) as! TerminalTableCell
+
+        let marker = detailViewArr.first
+        if let locationInfo = marker?.locationInfo[indexPath.row]{
+            cell.setLocationInfo(locationInfo: locationInfo)
+        }
+        return cell
+    }
+    
+    func dequeueTractorCell(tableView: UITableView, indexPath: IndexPath) -> TractorTableCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier!, for: indexPath) as! TractorTableCell
+        let marker = detailViewArr[indexPath.row]
+        if let tractorInfo = marker.tractorInfo{
+            cell.setTractorInfo(tractorInfo: tractorInfo)
+            cell.mapBtnView.isHidden = true
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
 }
 

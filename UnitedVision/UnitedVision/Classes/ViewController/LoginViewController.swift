@@ -81,7 +81,11 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
     }
     @IBAction func emailBtnPressed(_ sender: Any) {
     }
-    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        cell.selectionStyle = .none
+        return cell
+    }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 5{
             let emptyRowHeight = tableView.frame.height - kHeightOfOtherRows
