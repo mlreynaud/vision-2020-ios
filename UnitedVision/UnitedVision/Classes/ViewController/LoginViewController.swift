@@ -23,8 +23,8 @@ class LoginViewController: UITableViewController, UITextFieldDelegate, MFMailCom
     override func viewDidLoad() {
         super.viewDidLoad()
         setTitleView(withTitle: "LOGIN", Frame: nil)
-        emailTextfield.text = "customer" // ""owner.operator
-        passwordTextfield.text = "uvlgo4it"
+        emailTextfield.text = "" // ""owner.operator
+        passwordTextfield.text = ""
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
     }
