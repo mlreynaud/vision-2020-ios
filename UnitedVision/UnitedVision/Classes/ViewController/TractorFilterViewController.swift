@@ -12,6 +12,7 @@ import GoogleMaps
 import GooglePlaces
 
 let numberOfFilterLbls = 7
+let kTractorFilterTitle = "TRACTOR SEARCH FILTER"
 
 class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource,SideMenuLogOutDelegate  {
    
@@ -42,14 +43,13 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = "Tractor Search Filter"
         searchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()!
         radiusList = DataManager.sharedInstance.getRadiusList()
         createPickerView(forSize:view.frame.size)
         initiateFilterPopupVC()
         reloadLabels()
         checkIfSavedFiltersSelected()
+        setTitleView(withTitle: kTractorFilterTitle, Frame:nil)
     }
     
     func initiateFilterPopupVC() {
@@ -61,13 +61,13 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
         navigationController?.popToRootViewController(animated: true)
     }
     
-    func reloadLabels(){
+    func reloadLabels() {
         for index in 0...numberOfFilterLbls{
             reloadLabel(at: index)
         }
     }
     
-    func reloadLabel(at index:Int){
+    func reloadLabel(at index:Int) {
         if index == FilterType.loaded.rawValue{
             loadedCheckImgView.isHighlighted = (searchInfo?.loaded)!
         }
@@ -105,15 +105,25 @@ extension TractorFilterViewController{
     }
     
     @IBAction func resetBtnPressed(_ sender: UIControl) {
+        
+        var currentLocation: CLLocation?
+        
+        if LocationManager.sharedInstance.checkLocationAuthorizationStatus() {
+            if let coordinate = DataManager.sharedInstance.userLocation {
+                currentLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            }
+        }
+        
         if let defaultTractorInfo = DataManager.sharedInstance.fetchFilterDefaultValues(){
             searchInfo?.city = defaultTractorInfo.city
             searchInfo?.state = defaultTractorInfo.state
             searchInfo?.zip = defaultTractorInfo.zip
             searchInfo?.radius = defaultTractorInfo.radius
-            searchInfo?.trailerType = defaultTractorInfo.trailerType
+            searchInfo?.trailerTypeId = defaultTractorInfo.trailerTypeId
+            searchInfo?.trailerTypeDesc = defaultTractorInfo.trailerTypeDesc
             searchInfo?.terminalId = defaultTractorInfo.terminalId
-            searchInfo?.latitude = defaultTractorInfo.latitude
-            searchInfo?.longitude = defaultTractorInfo.longitude
+            searchInfo?.latitude = currentLocation?.coordinate.latitude ?? defaultTractorInfo.latitude
+            searchInfo?.longitude = currentLocation?.coordinate.longitude ?? defaultTractorInfo.longitude
             searchInfo?.status.removeAll()
             searchInfo?.tractorType.removeAll()
             searchInfo?.loaded = false
@@ -164,11 +174,12 @@ extension TractorFilterViewController{
             let filterType = FilterType(rawValue: sender.tag)!
             switch filterType {
             case .status:
-                searchInfo?.status.removeAll() //defaultTractorInfo.status
+                searchInfo?.status.removeAll()
             case .tractorType:
-                searchInfo?.tractorType.removeAll() //defaultTractorInfo.tractorType
+                searchInfo?.tractorType.removeAll()
             case .trailerType:
-                searchInfo?.trailerType = defaultTractorInfo.trailerType
+                searchInfo?.trailerTypeId = defaultTractorInfo.trailerTypeId
+                searchInfo?.trailerTypeDesc = defaultTractorInfo.trailerTypeDesc
             case .tractorTerminal:
                 searchInfo?.terminalId = defaultTractorInfo.terminalId
             default:
@@ -186,7 +197,7 @@ extension TractorFilterViewController{
                 (searchInfo?.terminalId)! == defaultTractorInfo.terminalId &&
                 (searchInfo?.tractorId)! == defaultTractorInfo.tractorId &&
                 (searchInfo?.tractorType)! == defaultTractorInfo.tractorType &&
-                (searchInfo?.trailerType)! == defaultTractorInfo.trailerType &&
+                (searchInfo?.trailerTypeId)! == defaultTractorInfo.trailerTypeId &&
                 (searchInfo?.radius)! == defaultTractorInfo.radius &&
                 (searchInfo?.city)! == defaultTractorInfo.city &&
                 (searchInfo?.state)! == defaultTractorInfo.state &&
@@ -241,7 +252,7 @@ extension TractorFilterViewController{
             }
             value = tractorTypeList.joined(separator: ",")
         case .trailerType:
-            value = tractorSearchInfo.trailerType
+            value = tractorSearchInfo.trailerTypeDesc
         case .loaded:
             value = tractorSearchInfo.loaded
         case .hazmat:
@@ -276,10 +287,13 @@ extension TractorFilterViewController{
         
         viewCtrl.completionHandler = {(selectedValue) in
             if filterType == .tractorTerminal {
-                self.searchInfo?.terminalId = selectedValue
+                self.searchInfo?.terminalId = selectedValue as! String
             }
             else if filterType == .trailerType{
-                self.searchInfo?.trailerType = selectedValue
+                if let trailerInfo = selectedValue as? TrailerInfo{
+                    self.searchInfo?.trailerTypeId = trailerInfo.id!
+                    self.searchInfo?.trailerTypeDesc = trailerInfo.descr!
+                }
             }
             self.reloadLabel(at: filterType.rawValue)
         }

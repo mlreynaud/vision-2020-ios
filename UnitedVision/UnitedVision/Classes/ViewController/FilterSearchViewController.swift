@@ -14,10 +14,10 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var tableView : UITableView!
 
     var filterType : FilterType!
-    var selectedValue : String = ""
+    var selectedValue : Any?
     var filterList : [AnyObject] = []
 
-    var completionHandler: ((String)->Void)?
+    var completionHandler: ((Any)->Void)?
     
     @IBOutlet weak var centreLbl: UILabel!
 
@@ -70,7 +70,7 @@ extension FilterSearchViewController
             selectedValue = filterList[indexPath.row] as! String
         }
         else if (filterType == .trailerType) {
-            selectedValue = (filterList[indexPath.row] as! TrailerInfo).id!
+            selectedValue = (filterList[indexPath.row] as! TrailerInfo)
         }
         dismissKeyboard()
     }
@@ -130,7 +130,6 @@ extension FilterSearchViewController
     
     @objc func callSearchAPI(_ searchText: String)
     {
-//        LoadingView.shared.showOverlay()
         if (filterType == .tractorTerminal)
         {
             DataManager.sharedInstance.requestToSearchTerminal(searchText, completionHandler: {( status, results) in
@@ -144,9 +143,6 @@ extension FilterSearchViewController
                     self.filterList = []
                 }
                 self.tableView.reloadData()
-
-//                LoadingView.shared.hideOverlayView()
-                
                 
             })
         }
@@ -163,10 +159,6 @@ extension FilterSearchViewController
                     self.filterList = []
                 }
                 self.tableView.reloadData()
-
-//                LoadingView.shared.hideOverlayView()
-                
-                
             })
         }
 

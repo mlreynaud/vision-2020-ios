@@ -14,7 +14,11 @@ protocol TractorTableCellDelegate : class{
 
 class TractorTableCell: UITableViewCell {
     
-    var tractorId: String?
+    
+    @IBOutlet weak var trailerLengthLbl: UILabel!
+    @IBOutlet weak var trailerTitleLbl: UILabel!
+    
+    @IBOutlet var titleLblCollection: [UILabel]!
     
     @IBOutlet var terminalLbl : UILabel!
     @IBOutlet var destLbl : UILabel!
@@ -29,10 +33,12 @@ class TractorTableCell: UITableViewCell {
     
     @IBOutlet weak var mapBtnView: UIView!
     weak var delegate: TractorTableCellDelegate?
-    
+    var tractorId: String?
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupCell()
@@ -41,6 +47,23 @@ class TractorTableCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCell()
+    }
+    
+    func reduceFontSizeForSmallerIPhone(){
+        if UIDevice.current.screenType == .iPhones_5_5s_5c_SE || UIDevice.current.screenType == .iPhone4_4S{
+            for lbl in titleLblCollection{
+                lbl.font = lbl.font.withSize(11)
+            }
+            trailerLengthLbl.font = trailerLengthLbl.font.withSize(11)
+            trailerTitleLbl.font = trailerTitleLbl.font.withSize(11)
+            terminalLbl.font = terminalLbl.font.withSize(11)
+            destLbl.font = destLbl.font.withSize(11)
+            tractorLbl.font = tractorLbl.font.withSize(11)
+            trailerLbl.font = trailerLbl.font.withSize(11)
+            trailerLenLbl.font = trailerLenLbl.font.withSize(11)
+            distLbl.font = distLbl.font.withSize(11)
+            statusLbl.font = statusLbl.font.withSize(11)
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -61,6 +84,7 @@ class TractorTableCell: UITableViewCell {
         contentView.layer.masksToBounds = true
         loadedImageView.image = UIImage(named:"ic_cancel_circle_red")
         hazmatImageView.image = UIImage(named:"ic_cancel_circle_red")
+        reduceFontSizeForSmallerIPhone()
     }
     
     func setTractorInfo(tractorInfo:TractorInfo) {
@@ -69,14 +93,18 @@ class TractorTableCell: UITableViewCell {
         destLbl.attributedText = tractorInfo.destinationCity!.createAttributedString(subString: "", subStringColor: .darkGray)
         tractorLbl.attributedText = tractorInfo.tractorType!.createAttributedString(subString: "", subStringColor: .darkGray)
         
-        trailerLbl.attributedText = tractorInfo.trailerTypeDescr!.createAttributedString(subString: "", subStringColor: .darkGray)
+        trailerLbl.attributedText = tractorInfo.trailerType!.createAttributedString(subString: "", subStringColor: .darkGray)
         
         trailerLenLbl.attributedText = tractorInfo.trailerLength!.createAttributedString(subString: "", subStringColor: .darkGray)
+        
         let distStr = "\(tractorInfo.distanceFromShipper ?? 0.00)mi"
         distLbl.attributedText = (distStr == "0.00mi" ? "" : distStr).createAttributedString(subString: "", subStringColor: .darkGray)
         statusLbl.attributedText = tractorInfo.status!.createAttributedString(subString: "", subStringColor: .darkGray)
         loadedImageView.image = UIUtils.returnCheckOrCrossImage(str: tractorInfo.loaded ?? "")
         hazmatImageView.image =  UIUtils.returnCheckOrCrossImage(str: tractorInfo.hazmat ?? "")
+        
+        trailerLengthLbl.isHidden = tractorInfo.trailerLength == ""
+        trailerTitleLbl.isHidden = tractorInfo.trailerType == ""
     }
     
     //MARK- Button Action methods

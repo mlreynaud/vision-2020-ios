@@ -259,7 +259,6 @@ extension MapView
         else{
             UIUtils.showAlert(withTitle: kAppTitle, message: "Please Check your GPS permissions", inContainer: getCurrentViewController()!)
         }
-        
         return currentLocation
     }
 }
@@ -562,6 +561,7 @@ extension MapView : UIScrollViewDelegate, UITableViewDataSource, UITableViewDele
         }
         detailTableView.rowHeight = UITableViewAutomaticDimension
         detailTableView.allowsSelection = false
+        detailTableView.separatorStyle = .none
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

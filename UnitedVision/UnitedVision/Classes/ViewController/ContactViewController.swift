@@ -76,21 +76,7 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
     @IBAction func mailButtonAction(_ sender: UIButton)
     {
         let info = contactInfoList[sender.tag]
-        let mailComposeViewController = configureMailComposer(info.email!)
-        if MFMailComposeViewController.canSendMail(){
-            self.present(mailComposeViewController, animated: true, completion: nil)
-        }else{
-            print("Can't send email")
-        }
-    }
-    
-    func configureMailComposer(_ receipient :String) -> MFMailComposeViewController
-    {
-        let mailComposeVC = MFMailComposeViewController()
-        mailComposeVC.mailComposeDelegate = self
-        mailComposeVC.setToRecipients([receipient])
-        mailComposeVC.setSubject("United Vision")
-        return mailComposeVC
+        UIUtils.presentMailComposeVC(email:info.email, presentingVC: self)
     }
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {

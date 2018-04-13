@@ -18,7 +18,9 @@ class TractorSearchInfo {
     var terminalId : String = ""
     var tractorId : String = ""
     var tractorType = [String]()
-    var trailerType : String = ""
+    
+    var trailerTypeId : String = ""
+    var trailerTypeDesc : String = ""
     
     // required
     var radius: String = ""
@@ -62,8 +64,12 @@ class TractorSearchInfo {
             tractorType.append(contentsOf: value)
         }
         
-        if let value = info["trailerType"] as? String{
-            trailerType = value
+        if let value = info["trailerTypeId"] as? String{
+            trailerTypeId = value
+        }
+        
+        if let value = info["trailerTypeDesc"] as? String{
+            trailerTypeDesc = value
         }
         
         if let value = info["terminalId"] as? String{
