@@ -20,6 +20,12 @@ let kIntrastateKey = "Intrastate"
 let kCarrierKey = "Carrier"
 let kOwnerDriverKey = "Owner\\Driver"
 
+
+let kRegFieldStateTitle = "State"
+let KRegFieldUserTypeTitle = "User Type"
+let KRegFieldCarrierNumTypeTitle = "Carrier Num Type"
+let KRegFieldCarrierStateTitle = "State"
+
 enum RegDataField: Int{
     case EFirstName = 1
     case ELastName
@@ -52,6 +58,20 @@ enum RegDataField: Int{
             return kUserTypepList
         case RegDataField.ECarrierNumType:
             return kCarrierNumTypepList
+        default:
+            return nil
+        }
+    }
+    static func regFieldPickerTitleHeader(regDataField:RegDataField) -> String? {
+        switch regDataField {
+        case RegDataField.EState:
+            return kRegFieldStateTitle
+        case RegDataField.EUserType:
+            return KRegFieldUserTypeTitle
+        case RegDataField.ECarrierNumType:
+            return KRegFieldCarrierNumTypeTitle
+        case RegDataField.ECarrierState:
+            return KRegFieldCarrierStateTitle
         default:
             return nil
         }
@@ -95,12 +115,6 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
         reloadTextFieldsBackground()
         reloadDropDownBtns()
     }
-    
-//    func setTitleView(withTitle title: String,Frame frame:CGRect?) {
-//        let titleView = TitleView.loadViewFromNib()
-//        titleView.setTitle(Title: title, Frame: frame)
-//        self.navigationItem.titleView = titleView
-//    }
     
     func fetchDataFromPlists() {
         dataValidationArr = UIUtils.parsePlist(ofName: kRegDataValidpList) as? [Dictionary<String, Any>]
@@ -319,34 +333,36 @@ extension RegisterViewController{
     }
     
     func presentRegFieldPickerController(withData data:[String], for regDataField: RegDataField){
-        let regFieldPicker = RegFieldPickerController.initiateRegFieldPicker()
-        regFieldPicker.dataList = data
-        regFieldPicker.fieldCompletionHandler = { (selectedStr) in
-            if selectedStr != nil {
+        let popOverVC = PopOverViewController.initiatePopOverVC()
+        popOverVC.titleText = RegDataField.regFieldPickerTitleHeader(regDataField: regDataField) ?? ""
+        popOverVC.dataList = data
+        popOverVC.popOverCompletionHandler = { (selectedOption) in
+            if selectedOption != nil {
+                let selectedStr = data[selectedOption!]
                 if regDataField == .EState{
                     self.selectedStateLbl.text = selectedStr
-                    self.selectedState = self.usStateDict![selectedStr!]!
+                    self.selectedState = self.usStateDict![selectedStr]!
                 }
                 else if regDataField == .EUserType{
                     self.selectedUserTypeLbl.text = selectedStr
-                    self.selectedUserType = self.userTypeDict![selectedStr!]!
+                    self.selectedUserType = self.userTypeDict![selectedStr]!
                 }
                 else if regDataField == .ECarrierNumType{
                     self.selectedCarrierNumberTypeLbl.text = selectedStr
-                    self.selectedCarrierNumberType = self.carrierNumberTypeDict![selectedStr!]!
+                    self.selectedCarrierNumberType = self.carrierNumberTypeDict![selectedStr]!
                 }
                 else if regDataField == .ECarrierState{
                     self.selectedCarrierStateLbl.text = selectedStr
-                    self.selectedCarrierState = self.usStateDict![selectedStr!]!
+                    self.selectedCarrierState = self.usStateDict![selectedStr]!
                 }
                 self.reloadTextFieldsBackground()
                 self.reloadDropDownBtns()
                 self.view.endEditing(true)
             }
         }
-        regFieldPicker.modalTransitionStyle = .crossDissolve
-        regFieldPicker.modalPresentationStyle = .overCurrentContext
-        self.present(regFieldPicker, animated: true, completion: nil)
+        popOverVC.modalTransitionStyle = .crossDissolve
+        popOverVC.modalPresentationStyle = .overCurrentContext
+        self.present(popOverVC, animated: true, completion: nil)
     }
 }
 

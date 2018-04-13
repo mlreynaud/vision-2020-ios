@@ -290,9 +290,9 @@ class DataManager: NSObject {
             requestStr.append("\(joined)")
         }
         
-        if searchInfo.trailerType.count > 0
+        if searchInfo.trailerTypeId.count > 0
         {
-            requestStr.append("&trailerType=\(searchInfo.trailerType.encodeString())")
+            requestStr.append("&trailerType=\(searchInfo.trailerTypeId.encodeString())")
         }
         
         searchInfo.tractorType = remove(str: "All", fromList: searchInfo.tractorType)

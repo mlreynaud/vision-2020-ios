@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import MessageUI
 
 let kHeightOfOtherRows = CGFloat(422)
 let kDefaultHeightOfEmptyRow = CGFloat(44)
+let kEmptyRowIndex = 5
+let kForgotPassPhNo = "8002703158"
+let kForgotPassEmail = "uvlwebsitesupport@uvlogistics.com"
 
-class LoginViewController: UITableViewController, UITextFieldDelegate {
+class LoginViewController: UITableViewController, UITextFieldDelegate, MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var emailTextfield : UITextField!
     @IBOutlet weak var passwordTextfield : UITextField!
@@ -73,21 +77,32 @@ class LoginViewController: UITableViewController, UITextFieldDelegate {
             }
         })
     }
+    
     @IBAction func registerBtnPressed(_ sender: Any) {
         let registerVC = storyboard?.instantiateViewController(withIdentifier: "RegisterViewController")
         self.navigationController?.pushViewController(registerVC!, animated: true)
     }
+    
     @IBAction func callBtnPressed(_ sender: Any) {
+        UIUtils.callPhoneNumber(kForgotPassPhNo)
     }
+    
     @IBAction func emailBtnPressed(_ sender: Any) {
+        UIUtils.presentMailComposeVC(email:kForgotPassEmail, presentingVC: self)
     }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.selectionStyle = .none
         return cell
     }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 5{
+        if indexPath.row == kEmptyRowIndex{
             let emptyRowHeight = tableView.frame.height - kHeightOfOtherRows
             return max(emptyRowHeight,kDefaultHeightOfEmptyRow)
         }

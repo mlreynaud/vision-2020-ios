@@ -12,6 +12,47 @@ import MapKit
 import GoogleMaps
 import GooglePlaces
 
+enum TractorSortType : Int {
+    case EDestinationCity = 0
+    case EDistance
+    case ETractorType
+    case ETerminal
+    case EStatus
+}
+
+extension TractorSortType{
+    public var description: String {
+        switch self {
+        case .EDestinationCity:
+            return "Destination City"
+        case .EDistance:
+            return "Distance"
+        case .ETractorType:
+            return "Tractor Type"
+        case .ETerminal:
+            return "Terminal"
+        case .EStatus:
+            return "Status"
+        }
+    }
+}
+
+extension TractorSortType {
+    static var array: [String] {
+        var arr: [String] = []
+        switch TractorSortType.EDestinationCity {
+        case .EDestinationCity: arr.append(TractorSortType.EDestinationCity.description); fallthrough
+        case .EDistance: arr.append(TractorSortType.EDistance.description); fallthrough
+        case .ETractorType: arr.append(TractorSortType.ETractorType.description); fallthrough
+        case .ETerminal: arr.append(TractorSortType.ETerminal.description); fallthrough
+        case .EStatus: arr.append(TractorSortType.EStatus.description);
+        }
+        return arr
+    }
+}
+
+let kSortBy = "Sort By"
+
 class TractorViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MKMapViewDelegate, TractorTableCellDelegate, GMSMapViewDelegate,SideMenuLogOutDelegate {
     
     @IBOutlet weak var tableView : UITableView!
@@ -91,9 +132,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
     }
         
     @IBAction func segmentControlValueChanged(_ sender: UISegmentedControl) {
-        
         sender.changeUnderlinePosition()
-
         switch sender.selectedSegmentIndex {
         case 0:
             mapView.isHidden = true
@@ -110,27 +149,24 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         }
     }
     
-    @IBAction func filterButtonAction()
-    {
+    @IBAction func filterButtonAction(){
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TractorFilterViewController") as! TractorFilterViewController
         viewCtrl.searchCompletionHandler = {(searchInfo) in
             self.tractorSearchInfo = searchInfo
             self.fetchTractorLocations()
         }
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.pushViewController(viewCtrl, animated: true)
     }
     
-    func createAnnotation(coordinate:CLLocationCoordinate2D) -> MKPointAnnotation
-    {
+    func createAnnotation(coordinate:CLLocationCoordinate2D) -> MKPointAnnotation{
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
         return annotation
     }
     
-    func fetchTractorLocations()
-    {
+    func fetchTractorLocations(){
         LoadingView.shared.showOverlay()
         DataManager.sharedInstance.requestToSearchTractor(tractorSearchInfo, completionHandler: {( status, tractorList) in
             
@@ -145,12 +181,9 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
             }
         })
     }
-        
     
-    func addTractorAnnotations()
-    {
+    func addTractorAnnotations(){
         var mapLocationList: [TractorInfo] = []
-        
         let searchLocation: CLLocation = CLLocation(latitude: tractorSearchInfo.latitude, longitude: tractorSearchInfo.longitude)
         for info in tractorArray
         {
@@ -159,27 +192,30 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
             if (Int(dist) <= Int(self.tractorSearchInfo.radius)!) {
                 mapLocationList.append(info)
             }
-           
         }
-        
         mapView.setSelectedRadius(Int(self.tractorSearchInfo.radius)!)
         mapView.searchLocation = searchLocation
         mapView.addTractorList(mapLocationList)
         mapView.zoomMapToRadius()
     }
+    
     @objc func searchBarBtnPressed() {
         self.mapView.presentAutoCompleteController()
     }
+    
     @objc func sortBtnPressed() {
-        let tractorSortVC = TractorSortViewController.initiateTractorSortVC()
-        tractorSortVC.sortCompletionHandler = { (selectedSortType) in
-            if selectedSortType != nil {
-                self.performListSortingFor(SortType: selectedSortType!)
+        let sortPopOver = PopOverViewController.initiatePopOverVC()
+        sortPopOver.dataList = TractorSortType.array
+        sortPopOver.titleText = kSortBy
+        sortPopOver.isCancelEnabled = false
+        sortPopOver.popOverCompletionHandler = { (selectedOption) in
+            if selectedOption != nil{
+                self.performListSortingFor(SortType: TractorSortType(rawValue:selectedOption!)!)
             }
         }
-        tractorSortVC.modalPresentationStyle = .overCurrentContext
-        tractorSortVC.modalTransitionStyle = .crossDissolve
-        self.present(tractorSortVC, animated: true, completion: nil)
+        sortPopOver.modalPresentationStyle = .overCurrentContext
+        sortPopOver.modalTransitionStyle = .crossDissolve
+        self.present(sortPopOver, animated: true, completion: nil)
     }
     
     func performListSortingFor(SortType sortType:TractorSortType){
@@ -241,15 +277,13 @@ extension TractorViewController
         return cell!
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     //MARK- TractorTableCell delegate methods
     
-    func showMapAtIndex (_ cell: TractorTableCell)
-    {
+    func showMapAtIndex (_ cell: TractorTableCell){
         segmentedControl.selectedSegmentIndex = 1
         segmentControlValueChanged(segmentedControl)
         let indexPath = tableView.indexPath(for: cell)
