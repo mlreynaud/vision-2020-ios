@@ -14,10 +14,10 @@ protocol TractorTableCellDelegate : class{
 
 class TractorTableCell: UITableViewCell {
     
-    
+    @IBOutlet weak var loadedLbl: UILabel!
+    @IBOutlet weak var loadedViewWidth: NSLayoutConstraint!
     @IBOutlet weak var trailerLengthLbl: UILabel!
     @IBOutlet weak var trailerTitleLbl: UILabel!
-    
     @IBOutlet var titleLblCollection: [UILabel]!
     
     @IBOutlet var terminalLbl : UILabel!
@@ -105,6 +105,12 @@ class TractorTableCell: UITableViewCell {
         
         trailerLengthLbl.isHidden = tractorInfo.trailerLength == ""
         trailerTitleLbl.isHidden = tractorInfo.trailerType == ""
+        
+        let userType = DataManager.sharedInstance.userType
+        let isLoadedViewVisible = (userType == .employeeTS || userType == .agent || userType == .customer)
+        loadedViewWidth.constant = isLoadedViewVisible ? loadedViewWidth.constant : 0
+        loadedLbl.isHidden = !isLoadedViewVisible
+        loadedImageView.isHidden = !isLoadedViewVisible
     }
     
     //MARK- Button Action methods

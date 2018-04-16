@@ -42,6 +42,21 @@ enum LeftMenuItem: RawRepresentable {
         }
     }
     
+    public var identifier: String? {
+        switch self {
+        case .tractorSearch:
+            return "TractorViewController"
+        case .terminalSearch:
+            return "TerminalSearchViewController"
+        case .contact:
+            return "ContactViewController"
+        case .login:
+            return "LoginViewController"
+        default:
+            return nil
+        }
+    }
+    
     case home
     case tractorSearch
     case terminalSearch
@@ -103,9 +118,17 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
     func populateArray() {
         
         if (DataManager.sharedInstance.isLogin) {
-            menus = ["Home", "Terminal Search", "Tractor Search", "Contact", "Log Out"]
-            imageList = ["ic_home","ic_location_grey", "ic_truck_gray" ,"ic_call_black", "ic_logout"]
-            menuValues = [.home, .terminalSearch, .tractorSearch, .contact, .logout]
+            let userType = DataManager.sharedInstance.userType
+            if userType == .employeeTS || userType == .driver || userType == .agent || userType == .broker || userType == .customer || userType == .carrier{
+                menus = ["Home", "Terminal Search", "Tractor Search", "Contact", "Log Out"]
+                imageList = ["ic_home","ic_location_grey", "ic_truck_gray" ,"ic_call_black", "ic_logout"]
+                menuValues = [.home, .terminalSearch, .tractorSearch, .contact, .logout]
+            }
+            else{
+                menus = ["Home", "Terminal Search", "Contact", "Log Out"]
+                imageList = ["ic_home", "ic_location_grey", "ic_call_black", "ic_logout"]
+                menuValues = [.home, .terminalSearch, .contact, .logout]
+            }
         }
         else{
             menus = ["Home", "Terminal Search", "Contact", "Log In"]
@@ -171,27 +194,11 @@ extension SideMenuViewController
     }
     
     func getViewControllerFor(menu: LeftMenuItem) -> UIViewController? {
-        
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        switch menu {
-        case .terminalSearch:
-            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TerminalSearchViewController") as! TerminalSearchViewController
-            return viewCtrl
-            
-        case .tractorSearch:
-            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TractorViewController") as! TractorViewController
-            return viewCtrl
-            
-        case .contact:
-            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "ContactViewController") as! ContactViewController
-            return viewCtrl
-        case .login:
-            let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-            return viewCtrl
-        default:
-                break
+        var viewController : UIViewController? = nil
+        if let vcIdentifier = menu.identifier{
+            viewController = storyBoard.instantiateViewController(withIdentifier:vcIdentifier)
         }
-        return nil
+        return viewController
     }
 }

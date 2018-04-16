@@ -79,8 +79,8 @@ class LoginViewController: UITableViewController, UITextFieldDelegate, MFMailCom
     }
     
     @IBAction func registerBtnPressed(_ sender: Any) {
-        let registerVC = storyboard?.instantiateViewController(withIdentifier: "RegisterViewController")
-        self.navigationController?.pushViewController(registerVC!, animated: true)
+//        let registerVC = storyboard?.instantiateViewController(withIdentifier: "RegisterViewController")
+//        self.navigationController?.pushViewController(registerVC!, animated: true)
     }
     
     @IBAction func callBtnPressed(_ sender: Any) {

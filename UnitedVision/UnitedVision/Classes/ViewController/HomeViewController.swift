@@ -9,11 +9,16 @@
 import UIKit
 import FZAccordionTableView
 
+let kNoOfBottomBtns = 3
+
 class HomeViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate,SideMenuLogOutDelegate {
    
     static fileprivate let kTableViewCellReuseIdentifier = "AccordionTableCell"
     static let kSlideViewCellReuseIdentifier = "slideViewCell"
 
+    @IBOutlet weak var loginTractorCardView: CardView!
+    
+    @IBOutlet weak var bottomStackView: UIStackView!
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var pageControl: UIPageControl!
@@ -75,11 +80,11 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
             else{
                 Timer.scheduledTimer(timeInterval: 2 - timeNow.timeIntervalSince(self.beginTime!), target: self, selector: #selector(self.removeInitialViewScreen), userInfo: nil, repeats: false)
             }
+            self.checkIfLoggedIn()
         })
     }
     
-    func initialSetup()
-    {
+    func initialSetup(){
         let logo = UIImage(named: "uv_logo_nooutline") // uv1
         let imageView = UIImageView(image:logo)
         imageView.contentMode = .scaleAspectFit
@@ -93,7 +98,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         setNavigationBarItem()
         checkIfLoggedIn()
     }
-    
+ 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         updateLayoutConstraints(forSize: size)
         let dispatchTime = DispatchTime.now() + 0.2
@@ -126,7 +131,6 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
             centreHomeContentHeight.constant = (newSize.height - 40)*(1/5)
             }
         self.collectionView.reloadData()
-
     }
     
     func fetchHomeContent() {
@@ -153,25 +157,50 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     func checkIfLoggedIn() {
         let ifLoggedIn = DataManager.sharedInstance.isLogin
-        let btnImg : UIImage? = ifLoggedIn ? UIImage(named:"ic_truck_red") : UIImage(named:"ic_login_red")
-        let btnTitle : String? = ifLoggedIn ? "Tractor Search" : "Login"
-        loginTractorBtnImg.image = btnImg
-        loginTractorBtnLbl.text = btnTitle
+        if ifLoggedIn{
+            let userType = DataManager.sharedInstance.userType
+            if userType == .employeeTS || userType == .driver || userType == .agent || userType == .broker || userType == .customer || userType == .carrier{
+                if bottomStackView.arrangedSubviews.count != kNoOfBottomBtns{
+                    loginTractorCardView.isHidden = false
+                    bottomStackView.addArrangedSubview(loginTractorCardView)
+                }
+                loginTractorBtnImg.image = UIImage(named:"ic_truck_red")
+                loginTractorBtnLbl.text = "Tractor Search"
+            }
+            else{
+                if bottomStackView.arrangedSubviews.count == kNoOfBottomBtns{
+                    loginTractorCardView.isHidden = true
+                    bottomStackView.removeArrangedSubview(loginTractorCardView)
+                }
+            }
+        }
+        else{
+            if bottomStackView.arrangedSubviews.count != kNoOfBottomBtns{
+                loginTractorCardView.isHidden = false
+                bottomStackView.addArrangedSubview(loginTractorCardView)
+            }
+            loginTractorBtnImg.image = UIImage(named:"ic_login_red")
+            loginTractorBtnLbl.text = "Login"
+        }
+        updateLayoutConstraints(forSize: view.frame.size)
     }
     
     @IBAction func contactUsTapped(_ sender: Any) {
-        let contactVCIdentifier = "ContactViewController"
-        pushVC(withIdentifier: contactVCIdentifier)
+        if let contactVCIdentifier = LeftMenuItem.contact.identifier{
+            pushVC(withIdentifier: contactVCIdentifier)
+        }
     }
-    
+
     @IBAction func terminalSearchTapped(_ sender: Any) {
-        let terminalSearchVCIdentifier = "TerminalSearchViewController"
-        pushVC(withIdentifier: terminalSearchVCIdentifier)
+        if let terminalSearchVCIdentifier = LeftMenuItem.terminalSearch.identifier{
+            pushVC(withIdentifier: terminalSearchVCIdentifier)
+        }
     }
     
     @IBAction func loginTractorBtnTapped(_ sender: Any) {
-        let loginTractorVCIdentifier = DataManager.sharedInstance.isLogin ? "TractorViewController" : "LoginViewController"
-        pushVC(withIdentifier: loginTractorVCIdentifier)
+        if let loginTractorVCIdentifier = DataManager.sharedInstance.isLogin ? LeftMenuItem.tractorSearch.identifier : LeftMenuItem.login.identifier{
+            pushVC(withIdentifier: loginTractorVCIdentifier)
+        }
     }
         
     func pushVC(withIdentifier identifier:String){

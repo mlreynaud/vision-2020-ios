@@ -30,11 +30,16 @@ enum FilterType: Int {
     case hazmat
 }
 
-enum UserType: Int {
-    case none = 1000
-    case customer
-    case carrier
-    case employee
+enum UserType: String {
+    case none = ""
+    case customer = "Customer"
+    case carrier = "Carrier"
+    case employee = "Employee"
+    case employeeTS = "Employee TS"
+    case owner = "Owner"
+    case driver = "Driver"
+    case agent = "Agent"
+    case broker = "Broker"
 }
 
 enum MapViewType {

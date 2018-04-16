@@ -17,7 +17,7 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
     var selectedValue : Any?
     var filterList : [AnyObject] = []
 
-    var completionHandler: ((Any)->Void)?
+    var completionHandler: ((Any?)->Void)?
     
     @IBOutlet weak var centreLbl: UILabel!
 
@@ -84,11 +84,11 @@ extension FilterSearchViewController
     }
     
     //MARK: - SearchView delgate
-    
     func searchBarBecomeFirstResponder ()
     {
         self.searchBar.becomeFirstResponder()
     }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
@@ -100,32 +100,14 @@ extension FilterSearchViewController
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         
         guard (text.count != 0) else{
-            
             searchBar.text = ""
             self.filterList.removeAll()
             self.tableView.reloadData()
-            
-//            if isLogin && (headerView?.myItemsSwitch.isOn)!
-//            {
-//                pageNo = 1
-//                getFiltersList(msds: self.msds, categoryList: self.category, noOfFilters: self.filterCount)
-//            }
-//            else
-//            {
-//                showMyItems(switchValue: false)
-//                isSearching = false
-//                setupTableConstants()
-//            }
             print("No Search String");
             return
         }
         
         self.perform(#selector(FilterSearchViewController.callSearchAPI), with:searchBar.text, afterDelay: 0.5)
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        AppPrefData.sharedInstance.homeSearchText = searchBar.text
-//        AppPrefData.sharedInstance.saveAllData()
     }
     
     @objc func callSearchAPI(_ searchText: String)

@@ -128,7 +128,7 @@ class DataManager: NSObject {
         
         let postParams = ["username": username.encodeString(), "password": password.encodeString()] as Dictionary<String, String>
        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: postParams) as URLRequest
-        WebServiceManager.sendRequest(request, completionHandler: {[unowned self] (data, error) in
+        WebServiceManager.sendRequest(request, completionHandler: {(data, error) in
             
             if error != nil{
                 handler(false, "Login failed")
@@ -142,8 +142,8 @@ class DataManager: NSObject {
                     return
             }
             
-            self.userType = self.checkUserType(responseStr)
-            self.userTypeStr = (self.userType == .none) ? "" : responseStr
+            self.userType = UserType(rawValue: responseStr) ?? UserType.none
+            self.userTypeStr = self.userType.rawValue
             
             (self.userType == .none) ? handler(false, "Login failed") : handler(true, "Login sucessfull")
         })
@@ -163,7 +163,7 @@ class DataManager: NSObject {
         
 
         let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: postParams) as URLRequest
-        WebServiceManager.sendRequest(request, completionHandler: {[unowned self] (data, error) in
+        WebServiceManager.sendRequest(request, completionHandler: {(data, error) in
             
             if error != nil{
                 handler(false, "Invalid Token")
@@ -177,8 +177,8 @@ class DataManager: NSObject {
                     return
             }
             
-            self.userType = self.checkUserType(responseStr)
-            self.userTypeStr = (self.userType == .none) ? "" : responseStr
+            self.userType = UserType(rawValue: responseStr) ?? UserType.none
+            self.userTypeStr = self.userType.rawValue
             
             (self.userType == .none) ? handler(false, "Invalid Token") : handler(true, "Valid Token")
         })
@@ -483,23 +483,23 @@ class DataManager: NSObject {
         }
     }
     
-    func checkUserType(_ user: String) -> UserType
-    {
-        var type : UserType = .none
-        if (user == "Customer")
-        {
-            type = .customer
-        }
-        else if (user == "Carrier")
-        {
-            type = .carrier
-        }
-        else if (user == "Employee")
-        {
-            type = .employee
-        }
-        return type
-    }
+//    func checkUserType(_ user: String) -> UserType
+//    {
+//        var type : UserType = .none
+//        if (user == "Customer")
+//        {
+//            type = .customer
+//        }
+//        else if (user == "Carrier")
+//        {
+//            type = .carrier
+//        }
+//        else if (user == "Employee")
+//        {
+//            type = .employee
+//        }
+//        return type
+//    }
     
     func getRadiusList() -> [String]
     {

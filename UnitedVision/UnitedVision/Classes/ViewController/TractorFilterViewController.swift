@@ -1,4 +1,4 @@
-//
+
 //  TractorFilterViewController.swift
 //  UnitedVision
 //
@@ -113,7 +113,10 @@ extension TractorFilterViewController{
                 currentLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
             }
         }
-        
+        AppPrefData.sharedInstance.searchDict = nil
+//        searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
+//        DataManager.sharedInstance.tractorSearchInfo = searchInfo
+//        AppPrefData.sharedInstance.saveAllData()
         if let defaultTractorInfo = DataManager.sharedInstance.fetchFilterDefaultValues(){
             searchInfo?.city = defaultTractorInfo.city
             searchInfo?.state = defaultTractorInfo.state
@@ -129,6 +132,8 @@ extension TractorFilterViewController{
             searchInfo?.loaded = false
             searchInfo?.hazmat = false
         }
+        DataManager.sharedInstance.tractorSearchInfo = searchInfo
+        AppPrefData.sharedInstance.saveAllData()
         reloadLabels()
         checkIfSavedFiltersSelected()
     }
@@ -287,7 +292,7 @@ extension TractorFilterViewController{
         
         viewCtrl.completionHandler = {(selectedValue) in
             if filterType == .tractorTerminal {
-                self.searchInfo?.terminalId = selectedValue as! String
+                self.searchInfo?.terminalId = (selectedValue ?? "") as! String
             }
             else if filterType == .trailerType{
                 if let trailerInfo = selectedValue as? TrailerInfo{

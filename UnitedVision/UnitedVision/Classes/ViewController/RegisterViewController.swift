@@ -20,7 +20,6 @@ let kIntrastateKey = "Intrastate"
 let kCarrierKey = "Carrier"
 let kOwnerDriverKey = "Owner\\Driver"
 
-
 let kRegFieldStateTitle = "State"
 let KRegFieldUserTypeTitle = "User Type"
 let KRegFieldCarrierNumTypeTitle = "Carrier Num Type"

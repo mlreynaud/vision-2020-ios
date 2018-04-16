@@ -562,6 +562,8 @@ extension MapView : UIScrollViewDelegate, UITableViewDataSource, UITableViewDele
         detailTableView.rowHeight = UITableViewAutomaticDimension
         detailTableView.allowsSelection = false
         detailTableView.separatorStyle = .none
+        self.detailTableViewheight.constant = 0
+        self.detailTableViewContainer.layoutIfNeeded()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
