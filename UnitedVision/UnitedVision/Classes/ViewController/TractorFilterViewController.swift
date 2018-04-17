@@ -105,37 +105,55 @@ extension TractorFilterViewController{
     }
     
     @IBAction func resetBtnPressed(_ sender: UIControl) {
-        
+        var isCurrentLocAvail: Bool = false
         var currentLocation: CLLocation?
+
+        func resetFilterToDefaultValues(){
+            AppPrefData.sharedInstance.searchDict = nil
+            if let defaultTractorInfo = DataManager.sharedInstance.fetchFilterDefaultValues(){
+                if !isCurrentLocAvail{
+                    searchInfo?.city = defaultTractorInfo.city
+                    searchInfo?.state = defaultTractorInfo.state
+                    searchInfo?.zip = defaultTractorInfo.zip
+                    searchInfo?.latitude = defaultTractorInfo.latitude
+                    searchInfo?.longitude = defaultTractorInfo.longitude
+                }
+                searchInfo?.radius = defaultTractorInfo.radius
+                searchInfo?.trailerTypeId = defaultTractorInfo.trailerTypeId
+                searchInfo?.trailerTypeDesc = defaultTractorInfo.trailerTypeDesc
+                searchInfo?.terminalId = defaultTractorInfo.terminalId
+                searchInfo?.status.removeAll()
+                searchInfo?.tractorType.removeAll()
+                searchInfo?.loaded = false
+                searchInfo?.hazmat = false
+            }
+            DataManager.sharedInstance.tractorSearchInfo = searchInfo
+            AppPrefData.sharedInstance.saveAllData()
+            reloadLabels()
+            checkIfSavedFiltersSelected()
+        }
         
         if LocationManager.sharedInstance.checkLocationAuthorizationStatus() {
-            if let coordinate = DataManager.sharedInstance.userLocation {
-                currentLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            if let userLocation = DataManager.sharedInstance.userLocation {
+                currentLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+                LoadingView.shared.showOverlay()
+                let geocoder: GMSGeocoder = GMSGeocoder()
+                geocoder.reverseGeocodeCoordinate(currentLocation!.coordinate) { (response, error) in
+                    LoadingView.shared.hideOverlayView()
+                    isCurrentLocAvail = true
+                    let address = response?.firstResult()
+                    self.searchInfo?.city = (address?.locality) ?? ""
+                    self.searchInfo?.state = (address?.administrativeArea) ?? ""
+                    self.searchInfo?.zip = (address?.postalCode) ?? ""
+                    self.searchInfo?.latitude = currentLocation?.coordinate.latitude ?? 0
+                    self.searchInfo?.longitude = currentLocation?.coordinate.longitude ?? 0
+                    resetFilterToDefaultValues()
+                }
             }
         }
-        AppPrefData.sharedInstance.searchDict = nil
-//        searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
-//        DataManager.sharedInstance.tractorSearchInfo = searchInfo
-//        AppPrefData.sharedInstance.saveAllData()
-        if let defaultTractorInfo = DataManager.sharedInstance.fetchFilterDefaultValues(){
-            searchInfo?.city = defaultTractorInfo.city
-            searchInfo?.state = defaultTractorInfo.state
-            searchInfo?.zip = defaultTractorInfo.zip
-            searchInfo?.radius = defaultTractorInfo.radius
-            searchInfo?.trailerTypeId = defaultTractorInfo.trailerTypeId
-            searchInfo?.trailerTypeDesc = defaultTractorInfo.trailerTypeDesc
-            searchInfo?.terminalId = defaultTractorInfo.terminalId
-            searchInfo?.latitude = currentLocation?.coordinate.latitude ?? defaultTractorInfo.latitude
-            searchInfo?.longitude = currentLocation?.coordinate.longitude ?? defaultTractorInfo.longitude
-            searchInfo?.status.removeAll()
-            searchInfo?.tractorType.removeAll()
-            searchInfo?.loaded = false
-            searchInfo?.hazmat = false
+        else{
+            resetFilterToDefaultValues()
         }
-        DataManager.sharedInstance.tractorSearchInfo = searchInfo
-        AppPrefData.sharedInstance.saveAllData()
-        reloadLabels()
-        checkIfSavedFiltersSelected()
     }
     
     @IBAction func saveDefaultViewTapped(_ sender: Any) {
@@ -175,23 +193,21 @@ extension TractorFilterViewController{
         }
     }
     @IBAction func filterCancelBtnTapped(_ sender: UIButton) {
-        if let defaultTractorInfo = DataManager.sharedInstance.fetchFilterDefaultValues(){
-            let filterType = FilterType(rawValue: sender.tag)!
-            switch filterType {
-            case .status:
-                searchInfo?.status.removeAll()
-            case .tractorType:
-                searchInfo?.tractorType.removeAll()
-            case .trailerType:
-                searchInfo?.trailerTypeId = defaultTractorInfo.trailerTypeId
-                searchInfo?.trailerTypeDesc = defaultTractorInfo.trailerTypeDesc
-            case .tractorTerminal:
-                searchInfo?.terminalId = defaultTractorInfo.terminalId
-            default:
-                break
-            }
-            reloadLabel(at: sender.tag)
+        let filterType = FilterType(rawValue: sender.tag)!
+        switch filterType {
+        case .status:
+            searchInfo?.status.removeAll()
+        case .tractorType:
+            searchInfo?.tractorType.removeAll()
+        case .trailerType:
+            searchInfo?.trailerTypeId = ""
+            searchInfo?.trailerTypeDesc = ""
+        case .tractorTerminal:
+            searchInfo?.terminalId = ""
+        default:
+            break
         }
+        reloadLabel(at: sender.tag)
     }
     func checkIfSavedFiltersSelected() {
         if let defaultTractorInfo = DataManager.sharedInstance.fetchFilterDefaultValues(){

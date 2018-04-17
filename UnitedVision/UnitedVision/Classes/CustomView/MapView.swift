@@ -18,13 +18,17 @@ protocol MapFilterDelegate: class {
 }
 
 class GoogleMapMarker : GMSMarker{
-    var locationInfo = [LocationInfo]()
+    
+    var locationInfoArr = [LocationInfo]()
     var tractorInfo : TractorInfo?
+    
     let selectedMarkerImg : UIImage = GMSMarker.markerImage(with: .green)
     let unSelectedMarkerImg : UIImage = GMSMarker.markerImage(with: nil)
     
     let headQuarterSelectedImg = UIImageView(image: UIImage(named: "uv_shield_50_green")!)
     let headQuarterUnSelectedImg = UIImageView(image: UIImage(named: "uv_shield_50")!)
+    
+    var isCorporateOffice = false
     
     override init() {
         super.init()
@@ -36,8 +40,13 @@ class GoogleMapMarker : GMSMarker{
         if tractorInfo != nil{
             icon = unSelectedMarkerImg
         }
-        else if locationInfo.count != 0 {
-            if locationInfo.first?.corporateOffice! == "Y"{
+        else if locationInfoArr.count != 0 {
+            for locationInfo in locationInfoArr{
+                if (locationInfo.corporateOffice ?? "") == "Y"{
+                    isCorporateOffice = true
+                }
+            }
+            if isCorporateOffice{
                 iconView = headQuarterUnSelectedImg
             }
             else {
@@ -50,8 +59,13 @@ class GoogleMapMarker : GMSMarker{
         if tractorInfo != nil{
             icon = icon == unSelectedMarkerImg ?  selectedMarkerImg : unSelectedMarkerImg
         }
-        else if locationInfo.count != 0{
-            if locationInfo.first?.corporateOffice! == "Y"{
+        else if locationInfoArr.count != 0{
+            for locationInfo in locationInfoArr{
+                if locationInfo.corporateOffice ?? "" == "Y"{
+                    isCorporateOffice = true
+                }
+            }
+            if isCorporateOffice{
                 iconView = iconView == headQuarterSelectedImg ? headQuarterUnSelectedImg : headQuarterSelectedImg
             }
             else{
@@ -63,8 +77,13 @@ class GoogleMapMarker : GMSMarker{
         if tractorInfo != nil{
             icon = selectedMarkerImg
         }
-        else if locationInfo.count != 0{
-            if locationInfo.first?.corporateOffice! == "Y"{
+        else if locationInfoArr.count != 0{
+            for locationInfo in locationInfoArr{
+                if (locationInfo.corporateOffice ?? "") == "Y"{
+                    isCorporateOffice = true
+                }
+            }
+            if isCorporateOffice{
                 iconView = headQuarterSelectedImg
             }
             else {
@@ -298,18 +317,20 @@ extension MapView
             if !checkIfMarkerWithLocationExists(locationInfo: location){
                 let marker = GoogleMapMarker()
                 marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-                marker.locationInfo.append(location)
-                if mapViewType == .TerminalType && location.corporateOffice == "Y" {
-                    marker.zIndex = 1
-                    marker.opacity = 0.9
-                }
-                else {
-                    marker.zIndex = 0
-                    marker.opacity = 0.7
-                }
-                marker.map = map
-                marker.setMarker()
+                marker.locationInfoArr.append(location)
                 markers.append(marker)
+            }
+        }
+        for marker in markers{
+            marker.setMarker()
+            marker.map = map
+            if mapViewType == .TerminalType && marker.isCorporateOffice {
+                marker.zIndex = 1
+                marker.opacity = 0.9
+            }
+            else {
+                marker.zIndex = 0
+                marker.opacity = 0.7
             }
         }
         addRadiusCircle()
@@ -317,8 +338,8 @@ extension MapView
     func checkIfMarkerWithLocationExists(locationInfo: LocationInfo) -> Bool{
         var ifAlreadyExists = false
         for marker in markers{
-            if marker.locationInfo.first?.longitude == locationInfo.longitude , marker.locationInfo.first?.latitude == locationInfo.latitude{
-                marker.locationInfo.append(locationInfo)
+            if marker.locationInfoArr.first?.longitude == locationInfo.longitude , marker.locationInfoArr.first?.latitude == locationInfo.latitude{
+                marker.locationInfoArr.append(locationInfo)
                 ifAlreadyExists = true
             }
         }
@@ -344,7 +365,7 @@ extension MapView
     func moveMaptoLocation(location: CLLocation){
         let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
                                               longitude: location.coordinate.longitude,
-                                              zoom: self.zoomLevel)
+                                              zoom: map.camera.zoom)
         self.map.animate(to: camera)
     }
     
@@ -411,9 +432,9 @@ extension MapView
         newGoogleMarker?.colorMarkerGreen()
         
         if mapViewType == .TerminalType {
-            oldGoogleMarker?.opacity = oldGoogleMarker?.locationInfo.first?.corporateOffice == "Y" ? 0.9 : 0.7
+            oldGoogleMarker?.opacity = (oldGoogleMarker?.isCorporateOffice ?? false)! ? 0.9 : 0.7
             newGoogleMarker?.opacity = 1
-            oldGoogleMarker?.zIndex = oldGoogleMarker?.locationInfo.first?.corporateOffice == "Y" ? 1 : 0
+            oldGoogleMarker?.zIndex = (oldGoogleMarker?.isCorporateOffice ?? false)! ? 1 : 0
             newGoogleMarker?.zIndex = 2
             
         } else {
@@ -426,10 +447,10 @@ extension MapView
 
     func createMarkerDetailView(markerTapped marker: GMSMarker?){
         if let selectedMarker =  marker as? GoogleMapMarker{
-            if selectedMarker.locationInfo.count == 0 && selectedMarker.tractorInfo == nil {
+            if selectedMarker.locationInfoArr.count == 0 && selectedMarker.tractorInfo == nil {
                 return
             }
-            if let locInfo =  selectedMarker.locationInfo.first, mapViewType == .TerminalType{
+            if let locInfo =  selectedMarker.locationInfoArr.first, mapViewType == .TerminalType{
                 detailViewLocationInfo = locInfo
                 detailViewArr.removeAll()
             }
@@ -589,7 +610,7 @@ extension MapView : UIScrollViewDelegate, UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if mapViewType == .TerminalType{
-            return detailViewArr.first?.locationInfo.count ?? 0
+            return detailViewArr.first?.locationInfoArr.count ?? 0
         }
         else{
            return detailViewArr.count
@@ -610,7 +631,7 @@ extension MapView : UIScrollViewDelegate, UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier!, for: indexPath) as! TerminalTableCell
 
         let marker = detailViewArr.first
-        if let locationInfo = marker?.locationInfo[indexPath.row]{
+        if let locationInfo = marker?.locationInfoArr[indexPath.row]{
             cell.setLocationInfo(locationInfo: locationInfo)
         }
         return cell

@@ -13,22 +13,7 @@ let kNetworkErrorMessage = "App encountered a Network connection problem. Please
 typealias CompletionHandlerClosureType = (_ data: Data?, _ error: NSError?) -> ()
 typealias DownloadHandlerClosureType = (_ filepath: URL?, _ error: NSError?) -> ()
 
-//var serviceCompletionHandler : CompletionHandlerClosureType?
-
 class WebServiceManager: NSObject, URLSessionDelegate {
-    
-    static let sharedInstance = WebServiceManager()
-    fileprivate override init() {}
-    
-    let defaultSession: URLSession = URLSession.shared
-    
-    
-    //    class func defaultSession() -> NSURLSession  {
-    //
-    //        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-    //        let session = NSURLSession(configuration: configuration, delegate: self as? NSURLSessionDelegate, delegateQueue: nil)
-    //        return session
-    //    }
     
     class func getRequest(_ service: String) -> URLRequest
     {
@@ -36,7 +21,7 @@ class WebServiceManager: NSObject, URLSessionDelegate {
         return WebServiceManager.getRequest(url:urlString) as URLRequest
     }
     
-    class func getRequest(url urlString: String) -> NSMutableURLRequest
+    class func getRequest(url urlString: String) -> URLRequest
     {
         let request = WebServiceManager.createRequest(urlString, forMethod: "GET")
         return request
@@ -48,26 +33,23 @@ class WebServiceManager: NSObject, URLSessionDelegate {
         return WebServiceManager.postRequest(url:urlString, withPostString: postString) as URLRequest
     }
     
-    class func postRequest (service serviceString : String, withPostDict params: Dictionary <String, Any> ) -> NSMutableURLRequest
+    class func postRequest (service serviceString : String, withPostDict params: Dictionary <String, Any> ) -> URLRequest
     {
         let urlString = kServerUrl + serviceString
-//        let postData = postString.data(using: String.Encoding.utf8)
-//        let postLength = String("\(String(describing: postData?.count))")
         
-        let request =  WebServiceManager.createRequest(urlString, forMethod: "POST")
-//        request.setValue(postLength, forHTTPHeaderField:"Content-Length")
+        var request =  WebServiceManager.createRequest(urlString, forMethod: "POST")
         
         request.httpBody = try! JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
        
         return request
     }
     
-    class func postRequest (url urlString : String, withPostString postString: String ) -> NSMutableURLRequest
+    class func postRequest (url urlString : String, withPostString postString: String ) -> URLRequest
     {
         let postData = postString.data(using: String.Encoding.utf8)
         let postLength = String("\(String(describing: postData?.count))")
         
-        let request =  WebServiceManager.createRequest(urlString, forMethod: "POST")
+        var request =  WebServiceManager.createRequest(urlString, forMethod: "POST")
         request.setValue(postLength, forHTTPHeaderField:"Content-Length")
         
         request.httpBody = postData
@@ -75,13 +57,12 @@ class WebServiceManager: NSObject, URLSessionDelegate {
         return request
     }
     
-    class func createRequest(_ urlString: String, forMethod httpMethod:String) -> NSMutableURLRequest
+    class func createRequest(_ urlString: String, forMethod httpMethod:String) -> URLRequest
     {
-        let request =  NSMutableURLRequest(url: URL(string: urlString)! as URL)
+        var request =  URLRequest(url: URL(string: urlString)!)
         request.httpMethod = httpMethod
         request.setValue("application/json", forHTTPHeaderField:"Content-Type")
         request.timeoutInterval = 60.0
-        //        request.cachePolicy = .returnCacheDataElseLoad
         
         if (DataManager.sharedInstance.isLogin)
         {
@@ -131,25 +112,12 @@ class WebServiceManager: NSObject, URLSessionDelegate {
                     // use X-Dem-Auth hereA
                         DataManager.sharedInstance.authToken = auth
                     
-                        AppPrefData.sharedInstance.authToken = auth;
+                        AppPrefData.sharedInstance.authToken = auth
                         AppPrefData.sharedInstance.saveAllData()
                     
-                        print (auth);
+                        print(auth)
                 }
                 
-//                guard let rawString = String(data: receivedData, encoding: .utf8) else {
-//                    return
-//                }
-////                let newString = aString.replacingOccurrences(of: "\", with: "+")
-////                let escapedString =  rawString.replacingOccurrences(of: "\\", with: "", options: NSString.CompareOptions.literal, range: nil)
-//
-//                let string = rawString.unescaped
-//                let escapedString = rawString.replacingOccurrences(of: "\\\"", with: "", options: .literal, range: nil)
-//
-////                let escapedString = rawString.stringByReplacingOccurrencesOfString("\"", withString: "", options: .literalSearch, range: nil)
-//                let jsonData = string.data(using: .utf8)
-
-                //let httpResponse : NSHTTPURLResponse = response as! NSHTTPURLResponse
                 let responseStatusCode = httpResponse.statusCode
                 if responseStatusCode == 200
                 {
@@ -174,7 +142,7 @@ class WebServiceManager: NSObject, URLSessionDelegate {
         print("Request# \n URL : ",(request.url?.absoluteString as Any),"\n Headers : ",(request.allHTTPHeaderFields?.description as Any),"\n Request Method : ",(request.httpMethod?.description as Any))
         if var jsonBody :Any? = request.httpBody{
             do {
-                jsonBody = try JSONSerialization.jsonObject(with: request.httpBody!, options: JSONSerialization.ReadingOptions.mutableContainers) as? Data
+                jsonBody = try JSONSerialization.jsonObject(with: request.httpBody!, options: JSONSerialization.ReadingOptions()) as Any
             } catch {
                 jsonBody = request.httpBody!
             }
@@ -188,58 +156,58 @@ class WebServiceManager: NSObject, URLSessionDelegate {
         }
     }
     
-    func sendDownloadRequest(_ requestUrl: URL, completionHandler handler: @escaping DownloadHandlerClosureType )
-    {
-        let documents = UIUtils.documentDirectory() + "/"
-        let destinationPath = documents +  requestUrl.lastPathComponent
-        let destinationURL = URL(fileURLWithPath: destinationPath)
-        if FileManager.default.fileExists(atPath: destinationPath) {
-            handler(destinationURL, nil)
-            return
-        }
-        
-        if (UIUtils.isConnectedToNetwork() == false)
-        {
-//            UIUtils.showAlert(withTitle: "Network Error", message: kNetworkErrorMessage, alertType: .info)
-            return;
-        }
-        
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        //        let request = URLRequest(url: requestUrl)
-        //        let downloadTask :URLSessionDownloadTask = defaultSession.downloadTask(with: requestUrl, completionHandler: {(locationURL, response, error) in
-        
-        
-        let downloadTask :URLSessionDataTask = defaultSession.dataTask(with: requestUrl, completionHandler: {(data, response, error) in
-            
-            DispatchQueue.main.async {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                
-                guard error == nil && data != nil else {
-                    print(error ?? "No Error in dowloading task")
-                    handler(nil, error as NSError?)
-                    return
-                }
-                
-                do {
-                    //                    let manager = FileManager.default
-                    //                    let documents = try manager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-                    //                    let destinationURL = documents.appendingPathComponent((response?.suggestedFilename)!)
-                    //                    if manager.fileExists(atPath: destinationURL.path) {
-                    //                        handler(destinationURL, nil)
-                    //                    }
-                    
-                    try data?.write(to: destinationURL)
-                    
-                    handler(destinationURL, nil)
-                    
-                } catch let moveError {
-                    print(moveError)
-                    handler(nil, moveError as NSError?)
-                }
-            }
-        })
-        downloadTask.resume()
-    }
+//    func sendDownloadRequest(_ requestUrl: URL, completionHandler handler: @escaping DownloadHandlerClosureType )
+//    {
+//        let documents = UIUtils.documentDirectory() + "/"
+//        let destinationPath = documents +  requestUrl.lastPathComponent
+//        let destinationURL = URL(fileURLWithPath: destinationPath)
+//        if FileManager.default.fileExists(atPath: destinationPath) {
+//            handler(destinationURL, nil)
+//            return
+//        }
+//
+//        if (UIUtils.isConnectedToNetwork() == false)
+//        {
+////            UIUtils.showAlert(withTitle: "Network Error", message: kNetworkErrorMessage, alertType: .info)
+//            return;
+//        }
+//
+//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+//        //        let request = URLRequest(url: requestUrl)
+//        //        let downloadTask :URLSessionDownloadTask = defaultSession.downloadTask(with: requestUrl, completionHandler: {(locationURL, response, error) in
+//
+//
+//        let downloadTask :URLSessionDataTask = defaultSession.dataTask(with: requestUrl, completionHandler: {(data, response, error) in
+//
+//            DispatchQueue.main.async {
+//                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//
+//                guard error == nil && data != nil else {
+//                    print(error ?? "No Error in dowloading task")
+//                    handler(nil, error as NSError?)
+//                    return
+//                }
+//
+//                do {
+//                    //                    let manager = FileManager.default
+//                    //                    let documents = try manager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+//                    //                    let destinationURL = documents.appendingPathComponent((response?.suggestedFilename)!)
+//                    //                    if manager.fileExists(atPath: destinationURL.path) {
+//                    //                        handler(destinationURL, nil)
+//                    //                    }
+//
+//                    try data?.write(to: destinationURL)
+//
+//                    handler(destinationURL, nil)
+//
+//                } catch let moveError {
+//                    print(moveError)
+//                    handler(nil, moveError as NSError?)
+//                }
+//            }
+//        })
+//        downloadTask.resume()
+//    }
     
     class func removeWhitespaceInString(_ string: NSString!) -> NSString
     {

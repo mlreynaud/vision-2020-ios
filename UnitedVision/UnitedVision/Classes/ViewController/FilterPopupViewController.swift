@@ -12,6 +12,8 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var searchViewHeight: NSLayoutConstraint!
+    
     var filterType : FilterType!
     
     var selectedList = [String]()
@@ -32,13 +34,14 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
         super.viewWillAppear(animated)
         isAllSelected = false
         self.fetchFilterList()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        searchViewHeight.constant = view.frame.size.height*(3/4)
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        searchViewHeight.constant = size.height*(3/4)
+    }
+
     //MARK: Button action methods
     @IBAction func doneButtonAction(_ sender: UIButton)
     {

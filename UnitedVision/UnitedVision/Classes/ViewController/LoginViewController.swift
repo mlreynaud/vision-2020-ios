@@ -53,34 +53,28 @@ class LoginViewController: UITableViewController, UITextFieldDelegate, MFMailCom
             let password = passwordTextfield.text?.trimmingCharacters(in: .whitespaces),
             username.count > 0, password.count > 0
             else {
-
                 UIUtils.showAlert(withTitle: kAppTitle, message: "Please enter a valid useranme or password.", inContainer: self)
                 return
         }
         LoadingView.shared.showOverlay()
         DataManager.sharedInstance.request(toLogin: username, withPassword: password, completionHandler: {(status, errorMessage) in
-            
             LoadingView.shared.hideOverlayView()
-            
-            if (status)
-            {
+            if (status){
                 DataManager.sharedInstance.userName = username
                 DataManager.sharedInstance.isLogin = true
                 AppPrefData.sharedInstance.isLogin = true
                 AppPrefData.sharedInstance.saveAllData()
-                
                 self.navigationController?.popViewController(animated: true)
             }
-            else
-            {
+            else{
                 UIUtils.showAlert(withTitle: kAppTitle, message: errorMessage, inContainer: self)
             }
         })
     }
     
     @IBAction func registerBtnPressed(_ sender: Any) {
-//        let registerVC = storyboard?.instantiateViewController(withIdentifier: "RegisterViewController")
-//        self.navigationController?.pushViewController(registerVC!, animated: true)
+        let registerVC = storyboard?.instantiateViewController(withIdentifier: "RegisterViewController")
+        self.navigationController?.pushViewController(registerVC!, animated: true)
     }
     
     @IBAction func callBtnPressed(_ sender: Any) {

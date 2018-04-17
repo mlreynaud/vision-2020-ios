@@ -105,7 +105,7 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
     {        
         self.populateArray()
         if (DataManager.sharedInstance.isLogin){
-            let userName = DataManager.sharedInstance.userTypeStr
+            let userName = DataManager.sharedInstance.userName ?? ""
             nameLabel.text = "Welcome " + userName
             signInButton.isHidden = true
         } else{

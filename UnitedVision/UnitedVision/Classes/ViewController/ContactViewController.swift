@@ -27,8 +27,8 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
         tableView.contentInset = .zero
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.sectionHeaderHeight = 0
-        
-        navigationItem.hidesBackButton = true
+        tableView.separatorStyle = .none
+//        navigationItem.hidesBackButton = true
 
         fetchContactList()
     }
@@ -60,11 +60,6 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if (self.navigationController?.topViewController?.isKind(of: ContactViewController.self))!
-        {
-            self.setNavigationBarItem()
-        }
-        
     }
     
     @IBAction func callButtonAction(_ sender: UIButton)

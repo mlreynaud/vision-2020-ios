@@ -47,6 +47,11 @@ class PopOverViewController: UIViewController , UITableViewDataSource, UITableVi
         tableView.layoutIfNeeded()
         tableViewheight.constant = min(tableView.contentSize.height,view.frame.height*(3/4))
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        tableViewheight.constant = size.height*(3/4)
+    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

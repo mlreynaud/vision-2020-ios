@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="180" height="32"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uv_shield_large" translatesAutoresizingMaskIntoConstraints="NO" id="yVa-F5-cD2">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uv_shield_large" translatesAutoresizingMaskIntoConstraints="NO" id="yVa-F5-cD2">
                     <rect key="frame" x="78" y="2" width="28" height="28"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="yVa-F5-cD2" secondAttribute="height" multiplier="1:1" id="svb-rD-VAx"/>

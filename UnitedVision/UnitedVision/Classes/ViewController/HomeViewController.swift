@@ -71,7 +71,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     func checkToken() {
         beginTime = Date()
-        DataManager.sharedInstance.requestToCheckTokenValidity(completionHandler: {(status, message) in
+        DataManager.sharedInstance.requestToCheckTokenValidity(completionHandler: {(status) in
             DataManager.sharedInstance.isLogin = status ? true : false
             let timeNow = Date()
             if timeNow.timeIntervalSince(self.beginTime!) > 2{

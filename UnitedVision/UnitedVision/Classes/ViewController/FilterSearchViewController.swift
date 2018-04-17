@@ -12,7 +12,10 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBOutlet weak var searchBar : UISearchBar!
     @IBOutlet weak var tableView : UITableView!
+    @IBOutlet weak var backGreyView: UIView!
 
+    @IBOutlet weak var searchViewHeight: NSLayoutConstraint!
+    
     var filterType : FilterType!
     var selectedValue : Any?
     var filterList : [AnyObject] = []
@@ -23,23 +26,22 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        backGreyView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundTapped)))
     }
     
-    //MARK: Button action methods
-    @IBAction func doneButtonAction(_ sender: UIButton)
-    {
-        self.completionHandler?(selectedValue)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchViewHeight.constant = view.frame.height*(3/4)
+    }
+    
+    @objc func backgroundTapped() {
+        completionHandler?(nil)
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func cancelButtonAction(_ sender: UIButton)
-    {
-        self.dismiss(animated: true, completion: nil)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        searchViewHeight.constant = size.height*(3/4)
     }
 }
 
@@ -73,6 +75,8 @@ extension FilterSearchViewController
             selectedValue = (filterList[indexPath.row] as! TrailerInfo)
         }
         dismissKeyboard()
+        self.completionHandler?(selectedValue)
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

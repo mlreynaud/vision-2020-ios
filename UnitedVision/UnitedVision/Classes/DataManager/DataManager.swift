@@ -44,8 +44,6 @@ class DataManager: NSObject {
     func parseJSONData(_ data: Data?) -> (status: Bool, message: String, count: String, content: Any?){
         
         guard data != nil else {
-//            UIUtils.showAlert(withTitle: "Server Error", message: "Please try again later", alertType: .error)
-//            UIUtils.vibrate()
             return (false, "Error", "0", nil)
         }
         if let json = UIUtils.getJSONFromData(data as Data!) as? NSDictionary {
@@ -62,10 +60,7 @@ class DataManager: NSObject {
             
             return(status!, message!, String(count!), content)
         }
-        else
-        {
-//            UIUtils.showAlert(withTitle: "Server Error", message: "Please try again later", alertType: .error)
-//            UIUtils.vibrate()
+        else{
             return (false, "Error", "0", nil)
         }
     }
@@ -149,38 +144,40 @@ class DataManager: NSObject {
         })
     }
     
-    func requestToCheckTokenValidity(completionHandler handler: @escaping ( Bool, String) -> () ) {
+    func requestToCheckTokenValidity(completionHandler handler: @escaping (Bool)->()){
         
         let token = AppPrefData.sharedInstance.authToken
         if (token.count == 0)
         {
-            handler (false, "Empty Token")
+            handler (false)
             return
         }
         
-        let service: String = String(format:"auth/service/checkToken")
+        let service: String = String(format:"auth/service/verifyToken")
         let postParams = [String: String]() // Empty dict
         
-
         let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: postParams) as URLRequest
         WebServiceManager.sendRequest(request, completionHandler: {(data, error) in
-            
-            if error != nil{
-                handler(false, "Invalid Token")
+            var status : Bool = false
+
+            if error != nil || data == nil{
+                handler(status)
                 return
             }
-            
-            guard  let responseStr : String = String(data: data! as Data, encoding: .utf8),
-                responseStr.count != 0
-                else {
-                    handler(false, "Invalid Token")
-                    return
+            do{
+                if let jsonDict =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? Dictionary<String, Any>{
+                    let userRole = (jsonDict["role"] as? String) ?? ""
+                    self.userType = UserType(rawValue: userRole)!
+                    self.userTypeStr = self.userType.rawValue
+                    self.userName = jsonDict["firstName"] as? String
+                    status = true
+                }
             }
-            
-            self.userType = UserType(rawValue: responseStr) ?? UserType.none
-            self.userTypeStr = self.userType.rawValue
-            
-            (self.userType == .none) ? handler(false, "Invalid Token") : handler(true, "Valid Token")
+            catch{
+                print("\nError - ",error,"\n Response Data - ",data as Any)
+                status = false
+            }
+            (self.userType == .none) ? handler(false) : handler(true)
         })
     }
     

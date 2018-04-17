@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // create viewController code...
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
+                
         let mainViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
         let leftViewController = storyboard.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
     
