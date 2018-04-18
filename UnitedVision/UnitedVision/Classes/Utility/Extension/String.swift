@@ -45,10 +45,11 @@ extension String {
     }
     
     var isValidPass: Bool {
-        let PassWordRegEx = "^(?=.*[A-Z])(?=.*[0-9]).{6,}$"
-        let passWordTest : NSPredicate! = NSPredicate(format:"SELF MATCHES %@", PassWordRegEx)
-        let result = passWordTest.evaluate(with: self)
-        return result
+        // let PassWordRegEx = "^(?=.*[A-Z])(?=.*[0-9]).{6,}$"
+        // let passWordTest : NSPredicate! = NSPredicate(format:"SELF MATCHES %@", PassWordRegEx)
+        // let result = passWordTest.evaluate(with: self)
+        // return result
+        return true
     }
     
     var htmlToAttributedString: NSAttributedString? {
