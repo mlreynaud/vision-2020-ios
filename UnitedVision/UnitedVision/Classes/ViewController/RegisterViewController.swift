@@ -126,7 +126,7 @@ extension RegError : LocalizedError{
     public var errorDescription: String? {
         switch self {
         case .EEmptyFields:
-            return "Some Of the fields have been left emptied."
+            return "Some of the required fields are missing."
         case .EAgreeToTerms:
             return "You must agree to the terms before registering."
         case .EInvalidEmail:
