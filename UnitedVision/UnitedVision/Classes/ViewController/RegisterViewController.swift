@@ -14,7 +14,7 @@ let kUsStatepList = "USState"
 let kRegFieldStateTitle = "State"
 let KRegFieldUserTypeTitle = "User Type"
 let KRegFieldCarrierNumTypeTitle = "Carrier Num Type"
-//let KRegFieldCarrierStateTitle = "State"
+let KRegFieldCarrierStateTitle = "State"
 
 let kRegThankMess = "Thank you for submitting your registration request. The registration typically takes no more than 48 hours to process. We will send you an email once your registration is approved."
 
@@ -97,9 +97,8 @@ enum RegDataField: Int{
     case ECarrierNumType
     case ECarrierNum
     case EDotFid
+    case ECarrierState
     
-//    case ECarrierState
-
     static func regFieldPickerTitleHeader(regDataField:RegDataField) -> String? {
         switch regDataField {
         case RegDataField.EState:
@@ -108,8 +107,8 @@ enum RegDataField: Int{
             return KRegFieldUserTypeTitle
         case RegDataField.ECarrierNumType:
             return KRegFieldCarrierNumTypeTitle
-//        case RegDataField.ECarrierState:
-//            return KRegFieldCarrierStateTitle
+        case RegDataField.ECarrierState:
+            return KRegFieldCarrierStateTitle
         default:
             return nil
         }
@@ -121,24 +120,27 @@ enum RegError :Error{
     case EAgreeToTerms
     case EInvalidEmail
     case EPassNotMatch
+    case EInvalidPass
 }
 extension RegError : LocalizedError{
     public var errorDescription: String? {
         switch self {
         case .EEmptyFields:
-            return "Some Of the fields have been left emptied"
+            return "Some Of the fields have been left emptied."
         case .EAgreeToTerms:
-            return "I Agree to Terms not selected"
+            return "You must agree to the terms before registering."
         case .EInvalidEmail:
-            return "Incorrect Email Format"
+            return "Incorrect Email Format."
         case .EPassNotMatch:
-            return "Passwords don't match"
+            return "Passwords don't match."
+        case .EInvalidPass:
+            return "Password should contain at least 6 chars, with at least 1 upper case and 1 number."
         }
     }
 }
 
 let kFieldTagOverhead = 101
-let kNumOfFields = 21
+let kNumOfFields = 22
 
 class RegisterViewController: UITableViewController, UITextFieldDelegate {
     
@@ -156,7 +158,7 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
     var selectedState = String()
     var selectedUserType: RegUserType?
     var selectedCarrierNumberType: RegCarrierNumType?
-//    var selectedCarrierState = String()
+    var selectedCarrierState = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -193,6 +195,14 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    func returnIndexPathFor(regCarrierNumType: RegCarrierNumType) -> IndexPath {
+        switch regCarrierNumType {
+        case .mc:
+            return IndexPath(row: 14, section: 0)
+        case .intrastate:
+            return IndexPath(row: 15, section: 0)
+        }
+    }
     func returnIndexPathFor(regUserType: RegUserType) -> IndexPath {
         switch regUserType {
         case .customer:
@@ -222,6 +232,9 @@ extension RegisterViewController{
         if section == 0{
             if selectedUserType != nil{
                 numberOfRows = 11
+                if selectedCarrierNumberType != nil{
+                    numberOfRows = 12
+                }
             }
             numberOfRows = numberOfRows == 0 ? 10 : numberOfRows
         }
@@ -235,8 +248,11 @@ extension RegisterViewController{
         var cell: UITableViewCell?
         if indexPath.section == 0{
             if selectedUserType != nil{
-                if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
+                if indexPath.row == 10 {
                     cell = super.tableView(tableView, cellForRowAt: returnIndexPathFor(regUserType: selectedUserType!))
+                }
+                if indexPath.row == 11 {
+                    cell = super.tableView(tableView, cellForRowAt: returnIndexPathFor(regCarrierNumType: selectedCarrierNumberType!))
                 }
             }
         }
@@ -262,6 +278,7 @@ extension RegisterViewController{
             try checkForTextLength()
             try checkEmailValidation()
             try checkPasswordMatch()
+            try checkPasswordFormat()
             try checkTermsAgreement()
         }
         catch{
@@ -283,6 +300,13 @@ extension RegisterViewController{
         let confirmpasswordField = textFields[RegDataField.EConfirmPass.rawValue - kFieldTagOverhead]
         if passwordField.text != confirmpasswordField.text{
             throw RegError.EPassNotMatch
+        }
+    }
+    
+    func checkPasswordFormat() throws{
+        let passwordField = textFields[RegDataField.EPass.rawValue - kFieldTagOverhead]
+        if !(passwordField.text?.isValidPass)!{
+            throw RegError.EInvalidPass
         }
     }
     
@@ -335,8 +359,17 @@ extension RegisterViewController{
             if (carrierNumField.text?.isBlank())!{
                 throw RegError.EEmptyFields
             }
+            
+        }
+        if selectedCarrierNumberType == RegCarrierNumType.mc{
             let dotOrFidField = textFields[RegDataField.EDotFid.rawValue - kFieldTagOverhead]
             if (dotOrFidField.text?.isBlank())!{
+                throw RegError.EEmptyFields
+            }
+        }
+        else if selectedCarrierNumberType == RegCarrierNumType.intrastate{
+            let carrierStateField = textFields[RegDataField.ECarrierState.rawValue - kFieldTagOverhead]
+            if (carrierStateField.text?.isBlank())!{
                 throw RegError.EEmptyFields
             }
         }
@@ -361,17 +394,29 @@ extension RegisterViewController{
             })
         }
     }
+    
+    fileprivate func addFieldDataToParamDict(_ fieldIndex: Int, _ paramDict: inout [String : Any]) {
+        let textField = textFields[fieldIndex]
+        let fieldValidDict = dataValidationArr![fieldIndex]
+        let key = fieldValidDict["paramKey"] as! String
+        paramDict[key] = textField.text
+    }
+    
     func createParamDict() -> Dictionary<String,Any>{
         var paramDict = Dictionary<String, Any>()
-        for fieldIndex in (0...kNumOfFields){
-            let textField = textFields[fieldIndex]
-            let fieldValidDict = dataValidationArr![fieldIndex]
-            let key = fieldValidDict["paramKey"] as! String
-            paramDict[key] = textField.text
+        for fieldIndex in (0...(kNumOfFields - 2)){
+            addFieldDataToParamDict(fieldIndex, &paramDict)
+        }
+        if selectedCarrierNumberType == RegCarrierNumType.mc{
+            addFieldDataToParamDict(RegDataField.EDotFid.rawValue - kFieldTagOverhead, &paramDict)
+        }
+        else if selectedCarrierNumberType == RegCarrierNumType.intrastate{
+            addFieldDataToParamDict(RegDataField.ECarrierState.rawValue - kFieldTagOverhead, &paramDict)
         }
         paramDict["agreeToTerms"] = agreeToTerms ? "Y" : "N"
         return paramDict
     }
+    
 }
 extension RegisterViewController{
 
@@ -380,7 +425,7 @@ extension RegisterViewController{
         let regDataField = RegDataField(rawValue: tag)
         var dropDownDataArr = [String]()
 
-        if regDataField == .EState { //|| regDataField == .ECarrierState
+        if regDataField == .EState || regDataField == .ECarrierState {
             let pListName = kUsStatepList
             let dropDownDataDict = UIUtils.parsePlist(ofName:pListName) as! Dictionary<String,Any>
             for (key,_) in dropDownDataDict{
@@ -421,10 +466,11 @@ extension RegisterViewController{
                     selectedField.text = selectedStr
                     self.selectedCarrierNumberType = RegCarrierNumType(rawValue:selectedStr)
                 }
-//                else if regDataField == .ECarrierState{
-//                    self.selectedCarrierStateLbl.text = selectedStr
-//                    self.selectedCarrierState = self.usStateDict![selectedStr]!
-//                }
+                else if regDataField == .ECarrierState{
+                    let selectedField = self.textFields[regDataField.rawValue - kFieldTagOverhead]
+                    selectedField.text = selectedStr
+                    self.selectedCarrierState = self.usStateDict![selectedStr]!
+                }
                 self.tableView.reloadData()
                 self.view.endEditing(true)
             }

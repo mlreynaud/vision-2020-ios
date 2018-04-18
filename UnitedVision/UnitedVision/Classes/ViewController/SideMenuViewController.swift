@@ -57,6 +57,57 @@ enum LeftMenuItem: RawRepresentable {
         }
     }
     
+    public var titleText: String? {
+        switch self {
+        case .home:
+            return "Home"
+        case .tractorSearch:
+            return "Tractor Search"
+        case .terminalSearch:
+            return "Terminal Search"
+        case .contact:
+            return "Contact"
+        case .login:
+            return "Log In"
+        case .logout:
+            return "Log Out"
+        }
+    }
+
+    public var selectImage: String? {
+        switch self {
+        case .home:
+            return "ic_home_white"
+        case .tractorSearch:
+            return "ic_truck_white"
+        case .terminalSearch:
+            return "ic_location_white"
+        case .contact:
+            return "ic_call_white_hollow"
+        case .login:
+            return "ic_login_white"
+        case .logout:
+            return "ic_logout"
+        }
+    }
+    
+    public var unSelectImage: String? {
+        switch self {
+        case .home:
+            return "ic_home_grey"
+        case .tractorSearch:
+            return "ic_truck_gray"
+        case .terminalSearch:
+            return "ic_location_grey"
+        case .contact:
+            return "ic_call_black"
+        case .login:
+            return "ic_login_grey"
+        case .logout:
+            return "ic_logout"
+        }
+    }
+    
     case home
     case tractorSearch
     case terminalSearch
@@ -72,12 +123,8 @@ import UIKit
 
 class SideMenuViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate  {
     
-    @IBOutlet weak var nameLabel : UILabel!
-    @IBOutlet weak var signInButton : UIButton!
     @IBOutlet weak var tableView : UITableView!
     
-    var menus: [String] = []
-    var imageList: [String] = []
     var menuValues: [LeftMenuItem] = []
     var selectedLeftMenuItem: LeftMenuItem?
     
@@ -88,7 +135,7 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         selectedLeftMenuItem = returnSelectedLeftMenuItem()
-        setupInitialView()
+        self.populateArray()
     }
     
     func returnSelectedLeftMenuItem() -> LeftMenuItem?{
@@ -101,96 +148,107 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
         return selectedMenu
     }
     
-    func setupInitialView ()
-    {        
-        self.populateArray()
-        if (DataManager.sharedInstance.isLogin){
-            let userName = DataManager.sharedInstance.userName ?? ""
-            nameLabel.text = "Welcome " + userName
-            signInButton.isHidden = true
-        } else{
-            let textString = "Welcome Sign In"
-            nameLabel.attributedText = textString.createUnderlineString(subString: "Sign In", underlineColor: UIColor.black)
-            signInButton.isHidden = false
-        }
-    }
-    
     func populateArray() {
         
         if (DataManager.sharedInstance.isLogin) {
             let userType = DataManager.sharedInstance.userType
             if userType == .employeeTS || userType == .driver || userType == .agent || userType == .broker || userType == .customer || userType == .carrier{
-                menus = ["Home", "Terminal Search", "Tractor Search", "Contact", "Log Out"]
-                imageList = ["ic_home","ic_location_grey", "ic_truck_gray" ,"ic_call_black", "ic_logout"]
                 menuValues = [.home, .terminalSearch, .tractorSearch, .contact, .logout]
             }
             else{
-                menus = ["Home", "Terminal Search", "Contact", "Log Out"]
-                imageList = ["ic_home", "ic_location_grey", "ic_call_black", "ic_logout"]
                 menuValues = [.home, .terminalSearch, .contact, .logout]
             }
         }
         else{
-            menus = ["Home", "Terminal Search", "Contact", "Log In"]
-            imageList = ["ic_home", "ic_location_grey" ,"ic_call_black", "ic_login_grey"]
             menuValues = [.home, .terminalSearch, .contact, .login]
         }
         
         tableView.reloadData()
     }
     
-    @IBAction func signInButtonAction()
-    {
-        let index = menus.index(of:"LOG IN")
-        tableView(tableView, didSelectRowAt: IndexPath(item: index!, section: 0))
+    func signInButtonAction(){
+        if let index = menuValues.index(of:.login){
+            tableView(tableView, didSelectRowAt: IndexPath(row: index, section: 1))
+        }
     }
 }
 
 extension SideMenuViewController
 {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menus.count;
+        if section == 0{
+            return 1
+        }
+        else{
+            return menuValues.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableCell", for: indexPath) as! SideMenuTableCell
-        cell.titleLabel.text = menus[indexPath.row]
-        cell.iconImageView.image = UIImage(named: imageList[indexPath.row])
-        cell.iconImageView.tintColor = UIColor.gray
-        cell.backgroundColor = selectedLeftMenuItem == menuValues[indexPath.row] ? UIColor.gray : UIColor.white
-        return cell;
+        if indexPath.section == 0{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "sideHeaderCell", for: indexPath) as! SideMenuHeaderCell
+            cell.signInBtnAction = {
+                self.signInButtonAction()
+            }
+            cell.setupCell()
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuTableCell", for: indexPath) as! SideMenuTableCell
+            let isCellSelected = selectedLeftMenuItem == menuValues[indexPath.row]
+            cell.titleLabel.text = menuValues[indexPath.row].titleText
+            cell.titleLabel.textColor = isCellSelected ? UIColor.white : UIColor.black
+            cell.iconImageView.image = isCellSelected ? UIImage(named: menuValues[indexPath.row].selectImage!) : UIImage(named: menuValues[indexPath.row].unSelectImage!)
+//            cell.iconImageView.tintColor = UIColor.gray
+            cell.backgroundColor = isCellSelected ? UIColor.gray : UIColor.white
+            return cell;
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let menu = menuValues[indexPath.row]
-        let navViewCtrl = slideMenuController()?.mainViewController as? UINavigationController
-        
-        switch menu {
-        case .home:
-            navViewCtrl?.popToRootViewController(animated: true)
-            break
-        case .logout:
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.logout()
+        if indexPath.section == 1{
+            let menu = menuValues[indexPath.row]
+            let navViewCtrl = slideMenuController()?.mainViewController as? UINavigationController
             
-            if let navViewCtrl = slideMenuController()?.mainViewController as? UINavigationController{
-                if let topViewCtrl = navViewCtrl.topViewController{
-                    if let sideMenuDelegate = topViewCtrl as? SideMenuLogOutDelegate{
-                        sideMenuDelegate.sideMenuLogOutPressed()
+            switch menu {
+            case .home:
+                navViewCtrl?.popToRootViewController(animated: true)
+                break
+            case .logout:
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.logout()
+                
+                if let navViewCtrl = slideMenuController()?.mainViewController as? UINavigationController{
+                    if let topViewCtrl = navViewCtrl.topViewController{
+                        if let sideMenuDelegate = topViewCtrl as? SideMenuLogOutDelegate{
+                            sideMenuDelegate.sideMenuLogOutPressed()
+                        }
                     }
                 }
+                break
+            default:
+                let currVC = navViewCtrl?.topViewController
+                if let newVC = getViewControllerFor(menu: menu), object_getClassName(currVC) != object_getClassName(newVC){
+                    navViewCtrl?.popToRootViewController(animated: false)
+                    navViewCtrl?.pushViewController(newVC, animated: true)
+                }
+                break
             }
-            break
-        default:
-            let currVC = navViewCtrl?.topViewController
-            if let newVC = getViewControllerFor(menu: menu), object_getClassName(currVC) != object_getClassName(newVC){
-                navViewCtrl?.popToRootViewController(animated: false)
-                navViewCtrl?.pushViewController(newVC, animated: true)
-            }
-            break
+            self.slideMenuController()?.closeLeft()
         }
-        self.slideMenuController()?.closeLeft()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 200
+        }
+        else {
+            return 75
+        }
     }
     
     func getViewControllerFor(menu: LeftMenuItem) -> UIViewController? {

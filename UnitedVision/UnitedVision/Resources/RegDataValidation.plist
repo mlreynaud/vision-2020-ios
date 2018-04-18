@@ -60,7 +60,7 @@
 		<key>paramKey</key>
 		<string>state</string>
 		<key>maxLength</key>
-		<integer>75</integer>
+		<integer>2</integer>
 	</dict>
 	<dict>
 		<key>paramKey</key>
@@ -133,6 +133,12 @@
 		<string>dotOrFid</string>
 		<key>maxLength</key>
 		<integer>11</integer>
+	</dict>
+	<dict>
+		<key>paramKey</key>
+		<string>carrierState</string>
+		<key>maxLength</key>
+		<integer>2</integer>
 	</dict>
 </array>
 </plist>
