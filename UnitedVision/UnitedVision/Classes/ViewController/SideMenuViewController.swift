@@ -204,7 +204,7 @@ extension SideMenuViewController
             cell.titleLabel.textColor = isCellSelected ? UIColor.white : UIColor.black
             cell.iconImageView.image = isCellSelected ? UIImage(named: menuValues[indexPath.row].selectImage!) : UIImage(named: menuValues[indexPath.row].unSelectImage!)
 //            cell.iconImageView.tintColor = UIColor.gray
-            cell.backgroundColor = isCellSelected ? UIColor.gray : UIColor.white
+            cell.backgroundColor = isCellSelected ? UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 1) : UIColor.white
             return cell;
         }
     }
