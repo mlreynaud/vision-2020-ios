@@ -61,8 +61,6 @@ class LoginViewController: UITableViewController, UITextFieldDelegate, MFMailCom
         DataManager.sharedInstance.requestToLoginOrVerifyToken(reqType: .ELogin, paramDict: paramDict) { (status, errorMessage) in
             LoadingView.shared.hideOverlayView()
             if (status){
-                DataManager.sharedInstance.userName = username
-                AppPrefData.sharedInstance.userName = username
                 DataManager.sharedInstance.isLogin = true
                 AppPrefData.sharedInstance.isLogin = true
                 AppPrefData.sharedInstance.saveAllData()

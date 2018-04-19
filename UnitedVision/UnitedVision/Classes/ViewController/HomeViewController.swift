@@ -23,6 +23,8 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     @IBOutlet weak var pageControl: UIPageControl!
     
+    var autoScrollTimer: Timer?
+    
     @IBOutlet weak var centreHomeContentLbl: UILabel!
     @IBOutlet weak var topHomeContentLbl: UILabel!
     
@@ -66,7 +68,6 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
             self.initialViewScreen?.alpha = 0.0
         }) { (_) in
             self.initialViewScreen?.removeFromSuperview()
-            self.startAutoScroll()
         }
     }
     
@@ -98,6 +99,11 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         updateLayoutConstraints(forSize: view.frame.size)
         setNavigationBarItem()
         checkIfLoggedIn()
+        startAutoScroll()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        autoScrollTimer?.invalidate()
     }
  
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -153,7 +159,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     }
   
     func startAutoScroll() {
-        Timer.scheduledTimer(timeInterval: 10.0, target: self, selector:  #selector(scrollToNextCell), userInfo: nil, repeats: true);
+       autoScrollTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector:  #selector(scrollToNextCell), userInfo: nil, repeats: true);
     }
     
     @objc func scrollToNextCell(){
