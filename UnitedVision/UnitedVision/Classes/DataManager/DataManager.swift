@@ -122,7 +122,11 @@ class DataManager: NSObject {
     
     func requestToLoginOrVerifyToken(reqType: RequestType,paramDict: Dictionary<String, String>?, completionHandler handler: @escaping ( Bool, String) -> () ) {
         
-        let service = reqType == RequestType.ELogin ? "auth/service/signin" : "auth/service/verifyToken"
+        var service = reqType == RequestType.ELogin ? "auth/service/signin" : "auth/service/verifyToken"
+        
+        if (reqType == RequestType.ELogin) {
+            service += "?username=\(paramDict!["username"]!)&password=\(paramDict!["password"]!)"
+        }
 
         let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: paramDict ?? Dictionary<String,String>()) as URLRequest
         
