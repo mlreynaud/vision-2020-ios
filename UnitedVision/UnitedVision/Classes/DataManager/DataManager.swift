@@ -9,6 +9,11 @@
 import UIKit
 import CoreLocation
 
+enum RequestType {
+    case ELogin
+    case EVerifiyToken
+}
+
 class DataManager: NSObject {
     
     static let sharedInstance = DataManager()
@@ -21,7 +26,6 @@ class DataManager: NSObject {
     var userName: String?
     var authToken = ""
     var userType : UserType = .none
-    var userTypeStr : String = ""
 
     var radius = 50
 
@@ -113,71 +117,46 @@ class DataManager: NSObject {
                 list.append(info)
             }
         }
-        
         self.tractorList = list
     }
     
-    func request(toLogin username: String, withPassword password: String, completionHandler handler: @escaping ( Bool, String) -> () ) {
+    func requestToLoginOrVerifyToken(reqType: RequestType,paramDict: Dictionary<String, String>?, completionHandler handler: @escaping ( Bool, String) -> () ) {
         
-        let service: String = String(format:"auth/service/login")
-        
-        let postParams = ["username": username.encodeString(), "password": password.encodeString()] as Dictionary<String, String>
-       let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: postParams) as URLRequest
-        WebServiceManager.sendRequest(request, completionHandler: {(data, error) in
-            
-            if error != nil{
-                handler(false, "Login failed")
-                return
-            }
-            
-            guard  let responseStr : String = String(data: data! as Data, encoding: .utf8),
-                responseStr.count != 0
-                else {
-                    handler(false, "Login failed")
-                    return
-            }
-            
-            self.userType = UserType(rawValue: responseStr) ?? UserType.none
-            self.userTypeStr = self.userType.rawValue
-            
-            (self.userType == .none) ? handler(false, "Login failed") : handler(true, "Login sucessfull")
-        })
-    }
-    
-    func requestToCheckTokenValidity(completionHandler handler: @escaping (Bool)->()){
-        
-        let token = AppPrefData.sharedInstance.authToken
-        if (token.count == 0)
-        {
-            handler (false)
-            return
-        }
-        
-        let service: String = String(format:"auth/service/verifyToken")
-        let postParams = [String: String]() // Empty dict
-        
-        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: postParams) as URLRequest
-        WebServiceManager.sendRequest(request, completionHandler: {(data, error) in
-            var status : Bool = false
+        let service = reqType == RequestType.ELogin ? "auth/service/signin" : "auth/service/verifyToken"
 
+        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: paramDict ?? Dictionary<String,String>()) as URLRequest
+        
+        WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error)  in
+            
+            var status : Bool = false
+            var errMess = kNetworkErrorMessage
+            
             if error != nil || data == nil{
-                handler(status)
+                handler(status,error?.localizedDescription ?? errMess)
                 return
             }
-            do{
-                if let jsonDict =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? Dictionary<String, Any>{
-                    let userRole = (jsonDict["role"] as? String) ?? ""
-                    self.userType = UserType(rawValue: userRole)!
-                    self.userTypeStr = self.userType.rawValue
-                    self.userName = jsonDict["firstName"] as? String
-                    status = true
+            
+            if httpStatus{
+                do{
+                    if let jsonDict =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? Dictionary<String, Any>{
+                        let userRole = (jsonDict["role"] as? String) ?? ""
+                        self.userType = UserType(rawValue: userRole)!
+                        self.userName = jsonDict["firstName"] as? String
+                        status = true
+                    }
+                }
+                catch{
+                    print("\nError - ",error,"\n Response Data - ",data as Any)
+                    status = false
                 }
             }
-            catch{
-                print("\nError - ",error,"\n Response Data - ",data as Any)
-                status = false
+            else {
+                if let responseStr : String = String(data: data! as Data, encoding: .utf8),
+                    responseStr.count != 0{
+                    errMess = responseStr
+                }
             }
-            (self.userType == .none) ? handler(false) : handler(true)
+            handler(status,errMess)
         })
     }
     
@@ -186,12 +165,12 @@ class DataManager: NSObject {
         let service: String = "terminal/service/active"
         
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
-        WebServiceManager.sendRequest(request, completionHandler: {(data, error) in
+        WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error) in
             
             var responseArr = [LocationInfo]()
             var status : Bool = false
             
-            if error != nil {
+            if error != nil || data == nil {
                 handler(status, nil)
                 return
             }
@@ -224,12 +203,12 @@ class DataManager: NSObject {
         let service: String =  "tractor/service/search?\(params)"
         
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
-        WebServiceManager.sendRequest(request, completionHandler: {(data, error) in
+        WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error) in
             
             var responseArr = [TractorInfo]()
             var status : Bool = false
             
-            if error != nil {
+            if error != nil || data == nil {
                 handler(status, nil)
                 return
             }
@@ -334,15 +313,15 @@ class DataManager: NSObject {
     
     func requestToSearchTrailerType(_ search: String, completionHandler handler: @escaping ( Bool, [TrailerInfo]?) -> () )
     {
-        let service: String =  "trailer/service/lookup?searchStr=\(search)"
+        let service: String =  "trailer/service/lookup?searchStr=\(search.encodeString())"
         
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
-        WebServiceManager.sendRequest(request, completionHandler: {(data, error) in
+        WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error) in
             
             var responseArr = [TrailerInfo]()
             var status : Bool = false
             
-            if error != nil {
+            if error != nil || data == nil {
                 handler(status, nil)
                 return
             }
@@ -367,14 +346,14 @@ class DataManager: NSObject {
     
     func requestToSearchTerminal(_ search: String, completionHandler handler: @escaping ( Bool, [String]?) -> () )
     {
-        let service: String =  "terminal/service/lookup?searchStr=\(search)"
+        let service: String =  "terminal/service/lookup?searchStr=\(search.encodeString())"
         
         let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
-        WebServiceManager.sendRequest(request, completionHandler: {(data, error) in
+        WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error) in
             var responseArr = [String]()
             var status : Bool = false
             
-            if (error != nil)
+            if (error != nil || data == nil)
             {
                 handler(status, nil)
                 return
@@ -398,8 +377,8 @@ class DataManager: NSObject {
         let service: String =  "tractor/service/callLog?tractorId=\(tractorId)&userId=\(userId)"
         let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: Dictionary<String,Any>()) as URLRequest
         
-        WebServiceManager.sendRequest(request) { (data, error) in
-            if error != nil{
+        WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
+            if error != nil || data == nil{
                 print(error as Any)
                 return
             }
@@ -415,7 +394,7 @@ class DataManager: NSObject {
     func fetchContactList(completionHandler handler: @escaping ( Bool, [Dictionary<String, Any>]?,Error?) -> ()) {
         let service: String =  "content/service/contacts"
         let request: URLRequest = WebServiceManager.getRequest(service)
-        WebServiceManager.sendRequest(request) { (data, error) in
+        WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
             var responseArr = [Dictionary<String, Any>]()
             var status : Bool = false
             
@@ -441,7 +420,7 @@ class DataManager: NSObject {
     func getHomeContent(completionHandler handler: @escaping (Bool,String?,Error?) -> ()){
         let service: String =  "content/service/home"
         let request: URLRequest = WebServiceManager.getRequest(service)
-        WebServiceManager.sendRequest(request) { (data, error) in
+        WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
             var responseStr:String?
             var status : Bool = false
             
@@ -462,7 +441,7 @@ class DataManager: NSObject {
     func performRegistrationWith(paramDict: Dictionary<String, Any>, completionHandler handler: @escaping (Bool,String?,Error?) -> ()){
         let service: String =  "registration/service/register"
         let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: paramDict) as URLRequest
-        WebServiceManager.sendRequest(request) { (data, error) in
+        WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
             var responseStr:String?
             var status : Bool = false
             
@@ -479,24 +458,6 @@ class DataManager: NSObject {
             handler(status, responseStr, error)
         }
     }
-    
-//    func checkUserType(_ user: String) -> UserType
-//    {
-//        var type : UserType = .none
-//        if (user == "Customer")
-//        {
-//            type = .customer
-//        }
-//        else if (user == "Carrier")
-//        {
-//            type = .carrier
-//        }
-//        else if (user == "Employee")
-//        {
-//            type = .employee
-//        }
-//        return type
-//    }
     
     func getRadiusList() -> [String]
     {

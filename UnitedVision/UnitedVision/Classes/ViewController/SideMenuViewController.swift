@@ -136,6 +136,7 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
         super.viewWillAppear(animated)
         selectedLeftMenuItem = returnSelectedLeftMenuItem()
         self.populateArray()
+        self.tableView.reloadData()
     }
     
     func returnSelectedLeftMenuItem() -> LeftMenuItem?{
@@ -243,11 +244,12 @@ extension SideMenuViewController
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let numOfRows = 2 + menuValues.count //2 for headerview being nearly twice the size of cell
         if indexPath.section == 0 {
-            return 200
+            return min(200, view.frame.size.height * (2/CGFloat(numOfRows)))
         }
         else {
-            return 75
+            return min(75, view.frame.size.height / CGFloat(numOfRows))
         }
     }
     

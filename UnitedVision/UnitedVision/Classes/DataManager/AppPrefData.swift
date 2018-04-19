@@ -72,8 +72,6 @@ class AppPrefData: NSObject {
             if searchInfo.tractorType.count > 0{
                 dict["tractorType"] = searchInfo.tractorType
             }
-            
-
         }
         return dict
     }

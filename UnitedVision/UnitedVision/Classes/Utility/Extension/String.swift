@@ -44,14 +44,6 @@ extension String {
         return result
     }
     
-    var isValidPass: Bool {
-        // let PassWordRegEx = "^(?=.*[A-Z])(?=.*[0-9]).{6,}$"
-        // let passWordTest : NSPredicate! = NSPredicate(format:"SELF MATCHES %@", PassWordRegEx)
-        // let result = passWordTest.evaluate(with: self)
-        // return result
-        return true
-    }
-    
     var htmlToAttributedString: NSAttributedString? {
         guard let data = data(using: .utf8) else { return NSAttributedString() }
         do {

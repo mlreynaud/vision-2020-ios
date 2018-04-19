@@ -20,9 +20,13 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
     
     var radiusList : [String] = []
  
+    @IBOutlet weak var topApplyBtnHeight: NSLayoutConstraint!
     @IBOutlet weak var checkBoxImg: UIImageView!
     
-    @IBOutlet weak var applyBtnView: UIView!
+    @IBOutlet weak var bottomStackView: UIStackView!
+    
+    @IBOutlet weak var topApplyBtnView: UIView!
+    @IBOutlet weak var bottomApplyBtnView: UIView!
     
     var pickerToolbarView : UIView!
     var pickerView : UIPickerView?
@@ -50,6 +54,10 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
         reloadLabels()
         checkIfSavedFiltersSelected()
         setTitleView(withTitle: kTractorFilterTitle, Frame:nil)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        repositionApplyBtn(size: view.frame.size)
     }
     
     func initiateFilterPopupVC() {
@@ -90,12 +98,26 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         cancelClick()
         createPickerView(forSize: size)
+        repositionApplyBtn(size: size)
+    }
+    
+    func repositionApplyBtn(size: CGSize){
+        if UIDevice.current.orientation.isLandscape{
+            bottomApplyBtnView.isHidden = false
+            bottomStackView.addArrangedSubview(bottomApplyBtnView)
+            topApplyBtnHeight.constant = 0
+        }
+        else{
+            bottomApplyBtnView.isHidden = true
+            bottomStackView.removeArrangedSubview(bottomApplyBtnView)
+            topApplyBtnHeight.constant = 50
+        }
     }
 }
 
 extension TractorFilterViewController{
     
-    @IBAction func topApplyBtnPressed(_ sender: UIControl) {
+    @IBAction func applyBtnPressed(_ sender: UIControl) {
         DataManager.sharedInstance.tractorSearchInfo = searchInfo
         if checkBoxImg.isHighlighted {
             AppPrefData.sharedInstance.saveAllData()

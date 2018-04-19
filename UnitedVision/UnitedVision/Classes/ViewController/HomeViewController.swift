@@ -12,7 +12,7 @@ import FZAccordionTableView
 let kNoOfBottomBtns = 3
 
 class HomeViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate,SideMenuLogOutDelegate {
-   
+       
     static fileprivate let kTableViewCellReuseIdentifier = "AccordionTableCell"
     static let kSlideViewCellReuseIdentifier = "slideViewCell"
 
@@ -66,12 +66,13 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
             self.initialViewScreen?.alpha = 0.0
         }) { (_) in
             self.initialViewScreen?.removeFromSuperview()
+            self.startAutoScroll()
         }
     }
     
     func checkToken() {
         beginTime = Date()
-        DataManager.sharedInstance.requestToCheckTokenValidity(completionHandler: {(status) in
+        DataManager.sharedInstance.requestToLoginOrVerifyToken(reqType: .EVerifiyToken, paramDict: nil) { (status, messageStr) in
             DataManager.sharedInstance.isLogin = status ? true : false
             let timeNow = Date()
             if timeNow.timeIntervalSince(self.beginTime!) > 2{
@@ -81,7 +82,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
                 Timer.scheduledTimer(timeInterval: 2 - timeNow.timeIntervalSince(self.beginTime!), target: self, selector: #selector(self.removeInitialViewScreen), userInfo: nil, repeats: false)
             }
             self.checkIfLoggedIn()
-        })
+        }
     }
     
     func initialSetup(){
@@ -150,6 +151,23 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
             }
         }
     }
+  
+    func startAutoScroll() {
+        Timer.scheduledTimer(timeInterval: 10.0, target: self, selector:  #selector(scrollToNextCell), userInfo: nil, repeats: true);
+    }
+    
+    @objc func scrollToNextCell(){
+        var nextIndex = IndexPath(item: 0, section: 0)
+        let currIndexPath = collectionView.indexPathsForVisibleItems.first
+
+        if collectionView.indexPathsForVisibleItems.first?.item == collectionViewImgArr.count - 1{
+            nextIndex = IndexPath(item: 0, section: 0)
+        }
+        else{
+            nextIndex = IndexPath(item: (currIndexPath?.item)! + 1, section: 0)
+        }
+        collectionView.scrollToItem(at:nextIndex , at: UICollectionViewScrollPosition(), animated: true)
+    }
     
     func sideMenuLogOutPressed() {
         checkIfLoggedIn()
@@ -165,7 +183,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
                     bottomStackView.addArrangedSubview(loginTractorCardView)
                 }
                 loginTractorBtnImg.image = UIImage(named:"ic_truck_red")
-                loginTractorBtnLbl.text = "Tractor Search"
+                loginTractorBtnLbl.text = "TRACTOR SEARCH"
             }
             else{
                 if bottomStackView.arrangedSubviews.count == kNoOfBottomBtns{
@@ -180,7 +198,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
                 bottomStackView.addArrangedSubview(loginTractorCardView)
             }
             loginTractorBtnImg.image = UIImage(named:"ic_login_red")
-            loginTractorBtnLbl.text = "Login"
+            loginTractorBtnLbl.text = "LOGIN"
         }
         updateLayoutConstraints(forSize: view.frame.size)
     }

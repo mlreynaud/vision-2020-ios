@@ -278,7 +278,6 @@ extension RegisterViewController{
             try checkForTextLength()
             try checkEmailValidation()
             try checkPasswordMatch()
-            try checkPasswordFormat()
             try checkTermsAgreement()
         }
         catch{
@@ -300,13 +299,6 @@ extension RegisterViewController{
         let confirmpasswordField = textFields[RegDataField.EConfirmPass.rawValue - kFieldTagOverhead]
         if passwordField.text != confirmpasswordField.text{
             throw RegError.EPassNotMatch
-        }
-    }
-    
-    func checkPasswordFormat() throws{
-        let passwordField = textFields[RegDataField.EPass.rawValue - kFieldTagOverhead]
-        if !(passwordField.text?.isValidPass)!{
-            throw RegError.EInvalidPass
         }
     }
     

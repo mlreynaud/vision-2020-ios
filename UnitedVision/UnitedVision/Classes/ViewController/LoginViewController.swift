@@ -56,11 +56,13 @@ class LoginViewController: UITableViewController, UITextFieldDelegate, MFMailCom
                 UIUtils.showAlert(withTitle: kAppTitle, message: "Please enter a valid useranme or password.", inContainer: self)
                 return
         }
+        let paramDict = ["username": username.encodeString(), "password": password.encodeString()] as Dictionary<String, String>
         LoadingView.shared.showOverlay()
-        DataManager.sharedInstance.request(toLogin: username, withPassword: password, completionHandler: {(status, errorMessage) in
+        DataManager.sharedInstance.requestToLoginOrVerifyToken(reqType: .ELogin, paramDict: paramDict) { (status, errorMessage) in
             LoadingView.shared.hideOverlayView()
             if (status){
                 DataManager.sharedInstance.userName = username
+                AppPrefData.sharedInstance.userName = username
                 DataManager.sharedInstance.isLogin = true
                 AppPrefData.sharedInstance.isLogin = true
                 AppPrefData.sharedInstance.saveAllData()
@@ -69,7 +71,7 @@ class LoginViewController: UITableViewController, UITextFieldDelegate, MFMailCom
             else{
                 UIUtils.showAlert(withTitle: kAppTitle, message: errorMessage, inContainer: self)
             }
-        })
+        }
     }
     
     @IBAction func registerBtnPressed(_ sender: Any) {

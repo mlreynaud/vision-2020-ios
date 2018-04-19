@@ -10,7 +10,7 @@ import UIKit
 
 let kNetworkErrorMessage = "App encountered a Network connection problem. Please try again shortly."
 
-typealias CompletionHandlerClosureType = (_ data: Data?, _ error: NSError?) -> ()
+typealias CompletionHandlerClosureType = (_ status: Bool, _ data: Data?, _ error: NSError?) -> ()
 typealias DownloadHandlerClosureType = (_ filepath: URL?, _ error: NSError?) -> ()
 
 class WebServiceManager: NSObject, URLSessionDelegate {
@@ -75,10 +75,11 @@ class WebServiceManager: NSObject, URLSessionDelegate {
     
     class func sendRequest(_ request: URLRequest, completionHandler handler: @escaping CompletionHandlerClosureType )
     {
+        var status = false
         printWebRequest(request: request)
         
         if (UIUtils.isConnectedToNetwork() == false){
-            handler(nil, NSError(domain: kNetworkErrorMessage, code: 0, userInfo: nil))
+            handler(status, nil, NSError(domain: kNetworkErrorMessage, code: 0, userInfo: nil))
             return
         }
         
@@ -104,7 +105,7 @@ class WebServiceManager: NSObject, URLSessionDelegate {
                 guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
                     else {
                         print("error: not a valid http response")
-                        handler(nil, error as NSError?)
+                        handler(status, nil, error as NSError?)
                         return
                 }
                 
@@ -121,7 +122,8 @@ class WebServiceManager: NSObject, URLSessionDelegate {
                 let responseStatusCode = httpResponse.statusCode
                 if responseStatusCode == 200
                 {
-                    handler(receivedData as Data?, error as NSError?)
+                    status = true
+                    handler(status, receivedData as Data?, error as NSError?)
                 }
                 else
                 {
@@ -130,7 +132,7 @@ class WebServiceManager: NSObject, URLSessionDelegate {
                         let errStr = String(data:receivedData, encoding: String.Encoding.utf8)
                         cusError = NSError(domain: errStr ?? kNetworkErrorMessage, code: 0, userInfo: nil)
                     }
-                    handler((receivedData as Data?) ?? nil, error as NSError? ?? cusError )
+                    handler(status, (receivedData as Data?) ?? nil, error as NSError? ?? cusError )
                 }
             }
         });
