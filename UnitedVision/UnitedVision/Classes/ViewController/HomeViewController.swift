@@ -159,7 +159,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     }
   
     func startAutoScroll() {
-       autoScrollTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector:  #selector(scrollToNextCell), userInfo: nil, repeats: true);
+       autoScrollTimer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector:  #selector(scrollToNextCell), userInfo: nil, repeats: true);
     }
     
     @objc func scrollToNextCell(){
