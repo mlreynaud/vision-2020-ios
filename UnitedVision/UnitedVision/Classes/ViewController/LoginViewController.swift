@@ -28,14 +28,6 @@ class LoginViewController: UITableViewController, UITextFieldDelegate, MFMailCom
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if (self.navigationController?.topViewController?.isKind(of: LoginViewController.self) )!
-        {
-            self.setNavigationBarItem()
-        }
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

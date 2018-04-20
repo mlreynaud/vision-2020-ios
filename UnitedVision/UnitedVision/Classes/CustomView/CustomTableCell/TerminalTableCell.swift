@@ -11,7 +11,8 @@ import UIKit
 class TerminalTableCell: UITableViewCell {
     
     @IBOutlet weak var terminalDetailViewDescLbl: UILabel!
-    @IBOutlet var terminalDetailViewAddressLbl : UILabel!
+    @IBOutlet weak var terminalDetailViewAddressLbl : UILabel!
+    @IBOutlet weak var callBtn: UIButton!
     
     weak var locationInfo: LocationInfo?
     
@@ -21,6 +22,7 @@ class TerminalTableCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        callBtn.imageView?.contentMode = .scaleAspectFit
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

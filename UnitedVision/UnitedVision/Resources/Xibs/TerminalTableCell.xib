@@ -17,11 +17,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="feZ-Db-Xhn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
+                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="feZ-Db-Xhn" customClass="CardView" customModule="UnitedVision" customModuleProvider="target">
+                        <rect key="frame" x="4" y="6" width="367" height="107.5"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wmb-Wc-sei">
-                                <rect key="frame" x="307" y="76.5" width="60" height="35"/>
+                                <rect key="frame" x="299" y="64.5" width="60" height="35"/>
                                 <color key="backgroundColor" red="0.40000000000000002" green="0.59999999999999998" blue="0.027450980390000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="pad-kl-udF"/>
@@ -33,7 +33,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5h-fK-nGZ">
-                                <rect key="frame" x="8" y="4" width="291" height="20"/>
+                                <rect key="frame" x="8" y="4" width="283" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="vDj-14-nwd"/>
                                 </constraints>
@@ -42,7 +42,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jr4-jW-FXG">
-                                <rect key="frame" x="8" y="28" width="291" height="87.5"/>
+                                <rect key="frame" x="8" y="28" width="283" height="75.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Y67-cf-QQv"/>
@@ -69,13 +69,14 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="feZ-Db-Xhn" secondAttribute="trailing" id="06f-Xb-9Mn"/>
-                    <constraint firstItem="feZ-Db-Xhn" firstAttribute="leading" secondItem="mbu-Zc-18D" secondAttribute="leading" id="KtL-1H-snO"/>
-                    <constraint firstItem="feZ-Db-Xhn" firstAttribute="top" secondItem="mbu-Zc-18D" secondAttribute="top" id="ZmK-dd-oA3"/>
-                    <constraint firstAttribute="bottom" secondItem="feZ-Db-Xhn" secondAttribute="bottom" id="yxD-RW-ouT"/>
+                    <constraint firstAttribute="trailing" secondItem="feZ-Db-Xhn" secondAttribute="trailing" constant="4" id="06f-Xb-9Mn"/>
+                    <constraint firstItem="feZ-Db-Xhn" firstAttribute="leading" secondItem="mbu-Zc-18D" secondAttribute="leading" constant="4" id="KtL-1H-snO"/>
+                    <constraint firstItem="feZ-Db-Xhn" firstAttribute="top" secondItem="mbu-Zc-18D" secondAttribute="top" constant="6" id="ZmK-dd-oA3"/>
+                    <constraint firstAttribute="bottom" secondItem="feZ-Db-Xhn" secondAttribute="bottom" constant="6" id="yxD-RW-ouT"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="callBtn" destination="Wmb-Wc-sei" id="SQW-cD-r0n"/>
                 <outlet property="terminalDetailViewAddressLbl" destination="Jr4-jW-FXG" id="1SE-Sy-1hy"/>
                 <outlet property="terminalDetailViewDescLbl" destination="e5h-fK-nGZ" id="bd8-fX-FBK"/>
             </connections>

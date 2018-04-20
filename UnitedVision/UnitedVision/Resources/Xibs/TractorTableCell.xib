@@ -27,7 +27,6 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TERMINAL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wI2-Vp-s6x">
                                         <rect key="frame" x="2" y="1" width="63" height="16"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="63" id="TJl-7c-6pQ"/>
                                             <constraint firstAttribute="height" constant="16" id="dqn-pS-jwf"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
@@ -44,9 +43,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEST" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddY-JE-f2k">
-                                        <rect key="frame" x="2" y="17.5" width="33" height="16"/>
+                                        <rect key="frame" x="2" y="17.5" width="32" height="16"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="33" id="EP2-eC-LwL"/>
                                             <constraint firstAttribute="height" constant="16" id="p5Z-5m-QvY"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
@@ -54,7 +52,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="431-NU-gSY">
-                                        <rect key="frame" x="37" y="18" width="0.0" height="14"/>
+                                        <rect key="frame" x="36" y="18" width="0.0" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="7dJ-WE-dYK"/>
                                         </constraints>
@@ -65,7 +63,6 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TRACTOR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcD-1m-KXo">
                                         <rect key="frame" x="2" y="33.5" width="58" height="16"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="58" id="Mdp-J5-Gm3"/>
                                             <constraint firstAttribute="height" constant="16" id="zLQ-Hp-FdD"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
@@ -366,6 +363,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="callBtn" destination="AGD-Wn-WN8" id="MO1-Vv-IMS"/>
                 <outlet property="destLbl" destination="431-NU-gSY" id="XFy-A2-GEZ"/>
                 <outlet property="distLbl" destination="ZkN-zQ-sQa" id="FVJ-ES-cUI"/>
                 <outlet property="hazmatImageView" destination="FZe-WQ-6nf" id="CpN-GR-4eF"/>

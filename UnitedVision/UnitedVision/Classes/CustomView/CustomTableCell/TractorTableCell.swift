@@ -28,6 +28,7 @@ class TractorTableCell: UITableViewCell {
     @IBOutlet var distLbl : UILabel!
     @IBOutlet var statusLbl : UILabel!
 
+    @IBOutlet weak var callBtn: UIButton!
     @IBOutlet weak var loadedImageView: UIImageView!
     @IBOutlet weak var hazmatImageView: UIImageView!
     
@@ -85,6 +86,7 @@ class TractorTableCell: UITableViewCell {
         loadedImageView.image = UIImage(named:"ic_cancel_circle_red")
         hazmatImageView.image = UIImage(named:"ic_cancel_circle_red")
         reduceFontSizeForSmallerIPhone()
+        callBtn.imageView?.contentMode = .scaleAspectFit
     }
     
     func setTractorInfo(tractorInfo:TractorInfo) {
