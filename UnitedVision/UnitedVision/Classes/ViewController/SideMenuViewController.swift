@@ -244,12 +244,15 @@ extension SideMenuViewController
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let numOfRows = 2 + menuValues.count //2 for headerview being nearly twice the size of cell
+        let menuWidth = tableView.bounds.size.width
+        let imageAspectRatio = CGFloat(16)/9
+        let imageHeight = menuWidth / imageAspectRatio
+        let numOfRows = menuValues.count //2 for headerview being nearly twice the size of cell
         if indexPath.section == 0 {
-            return min(200, view.frame.size.height * (2/CGFloat(numOfRows)))
+            return imageHeight
         }
         else {
-            return min(75, view.frame.size.height / CGFloat(numOfRows))
+            return min(75, max(20,(view.frame.size.height-imageHeight) / CGFloat(numOfRows)))
         }
     }
     
