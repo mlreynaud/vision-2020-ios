@@ -52,30 +52,37 @@ extension TractorSortType {
 }
 
 let kSortBy = "Sort By"
+let kCellPadding:CGFloat = 1
 
-class TractorViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MKMapViewDelegate, TractorTableCellDelegate, GMSMapViewDelegate,SideMenuLogOutDelegate {
+class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewDelegate, TractorCollectionGridCellDelegate, GMSMapViewDelegate,SideMenuLogOutDelegate {
     
-    @IBOutlet weak var tableView : UITableView!
+    @IBOutlet weak var collectionView : UICollectionView!
     
     @IBOutlet weak var mapView: MapView!
 
     @IBOutlet weak var segmentedControl : UISegmentedControl!
     
-    @IBOutlet weak var filterBtnView: UIView!
+    @IBOutlet weak var bottomFilterBtnView: UIView!
+    @IBOutlet weak var topFilterBtnView: UIView!
     
+    @IBOutlet weak var bottomFilterBtnViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var topFilterBtnViewWidth: NSLayoutConstraint!
+
     var showMap = false
 
     var tractorSearchInfo : TractorSearchInfo!
 
     var tractorArray = [TractorInfo]()
     
+    var collectionViewCellWidth: CGFloat = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setTitleView(withTitle: "TRACTOR SEARCH", Frame: nil)
 
+        segmentedControl.removeBorder()
         segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addUnderlineForSelectedSegment()
 
         tractorSearchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()!
         DataManager.sharedInstance.tractorSearchInfo = self.tractorSearchInfo
@@ -89,8 +96,9 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         self.view.backgroundColor = UIColor.white
         addSearchBarButton()
         addSortBarBtn()
-        tableView.register(UINib(nibName: "TractorTableCell", bundle: Bundle.main), forCellReuseIdentifier: "TractorTableCell")
-        tableView.separatorStyle = .none
+        collectionView.register(UINib(nibName: "TractorCollectionGridCell", bundle: Bundle.main), forCellWithReuseIdentifier: "TractorCollectionGridCell")
+
+        setupCollectionView(screenSize: view.frame.size)
     }
     
     func addSearchBarButton() {
@@ -112,19 +120,37 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         {
             self.setNavigationBarItem()
         }
+        repositionFilterBtn(size: view.frame.size)
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        segmentedControl.addUnderlineForSelectedSegment()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func repositionFilterBtn(size: CGSize){
+        if UIDevice.current.orientation.isLandscape{
+            bottomFilterBtnViewHeight.constant = 0
+            topFilterBtnViewWidth.constant = size.width/2
+        }
+        else{
+            bottomFilterBtnViewHeight.constant = 45
+            topFilterBtnViewWidth.constant = 0
+        }
     }
     
     //MARK-
 
     override func viewWillTransition(to size: CGSize, with coordinator:
         UIViewControllerTransitionCoordinator) {
-        segmentedControl.updateUnderLineWidth(newWidth: size.width)
         mapView.parentVCOrientationChanged()
+        
+        let dispatchTime = DispatchTime.now() + 0.1
+        DispatchQueue.main.asyncAfter(deadline:dispatchTime) {
+            self.segmentedControl.updateUnderLineWidth()
+            self.setupCollectionView(screenSize: size)
+            self.collectionView.reloadData()
+        }
+        repositionFilterBtn(size: size)
     }
     
     func sideMenuLogOutPressed() {
@@ -136,12 +162,12 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         switch sender.selectedSegmentIndex {
         case 0:
             mapView.isHidden = true
-            tableView.isHidden = false
+            collectionView.isHidden = false
             showMap = false
             addSortBarBtn()
         case 1:
             mapView.isHidden = false
-            tableView.isHidden = true
+            collectionView.isHidden = true
             showMap = true
             addSearchBarButton()
         default:
@@ -177,7 +203,7 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
                 self.tractorArray = (tractorList)! //DataManager.sharedInstance.tractorList
                 self.addTractorAnnotations()
                 self.mapView.addSearchCentreMarker()
-                self.tableView.reloadData()
+                self.collectionView.reloadData()
             }
         })
     }
@@ -234,59 +260,66 @@ class TractorViewController: BaseViewController, UITableViewDataSource, UITableV
         else if sortType == .EStatus {
             tractorArray = tractorArray.sorted(by: { ($0.status ?? "")! <  ($1.status ?? "")! })
         }
-        tableView.reloadData()
+        collectionView.reloadData()
     }
-
 }
 
-//MARK: - TableView delgate
+//MARK: - collectionView delgate
 
-extension TractorViewController
-{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numOfRows: Int = 0
+extension TractorViewController : UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+    
+    func setupCollectionView(screenSize: CGSize){
+
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight{
+            collectionViewCellWidth = screenSize.width/2 - kCellPadding
+        }
+        else {
+            collectionViewCellWidth = screenSize.width
+        }
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return (tractorArray.count == 0) ? 0 : 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        var numOfItems: Int = 0
         if tractorArray.count != 0{
-            tableView.separatorStyle = .singleLine
-            numOfRows = tractorArray.count
-            tableView.backgroundView = nil
+            numOfItems = tractorArray.count
+            collectionView.backgroundView = nil
         }
         else{
-            let noDataLabel: UILabel     = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            let noDataLabel: UILabel     = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
             noDataLabel.text          = "No data available"
             noDataLabel.textColor     = UIColor.black
             noDataLabel.textAlignment = .center
-            tableView.backgroundView  = noDataLabel
-            tableView.separatorStyle  = .none
+            collectionView.backgroundView  = noDataLabel
         }
-        return numOfRows
+        return numOfItems
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return (tractorArray.count == 0) ? 0 : 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell : TractorTableCell?
-        
-        cell = tableView.dequeueReusableCell(withIdentifier: "TractorTableCell", for: indexPath) as? TractorTableCell
-        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TractorCollectionGridCell", for: indexPath) as? TractorCollectionGridCell
+
         let info = tractorArray[indexPath.row]
         cell?.delegate = self
         cell?.setTractorInfo(tractorInfo: info)
-        
+
         return cell!
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        tableView.deselectRow(at: indexPath, animated: true)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
     
-    //MARK- TractorTableCell delegate methods
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionViewCellWidth, height: 110)
+    }
     
-    func showMapAtIndex (_ cell: TractorTableCell){
+//MARK- TractorCollectionViewCell delegate methods
+
+    func showMapAtIndex (_ cell: TractorCollectionGridCell){
         segmentedControl.selectedSegmentIndex = 1
         segmentControlValueChanged(segmentedControl)
-        let indexPath = tableView.indexPath(for: cell)
+        let indexPath = collectionView.indexPath(for: cell)
         mapView.mapBtnTapped(forTractorAt: indexPath!)
     }
 }

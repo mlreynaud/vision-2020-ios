@@ -1,18 +1,21 @@
 //
-//  TractorTableCell.swift
+//  TractorCollectionViewCell.swift
 //  UnitedVision
 //
-//  Created by Agilink on 04/03/18.
+//  Created by Simrandeep Singh on 20/04/18.
 //  Copyright © 2018 Agilink. All rights reserved.
 //
 
 import UIKit
 
-protocol TractorTableCellDelegate : class{
-    func showMapAtIndex (_ cell: TractorTableCell)
+protocol TractorCollectionGridCellDelegate: class{
+    func showMapAtIndex (_ cell: TractorCollectionGridCell)
 }
 
-class TractorTableCell: UITableViewCell {
+class TractorCollectionGridCell: UICollectionViewCell {
+    
+    @IBOutlet weak var loadedImageView: UIImageView!
+    @IBOutlet weak var hazmatImageView: UIImageView!
     
     @IBOutlet weak var loadedLbl: UILabel!
     @IBOutlet weak var loadedViewWidth: NSLayoutConstraint!
@@ -27,31 +30,47 @@ class TractorTableCell: UITableViewCell {
     @IBOutlet var trailerLenLbl : UILabel!
     @IBOutlet var distLbl : UILabel!
     @IBOutlet var statusLbl : UILabel!
-
+    
     @IBOutlet weak var callBtn: UIButton!
-    @IBOutlet weak var loadedImageView: UIImageView!
-    @IBOutlet weak var hazmatImageView: UIImageView!
     
     @IBOutlet weak var mapBtnView: UIView!
-    weak var delegate: TractorTableCellDelegate?
+    weak var delegate: TractorCollectionGridCellDelegate?
     var tractorId: String?
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupCell()
-    }
-
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCell()
     }
     
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                delegate?.showMapAtIndex(self)
+            }
+        }
+    }
+    
+    func setupCell(){
+        contentView.layer.cornerRadius = 5.0
+        contentView.layer.borderColor  =  UIColor.clear.cgColor
+        contentView.layer.borderWidth = 5.0
+        contentView.layer.shadowOpacity = 0.2
+        contentView.layer.shadowColor =  UIColor.lightGray.cgColor
+        contentView.layer.shadowRadius = 0.5
+        contentView.layer.shadowOffset = CGSize(width:0, height: 0)
+        contentView.layer.masksToBounds = true
+        loadedImageView.image = UIImage(named:"ic_cancel_circle_red")
+        hazmatImageView.image = UIImage(named:"ic_cancel_circle_red")
+        callBtn.imageView?.contentMode = .scaleAspectFit
+        reduceFontSizeForSmallerIPhone()
+    }
+    
     func reduceFontSizeForSmallerIPhone(){
-        if UIDevice.current.screenType == .iPhones_5_5s_5c_SE || UIDevice.current.screenType == .iPhone4_4S{
+        if self.reuseIdentifier == "TractorCollectionGridCell" && UIDevice.current.screenType == .iPhones_5_5s_5c_SE || UIDevice.current.screenType == .iPhone4_4S{
             for lbl in titleLblCollection{
                 lbl.font = lbl.font.withSize(11)
             }
@@ -65,28 +84,6 @@ class TractorTableCell: UITableViewCell {
             distLbl.font = distLbl.font.withSize(11)
             statusLbl.font = statusLbl.font.withSize(11)
         }
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        if selected {
-            delegate?.showMapAtIndex(self)
-        }
-    }
-    
-    func setupCell(){
-        contentView.layer.cornerRadius = 5.0
-        contentView.layer.borderColor  =  UIColor.clear.cgColor
-        contentView.layer.borderWidth = 5.0
-        contentView.layer.shadowOpacity = 0.5
-        contentView.layer.shadowColor =  UIColor.lightGray.cgColor
-        contentView.layer.shadowRadius = 5.0
-        contentView.layer.shadowOffset = CGSize(width:5, height: 5)
-        contentView.layer.masksToBounds = true
-        loadedImageView.image = UIImage(named:"ic_cancel_circle_red")
-        hazmatImageView.image = UIImage(named:"ic_cancel_circle_red")
-        reduceFontSizeForSmallerIPhone()
-        callBtn.imageView?.contentMode = .scaleAspectFit
     }
     
     func setTractorInfo(tractorInfo:TractorInfo) {
@@ -116,7 +113,6 @@ class TractorTableCell: UITableViewCell {
     }
     
     //MARK- Button Action methods
-    
     @IBAction func mapBtnPressed(_ sender: Any) {
         delegate?.showMapAtIndex(self)
     }
@@ -125,5 +121,4 @@ class TractorTableCell: UITableViewCell {
         DataManager.sharedInstance.addNewCallLog(tractorId!, userId:DataManager.sharedInstance.userName!)
         UIUtils.callPhoneNumber(kdefaultTractorNumber)
     }
-
 }

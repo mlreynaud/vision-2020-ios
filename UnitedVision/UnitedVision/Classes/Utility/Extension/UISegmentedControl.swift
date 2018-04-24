@@ -9,6 +9,7 @@
 import Foundation
 
 extension UISegmentedControl{
+    
     func removeBorder(){
         let backgroundImage = UIImage.getColoredRectImageWith(color: UIColor.clear.cgColor, andSize: self.bounds.size)
         self.setBackgroundImage(backgroundImage, for: .normal, barMetrics: .default)
@@ -22,8 +23,7 @@ extension UISegmentedControl{
     }
     
     func addUnderlineForSelectedSegment(){
-        removeBorder()
-        let underlineWidth: CGFloat = UIScreen.main.bounds.size.width / CGFloat(self.numberOfSegments)
+        let underlineWidth: CGFloat = self.frame.width / CGFloat(self.numberOfSegments)
         let underlineHeight: CGFloat = 2.0
         let underlineXPosition = CGFloat(selectedSegmentIndex * Int(underlineWidth))
         let underLineYPosition = self.bounds.size.height - 1.0
@@ -42,8 +42,9 @@ extension UISegmentedControl{
         })
     }
     
-    func updateUnderLineWidth(newWidth: CGFloat){
+    func updateUnderLineWidth(){
         guard let underline = self.viewWithTag(1) else {return}
+        let newWidth = self.frame.size.width
         let newUnderlineWidth = newWidth/CGFloat(numberOfSegments)
         UIView.animate(withDuration: 0.1, animations: {
             underline.frame = CGRect(x: underline.frame.origin.x, y: underline.frame.origin.y, width: newUnderlineWidth, height: underline.frame.size.height)

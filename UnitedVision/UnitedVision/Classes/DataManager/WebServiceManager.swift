@@ -62,7 +62,7 @@ class WebServiceManager: NSObject, URLSessionDelegate {
         var request =  URLRequest(url: URL(string: urlString)!)
         request.httpMethod = httpMethod
         request.setValue("application/json", forHTTPHeaderField:"Content-Type")
-        request.setValue(UUID().uuidString, forHTTPHeaderField: "X-Request-ID")
+        request.setValue(UIDevice.current.identifierForVendor!.uuidString, forHTTPHeaderField: "X-Request-ID")
         request.timeoutInterval = 60.0
         
         if (DataManager.sharedInstance.isLogin)

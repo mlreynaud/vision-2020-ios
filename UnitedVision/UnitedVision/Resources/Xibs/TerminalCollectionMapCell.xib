@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TerminalCollectionMapCell" id="gTV-IL-0wX" customClass="TerminalCollectionMapCell" customModule="UnitedVision" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="110"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="300" height="110"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCr-IR-ABj" customClass="CardView" customModule="UnitedVision" customModuleProvider="target">
+                        <rect key="frame" x="4" y="6" width="292" height="98"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltc-e9-f4R">
+                                <rect key="frame" x="224" y="55" width="60" height="35"/>
+                                <color key="backgroundColor" red="0.40000000000000002" green="0.59999999999999998" blue="0.027450980390000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="XEL-m5-wC8"/>
+                                    <constraint firstAttribute="height" constant="35" id="wbe-F3-sax"/>
+                                </constraints>
+                                <state key="normal" image="ic_call_white_hollow"/>
+                                <connections>
+                                    <action selector="callButtonAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="51f-uj-4dM"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nY-nl-IFW">
+                                <rect key="frame" x="8" y="4" width="208" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="WiM-rm-he0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XqM-R8-sKP">
+                                <rect key="frame" x="8" y="28" width="208" height="66"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Kzc-nP-zXa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5nY-nl-IFW" firstAttribute="leading" secondItem="KCr-IR-ABj" secondAttribute="leading" constant="8" id="AAl-Cn-oJm"/>
+                            <constraint firstAttribute="bottom" secondItem="ltc-e9-f4R" secondAttribute="bottom" constant="8" id="LgB-20-Vl0"/>
+                            <constraint firstItem="5nY-nl-IFW" firstAttribute="top" secondItem="KCr-IR-ABj" secondAttribute="top" constant="4" id="Pvh-Fc-3E1"/>
+                            <constraint firstItem="XqM-R8-sKP" firstAttribute="leading" secondItem="KCr-IR-ABj" secondAttribute="leading" constant="8" id="cF5-Iq-ZI9"/>
+                            <constraint firstItem="5nY-nl-IFW" firstAttribute="trailing" secondItem="XqM-R8-sKP" secondAttribute="trailing" id="cwc-ck-Yvv"/>
+                            <constraint firstAttribute="trailing" secondItem="ltc-e9-f4R" secondAttribute="trailing" constant="8" id="kgm-cx-Imr"/>
+                            <constraint firstItem="ltc-e9-f4R" firstAttribute="leading" secondItem="XqM-R8-sKP" secondAttribute="trailing" constant="8" id="o9z-lr-uSx"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="95" id="qu1-oZ-zTl"/>
+                            <constraint firstItem="XqM-R8-sKP" firstAttribute="top" secondItem="5nY-nl-IFW" secondAttribute="bottom" constant="4" id="u3G-l4-9he"/>
+                            <constraint firstItem="ltc-e9-f4R" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KCr-IR-ABj" secondAttribute="top" constant="52" id="yeY-42-O1X"/>
+                            <constraint firstAttribute="bottom" secondItem="XqM-R8-sKP" secondAttribute="bottom" constant="4" id="zhc-Pa-QYj"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="KCr-IR-ABj" secondAttribute="bottom" constant="6" id="Q9X-P1-zXp"/>
+                <constraint firstItem="KCr-IR-ABj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="6" id="Ukg-oO-dEu"/>
+                <constraint firstItem="KCr-IR-ABj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="Vxc-zx-kQx"/>
+                <constraint firstAttribute="trailing" secondItem="KCr-IR-ABj" secondAttribute="trailing" constant="4" id="znO-b5-Edq"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="callBtn" destination="ltc-e9-f4R" id="8zp-jv-YYM"/>
+                <outlet property="terminalDetailViewAddressLbl" destination="XqM-R8-sKP" id="W5O-EV-dMI"/>
+                <outlet property="terminalDetailViewDescLbl" destination="5nY-nl-IFW" id="B0h-Yg-mlv"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_call_white_hollow" width="25" height="25"/>
+    </resources>
+</document>
