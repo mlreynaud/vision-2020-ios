@@ -1,15 +1,15 @@
 //
-//  TerminalTableCell.swift
+//  TerminalCollectionMapCell.swift
 //  UnitedVision
 //
-//  Created by Simrandeep Singh on 12/04/18.
+//  Created by Simrandeep Singh on 24/04/18.
 //  Copyright © 2018 Agilink. All rights reserved.
 //
 
 import UIKit
 
-class TerminalTableCell: UITableViewCell {
-    
+class TerminalCollectionMapCell: UICollectionViewCell {
+
     @IBOutlet weak var terminalDetailViewDescLbl: UILabel!
     @IBOutlet weak var terminalDetailViewAddressLbl : UILabel!
     @IBOutlet weak var callBtn: UIButton!
@@ -25,14 +25,6 @@ class TerminalTableCell: UITableViewCell {
         callBtn.imageView?.contentMode = .scaleAspectFit
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
     func setLocationInfo(locationInfo : LocationInfo){
         self.locationInfo = locationInfo
         terminalDetailViewDescLbl.text = locationInfo.terminalDescr ?? ""
@@ -46,4 +38,5 @@ class TerminalTableCell: UITableViewCell {
             }
         }
     }
+
 }

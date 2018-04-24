@@ -26,7 +26,7 @@ class DataManager: NSObject {
     var userName: String?
     var authToken = ""
     var userType : UserType = .none
-
+    
     var radius = 50
 
     var isLogin = false

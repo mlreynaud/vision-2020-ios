@@ -10,9 +10,6 @@ import Foundation
 import GoogleMaps
 import GooglePlaces
 
-let kTractorViewHeight : CGFloat = 104
-let kTerminalViewHeight : CGFloat = 95
-
 protocol MapFilterDelegate: class {
     func mapFilter(sender: MapView)
 }
@@ -93,24 +90,28 @@ class GoogleMapMarker : GMSMarker{
     }
 }
 
+let kTractorGridCellHeight : CGFloat = 110
+let kTractorMapCellHeight : CGFloat = 90
+let kTerminalMapCellHeight : CGFloat = 95
+
 class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManagerDelegate, UIPickerViewDelegate {
     
-    @IBOutlet weak var detailTableViewContainer: UIView!
-    @IBOutlet weak var detailTableView: UITableView!
-    @IBOutlet weak var detailTableViewheight: NSLayoutConstraint!
+    @IBOutlet weak var detailCollectionViewContainer: UIView!
+    @IBOutlet weak var detailCollectionView: UICollectionView!
+    @IBOutlet weak var detailCollectionViewheight: NSLayoutConstraint!
+    var cellIdentifier: String?
+    var detailCollectionViewCellHeight:CGFloat = 0
     
     @IBOutlet var map: GMSMapView!
     var markers = [GoogleMapMarker]()
     var detailViewArr = [GoogleMapMarker]()
-    var cellIdentifier: String?
+    
     
     @IBOutlet var myLocationBtnOutlet: UIButton!
     var myLocationBtn : UIButton?
     
     @IBOutlet weak var radiusTextField: UITextField!
     @IBOutlet weak var radiusLbl: UILabel!
-    
-    @IBOutlet weak var autocompleteTableView: UITableView!
     
     var detailViewTractorInfo : TractorInfo?
     var detailViewLocationInfo : LocationInfo?
@@ -166,7 +167,7 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
         setupUpMyLocationBtn()
         updateSettingVariables()
         zoomMapToRadius()
-        setupTableView()
+        setupCollectionView()
         addObserver(self, forKeyPath: #keyPath(map.selectedMarker), options: [.old, .new], context: nil)
     }
     
@@ -214,6 +215,11 @@ class MapView: UIView, UISearchBarDelegate, GMSMapViewDelegate, CLLocationManage
     func parentVCOrientationChanged(){
         if radiusTextField.isEditing{
             radiusTextField.resignFirstResponder()
+        }
+        let dispatchTime = DispatchTime.now() + 0.1
+        DispatchQueue.main.asyncAfter(deadline:dispatchTime) {
+            self.setupCollectionIdentifierAndHeight()
+            self.setupDetailCollectionViewHeight()
         }
     }
     
@@ -416,7 +422,7 @@ extension MapView
                 moveMaptoLocation(location:CLLocation(latitude: (newMarker?.position.latitude)!, longitude: (newMarker?.position.longitude)!))
             }
             colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
-            setupDetailTableViewHeight()
+            setupDetailCollectionViewHeight()
         }
     }
     func toggleMarkerColor(marker: GMSMarker?){
@@ -463,7 +469,7 @@ extension MapView
     }
     
     func mapBtnTapped(forTractorAt index:IndexPath ){
-        let selectedMarker = markers[index.row] as GMSMarker
+        let selectedMarker = markers[index.item] as GMSMarker
         _ = mapView(map, didTap: selectedMarker)
         let location = CLLocation(latitude: selectedMarker.position.latitude, longitude: selectedMarker.position.longitude)
         moveMaptoLocation(location: location)
@@ -567,68 +573,83 @@ extension MapView: GMSAutocompleteViewControllerDelegate {
     }
 }
 
-extension MapView : UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate{
+extension MapView : UIScrollViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate{
+   
+    func setupCollectionView(){
+        setupCollectionIdentifierAndHeight()
+        setupDetailCollectionViewHeight()
+        detailCollectionView.allowsSelection = false
+        detailCollectionViewheight.constant = 0
+        detailCollectionViewContainer.layoutIfNeeded()
+        
+        detailCollectionView.register(UINib(nibName: "TractorCollectionMapCell", bundle: Bundle.main), forCellWithReuseIdentifier: "TractorCollectionMapCell")
+        detailCollectionView.register(UINib(nibName: "TractorCollectionGridCell", bundle: Bundle.main), forCellWithReuseIdentifier: "TractorCollectionGridCell")
+        
+        detailCollectionView.register(UINib(nibName: "TerminalCollectionMapCell", bundle: Bundle.main), forCellWithReuseIdentifier: "TerminalCollectionMapCell")
+    }
     
-    func setupTableView(){
+    func setupCollectionIdentifierAndHeight(){
         if mapViewType == .TerminalType{
-            detailTableView.register(UINib(nibName: "TerminalTableCell", bundle: Bundle.main), forCellReuseIdentifier: "TerminalTableCell")
-            cellIdentifier = "TerminalTableCell"
-            detailTableView.estimatedRowHeight = 95
+            cellIdentifier = "TerminalCollectionMapCell"
+            detailCollectionViewCellHeight = kTerminalMapCellHeight
         }
         else{
-            detailTableView.register(UINib(nibName: "TractorTableCell", bundle: Bundle.main), forCellReuseIdentifier: "TractorTableCell")
-            cellIdentifier = "TractorTableCell"
-            detailTableView.estimatedRowHeight = 105
+            if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight{
+                cellIdentifier = "TractorCollectionMapCell"
+                detailCollectionViewCellHeight = kTractorMapCellHeight
+            }
+            else {
+                cellIdentifier = "TractorCollectionGridCell"
+                detailCollectionViewCellHeight = kTractorGridCellHeight
+            }
         }
-        detailTableView.rowHeight = UITableViewAutomaticDimension
-        detailTableView.allowsSelection = false
-        detailTableView.separatorStyle = .none
-        self.detailTableViewheight.constant = 0
-        self.detailTableViewContainer.layoutIfNeeded()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == detailTableView{
+        if scrollView == detailCollectionView{
             if scrollView.contentOffset.y < 0{
                 UIView.animate(withDuration: 0.3) {
-                    self.detailTableViewheight.constant = 0
-                    self.detailTableViewContainer.layoutIfNeeded()
+                    self.detailCollectionViewheight.constant = 0
+                    self.detailCollectionViewContainer.layoutIfNeeded()
                 }
             }
         }
     }
     
-    func setupDetailTableViewHeight() {
-        detailTableView.reloadData()
-        detailTableView.layoutIfNeeded()
-        let newHeight = min(view.frame.height*(2/3), detailTableView.contentSize.height)
+    func setupDetailCollectionViewHeight() {
+        self.detailCollectionView.reloadData()
+        detailCollectionView.layoutIfNeeded()
+        let newHeight = min(view.frame.height*(2/3), detailCollectionView.contentSize.height)
         UIView.animate(withDuration: 0.3) {
-            self.detailTableViewheight.constant = newHeight
-            self.detailTableViewContainer.layoutIfNeeded()
+            self.detailCollectionViewheight.constant = newHeight
+            self.detailCollectionViewContainer.layoutIfNeeded()
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if mapViewType == .TerminalType{
             return detailViewArr.first?.locationInfoArr.count ?? 0
         }
         else{
-           return detailViewArr.count
+            return detailViewArr.count
         }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if mapViewType == .TerminalType{
-            return dequeueTerminalCell(tableView:tableView ,indexPath:indexPath)
+            return dequeueTerminalMapCell(collectionView:collectionView ,indexPath:indexPath)
         }
         else{
-            return dequeueTractorCell(tableView:tableView,indexPath:indexPath)
+            return dequeueTractorGridCell(collectionView:collectionView,indexPath:indexPath)
         }
     }
     
-    func dequeueTerminalCell(tableView: UITableView, indexPath: IndexPath) -> TerminalTableCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier!, for: indexPath) as! TerminalTableCell
+    func dequeueTerminalMapCell(collectionView: UICollectionView, indexPath: IndexPath) -> TerminalCollectionMapCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier!, for: indexPath) as! TerminalCollectionMapCell
 
         let marker = detailViewArr.first
         if let locationInfo = marker?.locationInfoArr[indexPath.row]{
@@ -637,8 +658,8 @@ extension MapView : UIScrollViewDelegate, UITableViewDataSource, UITableViewDele
         return cell
     }
     
-    func dequeueTractorCell(tableView: UITableView, indexPath: IndexPath) -> TractorTableCell{
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier!, for: indexPath) as! TractorTableCell
+    func dequeueTractorGridCell(collectionView: UICollectionView, indexPath: IndexPath) -> TractorCollectionGridCell{
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier!, for: indexPath) as! TractorCollectionGridCell
         let marker = detailViewArr[indexPath.row]
         if let tractorInfo = marker.tractorInfo{
             cell.setTractorInfo(tractorInfo: tractorInfo)
@@ -646,9 +667,8 @@ extension MapView : UIScrollViewDelegate, UITableViewDataSource, UITableViewDele
         }
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: detailCollectionViewCellHeight)
     }
 }
 
