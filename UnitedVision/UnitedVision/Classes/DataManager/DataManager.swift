@@ -44,7 +44,7 @@ class DataManager: NSObject {
         
         let appPref = AppPrefData.sharedInstance
         self.isLogin = appPref.isLogin
-        self.authToken = appPref.authToken
+        self.authToken = appPref.authToken ?? ""
         self.userName = appPref.userName
         if let dict = appPref.searchDict, dict.count != 0
         {

@@ -12,9 +12,10 @@ class AppPrefData: NSObject {
 
     static let sharedInstance = AppPrefData()
     
-    var authToken = ""
-    var isLogin = false;
+    var authToken: String?
+    var isLogin = false
     var userName: String?
+    var deviceUniqueId: String?
     var searchDict: Dictionary<String, Any>?
 
     private override init() {
@@ -26,12 +27,19 @@ class AppPrefData: NSObject {
         let defaults = UserDefaults.standard
         if let dictionary = defaults.dictionary(forKey: "keyPreferenceData")
         {
-            authToken = (dictionary["authToken"] as? String)!
-            isLogin = dictionary["isLogin"] as! Bool
+            authToken = dictionary["authToken"] as? String
+            isLogin = ((dictionary["isLogin"] as? Bool) ?? false)!
             userName = dictionary["userName"] as? String
+            deviceUniqueId = (dictionary["deviceUniqueId"] as? String) ?? AppPrefData.returnUUIDString()
             if let tractorSearchDict = dictionary["TractorSearchDict"] as? Dictionary<String,Any> , tractorSearchDict.count > 0{
                 searchDict = tractorSearchDict
             }
+        }
+        else{
+            deviceUniqueId = AppPrefData.returnUUIDString()
+            var dictionary = Dictionary<String, Any>()
+            dictionary["deviceUniqueId"] = self.deviceUniqueId
+            defaults.set(dictionary, forKey: "keyPreferenceData")
         }
     }
     
@@ -40,6 +48,7 @@ class AppPrefData: NSObject {
         var dictionary = Dictionary<String, Any>()
         dictionary["authToken"] = DataManager.sharedInstance.authToken
         dictionary["isLogin"] = DataManager.sharedInstance.isLogin
+        dictionary["deviceUniqueId"] = self.deviceUniqueId
         if DataManager.sharedInstance.userName != nil{
             dictionary["userName"] = DataManager.sharedInstance.userName
         }
@@ -87,6 +96,12 @@ class AppPrefData: NSObject {
     
     func saveAllData(){
         self.saveAppPreferenceData()
+    }
+    class func returnUUIDString() -> String{
+        let uuid = CFUUIDCreate(nil)
+        let cfString = CFUUIDCreateString(nil, uuid)
+        let uuidStr = cfString as String?
+        return uuidStr!
     }
     
 }
