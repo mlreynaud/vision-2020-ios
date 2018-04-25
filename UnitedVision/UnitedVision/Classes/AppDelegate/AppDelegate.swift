@@ -79,10 +79,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    func logout()
-    {
-        DataManager.sharedInstance.isLogin = false;
-        DataManager.sharedInstance.authToken = "";
+    func logout(){
+        DataManager.sharedInstance.isLogin = false
+        DataManager.sharedInstance.authToken = ""
         AppPrefData.sharedInstance.saveAllData()
     }
 }

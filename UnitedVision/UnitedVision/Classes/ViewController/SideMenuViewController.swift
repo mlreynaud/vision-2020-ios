@@ -150,10 +150,8 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
     }
     
     func populateArray() {
-        
         if (DataManager.sharedInstance.isLogin) {
-            let userType = DataManager.sharedInstance.userType
-            if userType == .employeeTS || userType == .driver || userType == .agent || userType == .broker || userType == .customer || userType == .carrier{
+            if DataManager.sharedInstance.canAccessTractorSearch{
                 menuValues = [.home, .terminalSearch, .tractorSearch, .contact, .logout]
             }
             else{
@@ -204,7 +202,6 @@ extension SideMenuViewController
             cell.titleLabel.text = menuValues[indexPath.row].titleText
             cell.titleLabel.textColor = isCellSelected ? UIColor.white : UIColor.black
             cell.iconImageView.image = isCellSelected ? UIImage(named: menuValues[indexPath.row].selectImage!) : UIImage(named: menuValues[indexPath.row].unSelectImage!)
-//            cell.iconImageView.tintColor = UIColor.gray
             cell.backgroundColor = isCellSelected ? UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 1) : UIColor.white
             return cell;
         }

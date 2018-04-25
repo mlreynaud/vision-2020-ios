@@ -82,6 +82,7 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
         setTitleView(withTitle: "TRACTOR SEARCH", Frame: nil)
 
         segmentedControl.removeBorder()
+        segmentedControl.addUnderlineForSelectedSegment()
         segmentedControl.selectedSegmentIndex = 0
 
         tractorSearchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()!
@@ -124,7 +125,7 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        segmentedControl.addUnderlineForSelectedSegment()
+        segmentedControl.updateUnderLineWidth()
     }
 
     func repositionFilterBtn(size: CGSize){

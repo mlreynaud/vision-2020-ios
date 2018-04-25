@@ -94,9 +94,13 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         self.navigationItem.titleView = imageView
     }
     
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        updateLayoutConstraints(forSize: view.frame.size)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateLayoutConstraints(forSize: view.frame.size)
         setNavigationBarItem()
         checkIfLoggedIn()
         startAutoScroll()
@@ -164,15 +168,15 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     @objc func scrollToNextCell(){
         var nextIndex = IndexPath(item: 0, section: 0)
-        let currIndexPath = collectionView.indexPathsForVisibleItems.first
-
-        if collectionView.indexPathsForVisibleItems.first?.item == collectionViewImgArr.count - 1{
-            nextIndex = IndexPath(item: 0, section: 0)
+        if let currIndexPath = collectionView.indexPathsForVisibleItems.first{
+            if collectionView.indexPathsForVisibleItems.first?.item == collectionViewImgArr.count - 1{
+                nextIndex = IndexPath(item: 0, section: 0)
+            }
+            else{
+                nextIndex = IndexPath(item: currIndexPath.item + 1, section: 0)
+            }
+            collectionView.scrollToItem(at:nextIndex , at: UICollectionViewScrollPosition(), animated: true)
         }
-        else{
-            nextIndex = IndexPath(item: (currIndexPath?.item)! + 1, section: 0)
-        }
-        collectionView.scrollToItem(at:nextIndex , at: UICollectionViewScrollPosition(), animated: true)
     }
     
     func sideMenuLogOutPressed() {
@@ -182,8 +186,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     func checkIfLoggedIn() {
         let ifLoggedIn = DataManager.sharedInstance.isLogin
         if ifLoggedIn{
-            let userType = DataManager.sharedInstance.userType
-            if userType == .employeeTS || userType == .driver || userType == .agent || userType == .broker || userType == .customer || userType == .carrier{
+            if DataManager.sharedInstance.canAccessTractorSearch{
                 if bottomStackView.arrangedSubviews.count != kNoOfBottomBtns{
                     loginTractorCardView.isHidden = false
                     bottomStackView.addArrangedSubview(loginTractorCardView)
@@ -256,7 +259,7 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width, height: carouselViewHeight.constant - 0.1)
+        return CGSize(width: collectionView.frame.size.width,height:floor( carouselViewHeight.constant - 0.1))
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         pageControl.currentPage = indexPath.item

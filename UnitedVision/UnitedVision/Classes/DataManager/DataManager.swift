@@ -24,13 +24,20 @@ class DataManager: NSObject {
     var tractorSearchInfo : TractorSearchInfo?
     
     var userName: String?
-    var authToken = ""
+    var authToken = String()
     var userType : UserType = .none
+    var canAccessTractorSearch: Bool = false
     
     var radius = 50
 
-    var isLogin = false
-
+    var isLogin = false{
+        didSet {
+            if !isLogin{
+                canAccessTractorSearch = false
+            }
+        }
+    }
+    
     fileprivate override init() {
         let locationManager = LocationManager.sharedInstance
         locationManager.initializeLocationManager()
@@ -147,6 +154,7 @@ class DataManager: NSObject {
                         let userRole = (jsonDict["role"] as? String) ?? ""
                         self.userType = UserType(rawValue: userRole)!
                         self.userName = jsonDict["firstName"] as? String
+                        self.canAccessTractorSearch = ((jsonDict["tractorSearch"] as? String) ?? "") == "Y"
                         status = true
                     }
                 }
