@@ -369,10 +369,11 @@ extension RegisterViewController{
 
     func performRegistration(){
         let paramDict = createParamDict()
+        
         LoadingView.shared.showOverlay()
         DataManager.sharedInstance.performRegistrationWith(paramDict: paramDict) { (status, str, error) in
             LoadingView.shared.hideOverlayView()
-            var messageStr = error?.localizedDescription ?? kNetworkErrorMessage
+            var messageStr = error?._domain ?? kNetworkErrorMessage
             if str == "Pending"{
                 messageStr = kRegThankMess
             }

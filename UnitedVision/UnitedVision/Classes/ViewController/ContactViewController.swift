@@ -48,7 +48,7 @@ class ContactViewController: BaseViewController, UITableViewDelegate, UITableVie
                 self.tableView.reloadData()
             }
             else{
-                UIUtils.showAlert(withTitle: kAppTitle, message: error?.localizedDescription ?? "Something went wrong,Please try again later", inContainer: self)
+                UIUtils.showAlert(withTitle: kAppTitle, message: error?._domain ?? "Something went wrong,Please try again later", inContainer: self)
             }
         }
     }

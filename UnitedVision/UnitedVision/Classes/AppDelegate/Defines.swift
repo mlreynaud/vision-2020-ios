@@ -13,7 +13,8 @@ import Foundation
 let kProductionURL = "http://uv.agilink.net/api/"
 let kStagingURL = "http://uv.agilink.net/api/"
 
-let kServerUrl = "http://uv.agilink.net/api2/" //UIUtils.getServerURl()!
+//let kServerUrl = "http://uv.agilink.net/api2/" //UIUtils.getServerURl()!
+let kServerUrl = "https://api.uvlogistics.com/"
 
 let kDefaultRadius = 50 //UIUtils.getServerURl()!
 
@@ -40,6 +41,7 @@ enum UserType: String {
     case driver = "Driver"
     case agent = "Agent"
     case broker = "Broker"
+    case pending = "Pending"
 }
 
 enum MapViewType {

@@ -67,7 +67,9 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
     
     @IBOutlet weak var bottomFilterBtnViewHeight: NSLayoutConstraint!
     @IBOutlet weak var topFilterBtnViewWidth: NSLayoutConstraint!
-
+    
+    @IBOutlet weak var emptyLabel: UILabel!
+    
     var showMap = false
 
     var tractorSearchInfo : TractorSearchInfo!
@@ -164,11 +166,13 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
         case 0:
             mapView.isHidden = true
             collectionView.isHidden = false
+            emptyLabel.isHidden = (self.tractorArray.count > 0)
             showMap = false
             addSortBarBtn()
         case 1:
             mapView.isHidden = false
             collectionView.isHidden = true
+            emptyLabel.isHidden = true
             showMap = true
             addSearchBarButton()
         default:
@@ -194,6 +198,8 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
     }
     
     func fetchTractorLocations(){
+        emptyLabel.isHidden = true
+        collectionView.isHidden = true
         LoadingView.shared.showOverlay()
         DataManager.sharedInstance.requestToSearchTractor(tractorSearchInfo, completionHandler: {( status, tractorList) in
             
@@ -205,6 +211,17 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
                 self.addTractorAnnotations()
                 self.mapView.addSearchCentreMarker()
                 self.collectionView.reloadData()
+                
+                if (tractorList?.count == 0 && !self.showMap) {
+                    self.emptyLabel.isHidden = false
+                    self.collectionView.isHidden = true
+                }
+                else {
+                    if (!self.showMap) {
+                        self.emptyLabel.isHidden = true
+                        self.collectionView.isHidden = false
+                    }
+                }
             }
         })
     }

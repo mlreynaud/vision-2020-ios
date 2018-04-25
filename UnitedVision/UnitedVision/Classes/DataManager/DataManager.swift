@@ -144,7 +144,7 @@ class DataManager: NSObject {
             var errMess = kNetworkErrorMessage
             
             if error != nil || data == nil{
-                handler(status,error?.localizedDescription ?? errMess)
+                handler(status,error?.domain ?? errMess)
                 return
             }
             
@@ -152,7 +152,11 @@ class DataManager: NSObject {
                 do{
                     if let jsonDict =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? Dictionary<String, Any>{
                         let userRole = (jsonDict["role"] as? String) ?? ""
-                        self.userType = UserType(rawValue: userRole)!
+                        if (UserType(rawValue: userRole) == nil){
+                            self.userType = UserType.none
+                        } else {
+                            self.userType = UserType(rawValue: userRole)!
+                        }
                         self.userName = jsonDict["firstName"] as? String
                         self.canAccessTractorSearch = ((jsonDict["tractorSearch"] as? String) ?? "") == "Y"
                         status = true
@@ -452,8 +456,10 @@ class DataManager: NSObject {
     }
     
     func performRegistrationWith(paramDict: Dictionary<String, Any>, completionHandler handler: @escaping (Bool,String?,Error?) -> ()){
-        let service: String =  "registration/service/register"
-        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: paramDict) as URLRequest
+        var service: String =  "registration/service/register?"
+        service += paramDict.map { (k,v)  in "\(k)=\(v)" }.joined(separator: "&")
+        
+        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostString: "") as URLRequest
         WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
             var responseStr:String?
             var status : Bool = false

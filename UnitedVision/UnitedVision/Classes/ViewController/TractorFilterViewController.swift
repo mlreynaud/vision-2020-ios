@@ -439,7 +439,7 @@ extension TractorFilterViewController: GMSAutocompleteViewControllerDelegate {
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        print("Error: ", error.localizedDescription)
+        print("Error: ", error._domain)
     }
     
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {

@@ -157,7 +157,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
                 self.centreHomeContentLbl.text = self.defaultContentStr
                 self.topHomeContentLbl.text = self.defaultContentStr
 
-                UIUtils.showAlert(withTitle: kAppTitle, message: error?.localizedDescription ?? "Something went wrong,Please try again later", inContainer: self)
+                UIUtils.showAlert(withTitle: kAppTitle, message: error?._domain ?? "Something went wrong,Please try again later", inContainer: self)
             }
         }
     }

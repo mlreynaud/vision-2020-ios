@@ -260,6 +260,13 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Flb-Rv-wuo" customClass="MapView" customModule="UnitedVision" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="60" width="375" height="562"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No results matching the search criteria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Vz-bI-TR9">
+                                <rect key="frame" x="0.0" y="52" width="375" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7dQ-AV-yVk" customClass="UIControl">
                                 <rect key="frame" x="0.0" y="622" width="375" height="45"/>
                                 <subviews>
@@ -369,6 +376,7 @@
                         <outlet property="bottomFilterBtnView" destination="7dQ-AV-yVk" id="cCW-V8-I3t"/>
                         <outlet property="bottomFilterBtnViewHeight" destination="xft-EZ-JlW" id="hRH-It-eqO"/>
                         <outlet property="collectionView" destination="kFo-L9-dpJ" id="TbK-mW-u7x"/>
+                        <outlet property="emptyLabel" destination="1Vz-bI-TR9" id="KZm-cq-Y5i"/>
                         <outlet property="mapView" destination="Flb-Rv-wuo" id="R80-at-Oy8"/>
                         <outlet property="segmentedControl" destination="cMl-UE-HlL" id="Nwb-u5-9L6"/>
                         <outlet property="topFilterBtnView" destination="LA0-eB-VZy" id="lJl-WL-kmP"/>
