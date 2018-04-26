@@ -86,10 +86,9 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
         segmentedControl.removeBorder()
         segmentedControl.addUnderlineForSelectedSegment()
         segmentedControl.selectedSegmentIndex = 0
-
-        tractorSearchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()!
-        DataManager.sharedInstance.tractorSearchInfo = self.tractorSearchInfo
-
+        
+        tractorSearchInfo = DataManager.sharedInstance.returnFilterValues()
+                
         self.fetchTractorLocations()
         
         mapView.selectedRadius = Int((DataManager.sharedInstance.tractorSearchInfo?.radius)!)!

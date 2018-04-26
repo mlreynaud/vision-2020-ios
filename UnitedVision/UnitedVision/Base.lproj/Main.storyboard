@@ -1297,6 +1297,9 @@
                         <outlet property="checkBoxImg" destination="GwW-ke-1hS" id="aXy-py-jOe"/>
                         <outlet property="hazmatCheckImgView" destination="YjP-9n-T8x" id="w9m-Pr-hD4"/>
                         <outlet property="loadedCheckImgView" destination="AY9-cM-mLA" id="Tcu-Bu-eaN"/>
+                        <outlet property="loadedView" destination="tQf-2z-fZn" id="Tds-5W-5D0"/>
+                        <outlet property="loadedViewHeight" destination="nv3-PB-gmA" id="Fpp-W1-sQ1"/>
+                        <outlet property="loadedViewTopConstraint" destination="IUV-Al-uLL" id="y7f-rr-8wU"/>
                         <outlet property="resetBtnView" destination="1Z7-Sb-gA3" id="v2o-6I-jqc"/>
                         <outlet property="saveDefaultsView" destination="Sn4-fd-O6V" id="X8Z-Mw-hOz"/>
                         <outlet property="topApplyBtnHeight" destination="MAB-0J-jMx" id="JZS-JR-Q8Z"/>

@@ -490,6 +490,15 @@ class DataManager: NSObject {
         return radiusList
     }
     
+    func returnFilterValues() -> TractorSearchInfo{
+        var tsInfo = DataManager.sharedInstance.tractorSearchInfo
+        if tsInfo == nil {
+            tsInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
+            DataManager.sharedInstance.tractorSearchInfo = tsInfo
+        }
+        return tsInfo?.copy() as! TractorSearchInfo
+    }
+    
     func fetchFilterDefaultValues() -> TractorSearchInfo?
     {
         var dict = AppPrefData.sharedInstance.searchDict

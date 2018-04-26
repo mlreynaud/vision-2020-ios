@@ -36,12 +36,28 @@ enum UserType: String {
     case customer = "Customer"
     case carrier = "Carrier"
     case employee = "Employee"
-    case employeeTS = "Employee TS"
     case owner = "Owner"
     case driver = "Driver"
     case agent = "Agent"
     case broker = "Broker"
     case pending = "Pending"
+    
+    public var loadedAccess: Bool {
+        switch self {
+        case .employee, .agent, .customer:
+            return true
+        default:
+            return false
+        }
+    }
+    public var tractorSearchAccess: Bool{
+        switch self {
+        case .carrier:
+            return false
+        default:
+            return true
+        }
+    }
 }
 
 enum MapViewType {

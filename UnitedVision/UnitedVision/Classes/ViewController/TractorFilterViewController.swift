@@ -14,12 +14,19 @@ import GooglePlaces
 let numberOfFilterLbls = 7
 let kTractorFilterTitle = "TRACTOR SEARCH FILTER"
 
+let kLoadedViewHeight: CGFloat = 50
+let kLoadedTopBottomPadding: CGFloat = 4
+
 class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource,SideMenuLogOutDelegate  {
    
     var searchInfo : TractorSearchInfo?
     
     var radiusList : [String] = []
- 
+    
+    @IBOutlet weak var loadedView: UIView!
+    @IBOutlet weak var loadedViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var loadedViewTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var topApplyBtnHeight: NSLayoutConstraint!
     @IBOutlet weak var checkBoxImg: UIImageView!
     
@@ -47,13 +54,14 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchInfo = DataManager.sharedInstance.tractorSearchInfo ?? DataManager.sharedInstance.fetchFilterDefaultValues()!
+        searchInfo = DataManager.sharedInstance.returnFilterValues()
         radiusList = DataManager.sharedInstance.getRadiusList()
         createPickerView(forSize:view.frame.size)
         initiateFilterPopupVC()
         reloadLabels()
         checkIfSavedFiltersSelected()
         setTitleView(withTitle: kTractorFilterTitle, Frame:nil)
+        setupLoadedView()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -67,6 +75,20 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
     
     func sideMenuLogOutPressed() {
         navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func setupLoadedView(){
+        let isLoadedVisible = DataManager.sharedInstance.userType.loadedAccess
+        if isLoadedVisible{
+            loadedView.isHidden = false
+            loadedViewHeight.constant = kLoadedViewHeight
+            loadedViewTopConstraint.constant = kLoadedTopBottomPadding
+        }
+        else{
+            loadedView.isHidden = true
+            loadedViewHeight.constant = 0
+            loadedViewTopConstraint.constant = 0
+        }
     }
     
     func reloadLabels() {
@@ -118,10 +140,6 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
 extension TractorFilterViewController{
     
     @IBAction func applyBtnPressed(_ sender: UIControl) {
-        DataManager.sharedInstance.tractorSearchInfo = searchInfo
-        if checkBoxImg.isHighlighted {
-            AppPrefData.sharedInstance.saveAllData()
-        }
         self.searchCompletionHandler?(searchInfo!)
         self.navigationController?.popViewController(animated: true)
     }
@@ -179,15 +197,12 @@ extension TractorFilterViewController{
     }
     
     @IBAction func saveDefaultViewTapped(_ sender: Any) {
-        if !checkBoxImg.isHighlighted {
-            DataManager.sharedInstance.tractorSearchInfo = searchInfo
-            AppPrefData.sharedInstance.saveAllData()
-        }
-        else{
+        if checkBoxImg.isHighlighted{
             searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
-            DataManager.sharedInstance.tractorSearchInfo = searchInfo
-            AppPrefData.sharedInstance.saveAllData()
+            reloadLabels()
         }
+        DataManager.sharedInstance.tractorSearchInfo = searchInfo
+        AppPrefData.sharedInstance.saveAllData()
         checkBoxImg.isHighlighted = !checkBoxImg.isHighlighted
     }
     
@@ -306,7 +321,6 @@ extension TractorFilterViewController{
     
     func showFilterPopup(_ filterType: FilterType)
     {
-        DataManager.sharedInstance.tractorSearchInfo = searchInfo
         filterPopupVC?.filterType = filterType
         filterPopupVC?.tractorCompletionHandler = {(selectedTractorValue) in
             self.searchInfo?.tractorType = selectedTractorValue
@@ -395,7 +409,8 @@ extension TractorFilterViewController
     }
     
     @objc func doneClick() {
-        DataManager.sharedInstance.tractorSearchInfo?.radius = (searchInfo?.radius)!
+        let selectedRow = pickerView?.selectedRow(inComponent: 0) ?? 0
+        searchInfo?.radius =  radiusList[selectedRow]
         pickerToolbarView.isHidden = true
         reloadLabel(at: FilterType.radius.rawValue)
     }

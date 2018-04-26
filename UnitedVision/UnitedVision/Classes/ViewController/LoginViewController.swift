@@ -53,10 +53,19 @@ class LoginViewController: UITableViewController, UITextFieldDelegate, MFMailCom
         DataManager.sharedInstance.requestToLoginOrVerifyToken(reqType: .ELogin, paramDict: paramDict) { (status, errorMessage) in
             LoadingView.shared.hideOverlayView()
             if (status){
-                DataManager.sharedInstance.isLogin = true
-                AppPrefData.sharedInstance.isLogin = true
-                AppPrefData.sharedInstance.saveAllData()
-                self.navigationController?.popViewController(animated: true)
+                let userType = DataManager.sharedInstance.userType
+                if userType == .pending || userType == .none {
+                    let message = userType == .none ? kNetworkErrorMessage : userType.rawValue
+                    UIUtils.showAlert(withTitle: kAppTitle, message: message, inContainer: self, completionCallbackHandler: {
+                        self.navigationController?.popViewController(animated: true)
+                    })
+                }
+                else{
+                    DataManager.sharedInstance.isLogin = true
+                    AppPrefData.sharedInstance.isLogin = true
+                    AppPrefData.sharedInstance.saveAllData()
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
             else{
                 UIUtils.showAlert(withTitle: kAppTitle, message: errorMessage, inContainer: self)

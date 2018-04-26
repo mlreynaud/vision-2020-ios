@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TractorSearchInfo {
+class TractorSearchInfo: NSObject, NSCopying {
 
     // optional
     var hazmat : Bool = false
@@ -29,6 +29,8 @@ class TractorSearchInfo {
     var zip: String = ""
     var latitude : Double = 0
     var longitude : Double = 0
+    
+    override init() {}
     
     init(info : Dictionary<String, Any>)
     {
@@ -87,6 +89,28 @@ class TractorSearchInfo {
         if let  value = info["hazmat"] as? Bool{
             hazmat = value
         }
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let tractorSearchInfo = TractorSearchInfo()
+       
+        tractorSearchInfo.hazmat = hazmat
+        tractorSearchInfo.loaded = loaded
+        tractorSearchInfo.showLocal = showLocal
+        tractorSearchInfo.status = status
+        tractorSearchInfo.terminalId = terminalId
+        tractorSearchInfo.tractorId = tractorId
+        tractorSearchInfo.tractorType = tractorType
+        tractorSearchInfo.trailerTypeId = trailerTypeId
+        tractorSearchInfo.trailerTypeDesc = trailerTypeDesc
+        tractorSearchInfo.radius = radius
+        tractorSearchInfo.city = city
+        tractorSearchInfo.state = state
+        tractorSearchInfo.zip = zip
+        tractorSearchInfo.latitude = latitude
+        tractorSearchInfo.longitude = longitude
+
+        return tractorSearchInfo
     }
 }
 

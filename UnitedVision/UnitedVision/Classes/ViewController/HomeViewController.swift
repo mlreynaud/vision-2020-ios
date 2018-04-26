@@ -74,7 +74,8 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     func checkToken() {
         beginTime = Date()
         DataManager.sharedInstance.requestToLoginOrVerifyToken(reqType: .EVerifiyToken, paramDict: nil) { (status, messageStr) in
-            DataManager.sharedInstance.isLogin = status ? true : false
+            let userType = DataManager.sharedInstance.userType
+            DataManager.sharedInstance.isLogin = (status && !(userType == .pending || userType == .none))
             let timeNow = Date()
             if timeNow.timeIntervalSince(self.beginTime!) > 2{
                 self.removeInitialViewScreen()
@@ -184,9 +185,11 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     }
     
     func checkIfLoggedIn() {
-        let ifLoggedIn = DataManager.sharedInstance.isLogin
+        let dataManager = DataManager.sharedInstance
+        let ifLoggedIn = dataManager.isLogin
+        let userType = dataManager.userType
         if ifLoggedIn{
-            if DataManager.sharedInstance.canAccessTractorSearch{
+            if dataManager.canAccessTractorSearch && userType.tractorSearchAccess{
                 if bottomStackView.arrangedSubviews.count != kNoOfBottomBtns{
                     loginTractorCardView.isHidden = false
                     bottomStackView.addArrangedSubview(loginTractorCardView)

@@ -104,9 +104,12 @@ class TractorCollectionGridCell: UICollectionViewCell {
         
         trailerLengthLbl.isHidden = tractorInfo.trailerLength == ""
         trailerTitleLbl.isHidden = tractorInfo.trailerType == ""
-        
+        setupLoadedAccess()
+    }
+    
+    func setupLoadedAccess(){
         let userType = DataManager.sharedInstance.userType
-        let isLoadedViewVisible = (userType == .employee || userType == .agent || userType == .customer)
+        let isLoadedViewVisible = userType.loadedAccess
         loadedViewWidth.constant = isLoadedViewVisible ? loadedViewWidth.constant : 0
         loadedLbl.isHidden = !isLoadedViewVisible
         loadedImageView.isHidden = !isLoadedViewVisible
