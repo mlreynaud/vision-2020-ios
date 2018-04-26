@@ -2226,7 +2226,7 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Oe-oW-mWC">
                                                     <rect key="frame" x="28" y="2" width="343" height="39.5"/>
-                                                    <string key="text">I have read, understood and agree to be bound by the United Vision Logistics Terms of Use.  I also understand how United Vision Logistics instends to use my information as stated in the Privacy Policy.</string>
+                                                    <string key="text">I have read, understood and agree to be bound by the United Vision Logistics Terms of Use.  I also understand how United Vision Logistics intends to use my information as stated in the Privacy Policy.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

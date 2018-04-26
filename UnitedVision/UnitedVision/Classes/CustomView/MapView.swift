@@ -269,7 +269,7 @@ extension MapView
     func moveMapToCurrentLocation()
     {
         if let currentLocation = self.getCurrentLocation(){
-            self.moveMaptoLocation(location: currentLocation)
+            self.moveMaptoLocation(location: currentLocation, keepOrientation: false)
         }
     }
     
@@ -368,10 +368,21 @@ extension MapView
         addRadiusCircle()
     }
     
-    func moveMaptoLocation(location: CLLocation){
-        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
-                                              longitude: location.coordinate.longitude,
-                                              zoom: map.camera.zoom)
+    func moveMaptoLocation(location: CLLocation, keepOrientation: Bool){
+        var camera: GMSCameraPosition
+        if (keepOrientation) {
+            camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
+            longitude: location.coordinate.longitude,
+            zoom: map.camera.zoom,
+            bearing: map.camera.bearing,
+            viewingAngle: map.camera.viewingAngle)
+        }
+        else {
+            camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
+            longitude: location.coordinate.longitude,
+            zoom: map.camera.zoom)
+        }
+        
         self.map.animate(to: camera)
     }
     
@@ -419,7 +430,7 @@ extension MapView
             }
             else {
                 createMarkerDetailView(markerTapped: newMarker)
-                moveMaptoLocation(location:CLLocation(latitude: (newMarker?.position.latitude)!, longitude: (newMarker?.position.longitude)!))
+                moveMaptoLocation(location:CLLocation(latitude: (newMarker?.position.latitude)!, longitude: (newMarker?.position.longitude)!), keepOrientation: true)
             }
             colorSelectedMarker(oldMarker: oldMarker, newMarker: newMarker)
             setupDetailCollectionViewHeight()
@@ -472,7 +483,7 @@ extension MapView
         let selectedMarker = markers[index.item] as GMSMarker
         _ = mapView(map, didTap: selectedMarker)
         let location = CLLocation(latitude: selectedMarker.position.latitude, longitude: selectedMarker.position.longitude)
-        moveMaptoLocation(location: location)
+        moveMaptoLocation(location: location, keepOrientation: true)
     }
     
     
