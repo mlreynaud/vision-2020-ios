@@ -181,13 +181,14 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
     
     @IBAction func filterButtonAction(){
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "TractorFilterViewController") as! TractorFilterViewController
-        viewCtrl.searchCompletionHandler = {(searchInfo) in
+        let filterCtrl = storyBoard.instantiateViewController(withIdentifier: "TractorFilterViewController") as! TractorFilterViewController
+        filterCtrl.searchInfo = tractorSearchInfo
+        filterCtrl.searchCompletionHandler = {(searchInfo) in
             self.tractorSearchInfo = searchInfo
             self.fetchTractorLocations()
         }
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        self.navigationController?.pushViewController(viewCtrl, animated: true)
+        self.navigationController?.pushViewController(filterCtrl, animated: true)
     }
     
     func createAnnotation(coordinate:CLLocationCoordinate2D) -> MKPointAnnotation{

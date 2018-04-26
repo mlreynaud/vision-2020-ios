@@ -54,7 +54,6 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchInfo = DataManager.sharedInstance.returnFilterValues()
         radiusList = DataManager.sharedInstance.getRadiusList()
         createPickerView(forSize:view.frame.size)
         initiateFilterPopupVC()
