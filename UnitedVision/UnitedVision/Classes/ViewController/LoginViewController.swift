@@ -55,7 +55,7 @@ class LoginViewController: UITableViewController, UITextFieldDelegate, MFMailCom
             if (status){
                 let userType = DataManager.sharedInstance.userType
                 if userType == .pending || userType == .none {
-                    let message = userType == .none ? kNetworkErrorMessage : userType.rawValue
+                    let message = userType == .none ? kNetworkErrorMessage : "Login access is Pending.  Please try again later."
                     UIUtils.showAlert(withTitle: kAppTitle, message: message, inContainer: self, completionCallbackHandler: {
                         self.navigationController?.popViewController(animated: true)
                     })

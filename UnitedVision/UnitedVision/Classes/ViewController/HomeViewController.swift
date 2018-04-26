@@ -189,7 +189,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         let ifLoggedIn = dataManager.isLogin
         let userType = dataManager.userType
         if ifLoggedIn{
-            if dataManager.canAccessTractorSearch && userType.tractorSearchAccess{
+            if dataManager.canAccessTractorSearch {
                 if bottomStackView.arrangedSubviews.count != kNoOfBottomBtns{
                     loginTractorCardView.isHidden = false
                     bottomStackView.addArrangedSubview(loginTractorCardView)
