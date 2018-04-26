@@ -38,7 +38,7 @@ class ContactTableCell: UITableViewCell {
         callButton.isEnabled = isCallInfoAvail
         callButton.backgroundColor = isCallInfoAvail ? UIColor(red: 0/255.0, green: 184/255.0, blue: 0/255.0, alpha: 1.0) : UIColor.lightGray
         
-        emailButton.tag = indexPath.row
-        callButton.tag = indexPath.row
+        emailButton.tag = indexPath.row-1
+        callButton.tag = indexPath.row-1
     }
 }
