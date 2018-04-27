@@ -436,7 +436,22 @@ extension RegisterViewController{
         let textField = textFields[fieldIndex]
         let fieldValidDict = dataValidationArr![fieldIndex]
         let key = fieldValidDict["paramKey"] as! String
-        paramDict[key] = textField.text?.encodeString()
+        
+        var value: String? = ""
+        switch fieldIndex + kFieldTagOverhead {
+        case RegDataField.EState.rawValue:
+            value = usStateDict?[textField.text!]
+        case RegDataField.EUserType.rawValue:
+            value = RegUserType(rawValue: textField.text!)?.identifier
+        case RegDataField.ECarrierNumType.rawValue:
+            value = RegCarrierNumType(rawValue: textField.text!)?.identifier
+        case RegDataField.ECarrierState.rawValue:
+            value = usStateDict![textField.text!]
+        default:
+            value = textField.text?.encodeString()
+        }
+        
+        paramDict[key] = value
     }
     
     func createParamDict() -> Dictionary<String,Any>{
