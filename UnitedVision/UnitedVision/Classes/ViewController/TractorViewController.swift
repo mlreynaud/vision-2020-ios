@@ -279,6 +279,7 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
             tractorArray = tractorArray.sorted(by: { ($0.status ?? "")! <  ($1.status ?? "")! })
         }
         collectionView.reloadData()
+        addTractorAnnotations()
     }
 }
 
