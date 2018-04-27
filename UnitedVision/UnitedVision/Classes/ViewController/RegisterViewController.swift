@@ -436,7 +436,7 @@ extension RegisterViewController{
         let textField = textFields[fieldIndex]
         let fieldValidDict = dataValidationArr![fieldIndex]
         let key = fieldValidDict["paramKey"] as! String
-        paramDict[key] = textField.text
+        paramDict[key] = textField.text?.encodeString()
     }
     
     func createParamDict() -> Dictionary<String,Any>{

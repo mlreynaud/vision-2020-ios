@@ -132,10 +132,11 @@ class DataManager: NSObject {
         var service = reqType == RequestType.ELogin ? "auth/service/signin" : "auth/service/verifyToken"
         
         if (reqType == RequestType.ELogin) {
-            service += "?username=\(paramDict!["username"]!)&password=\(paramDict!["password"]!)"
+            let encodedUserName = (paramDict!["username"] ?? "").encodeString()
+            let encodedPassWord = (paramDict!["password"] ?? "").encodeString()
+            service += "?username=\(encodedUserName)&password=\(encodedPassWord)"
         }
 
-//        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: paramDict ?? Dictionary<String,String>()) as URLRequest
         let request: URLRequest = WebServiceManager.postRequest(service: service, withPostString:"") as URLRequest
         
         WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error)  in
