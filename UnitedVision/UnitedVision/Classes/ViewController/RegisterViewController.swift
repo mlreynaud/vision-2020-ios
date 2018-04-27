@@ -150,7 +150,6 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var customerTypeCell: UITableViewCell!
     @IBOutlet weak var termsText: UITextView!
     
-    
     var dataValidationArr: [Dictionary<String,Any>]?
     var usStateDict: Dictionary<String,String>?
 
@@ -167,7 +166,10 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
         setTitleView(withTitle: "REGISTER", Frame: nil)
         tableView.separatorStyle = .none
         fetchDataFromPlists()
-        
+        createHyperLink()
+    }
+    
+    func createHyperLink(){
         let fontSize = CGFloat(12)
         
         let tosLinkText = "Terms of Use"
@@ -177,16 +179,15 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
         
         let ppLinkText = "Privacy Policy"
         let ppLink = NSMutableAttributedString(string: ppLinkText, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize)])
-        ppLink.addAttribute(NSAttributedStringKey.link, value: NSURL(string: "https://uvlogistics.com/more_information/privacy")!, range: NSMakeRange(0,ppLinkText.count))
+        ppLink.addAttribute(NSAttributedStringKey.link, value: NSURL(string: "https://www.uvlogistics.com/more_information/privacy")!, range: NSMakeRange(0,ppLinkText.count))
         
         let results = NSMutableAttributedString()
         results.append(NSAttributedString(string: "I have read, understood and agree to be bound by the United Vision Logistics ", attributes: [NSAttributedStringKey.font:  UIFont.systemFont(ofSize: fontSize)]))
         results.append(tosLink)
         results.append(NSAttributedString(string: ". I also understand how United Vision Logistics intends to use my information as stated in the ", attributes: [NSAttributedStringKey.font:  UIFont.systemFont(ofSize: fontSize)]))
         results.append(ppLink)
+        
         termsText.attributedText = results
-        
-        
         termsText.isUserInteractionEnabled = true
         termsText.isEditable = false
     }
@@ -199,7 +200,6 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
         }
         return false
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -298,6 +298,15 @@ extension RegisterViewController{
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 1, indexPath.row == 0{ //indexPath for Terms of condition row.
+            return UITableViewAutomaticDimension
+        }
+        else {
+            return super.tableView(tableView, heightForRowAt: indexPath)
+        }
     }
 }
 

@@ -457,8 +457,10 @@ class DataManager: NSObject {
     
     func performRegistrationWith(paramDict: Dictionary<String, Any>, completionHandler handler: @escaping (Bool,String?,Error?) -> ()){
         var service: String =  "registration/service/register?"
-        service += paramDict.map { (k,v)  in "\(k)=\(v)" }.joined(separator: "&")
-        
+        var paramString = String()
+        paramString += paramDict.map { (k,v)  in "\(k)=\(v)" }.joined(separator: "&")
+        paramString = paramString.replacingOccurrences(of:" ", with:"%20")
+        service.append(paramString)
         let request: URLRequest = WebServiceManager.postRequest(service: service, withPostString: "") as URLRequest
         WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
             var responseStr:String?
