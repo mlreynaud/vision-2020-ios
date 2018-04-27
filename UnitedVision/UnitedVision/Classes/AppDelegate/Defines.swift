@@ -13,8 +13,7 @@ import Foundation
 let kProductionURL = "http://uv.agilink.net/api/"
 let kStagingURL = "http://uv.agilink.net/api/"
 
-//let kServerUrl = "http://uv.agilink.net/api2/" //UIUtils.getServerURl()!
-let kServerUrl = "https://api.uvlogistics.com/"
+let kServerUrl = "http://uv.agilink.net/api2/" //UIUtils.getServerURl()!
 
 let kDefaultRadius = 50 //UIUtils.getServerURl()!
 

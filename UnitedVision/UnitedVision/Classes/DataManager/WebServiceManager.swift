@@ -59,7 +59,10 @@ class WebServiceManager: NSObject, URLSessionDelegate {
     
     class func createRequest(_ urlString: String, forMethod httpMethod:String) -> URLRequest
     {
-        var request =  URLRequest(url: URL(string: urlString)!)
+        //NEM Added Encoding for API URL
+        let urlEncoded = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+        var request =  URLRequest(url: URL(string: urlEncoded!)!)
         request.httpMethod = httpMethod
         request.setValue("application/json", forHTTPHeaderField:"Content-Type")
         request.setValue(AppPrefData.sharedInstance.deviceUniqueId, forHTTPHeaderField: "X-Request-ID")

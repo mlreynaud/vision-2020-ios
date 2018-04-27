@@ -168,16 +168,16 @@ class RegisterViewController: UITableViewController, UITextFieldDelegate {
         tableView.separatorStyle = .none
         fetchDataFromPlists()
         
-        let fontSize = CGFloat(16)
+        let fontSize = CGFloat(12)
         
         let tosLinkText = "Terms of Use"
         let tosLink = NSMutableAttributedString(string: tosLinkText)
-        tosLink.addAttribute(NSAttributedStringKey.link, value: NSURL(string: "https://www.uvlogistics.com/more-information/terms")!, range: NSMakeRange(0,tosLinkText.count))
+        tosLink.addAttribute(NSAttributedStringKey.link, value: NSURL(string: "https://www.uvlogistics.com/more_information/terms")!, range: NSMakeRange(0,tosLinkText.count))
         tosLink.addAttribute(NSAttributedStringKey.font, value: UIFont.systemFont(ofSize: fontSize), range: NSMakeRange(0,tosLinkText.count))
         
         let ppLinkText = "Privacy Policy"
         let ppLink = NSMutableAttributedString(string: ppLinkText, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize)])
-        ppLink.addAttribute(NSAttributedStringKey.link, value: NSURL(string: "https://uvlogistics.com/more-information/privacy")!, range: NSMakeRange(0,ppLinkText.count))
+        ppLink.addAttribute(NSAttributedStringKey.link, value: NSURL(string: "https://uvlogistics.com/more_information/privacy")!, range: NSMakeRange(0,ppLinkText.count))
         
         let results = NSMutableAttributedString()
         results.append(NSAttributedString(string: "I have read, understood and agree to be bound by the United Vision Logistics ", attributes: [NSAttributedStringKey.font:  UIFont.systemFont(ofSize: fontSize)]))
