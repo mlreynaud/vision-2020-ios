@@ -2,7 +2,7 @@
 //  PopOverViewController.swift
 //  UnitedVision
 //
-//  Created by Simrandeep Singh on 13/04/18.
+//  Created by Agilink on 13/04/18.
 //  Copyright © 2018 Agilink. All rights reserved.
 //
 

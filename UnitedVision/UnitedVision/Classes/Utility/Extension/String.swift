@@ -80,7 +80,7 @@ extension String {
     }
     
     func encodeString() -> String{
-        let allowedCharacterSet = (CharacterSet(charactersIn: "!*'();:@&=+$,/?%#[] ").inverted)
+        let allowedCharacterSet = (CharacterSet(charactersIn: "!*'();:@&=+$,/?%#[] ^={}\"-_<>!~`|\\").inverted)
         let encodedString = self.addingPercentEncoding( withAllowedCharacters: allowedCharacterSet)
         return encodedString!
     }

@@ -2,7 +2,7 @@
 //  TitleView.swift
 //  UnitedVision
 //
-//  Created by Simrandeep Singh on 29/03/18.
+//  Created by Agilink on 29/03/18.
 //  Copyright © 2018 Agilink. All rights reserved.
 //
 

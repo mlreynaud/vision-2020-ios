@@ -15,41 +15,45 @@ typealias DownloadHandlerClosureType = (_ filepath: URL?, _ error: NSError?) -> 
 
 class WebServiceManager: NSObject, URLSessionDelegate {
     
-    class func getRequest(_ service: String) -> URLRequest
+    class func getRequest(_ service: String) throws -> URLRequest
     {
         let urlString = kServerUrl + service
-        return WebServiceManager.getRequest(url:urlString) as URLRequest
+        return try WebServiceManager.getRequest(url:urlString) as URLRequest
     }
     
-    class func getRequest(url urlString: String) -> URLRequest
+    class func getRequest(url urlString: String) throws -> URLRequest
     {
-        let request = WebServiceManager.createRequest(urlString, forMethod: "GET")
+        var request: URLRequest
+        
+        request = try WebServiceManager.createRequest(urlString, forMethod: "GET")
+        
         return request
     }
     
-    class func postRequest (service serviceString : String, withPostString postString: String ) -> URLRequest
+    class func postRequest (service serviceString : String, withPostString postString: String ) throws -> URLRequest
     {
         let urlString = kServerUrl + serviceString
-        return WebServiceManager.postRequest(url:urlString, withPostString: postString) as URLRequest
+        return try WebServiceManager.postRequest(url:urlString, withPostString: postString) as URLRequest
     }
     
-    class func postRequest (service serviceString : String, withPostDict params: Dictionary <String, Any> ) -> URLRequest
+    class func postRequest (service serviceString : String, withPostDict params: Dictionary <String, Any> ) throws -> URLRequest
     {
         let urlString = kServerUrl + serviceString
+        var request: URLRequest
         
-        var request =  WebServiceManager.createRequest(urlString, forMethod: "POST")
+        request = try WebServiceManager.createRequest(urlString, forMethod: "POST")
+        request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
         
-        request.httpBody = try! JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
-       
         return request
     }
     
-    class func postRequest (url urlString : String, withPostString postString: String ) -> URLRequest
+    class func postRequest (url urlString : String, withPostString postString: String ) throws -> URLRequest
     {
         let postData = postString.data(using: String.Encoding.utf8)
         let postLength = String("\(String(describing: postData?.count))")
+        var request: URLRequest
         
-        var request =  WebServiceManager.createRequest(urlString, forMethod: "POST")
+        request = try WebServiceManager.createRequest(urlString, forMethod: "POST")
         request.setValue(postLength, forHTTPHeaderField:"Content-Length")
 
         request.httpBody = postData
@@ -57,9 +61,9 @@ class WebServiceManager: NSObject, URLSessionDelegate {
         return request
     }
     
-    class func createRequest(_ urlString: String, forMethod httpMethod:String) -> URLRequest
+    class func createRequest(_ urlString: String, forMethod httpMethod:String) throws -> URLRequest
     {
-        var request =  URLRequest(url: URL(string: urlString)!)
+        var request = URLRequest(url: URL(string: urlString)!)
         request.httpMethod = httpMethod
         request.setValue("application/json", forHTTPHeaderField:"Content-Type")
         request.setValue(AppPrefData.sharedInstance.deviceUniqueId, forHTTPHeaderField: "X-Request-ID")

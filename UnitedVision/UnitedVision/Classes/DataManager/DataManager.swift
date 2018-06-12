@@ -137,29 +137,77 @@ class DataManager: NSObject {
             service += "?username=\(encodedUserName)&password=\(encodedPassWord)"
         }
 
-        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostString:"") as URLRequest
-        
-        WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error)  in
+        do {
+            let request: URLRequest = try WebServiceManager.postRequest(service: service, withPostString:"") as URLRequest
             
-            var status : Bool = false
-            var errMess = kNetworkErrorMessage
-            
-            if error != nil || data == nil{
-                handler(status,error?.domain ?? errMess)
-                return
-            }
-            
-            if httpStatus{
-                do{
-                    if let jsonDict =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? Dictionary<String, Any>{
-                        let userRole = (jsonDict["role"] as? String) ?? ""
-                        if (UserType(rawValue: userRole) == nil){
-                            self.userType = UserType.none
-                        } else {
-                            self.userType = UserType(rawValue: userRole)!
+            WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error)  in
+                
+                var status : Bool = false
+                var errMess = kNetworkErrorMessage
+                
+                if error != nil || data == nil{
+                    handler(status,error?.domain ?? errMess)
+                    return
+                }
+                
+                if httpStatus{
+                    do{
+                        if let jsonDict =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? Dictionary<String, Any>{
+                            let userRole = (jsonDict["role"] as? String) ?? ""
+                            if (UserType(rawValue: userRole) == nil){
+                                self.userType = UserType.none
+                            } else {
+                                self.userType = UserType(rawValue: userRole)!
+                            }
+                            self.userName = jsonDict["firstName"] as? String
+                            self.canAccessTractorSearch = ((jsonDict["tractorSearch"] as? String) ?? "") == "Y"
+                            status = true
                         }
-                        self.userName = jsonDict["firstName"] as? String
-                        self.canAccessTractorSearch = ((jsonDict["tractorSearch"] as? String) ?? "") == "Y"
+                    }
+                    catch{
+                        print("\nError - ",error,"\n Response Data - ",data as Any)
+                        status = false
+                    }
+                }
+                else {
+                    if let responseStr : String = String(data: data! as Data, encoding: .utf8),
+                        responseStr.count != 0{
+                        errMess = responseStr
+                    }
+                }
+                handler(status,errMess)
+            })
+        }
+        catch {
+            print("\(error.localizedDescription)")
+            
+            handler(false,error.localizedDescription)
+        }
+    }
+    
+    func requestToFetchTerminalLocations (completionHandler handler: @escaping ( Bool, [LocationInfo]?) -> () ) {
+        
+        let service: String = "terminal/service/active"
+        
+        do {
+            let request: URLRequest = try WebServiceManager.getRequest(service) as URLRequest
+            WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error) in
+                
+                var responseArr = [LocationInfo]()
+                var status : Bool = false
+                
+                if error != nil || data == nil {
+                    handler(status, nil)
+                    return
+                }
+                
+                do{
+                    if let arr =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
+                        for dict in arr
+                        {
+                            let info = LocationInfo(info:dict)
+                            responseArr.append(info)
+                        }
                         status = true
                     }
                 }
@@ -167,87 +215,58 @@ class DataManager: NSObject {
                     print("\nError - ",error,"\n Response Data - ",data as Any)
                     status = false
                 }
-            }
-            else {
-                if let responseStr : String = String(data: data! as Data, encoding: .utf8),
-                    responseStr.count != 0{
-                    errMess = responseStr
-                }
-            }
-            handler(status,errMess)
-        })
-    }
-    
-    func requestToFetchTerminalLocations (completionHandler handler: @escaping ( Bool, [LocationInfo]?) -> () ) {
-        
-        let service: String = "terminal/service/active"
-        
-        let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
-        WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error) in
-            
-            var responseArr = [LocationInfo]()
-            var status : Bool = false
-            
-            if error != nil || data == nil {
-                handler(status, nil)
-                return
-            }
-            
-            do{
-                if let arr =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
-                    for dict in arr
-                    {
-                        let info = LocationInfo(info:dict)
-                        responseArr.append(info)
-                    }
-                    status = true
-                }
-            }
-            catch{
-                print("\nError - ",error,"\n Response Data - ",data as Any)
-                status = false
-            }
-            self.locationList = responseArr
+                self.locationList = responseArr
 
-            handler(status, responseArr)
-        })
+                handler(status, responseArr)
+            })
+        }
+        catch {
+            print("\(error.localizedDescription)")
+            
+            handler(false,nil)
+        }
     }
     
     func requestToSearchTractor(_ info: TractorSearchInfo, completionHandler handler: @escaping ( Bool, [TractorInfo]?) -> () )
     {
-       // http://uv.agilink.net/api2/tractor/service/search?radius=100&city=Lafayette&state=LA&zip=70508&lat=30.2241&lon=-92.0198
-   
         let params = self.createTractorSearchRequest(info)
         let service: String =  "tractor/service/search?\(params)"
         
-        let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
-        WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error) in
-            
-            var responseArr = [TractorInfo]()
-            var status : Bool = false
-            
-            if error != nil || data == nil {
-                handler(status, nil)
-                return
-            }
-            
-            do{
-                if let arr =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
-                    for dict in arr
-                    {
-                        let info = TractorInfo(info:dict)
-                        responseArr.append(info)
-                    }
-                    status = true
+        do {
+            let request: URLRequest = try WebServiceManager.getRequest(service) as URLRequest
+            WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error) in
+                
+                var responseArr = [TractorInfo]()
+                var status : Bool = false
+                
+                if error != nil || data == nil {
+                    handler(status, nil)
+                    return
                 }
-            }
-            catch{
-                print("\nError - ",error,"\n Response Data - ",data as Any)
-                status = false
-            }
-            self.tractorList = responseArr
-            handler(status, responseArr)
-        })
+                
+                do{
+                    if let arr =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
+                        for dict in arr
+                        {
+                            let info = TractorInfo(info:dict)
+                            responseArr.append(info)
+                        }
+                        status = true
+                    }
+                }
+                catch{
+                    print("\nError - ",error,"\n Response Data - ",data as Any)
+                    status = false
+                }
+                self.tractorList = responseArr
+                handler(status, responseArr)
+            })
+        }
+        catch {
+            print("\(error.localizedDescription)")
+            
+            handler(false,nil)
+        }
     }
     
     func createTractorSearchRequest(_ searchInfo: TractorSearchInfo) -> String{
@@ -333,126 +352,155 @@ class DataManager: NSObject {
     {
         let service: String =  "trailer/service/lookup?searchStr=\(search.encodeString())"
         
-        let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
-        WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error) in
-            
-            var responseArr = [TrailerInfo]()
-            var status : Bool = false
-            
-            if error != nil || data == nil {
-                handler(status, nil)
-                return
-            }
-            
-            do{
-                if let arr =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
-                    for dict in arr
-                    {
-                        let info = TrailerInfo(info:dict)
-                        responseArr.append(info)
-                    }
-                    status = true
+        do {
+            let request: URLRequest = try WebServiceManager.getRequest(service) as URLRequest
+            WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error) in
+                
+                var responseArr = [TrailerInfo]()
+                var status : Bool = false
+                
+                if error != nil || data == nil {
+                    handler(status, nil)
+                    return
                 }
-            }
-            catch{
-                print("\nError - ",error,"\n Response Data - ",data as Any)
-                status = false
-            }
-            handler(status, responseArr)
-        })
+                
+                do{
+                    if let arr =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
+                        for dict in arr
+                        {
+                            let info = TrailerInfo(info:dict)
+                            responseArr.append(info)
+                        }
+                        status = true
+                    }
+                }
+                catch{
+                    print("\nError - ",error,"\n Response Data - ",data as Any)
+                    status = false
+                }
+                handler(status, responseArr)
+            })
+        }
+        catch {
+            print("\(error.localizedDescription)")
+            handler(false, nil)
+        }
     }
     
     func requestToSearchTerminal(_ search: String, completionHandler handler: @escaping ( Bool, [String]?) -> () )
     {
         let service: String =  "terminal/service/lookup?searchStr=\(search.encodeString())"
         
-        let request: URLRequest = WebServiceManager.getRequest(service) as URLRequest
-        WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error) in
-            var responseArr = [String]()
-            var status : Bool = false
-            
-            if (error != nil || data == nil)
-            {
-                handler(status, nil)
-                return
-            }
-            do {
-                if let array =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [String]{
-                    responseArr.append(contentsOf: array)
-                    status = true
+        do {
+            let request: URLRequest = try WebServiceManager.getRequest(service) as URLRequest
+            WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error) in
+                var responseArr = [String]()
+                var status : Bool = false
+                
+                if (error != nil || data == nil)
+                {
+                    handler(status, nil)
+                    return
                 }
-            }
-            catch{
-                print("\nError - ",error,"\n Response Data - ",data as Any)
-                status = false
-            }
-            handler(status, responseArr)
-        })
+                do {
+                    if let array =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [String]{
+                        responseArr.append(contentsOf: array)
+                        status = true
+                    }
+                }
+                catch{
+                    print("\nError - ",error,"\n Response Data - ",data as Any)
+                    status = false
+                }
+                handler(status, responseArr)
+            })
+        }
+        catch {
+            print("\(error.localizedDescription)")
+            handler(false, nil)
+        }
     }
     
     func addNewCallLog(_ tractorId: String,userId: String) {
         //http://uv.agilink.net/api2/tractor/service/callLog/?tractorId=1&userId=test
         let service: String =  "tractor/service/callLog?tractorId=\(tractorId)&userId=\(userId)"
-        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostDict: Dictionary<String,Any>()) as URLRequest
-        
-        WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
-            if error != nil || data == nil{
-                print(error as Any)
-                return
-            }
-            guard  let responseStr : String = String(data: data! as Data, encoding: .utf8),
-                responseStr == "Call was successfully logged."
-                else {
-                    print(data as Any)
+        do {
+            let request: URLRequest = try WebServiceManager.postRequest(service: service, withPostDict: Dictionary<String,Any>()) as URLRequest
+            
+            WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
+                if error != nil || data == nil{
+                    print(error as Any)
                     return
+                }
+                guard  let responseStr : String = String(data: data! as Data, encoding: .utf8),
+                    responseStr == "Call was successfully logged."
+                    else {
+                        print(data as Any)
+                        return
+                }
             }
+        }
+        catch {
+            print("\(error.localizedDescription)")
         }
     }
     
     func fetchContactList(completionHandler handler: @escaping ( Bool, [Dictionary<String, Any>]?,Error?) -> ()) {
         let service: String =  "content/service/contacts"
-        let request: URLRequest = WebServiceManager.getRequest(service)
-        WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
-            var responseArr = [Dictionary<String, Any>]()
-            var status : Bool = false
-            
-            if (error != nil || data == nil)
-            {
-                handler(status, nil, error)
-                return
-            }
-            do {
-                if let array =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
-                    responseArr.append(contentsOf: array)
-                    status = true
+        do {
+            let request: URLRequest = try WebServiceManager.getRequest(service)
+            WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
+                var responseArr = [Dictionary<String, Any>]()
+                var status : Bool = false
+                
+                if (error != nil || data == nil)
+                {
+                    handler(status, nil, error)
+                    return
                 }
+                do {
+                    if let array =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
+                        responseArr.append(contentsOf: array)
+                        status = true
+                    }
+                }
+                catch{
+                    print("\nError - ",error,"\n Response Data - ",data as Any)
+                    status = false
+                }
+                handler(status, responseArr, error)
             }
-            catch{
-                print("\nError - ",error,"\n Response Data - ",data as Any)
-                status = false
-            }
-            handler(status, responseArr, error)
+        }
+        catch {
+            print("\(error.localizedDescription)")
+            handler(false, nil, error)
         }
     }
     
     func getHomeContent(completionHandler handler: @escaping (Bool,String?,Error?) -> ()){
         let service: String =  "content/service/home"
-        let request: URLRequest = WebServiceManager.getRequest(service)
-        WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
-            var responseStr:String?
-            var status : Bool = false
-            
-            if (error != nil || data == nil)
-            {
-                handler(status, nil, error)
-                return
+        do {
+            let request: URLRequest = try WebServiceManager.getRequest(service)
+            WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
+                var responseStr:String?
+                var status : Bool = false
+                
+                if (error != nil || data == nil)
+                {
+                    handler(status, nil, error)
+                    return
+                }
+                if let respStr = String(data: data!, encoding: String.Encoding.utf8){
+                    responseStr = respStr.replacingOccurrences(of: "\"", with: "")
+                    status = true
+                    print(responseStr as Any)
+                }
+                handler(status, responseStr, error)
             }
-            if let respStr = String(data: data!, encoding: String.Encoding.utf8){
-                responseStr = respStr.replacingOccurrences(of: "\"", with: "")
-                status = true
-                print(responseStr as Any)
-            }
-            handler(status, responseStr, error)
+        }
+        catch {
+            print("\(error.localizedDescription)")
+            handler(false, nil, error)
         }
     }
     
@@ -462,22 +510,29 @@ class DataManager: NSObject {
         paramString += paramDict.map { (k,v)  in "\(k)=\(v)" }.joined(separator: "&")
         paramString = paramString.replacingOccurrences(of:" ", with:"%20")
         service.append(paramString)
-        let request: URLRequest = WebServiceManager.postRequest(service: service, withPostString: "") as URLRequest
-        WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
-            var responseStr:String?
-            var status : Bool = false
-            
-            if (error != nil || data == nil)
-            {
-                handler(status, nil, error)
-                return
+        
+        do {
+            let request: URLRequest = try WebServiceManager.postRequest(service: service, withPostString: "") as URLRequest
+            WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
+                var responseStr:String?
+                var status : Bool = false
+                
+                if (error != nil || data == nil)
+                {
+                    handler(status, nil, error)
+                    return
+                }
+                if let respStr = String(data: data!, encoding: String.Encoding.utf8){
+                    responseStr = respStr.replacingOccurrences(of: "\"", with: "")
+                    status = true
+                    print(responseStr as Any)
+                }
+                handler(status, responseStr, error)
             }
-            if let respStr = String(data: data!, encoding: String.Encoding.utf8){
-                responseStr = respStr.replacingOccurrences(of: "\"", with: "")
-                status = true
-                print(responseStr as Any)
-            }
-            handler(status, responseStr, error)
+        }
+        catch {
+            print("\(error.localizedDescription)")
+            handler(false, nil, error)
         }
     }
     

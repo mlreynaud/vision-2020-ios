@@ -2,7 +2,7 @@
 //  InitialViewScreen.swift
 //  UnitedVision
 //
-//  Created by Simrandeep Singh on 30/03/18.
+//  Created by Agilink on 30/03/18.
 //  Copyright © 2018 Agilink. All rights reserved.
 //
 

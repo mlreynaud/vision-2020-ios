@@ -48,7 +48,7 @@ class LoginViewController: UITableViewController, UITextFieldDelegate, MFMailCom
                 UIUtils.showAlert(withTitle: kAppTitle, message: "Please enter a valid useranme or password.", inContainer: self)
                 return
         }
-        let paramDict = ["username": username.encodeString(), "password": password.encodeString()] as Dictionary<String, String>
+        let paramDict = ["username": username, "password": password] as Dictionary<String, String>
         LoadingView.shared.showOverlay()
         DataManager.sharedInstance.requestToLoginOrVerifyToken(reqType: .ELogin, paramDict: paramDict) { (status, errorMessage) in
             LoadingView.shared.hideOverlayView()
