@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1405D6612059C7D000A8B0CA /* TrailerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1405D6602059C7D000A8B0CA /* TrailerInfo.swift */; };
+		B11034DD20CFBE1B00CA0397 /* LoadBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11034DC20CFBE1B00CA0397 /* LoadBoardViewController.swift */; };
+		B11034DF20CFFD9500CA0397 /* LoadBoardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11034DE20CFFD9400CA0397 /* LoadBoardInfo.swift */; };
+		B11034E120D0217E00CA0397 /* LoadBoardCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11034E020D0217E00CA0397 /* LoadBoardCollectionCell.swift */; };
 		B11138FE206CD306009D45ED /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11138FD206CD306009D45ED /* TitleView.swift */; };
 		B1113900206CD337009D45ED /* TitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B11138FF206CD337009D45ED /* TitleView.xib */; };
 		B12DA933206E9A2700481787 /* InitialViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12DA932206E9A2700481787 /* InitialViewScreen.swift */; };
@@ -74,6 +77,9 @@
 /* Begin PBXFileReference section */
 		1405D6602059C7D000A8B0CA /* TrailerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailerInfo.swift; sourceTree = "<group>"; };
 		231F842DF1EE3AC446A128CE /* Pods-UnitedVision.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitedVision.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision.debug.xcconfig"; sourceTree = "<group>"; };
+		B11034DC20CFBE1B00CA0397 /* LoadBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadBoardViewController.swift; sourceTree = "<group>"; };
+		B11034DE20CFFD9400CA0397 /* LoadBoardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadBoardInfo.swift; sourceTree = "<group>"; };
+		B11034E020D0217E00CA0397 /* LoadBoardCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadBoardCollectionCell.swift; sourceTree = "<group>"; };
 		B11138FD206CD306009D45ED /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		B11138FF206CD337009D45ED /* TitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleView.xib; sourceTree = "<group>"; };
 		B12DA932206E9A2700481787 /* InitialViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewScreen.swift; sourceTree = "<group>"; };
@@ -288,6 +294,7 @@
 				B18B3CB220722FA2002C241D /* SlideViewCell.swift */,
 				B1E8F02D208A12B600105CC4 /* TractorCollectionGridCell.swift */,
 				B15EDCBA208F747700477368 /* TerminalCollectionMapCell.swift */,
+				B11034E020D0217E00CA0397 /* LoadBoardCollectionCell.swift */,
 			);
 			path = CustomCollectionCell;
 			sourceTree = "<group>";
@@ -324,6 +331,7 @@
 				BA44A107202DF96E00DE6130 /* TractorInfo.swift */,
 				BA84A386204E99C4004E1410 /* TractorSearchInfo.swift */,
 				BA84A3942052D5F0004E1410 /* ContactInfo.swift */,
+				B11034DE20CFFD9400CA0397 /* LoadBoardInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -363,6 +371,7 @@
 				B146C172206139E400BAF474 /* TractorFilterViewController.swift */,
 				B1A3F84420737A4F00A9D83B /* RegisterViewController.swift */,
 				B1DA02002080CA5700143B80 /* PopOverViewController.swift */,
+				B11034DC20CFBE1B00CA0397 /* LoadBoardViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -540,6 +549,7 @@
 				B146C173206139E400BAF474 /* TractorFilterViewController.swift in Sources */,
 				B12DA933206E9A2700481787 /* InitialViewScreen.swift in Sources */,
 				B1DA02012080CA5700143B80 /* PopOverViewController.swift in Sources */,
+				B11034DD20CFBE1B00CA0397 /* LoadBoardViewController.swift in Sources */,
 				B15EDCBC208F747700477368 /* TerminalCollectionMapCell.swift in Sources */,
 				B18B3CB320722FA2002C241D /* SlideViewCell.swift in Sources */,
 				BA5CE6092036EF3C00B14DB6 /* SideMenuTableCell.swift in Sources */,
@@ -561,6 +571,7 @@
 				BA44A127202DF96E00DE6130 /* TerminalDetailViewController.swift in Sources */,
 				BA44A121202DF96E00DE6130 /* BaseViewController.swift in Sources */,
 				BA44A11C202DF96E00DE6130 /* LocationManager.swift in Sources */,
+				B11034DF20CFFD9500CA0397 /* LoadBoardInfo.swift in Sources */,
 				BA44A11A202DF96E00DE6130 /* LoadingView.swift in Sources */,
 				BA44A119202DF96E00DE6130 /* AccordionTableCell.swift in Sources */,
 				1405D6612059C7D000A8B0CA /* TrailerInfo.swift in Sources */,
@@ -577,6 +588,7 @@
 				B11138FE206CD306009D45ED /* TitleView.swift in Sources */,
 				BA44A11E202DF96E00DE6130 /* TractorInfo.swift in Sources */,
 				BA44A11F202DF96E00DE6130 /* WebServiceManager.swift in Sources */,
+				B11034E120D0217E00CA0397 /* LoadBoardCollectionCell.swift in Sources */,
 				BA44A125202DF96E00DE6130 /* TerminalSearchViewController.swift in Sources */,
 				BA5CE6042036E7BF00B14DB6 /* SideMenuViewController.swift in Sources */,
 				BA44A126202DF96E00DE6130 /* HomeViewController.swift in Sources */,

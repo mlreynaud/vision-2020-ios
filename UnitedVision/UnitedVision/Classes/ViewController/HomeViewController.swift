@@ -9,17 +9,20 @@
 import UIKit
 import FZAccordionTableView
 
-let kNoOfBottomBtns = 3
+let kMaxBottomCellInRow = 4
+let kCellSizeSpacingRatio: CGFloat = 0.4
+let kCellSizeCollectionViewHeightRatio: CGFloat = 0.7
 
-class HomeViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate,SideMenuLogOutDelegate {
-       
-    static fileprivate let kTableViewCellReuseIdentifier = "AccordionTableCell"
-    static let kSlideViewCellReuseIdentifier = "slideViewCell"
-
-    @IBOutlet weak var loginTractorCardView: CardView!
+class HomeViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate ,SideMenuLogOutDelegate, BottomBtnCollectionCellProtocol {
     
-    @IBOutlet weak var bottomStackView: UIStackView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    static let kSlideViewCellReuseIdentifier = "slideViewCell"
+    static let kBottomCellReuseIdentifier = "BottomBtnCollectionCell"
+    
+    @IBOutlet weak var bottomCollectionView: UICollectionView!
+    @IBOutlet weak var topCollectionView: UICollectionView!
+    
+    @IBOutlet weak var topCollectionViewFlowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var bottomCollectionViewFlowLayout: UICollectionViewFlowLayout!
     
     @IBOutlet weak var pageControl: UIPageControl!
     
@@ -38,7 +41,9 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
 
     var defaultContentStr = "UNITED VISION LOGISTICS has 138 years of combined experience and an established presence across the United States."
     
-    let collectionViewImgArr = ["truck_red","truck_rig_sunset" ,"truck","truck2","truck3","truck4"]
+    let topCollectionViewImgArr = ["truck_red","truck_rig_sunset" ,"truck","truck2","truck3","truck4"]
+    
+    var bottomCollectionViewImgArr = [LeftMenuItem]()
     
     var beginTime: Date?
     var initialViewScreen: UIView?
@@ -50,7 +55,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         checkToken()
         initialSetup()
         fetchHomeContent()
-        pageControl.numberOfPages = collectionViewImgArr.count
+        pageControl.numberOfPages = topCollectionViewImgArr.count
         self.centreHomeContentLbl.text = self.defaultContentStr
         self.topHomeContentLbl.text = self.defaultContentStr
     }
@@ -115,8 +120,9 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         updateLayoutConstraints(forSize: size)
         let dispatchTime = DispatchTime.now() + 0.2
         DispatchQueue.main.asyncAfter(deadline:dispatchTime) {
-            self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
-            self.collectionView.reloadData()
+            self.topCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+            self.topCollectionView.reloadData()
+            self.bottomCollectionView.reloadData()
         }
     }
     
@@ -142,7 +148,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
             btnViewHeight.constant = (newSize.height-40)*(2/5)
             centreHomeContentHeight.constant = (newSize.height - 40)*(1/5)
             }
-        self.collectionView.reloadData()
+        self.topCollectionView.reloadData()
     }
     
     func fetchHomeContent() {
@@ -169,14 +175,14 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     
     @objc func scrollToNextCell(){
         var nextIndex = IndexPath(item: 0, section: 0)
-        if let currIndexPath = collectionView.indexPathsForVisibleItems.first{
-            if collectionView.indexPathsForVisibleItems.first?.item == collectionViewImgArr.count - 1{
+        if let currIndexPath = topCollectionView.indexPathsForVisibleItems.first{
+            if topCollectionView.indexPathsForVisibleItems.first?.item == topCollectionViewImgArr.count - 1{
                 nextIndex = IndexPath(item: 0, section: 0)
             }
             else{
                 nextIndex = IndexPath(item: currIndexPath.item + 1, section: 0)
             }
-            collectionView.scrollToItem(at:nextIndex , at: UICollectionViewScrollPosition(), animated: true)
+            topCollectionView.scrollToItem(at:nextIndex , at: UICollectionViewScrollPosition(), animated: true)
         }
     }
     
@@ -187,32 +193,28 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     func checkIfLoggedIn() {
         let dataManager = DataManager.sharedInstance
         let ifLoggedIn = dataManager.isLogin
-        let userType = dataManager.userType
-        if ifLoggedIn{
-            if dataManager.canAccessTractorSearch {
-                if bottomStackView.arrangedSubviews.count != kNoOfBottomBtns{
-                    loginTractorCardView.isHidden = false
-                    bottomStackView.addArrangedSubview(loginTractorCardView)
-                }
-                loginTractorBtnImg.image = UIImage(named:"ic_truck_red")
-                loginTractorBtnLbl.text = "TRACTOR SEARCH"
-            }
-            else{
-                if bottomStackView.arrangedSubviews.count == kNoOfBottomBtns{
-                    loginTractorCardView.isHidden = true
-                    bottomStackView.removeArrangedSubview(loginTractorCardView)
-                }
+        
+        bottomCollectionViewImgArr = [.tractorSearch, .terminalSearch, .contact, .login, .loadBoard]
+        
+        if ifLoggedIn {
+            if let indexOfLogin = bottomCollectionViewImgArr.index(of: .login){
+                bottomCollectionViewImgArr.remove(at: indexOfLogin)
             }
         }
-        else{
-            if bottomStackView.arrangedSubviews.count != kNoOfBottomBtns{
-                loginTractorCardView.isHidden = false
-                bottomStackView.addArrangedSubview(loginTractorCardView)
+        
+        if !DataManager.sharedInstance.canAccessTractorSearch{
+            if let indexOfTractorSearch = bottomCollectionViewImgArr.index(of: .tractorSearch){
+                bottomCollectionViewImgArr.remove(at: indexOfTractorSearch)
             }
-            loginTractorBtnImg.image = UIImage(named:"ic_login_red")
-            loginTractorBtnLbl.text = "LOGIN"
         }
-        updateLayoutConstraints(forSize: view.frame.size)
+        if !DataManager.sharedInstance.canAccessLoadBoard{
+            if let indexOfLoadBoard = bottomCollectionViewImgArr.index(of: .loadBoard){
+                bottomCollectionViewImgArr.remove(at: indexOfLoadBoard)
+            }
+        }
+        bottomCollectionViewFlowLayout.minimumInteritemSpacing = 4
+        bottomCollectionViewFlowLayout.minimumLineSpacing = 4
+        bottomCollectionView.reloadData()
     }
     
     @IBAction func contactUsTapped(_ sender: Any) {
@@ -239,7 +241,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
     }
     
     @IBAction func pageControlValueChanged(_ sender: UIPageControl) {
-        collectionView.scrollToItem(at: IndexPath(item: sender.currentPage, section: 0), at: .centeredHorizontally, animated: true)
+        topCollectionView.scrollToItem(at: IndexPath(item: sender.currentPage, section: 0), at: .centeredHorizontally, animated: true)
     }
     
 }
@@ -247,7 +249,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
 extension HomeViewController : UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        return collectionViewImgArr.count
+        return collectionView == topCollectionView ? topCollectionViewImgArr.count : bottomCollectionViewImgArr.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int{
@@ -255,16 +257,64 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeViewController.kSlideViewCellReuseIdentifier, for: indexPath as IndexPath) as! SlideViewCell
-        cell.imageView.image = UIImage(named: collectionViewImgArr[indexPath.row])
-        return cell
+        if collectionView == topCollectionView{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeViewController.kSlideViewCellReuseIdentifier, for: indexPath as IndexPath) as! SlideViewCell
+            cell.imageView.image = UIImage(named: topCollectionViewImgArr[indexPath.row])
+            return cell
+        }
+        else{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeViewController.kBottomCellReuseIdentifier, for: indexPath as IndexPath) as! BottomBtnCollectionCell
+            if let celldata = bottomCollectionViewImgArr.elementAt(index: indexPath.item) as? LeftMenuItem{
+                cell.setData(bottomMenuItem: celldata)
+            }
+            cell.delegate = self
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width,height:floor( carouselViewHeight.constant - 0.1))
+        if collectionView == topCollectionView{
+            return CGSize(width: collectionView.frame.size.width,height:floor( carouselViewHeight.constant - 0.1))
+        }
+        else {
+            let cellInOneRow = min(kMaxBottomCellInRow, bottomCollectionViewImgArr.count)
+            let dimensionAccToWidth = collectionView.frame.width/(CGFloat(cellInOneRow) + kCellSizeSpacingRatio)
+            let dimensionAccToHeight =  collectionView.frame.height * kCellSizeCollectionViewHeightRatio
+            let dimension = min(dimensionAccToWidth, dimensionAccToHeight)
+            return CGSize(width: dimension, height: dimension)
+        }
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        pageControl.currentPage = indexPath.item
+        if collectionView == topCollectionView{
+            pageControl.currentPage = indexPath.item
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets{
+        if collectionView == bottomCollectionView{
+
+            let cellInOneRow = min(kMaxBottomCellInRow, bottomCollectionViewImgArr.count)
+            
+            let dimensionAccToWidth = collectionView.frame.width/(CGFloat(cellInOneRow) + kCellSizeSpacingRatio)
+            let dimensionAccToHeight = collectionView.frame.height * kCellSizeCollectionViewHeightRatio
+            let cellSize = min(dimensionAccToWidth, dimensionAccToHeight)
+            
+            let totalCellWidth = cellSize * CGFloat(cellInOneRow)
+            
+            let totalSpacingWidth = bottomCollectionViewFlowLayout.minimumInteritemSpacing * CGFloat(cellInOneRow)
+            
+            let leftInset = fabs((collectionView.frame.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2)
+            let rightInset = leftInset
+            
+            let totalCellHeight = cellSize * CGFloat(cellInOneRow/bottomCollectionViewImgArr.count)
+            
+            let totalSpacingHeight = bottomCollectionViewFlowLayout.minimumLineSpacing * CGFloat(cellInOneRow)
+            
+            let topInset = fabs((collectionView.frame.height - CGFloat(totalCellHeight + totalSpacingHeight)) / 2)
+            let bottomInset = topInset
+            
+            return UIEdgeInsetsMake(topInset, leftInset, bottomInset, rightInset)
+        }
+        return topCollectionViewFlowLayout.sectionInset
     }
 }

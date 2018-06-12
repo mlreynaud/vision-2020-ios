@@ -18,9 +18,7 @@ enum TractorSortType : Int {
     case ETractorType
     case ETerminal
     case EStatus
-}
 
-extension TractorSortType{
     public var description: String {
         switch self {
         case .EDestinationCity:
@@ -35,9 +33,7 @@ extension TractorSortType{
             return "Status"
         }
     }
-}
 
-extension TractorSortType {
     static var array: [String] {
         var arr: [String] = []
         switch TractorSortType.EDestinationCity {

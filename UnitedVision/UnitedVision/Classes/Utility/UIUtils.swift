@@ -380,6 +380,17 @@ extension String{
     }
 }
 
+extension Array{
+    func elementAt(index: Int) -> Any?{
+        if index < 0 || index >= self.count {
+            return nil
+        }
+        else{
+            return self[index]
+        }
+    }
+}
+
 extension UIDevice {
     var iPhoneX: Bool {
         return UIScreen.main.nativeBounds.height == 2436

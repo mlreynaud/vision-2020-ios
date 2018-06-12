@@ -27,6 +27,7 @@ class DataManager: NSObject {
     var authToken = String()
     var userType : UserType = .none
     var canAccessTractorSearch: Bool = false
+    var canAccessLoadBoard: Bool = false
     
     var radius = 50
 
@@ -34,6 +35,7 @@ class DataManager: NSObject {
         didSet {
             if !isLogin{
                 canAccessTractorSearch = false
+                canAccessLoadBoard = false
             }
         }
     }
@@ -160,6 +162,7 @@ class DataManager: NSObject {
                         }
                         self.userName = jsonDict["firstName"] as? String
                         self.canAccessTractorSearch = ((jsonDict["tractorSearch"] as? String) ?? "") == "Y"
+                        self.canAccessLoadBoard = ((jsonDict["loadBoard"] as? String) ?? "") == "Y"
                         status = true
                     }
                 }
@@ -453,6 +456,36 @@ class DataManager: NSObject {
                 print(responseStr as Any)
             }
             handler(status, responseStr, error)
+        }
+    }
+    
+    func getLoadBoardContent(completionHandler handler: @escaping (Bool,[Any]?,Error?) -> ()){
+        let service: String =  "order/service/loadboard"
+        
+        let request: URLRequest = WebServiceManager.getRequest(service)
+        WebServiceManager.sendRequest(request) { (httpStatus, data, error) in
+            var responseArr = [LoadBoardInfo]()
+            var status : Bool = false
+            
+            if (error != nil || data == nil)
+            {
+                handler(status, nil, error)
+                return
+            }
+            do {
+                if let array =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
+                    for loadBoardDict in array{
+                        let loadBoardInfo = LoadBoardInfo(loadBoardDict: loadBoardDict)
+                        responseArr.append(loadBoardInfo)
+                    }
+                    status = true
+                }
+            }
+            catch{
+                print("\nError - ",error,"\n Response Data - ",data as Any)
+                status = false
+            }
+            handler(status, responseArr, error)
         }
     }
     

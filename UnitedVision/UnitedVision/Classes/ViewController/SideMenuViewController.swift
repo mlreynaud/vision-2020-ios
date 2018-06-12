@@ -9,6 +9,14 @@
 
 enum LeftMenuItem: RawRepresentable {
     
+    case home
+    case tractorSearch
+    case terminalSearch
+    case contact
+    case logout
+    case login
+    case loadBoard
+    
     typealias RawValue = UIViewController.Type
     
     init?(rawValue: UIViewController.Type) {
@@ -22,7 +30,10 @@ enum LeftMenuItem: RawRepresentable {
             self = .contact
         } else if rawValue == LoginViewController.self {
             self = .login
-        } else {
+        } else if rawValue == LoadBoardViewController.self {
+            self = .loadBoard
+        }
+        else {
             return nil
         }
     }
@@ -39,6 +50,8 @@ enum LeftMenuItem: RawRepresentable {
             return ContactViewController.self
         case .login:
             return LoginViewController.self
+        case .loadBoard:
+            return LoadBoardViewController.self
         }
     }
     
@@ -52,6 +65,8 @@ enum LeftMenuItem: RawRepresentable {
             return "ContactViewController"
         case .login:
             return "LoginViewController"
+        case .loadBoard:
+            return "LoadBoardViewController"
         default:
             return nil
         }
@@ -71,6 +86,8 @@ enum LeftMenuItem: RawRepresentable {
             return "Log In"
         case .logout:
             return "Log Out"
+        case .loadBoard:
+            return "Load Board"
         }
     }
 
@@ -88,6 +105,8 @@ enum LeftMenuItem: RawRepresentable {
             return "ic_login_white"
         case .logout:
             return "ic_logout"
+        case .loadBoard:
+            return "loadBoardWhite"
         }
     }
     
@@ -105,15 +124,44 @@ enum LeftMenuItem: RawRepresentable {
             return "ic_login_grey"
         case .logout:
             return "ic_logout"
+        case .loadBoard:
+            return "loadBoardBlack"
         }
     }
     
-    case home
-    case tractorSearch
-    case terminalSearch
-    case contact
-    case logout
-    case login
+    public var bottomBtnTitleText: String? {
+        switch self {
+        case .tractorSearch:
+            return "TRACTOR SEARCH"
+        case .terminalSearch:
+            return "TERMINAL SEARCH"
+        case .login:
+            return "LOGIN"
+        case .loadBoard:
+            return "LOAD BOARD"
+        case .contact:
+            return "CONTACT US"
+        default:
+            return ""
+        }
+    }
+    
+    public var bottomBtnImageName: String {
+        switch self {
+        case .tractorSearch:
+            return "ic_truck_red"
+        case .terminalSearch:
+            return "ic_location_red"
+        case .login:
+            return "ic_login_red"
+        case .loadBoard:
+            return "loadBoardRed"
+        case .contact:
+            return "ic_call_red"
+        default:
+            return ""
+        }
+    }
 }
 protocol SideMenuLogOutDelegate {
     func sideMenuLogOutPressed()
@@ -150,16 +198,29 @@ class SideMenuViewController: BaseViewController, UITableViewDataSource, UITable
     }
     
     func populateArray() {
+        
+        menuValues = [.home, .terminalSearch, .tractorSearch, .loadBoard, .contact, .login, .logout]
+
         if (DataManager.sharedInstance.isLogin) {
-            if DataManager.sharedInstance.canAccessTractorSearch{
-                menuValues = [.home, .terminalSearch, .tractorSearch, .contact, .logout]
-            }
-            else{
-                menuValues = [.home, .terminalSearch, .contact, .logout]
+            if let indexOfLogin = menuValues.index(of: .login){
+                menuValues.remove(at: indexOfLogin)
             }
         }
         else{
-            menuValues = [.home, .terminalSearch, .contact, .login]
+            if let indexOfLogOut = menuValues.index(of: .logout){
+                menuValues.remove(at: indexOfLogOut)
+            }
+        }
+        
+        if !DataManager.sharedInstance.canAccessTractorSearch{
+            if let indexOfTractorSearch = menuValues.index(of: .tractorSearch){
+                menuValues.remove(at: indexOfTractorSearch)
+            }
+        }
+        if !DataManager.sharedInstance.canAccessLoadBoard{
+            if let indexOfLoadBoard = menuValues.index(of: .loadBoard){
+                menuValues.remove(at: indexOfLoadBoard)
+            }
         }
         
         tableView.reloadData()
