@@ -81,7 +81,7 @@ class WebServiceManager: NSObject, URLSessionDelegate {
     class func sendRequest(_ request: URLRequest, completionHandler handler: @escaping CompletionHandlerClosureType )
     {
         var status = false
-        printWebRequest(request: request)
+        WebServiceManager.printWebRequest(request: request)
         
         if (UIUtils.isConnectedToNetwork() == false){
             handler(status, nil, NSError(domain: kNetworkErrorMessage, code: 0, userInfo: nil))
