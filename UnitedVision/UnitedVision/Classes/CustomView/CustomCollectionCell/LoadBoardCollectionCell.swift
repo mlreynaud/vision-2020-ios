@@ -10,6 +10,8 @@ import UIKit
 
 class LoadBoardCollectionCell: UICollectionViewCell {
     
+    @IBOutlet weak var containerView: CardView!
+    
     @IBOutlet weak var originDescLbl: UILabel!
     @IBOutlet weak var destinationDescLbl : UILabel!
     @IBOutlet weak var pickupDateDescLbl: UILabel!
@@ -22,6 +24,8 @@ class LoadBoardCollectionCell: UICollectionViewCell {
     @IBOutlet weak var estimatedChargeLbl: UILabel!
     
     @IBOutlet weak var callBtn: UIButton!
+    
+    var phoneNumStr: String?
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -33,22 +37,22 @@ class LoadBoardCollectionCell: UICollectionViewCell {
     }
     
     @IBAction func callButtonAction(_ sender : UIButton) {
-//        if let locationInfo = locationInfo{
-//            if let phNumber = locationInfo.phone{
-//                UIUtils.callPhoneNumber(phNumber)
-//            }
-//        }
+        if let phNumStr = phoneNumStr, !phNumStr.isBlank(){
+            UIUtils.callPhoneNumber(phNumStr)
+        }
     }
     
     func setCellData(loadBoardInfo: LoadBoardInfo){
         originDescLbl.text = loadBoardInfo.originCityState
         destinationDescLbl.text = loadBoardInfo.destCityState
-        pickupDateDescLbl.text = loadBoardInfo.pickupDate
-        deliveryDateDescLbl.text = loadBoardInfo.deliveryDate
+        pickupDateDescLbl.text = loadBoardInfo.pickupDateStr
+        deliveryDateDescLbl.text = loadBoardInfo.deliveryDateStr
         distanceDescLbl.text = "\(loadBoardInfo.distance ?? 0.0)"
         hazmatDescLbl.text = loadBoardInfo.hazmat! ? "Y" : "N"
         weightDescLbl.text = "\(loadBoardInfo.weight ?? 0.0)"
         tractorTypeDescLbl.text = loadBoardInfo.tractorType
         estimatedChargeLbl.text = loadBoardInfo.estimatedCharge
+        phoneNumStr = loadBoardInfo.terminalPhone ?? ""
+        containerView.sizeToFit()
     }
 }

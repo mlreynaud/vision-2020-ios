@@ -19,18 +19,10 @@ class SlideViewCell: UICollectionViewCell {
     }
 }
 
-protocol BottomBtnCollectionCellProtocol: class{
-    func pushVC(withIdentifier identifier:String)
-}
-
 class BottomBtnCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var btnTitleLbl: UILabel!
-    
-    var leftMenuItem: LeftMenuItem?
-    
-    weak var delegate: BottomBtnCollectionCellProtocol?
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -42,14 +34,7 @@ class BottomBtnCollectionCell: UICollectionViewCell {
     }
     
     func setData(bottomMenuItem: LeftMenuItem){
-        leftMenuItem = bottomMenuItem
         imageView.image = UIImage(named: bottomMenuItem.bottomBtnImageName)
         btnTitleLbl.text = bottomMenuItem.bottomBtnTitleText ?? ""
      }
-    
-    @IBAction func btnTapped(_ sender: UIButton) {
-        if let vcIdentifier = leftMenuItem?.identifier{
-            delegate?.pushVC(withIdentifier: vcIdentifier)
-        }
-    }
 }

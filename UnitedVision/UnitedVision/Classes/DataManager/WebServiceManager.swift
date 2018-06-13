@@ -15,71 +15,44 @@ typealias DownloadHandlerClosureType = (_ filepath: URL?, _ error: NSError?) -> 
 
 class WebServiceManager: NSObject, URLSessionDelegate {
     
-    class func getRequest(_ service: String) throws -> URLRequest
-    {
-        let urlString = kServerUrl + service
-        return try WebServiceManager.getRequest(url:urlString) as URLRequest
+    class func getRequest(url: URL) -> URLRequest{
+        let request = WebServiceManager.createRequest(url, forMethod: "GET")
+        return request
     }
     
-    class func getRequest(url urlString: String) throws -> URLRequest
-    {
-        var request: URLRequest
-        
-        request = try WebServiceManager.createRequest(urlString, forMethod: "GET")
+    class func postRequest (url: URL, withPostDict params: Dictionary <String, Any> ) -> URLRequest{
+        var request = WebServiceManager.createRequest(url, forMethod: "POST")
+        request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
         
         return request
     }
     
-    class func postRequest (service serviceString : String, withPostString postString: String ) throws -> URLRequest
-    {
-        let urlString = kServerUrl + serviceString
-        return try WebServiceManager.postRequest(url:urlString, withPostString: postString) as URLRequest
-    }
-    
-    class func postRequest (service serviceString : String, withPostDict params: Dictionary <String, Any> ) throws -> URLRequest
-    {
-        let urlString = kServerUrl + serviceString
-        var request: URLRequest
-        
-        request = try WebServiceManager.createRequest(urlString, forMethod: "POST")
-        request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
-        
-        return request
-    }
-    
-    class func postRequest (url urlString : String, withPostString postString: String ) throws -> URLRequest
-    {
+    class func postRequest (url: URL, withPostString postString: String ) -> URLRequest{
         let postData = postString.data(using: String.Encoding.utf8)
         let postLength = String("\(String(describing: postData?.count))")
-        var request: URLRequest
         
-        request = try WebServiceManager.createRequest(urlString, forMethod: "POST")
+        var request = WebServiceManager.createRequest(url, forMethod: "POST")
         request.setValue(postLength, forHTTPHeaderField:"Content-Length")
-
         request.httpBody = postData
         
         return request
     }
     
-    class func createRequest(_ urlString: String, forMethod httpMethod:String) throws -> URLRequest
-    {
-        var request = URLRequest(url: URL(string: urlString)!)
+    class func createRequest(_ url: URL, forMethod httpMethod:String) -> URLRequest{
+        var request = URLRequest(url: url)
         request.httpMethod = httpMethod
         request.setValue("application/json", forHTTPHeaderField:"Content-Type")
         request.setValue(AppPrefData.sharedInstance.deviceUniqueId, forHTTPHeaderField: "X-Request-ID")
         request.timeoutInterval = 60.0
         
-        if (DataManager.sharedInstance.isLogin)
-        {
+        if (DataManager.sharedInstance.isLogin){
             let token = DataManager.sharedInstance.authToken
             request.setValue(token, forHTTPHeaderField:"Authorization")
         }
-        
         return request
     }
     
-    class func sendRequest(_ request: URLRequest, completionHandler handler: @escaping CompletionHandlerClosureType )
-    {
+    class func sendRequest(_ request: URLRequest, completionHandler handler: @escaping CompletionHandlerClosureType ){
         var status = false
         WebServiceManager.printWebRequest(request: request)
         
@@ -101,7 +74,7 @@ class WebServiceManager: NSObject, URLSessionDelegate {
             let timeInterval = endDate.timeIntervalSince(startDate as Date)
             print("App response time- \(timeInterval)")
             
-            WebServiceManager.printResponse(response: data)
+            WebServiceManager.printResponse(response: data, error: error as NSError?)
             
             DispatchQueue.main.async {
                 
@@ -141,10 +114,9 @@ class WebServiceManager: NSObject, URLSessionDelegate {
                 }
             }
         });
-        
         dataTask.resume()
-        
     }
+    
     class func printWebRequest(request: URLRequest){
         print("Request# \n URL : ",(request.url?.absoluteString as Any),"\n Headers : ",(request.allHTTPHeaderFields?.description as Any),"\n Request Method : ",(request.httpMethod?.description as Any))
         if var jsonBody :Any? = request.httpBody{
@@ -156,68 +128,18 @@ class WebServiceManager: NSObject, URLSessionDelegate {
             print("\n Body : ",jsonBody as Any)
         }
     }
-    class func printResponse(response: Data?){
+    
+    class func printResponse(response: Data?, error: NSError?){
         if let res = response {
             let resStr = String(data: res, encoding: String.Encoding.utf8)
             print(resStr as Any)
         }
+        if let err = error{
+            print("\nError - ",err,"\nError Description - ",err.localizedDescription)
+        }
     }
     
-//    func sendDownloadRequest(_ requestUrl: URL, completionHandler handler: @escaping DownloadHandlerClosureType )
-//    {
-//        let documents = UIUtils.documentDirectory() + "/"
-//        let destinationPath = documents +  requestUrl.lastPathComponent
-//        let destinationURL = URL(fileURLWithPath: destinationPath)
-//        if FileManager.default.fileExists(atPath: destinationPath) {
-//            handler(destinationURL, nil)
-//            return
-//        }
-//
-//        if (UIUtils.isConnectedToNetwork() == false)
-//        {
-////            UIUtils.showAlert(withTitle: "Network Error", message: kNetworkErrorMessage, alertType: .info)
-//            return;
-//        }
-//
-//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-//        //        let request = URLRequest(url: requestUrl)
-//        //        let downloadTask :URLSessionDownloadTask = defaultSession.downloadTask(with: requestUrl, completionHandler: {(locationURL, response, error) in
-//
-//
-//        let downloadTask :URLSessionDataTask = defaultSession.dataTask(with: requestUrl, completionHandler: {(data, response, error) in
-//
-//            DispatchQueue.main.async {
-//                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//
-//                guard error == nil && data != nil else {
-//                    print(error ?? "No Error in dowloading task")
-//                    handler(nil, error as NSError?)
-//                    return
-//                }
-//
-//                do {
-//                    //                    let manager = FileManager.default
-//                    //                    let documents = try manager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-//                    //                    let destinationURL = documents.appendingPathComponent((response?.suggestedFilename)!)
-//                    //                    if manager.fileExists(atPath: destinationURL.path) {
-//                    //                        handler(destinationURL, nil)
-//                    //                    }
-//
-//                    try data?.write(to: destinationURL)
-//
-//                    handler(destinationURL, nil)
-//
-//                } catch let moveError {
-//                    print(moveError)
-//                    handler(nil, moveError as NSError?)
-//                }
-//            }
-//        })
-//        downloadTask.resume()
-//    }
-    
-    class func removeWhitespaceInString(_ string: NSString!) -> NSString
-    {
+    class func removeWhitespaceInString(_ string: NSString!) -> NSString{
         return string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) as NSString
     }
     

@@ -10,12 +10,9 @@ import Foundation
 
 // MARK:- Server URLs
 
-let kProductionURL = "http://uv.agilink.net/api/"
-let kStagingURL = "http://uv.agilink.net/api/"
+let kServerUrl = "http://uv.agilink.net/api2/"  //"https://api.uvlogistics.com/" 
 
-let kServerUrl = "https://uv.agilink.net/api/"
-
-let kDefaultRadius = 50 //UIUtils.getServerURl()!
+let kDefaultRadius = 50 
 
 let kGoogleAPIKey = "AIzaSyA17-66jRmF_LAsluaLm42U255SKZsrY24"
 

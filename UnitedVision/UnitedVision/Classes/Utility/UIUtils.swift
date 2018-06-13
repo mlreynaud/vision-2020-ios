@@ -245,28 +245,6 @@ class UIUtils: NSObject {
         return isSimulator
     }
     
-    
-    // Return the server urls as per the satging/production state of the appp
-    class func getServerURl() -> String?
-    {
-        if let path = Bundle.main.path(forResource: "Server", ofType: "plist")
-        {
-            //If your plist contain root as Dictionary
-            if let dic = NSDictionary(contentsOfFile: path) as? [String: Any] {
-
-                if (dic["Production"] as! Bool)
-                {
-                    return kProductionURL
-                }
-                else
-                {
-                    return kStagingURL
-                }
-            }
-        }
-        return nil
-    }
-    
     class func transparentSearchBarBackgrund(_ searchBar: UISearchBar)
     {
         searchBar.barTintColor = UIColor.clear

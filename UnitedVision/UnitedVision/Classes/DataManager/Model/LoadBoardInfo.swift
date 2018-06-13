@@ -14,8 +14,10 @@ class LoadBoardInfo {
     var terminalPhone: String?
     var originCityState: String?
     var destCityState: String?
-    var pickupDate: String?
-    var deliveryDate: String?
+    var pickupDateStr: String?
+    var deliveryDateStr: String?
+    var pickupDate: Date?
+    var deliveryDate: Date?
     var tractorType: String?
     var trailerType: String?
     var commodityDesc: String?
@@ -31,8 +33,13 @@ class LoadBoardInfo {
         terminalPhone = (loadBoardDict["terminalPhone"] as? String) ?? ""
         originCityState = (loadBoardDict["originCityState"] as? String) ?? ""
         destCityState = (loadBoardDict["destCityState"] as? String) ?? ""
-        pickupDate = (loadBoardDict["pickupDT"] as? String) ?? "" // mm/dd/yyyy HH:MM
-        deliveryDate = (loadBoardDict["deliveryDT"] as? String) ?? ""
+        
+        pickupDateStr = (loadBoardDict["pickupDT"] as? String) ?? "" // mm/dd/yyyy HH:MM
+        deliveryDateStr = (loadBoardDict["deliveryDT"] as? String) ?? ""
+        
+        pickupDate = returnDateFrom(dateStr: pickupDateStr ?? "" )
+        deliveryDate = returnDateFrom(dateStr: deliveryDateStr ?? "" )
+        
         tractorType = (loadBoardDict["tractorType"] as? String) ?? ""
         trailerType = (loadBoardDict["trailerType"] as? String) ?? ""
         commodityDesc = (loadBoardDict["commodityDescr"] as? String) ?? ""
@@ -41,6 +48,15 @@ class LoadBoardInfo {
         hazmat = ((loadBoardDict["hazmat"] as? String) ?? "N") == "Y"
         estimatedCharge = (loadBoardDict["estimatedCharge"] as? String) ?? ""
         orderId = (loadBoardDict["orderId"] as? String) ?? ""
+    }
+    
+    func returnDateFrom(dateStr: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
+        let date = dateFormatter.date(from: dateStr)
+//        print(date ?? "")
+        return date ?? Date()
     }
     
 }

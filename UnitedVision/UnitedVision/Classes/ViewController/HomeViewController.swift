@@ -13,7 +13,7 @@ let kMaxBottomCellInRow = 4
 let kCellSizeSpacingRatio: CGFloat = 0.4
 let kCellSizeCollectionViewHeightRatio: CGFloat = 0.7
 
-class HomeViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate ,SideMenuLogOutDelegate, BottomBtnCollectionCellProtocol {
+class HomeViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate ,SideMenuLogOutDelegate {
     
     static let kSlideViewCellReuseIdentifier = "slideViewCell"
     static let kBottomCellReuseIdentifier = "BottomBtnCollectionCell"
@@ -110,7 +110,17 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         setNavigationBarItem()
         checkIfLoggedIn()
         startAutoScroll()
+        
+        DispatchQueue.main.asyncAfter(deadline:DispatchTime.now() + 0.1) {
+            self.topCollectionView.reloadData()
+            self.bottomCollectionView.reloadData()
+        }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         autoScrollTimer?.invalidate()
@@ -121,6 +131,9 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         let dispatchTime = DispatchTime.now() + 0.2
         DispatchQueue.main.asyncAfter(deadline:dispatchTime) {
             self.topCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+            self.topCollectionViewFlowLayout.invalidateLayout()
+            self.bottomCollectionViewFlowLayout.invalidateLayout()
+
             self.topCollectionView.reloadData()
             self.bottomCollectionView.reloadData()
         }
@@ -149,6 +162,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
             centreHomeContentHeight.constant = (newSize.height - 40)*(1/5)
             }
         self.topCollectionView.reloadData()
+        self.bottomCollectionView.reloadData()
     }
     
     func fetchHomeContent() {
@@ -164,7 +178,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
                 self.centreHomeContentLbl.text = self.defaultContentStr
                 self.topHomeContentLbl.text = self.defaultContentStr
 
-                UIUtils.showAlert(withTitle: kAppTitle, message: error?._domain ?? "Something went wrong,Please try again later", inContainer: self)
+                UIUtils.showAlert(withTitle: kAppTitle, message: error?.localizedDescription ?? error?._domain ?? "Something went wrong,Please try again later", inContainer: self)
             }
         }
     }
@@ -267,7 +281,6 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout
             if let celldata = bottomCollectionViewImgArr.elementAt(index: indexPath.item) as? LeftMenuItem{
                 cell.setData(bottomMenuItem: celldata)
             }
-            cell.delegate = self
             return cell
         }
     }
@@ -316,5 +329,13 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout
             return UIEdgeInsetsMake(topInset, leftInset, bottomInset, rightInset)
         }
         return topCollectionViewFlowLayout.sectionInset
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let leftMenuItem = bottomCollectionViewImgArr.elementAt(index: indexPath.item) as? LeftMenuItem{
+            if let vcIdentifier = leftMenuItem.identifier{
+                pushVC(withIdentifier: vcIdentifier)
+            }
+        }
     }
 }

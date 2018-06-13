@@ -17,6 +17,8 @@
 		B146C173206139E400BAF474 /* TractorFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B146C172206139E400BAF474 /* TractorFilterViewController.swift */; };
 		B15EDCBC208F747700477368 /* TerminalCollectionMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15EDCBA208F747700477368 /* TerminalCollectionMapCell.swift */; };
 		B16D11F42073F2CA00769329 /* USState.plist in Resources */ = {isa = PBXBuildFile; fileRef = B16D11F32073F2CA00769329 /* USState.plist */; };
+		B171D71020D1336B000E6F61 /* LoadBoardPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B171D70F20D1336B000E6F61 /* LoadBoardPopUpVC.swift */; };
+		B171D71220D15B95000E6F61 /* LoadBoardFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B171D71120D15B95000E6F61 /* LoadBoardFilterVC.swift */; };
 		B18B3CB320722FA2002C241D /* SlideViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18B3CB220722FA2002C241D /* SlideViewCell.swift */; };
 		B19CAE54205A544B00090F10 /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B19CAE53205A544B00090F10 /* MapView.xib */; };
 		B1A3F84520737A4F00A9D83B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A3F84420737A4F00A9D83B /* RegisterViewController.swift */; };
@@ -50,7 +52,6 @@
 		BA44A124202DF96E00DE6130 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A111202DF96E00DE6130 /* LoginViewController.swift */; };
 		BA44A125202DF96E00DE6130 /* TerminalSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A112202DF96E00DE6130 /* TerminalSearchViewController.swift */; };
 		BA44A126202DF96E00DE6130 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A113202DF96E00DE6130 /* HomeViewController.swift */; };
-		BA44A127202DF96E00DE6130 /* TerminalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */; };
 		BA4D87992046FB7A00FC78CA /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4D87982046FB7A00FC78CA /* UISegmentedControl.swift */; };
 		BA4D879F204D1CD700FC78CA /* AccordionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4D879E204D1CD700FC78CA /* AccordionHeaderView.swift */; };
 		BA4D87A1204D1D0100FC78CA /* AccordionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4D87A0204D1D0100FC78CA /* AccordionHeaderView.xib */; };
@@ -86,6 +87,8 @@
 		B146C172206139E400BAF474 /* TractorFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TractorFilterViewController.swift; sourceTree = "<group>"; };
 		B15EDCBA208F747700477368 /* TerminalCollectionMapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalCollectionMapCell.swift; sourceTree = "<group>"; };
 		B16D11F32073F2CA00769329 /* USState.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = USState.plist; sourceTree = "<group>"; };
+		B171D70F20D1336B000E6F61 /* LoadBoardPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadBoardPopUpVC.swift; sourceTree = "<group>"; };
+		B171D71120D15B95000E6F61 /* LoadBoardFilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadBoardFilterVC.swift; sourceTree = "<group>"; };
 		B18B3CB220722FA2002C241D /* SlideViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewCell.swift; sourceTree = "<group>"; };
 		B19CAE53205A544B00090F10 /* MapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
 		B1A3F84420737A4F00A9D83B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -124,7 +127,6 @@
 		BA44A111202DF96E00DE6130 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BA44A112202DF96E00DE6130 /* TerminalSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalSearchViewController.swift; sourceTree = "<group>"; };
 		BA44A113202DF96E00DE6130 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalDetailViewController.swift; sourceTree = "<group>"; };
 		BA4D87982046FB7A00FC78CA /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
 		BA4D879E204D1CD700FC78CA /* AccordionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionHeaderView.swift; sourceTree = "<group>"; };
 		BA4D87A0204D1D0100FC78CA /* AccordionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccordionHeaderView.xib; sourceTree = "<group>"; };
@@ -363,7 +365,6 @@
 				BA44A111202DF96E00DE6130 /* LoginViewController.swift */,
 				BA44A112202DF96E00DE6130 /* TerminalSearchViewController.swift */,
 				BA44A113202DF96E00DE6130 /* HomeViewController.swift */,
-				BA44A114202DF96E00DE6130 /* TerminalDetailViewController.swift */,
 				BA5CE6032036E7BF00B14DB6 /* SideMenuViewController.swift */,
 				BA84A37C204D6066004E1410 /* FilterPopupViewController.swift */,
 				BA84A38820518C3B004E1410 /* ContactViewController.swift */,
@@ -372,6 +373,8 @@
 				B1A3F84420737A4F00A9D83B /* RegisterViewController.swift */,
 				B1DA02002080CA5700143B80 /* PopOverViewController.swift */,
 				B11034DC20CFBE1B00CA0397 /* LoadBoardViewController.swift */,
+				B171D70F20D1336B000E6F61 /* LoadBoardPopUpVC.swift */,
+				B171D71120D15B95000E6F61 /* LoadBoardFilterVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -425,7 +428,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Agilink;
 				TargetAttributes = {
 					BA44A0DE202DF91200DE6130 = {
@@ -568,10 +571,10 @@
 				BA5CE6072036EBBF00B14DB6 /* UIViewController.swift in Sources */,
 				BA5CE61A203D7E5000B14DB6 /* AutocompleteTableCell.swift in Sources */,
 				BA84A38B20518F2E004E1410 /* ContactTableCell.swift in Sources */,
-				BA44A127202DF96E00DE6130 /* TerminalDetailViewController.swift in Sources */,
 				BA44A121202DF96E00DE6130 /* BaseViewController.swift in Sources */,
 				BA44A11C202DF96E00DE6130 /* LocationManager.swift in Sources */,
 				B11034DF20CFFD9500CA0397 /* LoadBoardInfo.swift in Sources */,
+				B171D71220D15B95000E6F61 /* LoadBoardFilterVC.swift in Sources */,
 				BA44A11A202DF96E00DE6130 /* LoadingView.swift in Sources */,
 				BA44A119202DF96E00DE6130 /* AccordionTableCell.swift in Sources */,
 				1405D6612059C7D000A8B0CA /* TrailerInfo.swift in Sources */,
@@ -581,6 +584,7 @@
 				BA84A385204E916B004E1410 /* AppPrefData.swift in Sources */,
 				BA84A37D204D6066004E1410 /* FilterPopupViewController.swift in Sources */,
 				BA4D879F204D1CD700FC78CA /* AccordionHeaderView.swift in Sources */,
+				B171D71020D1336B000E6F61 /* LoadBoardPopUpVC.swift in Sources */,
 				BA84A387204E99C4004E1410 /* TractorSearchInfo.swift in Sources */,
 				BA44A123202DF96E00DE6130 /* TractorViewController.swift in Sources */,
 				BA44A117202DF96E00DE6130 /* AppDelegate.swift in Sources */,
@@ -631,6 +635,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -638,6 +643,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -688,6 +694,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -695,6 +702,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
