@@ -16,7 +16,9 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
 
     @IBOutlet weak var searchViewHeight: NSLayoutConstraint!
     
-    var filterType : FilterType!
+    var tractorSearchfilterType: TractorSearchFilterType!
+    var loadBoardSearchFilterType: LoadBoardSearchFilterType!
+    
     var selectedValue : Any?
     var filterList : [AnyObject] = []
 
@@ -56,10 +58,10 @@ extension FilterSearchViewController
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSerachTableCell", for: indexPath)
         
-        if (filterType == .tractorTerminal) {
+        if (tractorSearchfilterType == .tractorTerminal) {
             cell.textLabel?.text = filterList[indexPath.row] as? String
         }
-        else if (filterType == .trailerType) {
+        else if (tractorSearchfilterType == .trailerType) {
             cell.textLabel?.text = (filterList[indexPath.row] as! TrailerInfo).descr!
         }
         cell.textLabel?.font = UIFont.systemFont(ofSize: 15)
@@ -68,10 +70,10 @@ extension FilterSearchViewController
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (filterType == .tractorTerminal) {
+        if (tractorSearchfilterType == .tractorTerminal) {
             selectedValue = filterList[indexPath.row] as! String
         }
-        else if (filterType == .trailerType) {
+        else if (tractorSearchfilterType == .trailerType) {
             selectedValue = (filterList[indexPath.row] as! TrailerInfo)
         }
         dismissKeyboard()
@@ -116,7 +118,7 @@ extension FilterSearchViewController
     
     @objc func callSearchAPI(_ searchText: String)
     {
-        if (filterType == .tractorTerminal)
+        if (tractorSearchfilterType == .tractorTerminal)
         {
             DataManager.sharedInstance.requestToSearchTerminal(searchText, completionHandler: {( status, results) in
                 
@@ -132,7 +134,7 @@ extension FilterSearchViewController
                 
             })
         }
-        else  if (filterType == .trailerType){
+        else  if (tractorSearchfilterType == .trailerType){
             
             DataManager.sharedInstance.requestToSearchTrailerType(searchText, completionHandler: {( status, results) in
 
@@ -147,8 +149,5 @@ extension FilterSearchViewController
                 self.tableView.reloadData()
             })
         }
-
     }
-
-   
 }

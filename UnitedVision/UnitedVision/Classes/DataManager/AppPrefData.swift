@@ -16,7 +16,8 @@ class AppPrefData: NSObject {
     var isLogin = false
     var userName: String?
     var deviceUniqueId: String?
-    var searchDict: Dictionary<String, Any>?
+    var tractorSearchDict: Dictionary<String, Any>?
+    var loadBoardSearchDict: Dictionary<String, Any>?
 
     private override init() {
         super.init()
@@ -32,7 +33,10 @@ class AppPrefData: NSObject {
             userName = dictionary["userName"] as? String
             deviceUniqueId = (dictionary["deviceUniqueId"] as? String) ?? AppPrefData.returnUUIDString()
             if let tractorSearchDict = dictionary["TractorSearchDict"] as? Dictionary<String,Any> , tractorSearchDict.count > 0{
-                searchDict = tractorSearchDict
+                self.tractorSearchDict = tractorSearchDict
+            }
+            if let loadBoardSearchDict = dictionary["LoadBoardSearchDict"] as? Dictionary<String,Any> , loadBoardSearchDict.count > 0{
+                self.loadBoardSearchDict = loadBoardSearchDict
             }
         }
         else{
@@ -46,14 +50,20 @@ class AppPrefData: NSObject {
     func dataAsDictionary() ->  Dictionary<String, Any>
     {
         var dictionary = Dictionary<String, Any>()
+        
         dictionary["authToken"] = DataManager.sharedInstance.authToken
         dictionary["isLogin"] = DataManager.sharedInstance.isLogin
         dictionary["deviceUniqueId"] = self.deviceUniqueId
+        
         if DataManager.sharedInstance.userName != nil{
             dictionary["userName"] = DataManager.sharedInstance.userName
         }
-        self.searchDict = self.createTractorSearchDict()
-        dictionary["TractorSearchDict"] = self.searchDict
+        
+        self.tractorSearchDict = self.createTractorSearchDict()
+        dictionary["TractorSearchDict"] = self.tractorSearchDict
+        
+        self.loadBoardSearchDict = self.createLoadBoardSearchDict()
+        dictionary["LoadBoardSearchDict"] = self.loadBoardSearchDict
         
         return dictionary
     }
@@ -61,25 +71,63 @@ class AppPrefData: NSObject {
     func createTractorSearchDict()-> Dictionary<String, Any>
     {
         var dict = Dictionary<String, Any>()
-        if let searchInfo = DataManager.sharedInstance.tractorSearchInfo
+        if let tractorSearchInfo = DataManager.sharedInstance.tractorSearchInfo
         {
-            dict = ["city" : searchInfo.city, "state": searchInfo.state, "zip": searchInfo.zip, "latitude": searchInfo.latitude, "longitude": searchInfo.longitude, "radius": searchInfo.radius, "loaded": searchInfo.loaded, "hazmat": searchInfo.hazmat]
+            dict = ["city" : tractorSearchInfo.city, "state": tractorSearchInfo.state, "zip": tractorSearchInfo.zip, "latitude": tractorSearchInfo.latitude, "longitude": tractorSearchInfo.longitude, "originRadius": tractorSearchInfo.radius, "loaded": tractorSearchInfo.loaded, "hazmat": tractorSearchInfo.hazmat]
             
-            dict["status"] = searchInfo.status
+            dict["status"] = tractorSearchInfo.status
             
-            if searchInfo.trailerTypeId.count > 0{
-                dict["trailerTypeId"] = searchInfo.trailerTypeId
+            if tractorSearchInfo.trailerTypeId.count > 0{
+                dict["trailerTypeId"] = tractorSearchInfo.trailerTypeId
             }
             
-            if searchInfo.trailerTypeDesc.count > 0{
-                dict["trailerTypeDesc"] = searchInfo.trailerTypeDesc
+            if tractorSearchInfo.trailerTypeDesc.count > 0{
+                dict["trailerTypeDesc"] = tractorSearchInfo.trailerTypeDesc
             }
             
-            if searchInfo.terminalId.count > 0{
-                dict["terminalId"] = searchInfo.terminalId
+            if tractorSearchInfo.terminalId.count > 0{
+                dict["terminalId"] = tractorSearchInfo.terminalId
             }
-            if searchInfo.tractorType.count > 0{
-                dict["tractorType"] = searchInfo.tractorType
+            if tractorSearchInfo.tractorType.count > 0{
+                dict["tractorType"] = tractorSearchInfo.tractorType
+            }
+        }
+        return dict
+    }
+    
+    func createLoadBoardSearchDict()-> Dictionary<String, Any>
+    {
+        
+        var dict = Dictionary<String, Any>()
+        if let loadBoardSearchInfo = DataManager.sharedInstance.loadBoardSearchInfo
+        {
+            dict["originCity"] = loadBoardSearchInfo.originCity
+            dict["originState"] = loadBoardSearchInfo.originState
+            dict["originZip"] = loadBoardSearchInfo.originZip
+            dict["originLatitude"] = loadBoardSearchInfo.originLatitude
+            dict["originLongitude"] = loadBoardSearchInfo.originLongitude
+            
+            dict["destCity"] = loadBoardSearchInfo.destCity
+            dict["destState"] = loadBoardSearchInfo.destState
+            dict["destZip"] = loadBoardSearchInfo.destZip
+            dict["destLatitude"] = loadBoardSearchInfo.destLatitude
+            dict["destLongitude"] = loadBoardSearchInfo.destLongitude
+
+            dict["hazmat"] = loadBoardSearchInfo.hazmat
+
+            if loadBoardSearchInfo.trailerTypeId.count > 0{
+                dict["trailerTypeId"] = loadBoardSearchInfo.trailerTypeId
+            }
+
+            if loadBoardSearchInfo.trailerTypeDesc.count > 0{
+                dict["trailerTypeDesc"] = loadBoardSearchInfo.trailerTypeDesc
+            }
+
+            if loadBoardSearchInfo.terminalId.count > 0{
+                dict["terminalId"] = loadBoardSearchInfo.terminalId
+            }
+            if loadBoardSearchInfo.tractorType.count > 0{
+                dict["tractorType"] = loadBoardSearchInfo.tractorType
             }
         }
         return dict

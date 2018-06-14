@@ -16,7 +16,7 @@ let kDefaultRadius = 50
 
 let kGoogleAPIKey = "AIzaSyA17-66jRmF_LAsluaLm42U255SKZsrY24"
 
-enum FilterType: Int {
+enum TractorSearchFilterType: Int {
     case searchLocation = 0
     case radius
     case status
@@ -24,6 +24,15 @@ enum FilterType: Int {
     case trailerType
     case tractorTerminal
     case loaded
+    case hazmat
+}
+
+enum LoadBoardSearchFilterType: Int {
+    case originLocation = 0
+    case destLocation
+    case tractorType
+    case trailerType
+    case tractorTerminal
     case hazmat
 }
 

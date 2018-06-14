@@ -11,7 +11,7 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
-let numberOfFilterLbls = 7
+let numberOfTractorFilterLbls = 7
 let kTractorFilterTitle = "TRACTOR SEARCH FILTER"
 
 let kLoadedViewHeight: CGFloat = 50
@@ -91,20 +91,20 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
     }
     
     func reloadLabels() {
-        for index in 0...numberOfFilterLbls{
+        for index in 0...numberOfTractorFilterLbls{
             reloadLabel(at: index)
         }
     }
     
     func reloadLabel(at index:Int) {
-        if index == FilterType.loaded.rawValue{
+        if index == TractorSearchFilterType.loaded.rawValue{
             loadedCheckImgView.isHighlighted = (searchInfo?.loaded)!
         }
-        else if index == FilterType.hazmat.rawValue{
+        else if index == TractorSearchFilterType.hazmat.rawValue{
             hazmatCheckImgView.isHighlighted = (searchInfo?.hazmat)!
         }
         else{
-            let filterType = FilterType(rawValue: index)
+            let filterType = TractorSearchFilterType(rawValue: index)
             let filterLblValue = getValue(for: filterType!, from: searchInfo!) as! String
             filterLbl[index].text = filterLblValue
             if filterType == .trailerType || filterType == .tractorTerminal || filterType == .status || filterType == .tractorType{
@@ -148,8 +148,8 @@ extension TractorFilterViewController{
         var currentLocation: CLLocation?
 
         func resetFilterToDefaultValues(){
-            AppPrefData.sharedInstance.searchDict = nil
-            if let defaultTractorInfo = DataManager.sharedInstance.fetchFilterDefaultValues(){
+            AppPrefData.sharedInstance.tractorSearchDict = nil
+            if let defaultTractorInfo = DataManager.sharedInstance.fetchTractorSearchFilterDefaultValues(){
                 if !isCurrentLocAvail{
                     searchInfo?.city = defaultTractorInfo.city
                     searchInfo?.state = defaultTractorInfo.state
@@ -197,7 +197,7 @@ extension TractorFilterViewController{
     
     @IBAction func saveDefaultViewTapped(_ sender: Any) {
         if checkBoxImg.isHighlighted{
-            searchInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
+            searchInfo = DataManager.sharedInstance.fetchTractorSearchFilterDefaultValues()
             reloadLabels()
         }
         DataManager.sharedInstance.tractorSearchInfo = searchInfo
@@ -206,7 +206,7 @@ extension TractorFilterViewController{
     }
     
     @IBAction func filterBtnTapped(_ sender: UIButton) {
-        let filterType = FilterType(rawValue: sender.tag)!
+        let filterType = TractorSearchFilterType(rawValue: sender.tag)!
         switch filterType {
         case .searchLocation:
             let autocompleteController = GMSAutocompleteViewController()
@@ -222,14 +222,14 @@ extension TractorFilterViewController{
             showFilterSearchScreen(filterType)
         case .loaded:
             searchInfo?.loaded = !(searchInfo?.loaded)!
-            reloadLabel(at: FilterType.loaded.rawValue)
+            reloadLabel(at: TractorSearchFilterType.loaded.rawValue)
         case .hazmat:
             searchInfo?.hazmat = !(searchInfo?.hazmat)!
-            reloadLabel(at: FilterType.hazmat.rawValue)
+            reloadLabel(at: TractorSearchFilterType.hazmat.rawValue)
         }
     }
     @IBAction func filterCancelBtnTapped(_ sender: UIButton) {
-        let filterType = FilterType(rawValue: sender.tag)!
+        let filterType = TractorSearchFilterType(rawValue: sender.tag)!
         switch filterType {
         case .status:
             searchInfo?.status.removeAll()
@@ -246,7 +246,7 @@ extension TractorFilterViewController{
         reloadLabel(at: sender.tag)
     }
     func checkIfSavedFiltersSelected() {
-        if let defaultTractorInfo = DataManager.sharedInstance.fetchFilterDefaultValues(){
+        if let defaultTractorInfo = DataManager.sharedInstance.fetchTractorSearchFilterDefaultValues(){
             var result : Bool = true
             result = (searchInfo?.hazmat)! == defaultTractorInfo.hazmat &&
                 (searchInfo?.loaded)! == defaultTractorInfo.loaded &&
@@ -284,7 +284,7 @@ extension TractorFilterViewController{
 
 extension TractorFilterViewController{
     
-    func getValue(for filterType: FilterType,from tractorSearchInfo: TractorSearchInfo) -> Any
+    func getValue(for filterType: TractorSearchFilterType,from tractorSearchInfo: TractorSearchInfo) -> Any
     {
         var value: Any
         switch filterType {
@@ -318,28 +318,28 @@ extension TractorFilterViewController{
         return value
     }
     
-    func showFilterPopup(_ filterType: FilterType)
+    func showFilterPopup(_ filterType: TractorSearchFilterType)
     {
-        filterPopupVC?.filterType = filterType
+        filterPopupVC?.tractorSearchfilterType = filterType
         filterPopupVC?.tractorCompletionHandler = {(selectedTractorValue) in
             self.searchInfo?.tractorType = selectedTractorValue
-            self.reloadLabel(at:FilterType.tractorType.rawValue)
+            self.reloadLabel(at:TractorSearchFilterType.tractorType.rawValue)
         }
         
         filterPopupVC?.statusFilterCompletionHandler = { (selectedStatusList) in
             self.searchInfo?.status = selectedStatusList
-            self.reloadLabel(at:FilterType.status.rawValue)
+            self.reloadLabel(at:TractorSearchFilterType.status.rawValue)
         }
         filterPopupVC?.modalTransitionStyle = .crossDissolve
         filterPopupVC?.modalPresentationStyle = .overCurrentContext
         self.present(filterPopupVC!, animated: true, completion: nil)
     }
     
-    func showFilterSearchScreen(_ filterType: FilterType)
+    func showFilterSearchScreen(_ filterType: TractorSearchFilterType)
     {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let viewCtrl = storyBoard.instantiateViewController(withIdentifier: "FilterSearchViewController") as! FilterSearchViewController
-        viewCtrl.filterType = filterType
+        viewCtrl.tractorSearchfilterType = filterType
         
         viewCtrl.completionHandler = {(selectedValue) in
             if filterType == .tractorTerminal {
@@ -411,7 +411,7 @@ extension TractorFilterViewController
         let selectedRow = pickerView?.selectedRow(inComponent: 0) ?? 0
         searchInfo?.radius =  radiusList[selectedRow]
         pickerToolbarView.isHidden = true
-        reloadLabel(at: FilterType.radius.rawValue)
+        reloadLabel(at: TractorSearchFilterType.radius.rawValue)
     }
     
     @objc func cancelClick() {
@@ -448,7 +448,7 @@ extension TractorFilterViewController: GMSAutocompleteViewControllerDelegate {
             self.searchInfo?.city = (address?.locality)!
             self.searchInfo?.state = (address?.administrativeArea)!
             self.searchInfo?.zip = (address?.postalCode) ?? ""
-            self.reloadLabel(at: FilterType.searchLocation.rawValue)
+            self.reloadLabel(at: TractorSearchFilterType.searchLocation.rawValue)
         }
     }
     

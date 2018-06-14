@@ -14,7 +14,8 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     
     @IBOutlet weak var searchViewHeight: NSLayoutConstraint!
     
-    var filterType : FilterType!
+    var tractorSearchfilterType : TractorSearchFilterType?
+    var lbSearchfilterType: LoadBoardSearchFilterType?
     
     var selectedList = [String]()
     var filterList = [String]()
@@ -45,10 +46,10 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     //MARK: Button action methods
     @IBAction func doneButtonAction(_ sender: UIButton)
     {
-        if (filterType == .tractorType) {
+        if (tractorSearchfilterType == .tractorType) {
             self.tractorCompletionHandler?(selectedList)
         }
-        if (filterType == .status)
+        if (tractorSearchfilterType == .status)
         {
             self.statusFilterCompletionHandler?(selectedList)
         }
@@ -63,7 +64,7 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     
     func fetchFilterList()
     {
-        if (filterType == .status){
+        if (tractorSearchfilterType == .status){
             filterList = ["All","In Transit","Available"]
             if let status = DataManager.sharedInstance.tractorSearchInfo?.status{
                 selectedList = status

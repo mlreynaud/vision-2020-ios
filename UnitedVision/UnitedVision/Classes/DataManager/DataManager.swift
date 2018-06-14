@@ -22,10 +22,11 @@ class DataManager: NSObject {
     
     static let sharedInstance = DataManager()
     
-    var userLocation : CLLocationCoordinate2D?
-    var locationList : [LocationInfo] = []
-    var tractorList : [TractorInfo] = []
-    var tractorSearchInfo : TractorSearchInfo?
+    var userLocation: CLLocationCoordinate2D?
+    var locationList: [LocationInfo] = []
+    var tractorList: [TractorInfo] = []
+    var tractorSearchInfo: TractorSearchInfo?
+    var loadBoardSearchInfo: LoadBoardSearchInfo?
     
     var userName: String?
     var authToken = String()
@@ -52,8 +53,13 @@ class DataManager: NSObject {
         self.isLogin = appPref.isLogin
         self.authToken = appPref.authToken ?? ""
         self.userName = appPref.userName
-        if let dict = appPref.searchDict, dict.count != 0{
-            self.tractorSearchInfo = TractorSearchInfo(info: dict)
+        
+        if let tractorSearchDict = appPref.tractorSearchDict, tractorSearchDict.count != 0{
+            self.tractorSearchInfo = TractorSearchInfo(info: tractorSearchDict)
+        }
+        
+        if let loadBoardSearchDict = appPref.loadBoardSearchDict, loadBoardSearchDict.count != 0{
+            self.loadBoardSearchInfo = LoadBoardSearchInfo(info: loadBoardSearchDict)
         }
     }
 
@@ -508,21 +514,39 @@ class DataManager: NSObject {
         return radiusList
     }
     
-    func returnFilterValues() -> TractorSearchInfo{
+    func returnTractorSearchFilterValues() -> TractorSearchInfo{
         var tsInfo = DataManager.sharedInstance.tractorSearchInfo
         if tsInfo == nil {
-            tsInfo = DataManager.sharedInstance.fetchFilterDefaultValues()
+            tsInfo = DataManager.sharedInstance.fetchTractorSearchFilterDefaultValues()
             DataManager.sharedInstance.tractorSearchInfo = tsInfo
         }
         return tsInfo?.copy() as! TractorSearchInfo
     }
     
-    func fetchFilterDefaultValues() -> TractorSearchInfo?{
-        var dict = AppPrefData.sharedInstance.searchDict
+    func fetchTractorSearchFilterDefaultValues() -> TractorSearchInfo?{
+        var dict = AppPrefData.sharedInstance.tractorSearchDict
         if dict == nil || (dict?.count)! == 0 {
             dict = UIUtils.parsePlist(ofName: "TractorFilter") as? Dictionary <String,Any>
         }
         let searchInfo = TractorSearchInfo(info: dict!)
         return searchInfo
+    }
+    
+    func returnLoadBoardSearchFilterValues() -> LoadBoardSearchInfo{
+        var lbSearchInfo = DataManager.sharedInstance.loadBoardSearchInfo
+        if lbSearchInfo == nil {
+            lbSearchInfo = DataManager.sharedInstance.fetchLoadBoardSearchFilterDefaultValues()
+            DataManager.sharedInstance.loadBoardSearchInfo = lbSearchInfo
+        }
+        return lbSearchInfo?.copy() as! LoadBoardSearchInfo
+    }
+    
+    func fetchLoadBoardSearchFilterDefaultValues() -> LoadBoardSearchInfo?{
+        var lbSearchDict = AppPrefData.sharedInstance.loadBoardSearchDict
+        if lbSearchDict == nil || (lbSearchDict?.count)! == 0 {
+            lbSearchDict = UIUtils.parsePlist(ofName: "LoadBoardFilter") as? Dictionary <String,Any>
+        }
+        let lbSearchInfo = LoadBoardSearchInfo(info: lbSearchDict!)
+        return lbSearchInfo
     }
 }

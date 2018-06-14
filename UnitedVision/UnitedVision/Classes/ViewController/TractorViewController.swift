@@ -83,7 +83,7 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
         segmentedControl.addUnderlineForSelectedSegment()
         segmentedControl.selectedSegmentIndex = 0
         
-        tractorSearchInfo = DataManager.sharedInstance.returnFilterValues()
+        tractorSearchInfo = DataManager.sharedInstance.returnTractorSearchFilterValues()
                 
         self.fetchTractorLocations()
         

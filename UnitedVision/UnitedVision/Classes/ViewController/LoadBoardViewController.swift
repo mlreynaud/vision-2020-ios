@@ -67,9 +67,12 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     let loadBoardPopUpVC = LoadBoardPopUpVC.initiatePopOverVC()
+    
+    var loadBoardSearchInfo: LoadBoardSearchInfo!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadBoardSearchInfo = DataManager.sharedInstance.returnLoadBoardSearchFilterValues()
         setTitleView(withTitle: "LOAD BOARD", Frame: nil)
         addSortBarBtn()
         setNavigationBarItem()
@@ -171,12 +174,12 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
     
     @IBAction func filterButtonAction(){
 //        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let filterCtrl = storyBoard.instantiateViewController(withIdentifier: "TractorFilterViewController") as! TractorFilterViewController
-//        filterCtrl.searchInfo = tractorSearchInfo
-//        filterCtrl.searchCompletionHandler = {(searchInfo) in
-//            self.tractorSearchInfo = searchInfo
-//            self.fetchTractorLocations()
-//        }
+//        let filterCtrl = storyBoard.instantiateViewController(withIdentifier: "LoadBoardFilterVC") as! LoadBoardFilterVC
+//        filterCtrl.lbSearchInfo = loadBoardSearchInfo
+////        filterCtrl.searchCompletionHandler = {(searchInfo) in
+////            self.tractorSearchInfo = searchInfo
+////            self.fetchTractorLocations()
+////        }
 //        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 //        self.navigationController?.pushViewController(filterCtrl, animated: true)
     }

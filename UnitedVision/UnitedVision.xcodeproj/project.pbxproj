@@ -32,6 +32,8 @@
 		B1DD357D208F7D7300CE5B0D /* TerminalCollectionMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1DD357A208F7D7200CE5B0D /* TerminalCollectionMapCell.xib */; };
 		B1DD357E208F7D7300CE5B0D /* TractorCollectionGridCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1DD357B208F7D7200CE5B0D /* TractorCollectionGridCell.xib */; };
 		B1E8F02F208A12B600105CC4 /* TractorCollectionGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E8F02D208A12B600105CC4 /* TractorCollectionGridCell.swift */; };
+		B1EADAE120D27559008B913C /* LoadBoardSearchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EADAE020D27559008B913C /* LoadBoardSearchInfo.swift */; };
+		B1EADAE320D2ADD3008B913C /* LoadBoardFilter.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1EADAE220D2ADD3008B913C /* LoadBoardFilter.plist */; };
 		BA44A0E8202DF91200DE6130 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0E6202DF91200DE6130 /* Main.storyboard */; };
 		BA44A0EA202DF91200DE6130 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0E9202DF91200DE6130 /* Assets.xcassets */; };
 		BA44A0ED202DF91200DE6130 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA44A0EB202DF91200DE6130 /* LaunchScreen.storyboard */; };
@@ -104,6 +106,8 @@
 		B1DD357A208F7D7200CE5B0D /* TerminalCollectionMapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TerminalCollectionMapCell.xib; sourceTree = "<group>"; };
 		B1DD357B208F7D7200CE5B0D /* TractorCollectionGridCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TractorCollectionGridCell.xib; sourceTree = "<group>"; };
 		B1E8F02D208A12B600105CC4 /* TractorCollectionGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TractorCollectionGridCell.swift; sourceTree = "<group>"; };
+		B1EADAE020D27559008B913C /* LoadBoardSearchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadBoardSearchInfo.swift; sourceTree = "<group>"; };
+		B1EADAE220D2ADD3008B913C /* LoadBoardFilter.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = LoadBoardFilter.plist; sourceTree = "<group>"; };
 		B32E5ADD18A8E0C9A7676579 /* Pods-UnitedVision.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitedVision.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitedVision/Pods-UnitedVision.release.xcconfig"; sourceTree = "<group>"; };
 		BA44A0DF202DF91200DE6130 /* UnitedVision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitedVision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA44A0E7202DF91200DE6130 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -231,6 +235,7 @@
 				BA44A0F6202DF96D00DE6130 /* tractor.json */,
 				BA44A0F7202DF96D00DE6130 /* Xibs */,
 				BA84A3982053AADC004E1410 /* TractorFilter.plist */,
+				B1EADAE220D2ADD3008B913C /* LoadBoardFilter.plist */,
 				B1A3F850207385D600A9D83B /* RegDataValidation.plist */,
 				B16D11F32073F2CA00769329 /* USState.plist */,
 				B1A875582074E7D300FE11A5 /* UserType.plist */,
@@ -330,10 +335,11 @@
 			children = (
 				1405D6602059C7D000A8B0CA /* TrailerInfo.swift */,
 				BA44A106202DF96E00DE6130 /* LocationInfo.swift */,
+				BA84A3942052D5F0004E1410 /* ContactInfo.swift */,
 				BA44A107202DF96E00DE6130 /* TractorInfo.swift */,
 				BA84A386204E99C4004E1410 /* TractorSearchInfo.swift */,
-				BA84A3942052D5F0004E1410 /* ContactInfo.swift */,
 				B11034DE20CFFD9400CA0397 /* LoadBoardInfo.swift */,
+				B1EADAE020D27559008B913C /* LoadBoardSearchInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -466,6 +472,7 @@
 				BA44A116202DF96E00DE6130 /* tractor.json in Resources */,
 				B1A3F851207385D600A9D83B /* RegDataValidation.plist in Resources */,
 				B1D265B7206FB73B00CC3B73 /* InitialViewScreen.xib in Resources */,
+				B1EADAE320D2ADD3008B913C /* LoadBoardFilter.plist in Resources */,
 				BA44A0EA202DF91200DE6130 /* Assets.xcassets in Resources */,
 				BA84A383204E752B004E1410 /* AutocompleteTableCell.xib in Resources */,
 				BA44A115202DF96E00DE6130 /* location.json in Resources */,
@@ -579,6 +586,7 @@
 				BA44A119202DF96E00DE6130 /* AccordionTableCell.swift in Sources */,
 				1405D6612059C7D000A8B0CA /* TrailerInfo.swift in Sources */,
 				BA44A120202DF96E00DE6130 /* UIUtils.swift in Sources */,
+				B1EADAE120D27559008B913C /* LoadBoardSearchInfo.swift in Sources */,
 				BA5CE618203C282A00B14DB6 /* String.swift in Sources */,
 				BA4D87992046FB7A00FC78CA /* UISegmentedControl.swift in Sources */,
 				BA84A385204E916B004E1410 /* AppPrefData.swift in Sources */,
