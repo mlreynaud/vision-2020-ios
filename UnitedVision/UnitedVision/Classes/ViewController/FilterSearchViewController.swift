@@ -58,11 +58,11 @@ extension FilterSearchViewController
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "FilterSerachTableCell", for: indexPath)
         
-        if (tractorSearchfilterType == .tractorTerminal) {
+        if tractorSearchfilterType == .tractorTerminal || loadBoardSearchFilterType == .tractorTerminal{
             cell.textLabel?.text = filterList[indexPath.row] as? String
         }
-        else if (tractorSearchfilterType == .trailerType) {
-            cell.textLabel?.text = (filterList[indexPath.row] as! TrailerInfo).descr!
+        else if tractorSearchfilterType == .trailerType || loadBoardSearchFilterType == .trailerType{
+            cell.textLabel?.text = (filterList[indexPath.row] as? TrailerInfo)?.descr ?? ""
         }
         cell.textLabel?.font = UIFont.systemFont(ofSize: 15)
         
@@ -70,11 +70,11 @@ extension FilterSearchViewController
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (tractorSearchfilterType == .tractorTerminal) {
-            selectedValue = filterList[indexPath.row] as! String
+        if tractorSearchfilterType == .tractorTerminal || loadBoardSearchFilterType == .tractorTerminal {
+            selectedValue = filterList[indexPath.row] as? String ?? ""
         }
-        else if (tractorSearchfilterType == .trailerType) {
-            selectedValue = (filterList[indexPath.row] as! TrailerInfo)
+        else if tractorSearchfilterType == .trailerType || loadBoardSearchFilterType == .trailerType {
+            selectedValue = (filterList[indexPath.row] as? TrailerInfo)
         }
         dismissKeyboard()
         self.completionHandler?(selectedValue)
@@ -118,34 +118,17 @@ extension FilterSearchViewController
     
     @objc func callSearchAPI(_ searchText: String)
     {
-        if (tractorSearchfilterType == .tractorTerminal)
+        if tractorSearchfilterType == .tractorTerminal || loadBoardSearchFilterType == .tractorTerminal
         {
             DataManager.sharedInstance.requestToSearchTerminal(searchText, completionHandler: {( status, results) in
-                
-                if let list = results
-                {
-                    self.filterList = list as [AnyObject]
-                }
-                else
-                {
-                    self.filterList = []
-                }
+                self.filterList = results as [AnyObject]? ?? []
                 self.tableView.reloadData()
-                
             })
         }
-        else  if (tractorSearchfilterType == .trailerType){
+        else  if tractorSearchfilterType == .trailerType || loadBoardSearchFilterType == .trailerType{
             
             DataManager.sharedInstance.requestToSearchTrailerType(searchText, completionHandler: {( status, results) in
-
-                 if let list = results
-                 {
-                    self.filterList = list
-                }
-                else
-                 {
-                    self.filterList = []
-                }
+                self.filterList = results ?? []
                 self.tableView.reloadData()
             })
         }

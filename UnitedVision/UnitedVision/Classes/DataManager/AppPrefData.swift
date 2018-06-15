@@ -103,15 +103,11 @@ class AppPrefData: NSObject {
         {
             dict["originCity"] = loadBoardSearchInfo.originCity
             dict["originState"] = loadBoardSearchInfo.originState
-            dict["originZip"] = loadBoardSearchInfo.originZip
-            dict["originLatitude"] = loadBoardSearchInfo.originLatitude
-            dict["originLongitude"] = loadBoardSearchInfo.originLongitude
+            dict["originStateAbbrev"] = loadBoardSearchInfo.originStateAbbrev
             
             dict["destCity"] = loadBoardSearchInfo.destCity
             dict["destState"] = loadBoardSearchInfo.destState
-            dict["destZip"] = loadBoardSearchInfo.destZip
-            dict["destLatitude"] = loadBoardSearchInfo.destLatitude
-            dict["destLongitude"] = loadBoardSearchInfo.destLongitude
+            dict["destStateAbbrev"] = loadBoardSearchInfo.destStateAbbrev
 
             dict["hazmat"] = loadBoardSearchInfo.hazmat
 

@@ -336,7 +336,6 @@ class DataManager: NSObject {
         let request = WebServiceManager.getRequest(url: url)
         WebServiceManager.sendRequest(request, completionHandler: {(httpStatus, data, error) in
             
-            
             if (error != nil || data == nil)
             {
                 handler(status, nil)
@@ -436,10 +435,13 @@ class DataManager: NSObject {
         }
     }
     
-    func getLoadBoardContent(completionHandler handler: @escaping (Bool,[Any]?,Error?) -> ()){
+    func getLoadBoardContent(info: LoadBoardSearchInfo, completionHandler handler: @escaping (Bool,[Any]?,Error?) -> ()){
         var responseArr = [LoadBoardInfo]()
         var status : Bool = false
-        let service: String =  "order/service/loadboard"
+        
+        let params = self.createLoadBoardSearchRequest(info)
+        let service: String =  "order/service/loadboard?\(params)"
+        
         let urlString = kServerUrl + service
         guard let url = URL(string: urlString) else {
             handler(status, responseArr, kUrlFormatnFailErr)
@@ -468,6 +470,61 @@ class DataManager: NSObject {
             }
             handler(status, responseArr, error)
         }
+    }
+    
+    func createLoadBoardSearchRequest(_ searchInfo: LoadBoardSearchInfo) -> String{
+        func remove(str: String, fromList list: [String]) -> [String]{
+            var mutList = list
+            if mutList.contains(str){
+                mutList.remove(at: mutList.index(of: str)!)
+            }
+            return mutList
+        }
+        var requestStr = String()
+        if !searchInfo.originCity.isBlank(){
+            requestStr.append("originCity=\(searchInfo.originCity) \(searchInfo.originStateAbbrev)".encodeString())
+            requestStr.append("&")
+        }
+        if !searchInfo.destCity.isBlank(){
+            requestStr.append("destCity=\(searchInfo.destCity) \(searchInfo.destStateAbbrev)".encodeString())
+        }
+        
+        if searchInfo.trailerTypeId.count > 0{
+            requestStr.append("&trailerType=\(searchInfo.trailerTypeId.encodeString())")
+        }
+        
+        searchInfo.tractorType = remove(str: "All", fromList: searchInfo.tractorType)
+        
+        if searchInfo.tractorType.count > 0 {
+            var tractorTypeList = [String]()
+            for tractorType in searchInfo.tractorType
+            {
+                switch tractorType
+                {
+                case "Hot Shot":
+                    tractorTypeList.append("HS")
+                case "One Ton":
+                    tractorTypeList.append("OTF")
+                case "Mini Float":
+                    tractorTypeList.append("MF")
+                case "Single Axle":
+                    tractorTypeList.append("SA")
+                case "Tandem":
+                    tractorTypeList.append("TAN")
+                default:
+                    break
+                }
+            }
+            let joinedStr = tractorTypeList.map { $0.encodeString() }.joined(separator: "&tractorTypes=")
+            requestStr.append("&tractorTypes=\(joinedStr)")
+        }
+        if searchInfo.terminalId.count > 0{
+            requestStr.append("&terminal=\(searchInfo.terminalId.encodeString())")
+        }
+        if searchInfo.hazmat{
+            requestStr.append("&hazmat=Y")
+        }
+        return requestStr
     }
     
     func performRegistrationWith(paramDict: Dictionary<String, Any>, completionHandler handler: @escaping (Bool,String?,Error?) -> ()){

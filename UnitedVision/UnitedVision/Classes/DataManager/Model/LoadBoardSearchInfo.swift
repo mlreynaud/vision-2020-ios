@@ -23,16 +23,12 @@ class LoadBoardSearchInfo: NSObject, NSCopying {
     // Origin Location required
     var originCity: String = ""
     var originState: String = ""
-    var originZip: String = ""
-    var originLatitude : Double = 0
-    var originLongitude : Double = 0
+    var originStateAbbrev: String = ""
     
     // Destination Location required
     var destCity: String = ""
     var destState: String = ""
-    var destZip: String = ""
-    var destLatitude : Double = 0
-    var destLongitude : Double = 0
+    var destStateAbbrev: String = ""
     
     override init() {}
     
@@ -47,16 +43,8 @@ class LoadBoardSearchInfo: NSObject, NSCopying {
             originState = value
         }
         
-        if let value =  (info["originZip"] as? String){
-            originZip = value
-        }
-        
-        if let value =  (info["originLatitude"] as? NSNumber)?.doubleValue{
-            originLatitude = value
-        }
-        
-        if let value =  (info["originLongitude"] as? NSNumber)?.doubleValue{
-            originLongitude = value
+        if let value =  (info["originStateAbbrev"] as? String){
+            originStateAbbrev = value
         }
         
         if let value =  (info["destCity"] as? String){
@@ -67,16 +55,8 @@ class LoadBoardSearchInfo: NSObject, NSCopying {
             destState = value
         }
         
-        if let value =  (info["destZip"] as? String){
-            destZip = value
-        }
-        
-        if let value =  (info["destLatitude"] as? NSNumber)?.doubleValue{
-            destLatitude = value
-        }
-        
-        if let value =  (info["destLongitude"] as? NSNumber)?.doubleValue{
-            destLongitude = value
+        if let value =  (info["destStateAbbrev"] as? String){
+            destStateAbbrev = value
         }
         
         if let value = info["tractorType"] as? [String]{
@@ -117,15 +97,11 @@ class LoadBoardSearchInfo: NSObject, NSCopying {
         
         loadBoardSearchInfo.originCity = originCity
         loadBoardSearchInfo.originState = originState
-        loadBoardSearchInfo.originZip = originZip
-        loadBoardSearchInfo.originLatitude = originLatitude
-        loadBoardSearchInfo.originLongitude = originLongitude
+        loadBoardSearchInfo.originStateAbbrev = originStateAbbrev
         
         loadBoardSearchInfo.destCity = destCity
         loadBoardSearchInfo.destState = destState
-        loadBoardSearchInfo.destZip = destZip
-        loadBoardSearchInfo.destLatitude = destLatitude
-        loadBoardSearchInfo.destLongitude = destLongitude
+        loadBoardSearchInfo.destStateAbbrev = destStateAbbrev
         
         return loadBoardSearchInfo
     }

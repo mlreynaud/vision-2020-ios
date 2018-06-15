@@ -1570,10 +1570,10 @@
                                                     <rect key="frame" x="2" y="3" width="316" height="120"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8qf-75-zvb">
-                                                            <rect key="frame" x="0.0" y="0.0" width="116" height="41"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="45.5" height="41"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWV-wD-KbS">
-                                                                    <rect key="frame" x="4" y="0.0" width="108" height="41"/>
+                                                                    <rect key="frame" x="4" y="0.0" width="37.5" height="41"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Px0-yc-PQN"/>
                                                                     </constraints>
@@ -1591,10 +1591,10 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QVM-s7-Zmw">
-                                                            <rect key="frame" x="0.0" y="41" width="116" height="40.5"/>
+                                                            <rect key="frame" x="0.0" y="41" width="45.5" height="40.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2O-7m-3NC">
-                                                                    <rect key="frame" x="4" y="0.0" width="108" height="40.5"/>
+                                                                    <rect key="frame" x="4" y="0.0" width="37.5" height="40.5"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" id="TWQ-ed-Jrh"/>
                                                                     </constraints>
@@ -1612,7 +1612,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ue-8d-2kA">
-                                                            <rect key="frame" x="116" y="0.0" width="125" height="41"/>
+                                                            <rect key="frame" x="45.5" y="0.0" width="125" height="41"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP DATE" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ar5-Cd-ysV">
                                                                     <rect key="frame" x="2" y="2" width="121" height="16"/>
@@ -1648,7 +1648,7 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5UK-h3-9F8">
-                                                            <rect key="frame" x="116" y="41" width="125" height="40.5"/>
+                                                            <rect key="frame" x="45.5" y="41" width="125" height="40.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DELIVERY DATE" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ge8-HT-g5t">
                                                                     <rect key="frame" x="2" y="2" width="121" height="16"/>
@@ -1682,10 +1682,10 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hfB-40-PL4">
-                                                            <rect key="frame" x="241" y="0.0" width="75" height="81.5"/>
+                                                            <rect key="frame" x="170.5" y="0.0" width="145.5" height="81.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$4,000.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jvk-in-Sw0">
-                                                                    <rect key="frame" x="0.0" y="4" width="75" height="18"/>
+                                                                    <rect key="frame" x="0.0" y="4" width="145.5" height="18"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="uXu-zB-Rxi"/>
                                                                     </constraints>
@@ -1694,7 +1694,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8OB-rl-KIL">
-                                                                    <rect key="frame" x="17.5" y="22" width="40" height="40"/>
+                                                                    <rect key="frame" x="53" y="22" width="40" height="40"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="40" id="5cF-dv-AyG"/>
                                                                         <constraint firstAttribute="height" constant="40" id="nQP-ot-hx6"/>
@@ -3419,6 +3419,9 @@
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="backgroundCancelTapped" destination="OaG-kr-GB4" eventType="touchUpInside" id="uWv-KM-4fE"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -4280,6 +4283,9 @@
                                                                     <constraint firstAttribute="width" constant="40" id="bly-jR-ytN"/>
                                                                 </constraints>
                                                                 <state key="normal" image="ic_clear_black_48dp"/>
+                                                                <connections>
+                                                                    <action selector="filterCancelBtnTapped:" destination="tqe-3q-qAa" eventType="touchUpInside" id="Sg2-KP-6rg"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -4368,6 +4374,9 @@
                                                                     <constraint firstAttribute="width" constant="40" id="qD3-69-Zbi"/>
                                                                 </constraints>
                                                                 <state key="normal" image="ic_clear_black_48dp"/>
+                                                                <connections>
+                                                                    <action selector="filterCancelBtnTapped:" destination="tqe-3q-qAa" eventType="touchUpInside" id="k6Q-9T-rL2"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -4456,6 +4465,9 @@
                                                                     <constraint firstAttribute="width" constant="40" id="B9R-0R-epm"/>
                                                                 </constraints>
                                                                 <state key="normal" image="ic_clear_black_48dp"/>
+                                                                <connections>
+                                                                    <action selector="filterCancelBtnTapped:" destination="tqe-3q-qAa" eventType="touchUpInside" id="A0T-ud-zrV"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

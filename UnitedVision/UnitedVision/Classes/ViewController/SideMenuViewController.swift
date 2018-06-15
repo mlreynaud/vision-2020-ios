@@ -5,7 +5,7 @@
 //  Created by Agilink on 16/02/18.
 //  Copyright © 2018 Agilink. All rights reserved.
 //
-
+import UIKit
 
 enum LeftMenuItem: RawRepresentable {
     
@@ -163,11 +163,10 @@ enum LeftMenuItem: RawRepresentable {
         }
     }
 }
+
 protocol SideMenuLogOutDelegate {
     func sideMenuLogOutPressed()
 }
-
-import UIKit
 
 class SideMenuViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate  {
     

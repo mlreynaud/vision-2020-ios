@@ -41,7 +41,9 @@ class LoadBoardFilterVC: BaseViewController, SideMenuLogOutDelegate {
     
     var lbSearchInfo : LoadBoardSearchInfo?
     var filterPopupVC : FilterPopupViewController?
-    var searchCompletionHandler: ((LoadBoardSearchInfo)->Void)?
+    var searchCompletionHandler: ((LoadBoardSearchInfo?)->Void)?
+    
+    var usStateDict = UIUtils.parsePlist(ofName: kUsStatepList) as? Dictionary<String, String>
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,70 +113,31 @@ class LoadBoardFilterVC: BaseViewController, SideMenuLogOutDelegate {
 extension LoadBoardFilterVC{
     
     @IBAction func applyBtnPressed(_ sender: UIControl) {
-        self.searchCompletionHandler?(lbSearchInfo!)
+        self.searchCompletionHandler?(lbSearchInfo)
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func resetBtnPressed(_ sender: UIControl) {
-        var isCurrentLocAvail: Bool = false
-        var currentLocation: CLLocation?
-        
-        func resetFilterToDefaultValues(){
-            AppPrefData.sharedInstance.tractorSearchDict = nil
-            if let defaultLoadBoardInfo = DataManager.sharedInstance.fetchLoadBoardSearchFilterDefaultValues(){
-                if !isCurrentLocAvail{
-                    lbSearchInfo?.originCity = defaultLoadBoardInfo.originCity
-                    lbSearchInfo?.originState = defaultLoadBoardInfo.originState
-                    lbSearchInfo?.originZip = defaultLoadBoardInfo.originZip
-                    lbSearchInfo?.originLatitude = defaultLoadBoardInfo.originLatitude
-                    lbSearchInfo?.originLongitude = defaultLoadBoardInfo.originLongitude
-                    
-                    lbSearchInfo?.destCity = defaultLoadBoardInfo.destCity
-                    lbSearchInfo?.destState = defaultLoadBoardInfo.destState
-                    lbSearchInfo?.destZip = defaultLoadBoardInfo.destZip
-                    lbSearchInfo?.destLatitude = defaultLoadBoardInfo.destLatitude
-                    lbSearchInfo?.destLongitude = defaultLoadBoardInfo.destLongitude
-                }
-                lbSearchInfo?.trailerTypeId = defaultLoadBoardInfo.trailerTypeId
-                lbSearchInfo?.trailerTypeDesc = defaultLoadBoardInfo.trailerTypeDesc
-                lbSearchInfo?.terminalId = defaultLoadBoardInfo.terminalId
-                lbSearchInfo?.tractorType.removeAll()
-                lbSearchInfo?.hazmat = false
-            }
-            DataManager.sharedInstance.loadBoardSearchInfo = lbSearchInfo
-            AppPrefData.sharedInstance.saveAllData()
-            reloadLabels()
-            checkIfSavedFiltersSelected()
+        AppPrefData.sharedInstance.tractorSearchDict = nil
+        if let defaultLoadBoardInfo = DataManager.sharedInstance.fetchLoadBoardSearchFilterDefaultValues(){
+            lbSearchInfo?.originCity = defaultLoadBoardInfo.originCity
+            lbSearchInfo?.originState = defaultLoadBoardInfo.originState
+            lbSearchInfo?.originStateAbbrev = defaultLoadBoardInfo.originStateAbbrev
+            
+            lbSearchInfo?.destCity = defaultLoadBoardInfo.destCity
+            lbSearchInfo?.destState = defaultLoadBoardInfo.destState
+            lbSearchInfo?.destStateAbbrev = defaultLoadBoardInfo.destStateAbbrev
+            
+            lbSearchInfo?.trailerTypeId = defaultLoadBoardInfo.trailerTypeId
+            lbSearchInfo?.trailerTypeDesc = defaultLoadBoardInfo.trailerTypeDesc
+            lbSearchInfo?.terminalId = defaultLoadBoardInfo.terminalId
+            lbSearchInfo?.tractorType.removeAll()
+            lbSearchInfo?.hazmat = false
         }
-        
-        if LocationManager.sharedInstance.checkLocationAuthorizationStatus() {
-            if let userLocation = DataManager.sharedInstance.userLocation {
-                currentLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
-                LoadingView.shared.showOverlay()
-                let geocoder: GMSGeocoder = GMSGeocoder()
-                geocoder.reverseGeocodeCoordinate(currentLocation!.coordinate) { (response, error) in
-                    LoadingView.shared.hideOverlayView()
-                    isCurrentLocAvail = true
-                    let address = response?.firstResult()
-                    self.lbSearchInfo?.originCity = (address?.locality) ?? ""
-                    self.lbSearchInfo?.originState = (address?.administrativeArea) ?? ""
-                    self.lbSearchInfo?.originZip = (address?.postalCode) ?? ""
-                    self.lbSearchInfo?.originLatitude = currentLocation?.coordinate.latitude ?? 0
-                    self.lbSearchInfo?.originLongitude = currentLocation?.coordinate.longitude ?? 0
-                    
-                    self.lbSearchInfo?.destCity = (address?.locality) ?? ""
-                    self.lbSearchInfo?.destState = (address?.administrativeArea) ?? ""
-                    self.lbSearchInfo?.destZip = (address?.postalCode) ?? ""
-                    self.lbSearchInfo?.destLatitude = currentLocation?.coordinate.latitude ?? 0
-                    self.lbSearchInfo?.destLongitude = currentLocation?.coordinate.longitude ?? 0
-                    
-                    resetFilterToDefaultValues()
-                }
-            }
-        }
-        else{
-            resetFilterToDefaultValues()
-        }
+        DataManager.sharedInstance.loadBoardSearchInfo = lbSearchInfo
+        AppPrefData.sharedInstance.saveAllData()
+        reloadLabels()
+        checkIfSavedFiltersSelected()
     }
     
     @IBAction func saveDefaultViewTapped(_ sender: Any) {
@@ -230,14 +193,10 @@ extension LoadBoardFilterVC{
                 (lbSearchInfo?.trailerTypeId)! == defaultLoadBoardInfo.trailerTypeId &&
                 (lbSearchInfo?.originCity)! == defaultLoadBoardInfo.originCity &&
                 (lbSearchInfo?.originState)! == defaultLoadBoardInfo.originState &&
-                (lbSearchInfo?.originZip)! == defaultLoadBoardInfo.originZip &&
-                (lbSearchInfo?.originLatitude)! == defaultLoadBoardInfo.originLatitude &&
-                (lbSearchInfo?.originLongitude)! == defaultLoadBoardInfo.originLongitude &&
+                (lbSearchInfo?.originStateAbbrev)! == defaultLoadBoardInfo.originStateAbbrev &&
                 (lbSearchInfo?.destCity)! == defaultLoadBoardInfo.destCity &&
                 (lbSearchInfo?.destState)! == defaultLoadBoardInfo.destState &&
-                (lbSearchInfo?.destZip)! == defaultLoadBoardInfo.destZip &&
-                (lbSearchInfo?.destLatitude)! == defaultLoadBoardInfo.destLatitude &&
-                (lbSearchInfo?.destLongitude)! == defaultLoadBoardInfo.destLongitude
+                (lbSearchInfo?.destStateAbbrev)! == defaultLoadBoardInfo.destStateAbbrev
             
             if lbSearchInfo?.tractorType.count != defaultLoadBoardInfo.tractorType.count {
                 result = false
@@ -259,9 +218,15 @@ extension LoadBoardFilterVC{
         var value: Any
         switch lbSearchfilterType {
         case .originLocation:
-            value = "\(loadBoardSearchInfo.originCity), \(loadBoardSearchInfo.originState), \(loadBoardSearchInfo.originZip)" //searchInfo.city + searchInfo.state + searchInfo.zip
+            let originCity = "\(loadBoardSearchInfo.originCity)"
+            let originStateAbbrev = "\(loadBoardSearchInfo.originStateAbbrev)"
+            let delimeter = (!originCity.isBlank() && !originStateAbbrev.isBlank()) ? "," : ""
+            value = "\(originCity)\(delimeter)\(originStateAbbrev)"
         case .destLocation:
-            value = "\(loadBoardSearchInfo.destCity), \(loadBoardSearchInfo.destState), \(loadBoardSearchInfo.destZip)" //searchInfo.city + searchInfo.state + searchInfo.zip
+            let destCity = "\(loadBoardSearchInfo.destCity)"
+            let destStateAbbrev = "\(loadBoardSearchInfo.destStateAbbrev)"
+            let delimeter = (!destCity.isBlank() && !destStateAbbrev.isBlank()) ? "," : ""
+            value = "\(destCity)\(delimeter)\(destStateAbbrev)"
         case .tractorTerminal:
             value = loadBoardSearchInfo.terminalId
         case .tractorType:
@@ -282,11 +247,11 @@ extension LoadBoardFilterVC{
     func showFilterPopup(_ lbSearchfilterType: LoadBoardSearchFilterType)
     {
         filterPopupVC?.lbSearchfilterType = lbSearchfilterType
+        filterPopupVC?.selectedList = lbSearchInfo?.tractorType ?? []
         filterPopupVC?.tractorCompletionHandler = {(selectedTractorType) in
             self.lbSearchInfo?.tractorType = selectedTractorType
             self.reloadLabel(at:LoadBoardSearchFilterType.tractorType.rawValue)
         }
-       
         filterPopupVC?.modalTransitionStyle = .crossDissolve
         filterPopupVC?.modalPresentationStyle = .overCurrentContext
         self.present(filterPopupVC!, animated: true, completion: nil)
@@ -321,29 +286,27 @@ extension LoadBoardFilterVC{
 extension LoadBoardFilterVC: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace){
         viewController.dismiss(animated: true, completion: nil)
-        if gmsAutocompleteViewType == .EOriginLocation{
-            self.lbSearchInfo?.originLatitude = place.coordinate.latitude
-            self.lbSearchInfo?.originLongitude = place.coordinate.longitude
-        }
-        else if gmsAutocompleteViewType == .EDestLocation{
-            self.lbSearchInfo?.destLatitude = place.coordinate.latitude
-            self.lbSearchInfo?.destLongitude = place.coordinate.longitude
-        }
-        
         let geocoder: GMSGeocoder = GMSGeocoder()
         geocoder.reverseGeocodeCoordinate(place.coordinate) { (response, error) in
-            let address = response?.firstResult()
-            if self.gmsAutocompleteViewType == .EOriginLocation{
-                self.lbSearchInfo?.originCity = (address?.locality) ?? ""
-                self.lbSearchInfo?.originState = (address?.administrativeArea) ?? ""
-                self.lbSearchInfo?.originZip = (address?.postalCode) ?? ""
-                self.reloadLabel(at: LoadBoardSearchFilterType.originLocation.rawValue)
-            }
-            else if self.gmsAutocompleteViewType == .EDestLocation{
-                self.lbSearchInfo?.destCity = (address?.locality) ?? ""
-                self.lbSearchInfo?.destState = (address?.administrativeArea) ?? ""
-                self.lbSearchInfo?.destZip = (address?.postalCode) ?? ""
-                self.reloadLabel(at: LoadBoardSearchFilterType.destLocation.rawValue)
+            if let address = response?.firstResult(){
+                if self.gmsAutocompleteViewType == .EOriginLocation{
+                    self.lbSearchInfo?.originCity = (address.locality) ?? ""
+                    let administrativeArea = address.administrativeArea ?? ""
+                    self.lbSearchInfo?.originState = administrativeArea
+                    if !administrativeArea.isBlank(){
+                        self.lbSearchInfo?.originStateAbbrev = self.usStateDict?[administrativeArea.uppercased()] ?? ""
+                    }
+                    self.reloadLabel(at: LoadBoardSearchFilterType.originLocation.rawValue)
+                }
+                else if self.gmsAutocompleteViewType == .EDestLocation{
+                    self.lbSearchInfo?.destCity = (address.locality) ?? ""
+                    let administrativeArea = address.administrativeArea ?? ""
+                    self.lbSearchInfo?.destState = administrativeArea
+                    if !administrativeArea.isBlank(){
+                        self.lbSearchInfo?.destStateAbbrev = self.usStateDict?[administrativeArea.uppercased()] ?? ""
+                    }
+                    self.reloadLabel(at: LoadBoardSearchFilterType.destLocation.rawValue)
+                }
             }
         }
     }

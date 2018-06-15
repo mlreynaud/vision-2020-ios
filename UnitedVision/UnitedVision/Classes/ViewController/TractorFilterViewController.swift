@@ -321,6 +321,12 @@ extension TractorFilterViewController{
     func showFilterPopup(_ filterType: TractorSearchFilterType)
     {
         filterPopupVC?.tractorSearchfilterType = filterType
+        if filterType == .status{
+            filterPopupVC?.selectedList = searchInfo?.status ?? []
+        }
+        else if filterType == .tractorType{
+            filterPopupVC?.selectedList = searchInfo?.tractorType ?? []
+        }
         filterPopupVC?.tractorCompletionHandler = {(selectedTractorValue) in
             self.searchInfo?.tractorType = selectedTractorValue
             self.reloadLabel(at:TractorSearchFilterType.tractorType.rawValue)

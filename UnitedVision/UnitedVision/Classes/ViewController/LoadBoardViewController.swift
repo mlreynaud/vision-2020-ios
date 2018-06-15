@@ -91,7 +91,7 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
         let sortPopOver = PopOverViewController.initiatePopOverVC()
         sortPopOver.dataList = LoadBoardSortType.array
         sortPopOver.titleText = kSortBy
-        sortPopOver.isCancelEnabled = false
+        sortPopOver.isCancelEnabled = true
         sortPopOver.popOverCompletionHandler = { (selectedOption) in
             if selectedOption != nil{
                 self.performListSortingFor(SortType: LoadBoardSortType(rawValue:selectedOption!)!)
@@ -157,31 +157,30 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
     }
 
     func fetchLoadBoardData(){
-        
         LoadingView.shared.showOverlay()
-        
-        DataManager.sharedInstance.getLoadBoardContent { (status, respArr, err) in
-            
+        let info = loadBoardSearchInfo.copy() as! LoadBoardSearchInfo
+        DataManager.sharedInstance.getLoadBoardContent(info: info, completionHandler: { (status, respArr, err)  in
             LoadingView.shared.hideOverlayView()
-
             if status, (respArr != nil){
                 self.loadBoardInfoArr = (respArr as? [LoadBoardInfo]) ?? [LoadBoardInfo]()
                 self.performListSortingFor(SortType: .EPickUpDate)
                 self.collectionView.reloadData()
             }
-        }
+        })
     }
     
     @IBAction func filterButtonAction(){
-//        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let filterCtrl = storyBoard.instantiateViewController(withIdentifier: "LoadBoardFilterVC") as! LoadBoardFilterVC
-//        filterCtrl.lbSearchInfo = loadBoardSearchInfo
-////        filterCtrl.searchCompletionHandler = {(searchInfo) in
-////            self.tractorSearchInfo = searchInfo
-////            self.fetchTractorLocations()
-////        }
-//        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-//        self.navigationController?.pushViewController(filterCtrl, animated: true)
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let filterCtrl = storyBoard.instantiateViewController(withIdentifier: "LoadBoardFilterVC") as! LoadBoardFilterVC
+        filterCtrl.lbSearchInfo = loadBoardSearchInfo
+        filterCtrl.searchCompletionHandler = {(searchInfo) in
+            if searchInfo != nil{
+                self.loadBoardSearchInfo = searchInfo
+                self.fetchLoadBoardData()
+            }
+        }
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationController?.pushViewController(filterCtrl, animated: true)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

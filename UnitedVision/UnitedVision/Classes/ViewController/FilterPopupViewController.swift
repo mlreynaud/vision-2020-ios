@@ -49,32 +49,29 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
         if (tractorSearchfilterType == .tractorType) {
             self.tractorCompletionHandler?(selectedList)
         }
-        if (tractorSearchfilterType == .status)
-        {
+        if (tractorSearchfilterType == .status){
             self.statusFilterCompletionHandler?(selectedList)
         }
-        
+        if (lbSearchfilterType == .tractorType){
+            self.tractorCompletionHandler?(selectedList)
+        }
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cancelButtonAction(_ sender: UIButton)
     {
+        tractorSearchfilterType = nil
+        lbSearchfilterType = nil
         self.dismiss(animated: true, completion: nil)
     }
     
     func fetchFilterList()
     {
-        if (tractorSearchfilterType == .status){
+        if tractorSearchfilterType == .status{
             filterList = ["All","In Transit","Available"]
-            if let status = DataManager.sharedInstance.tractorSearchInfo?.status{
-                selectedList = status
-            }
         }
-        else{
+        else if tractorSearchfilterType == .tractorType || lbSearchfilterType == .tractorType {
             filterList = ["All","Hot Shot","One Ton","Mini Float","Single Axle","Tandem"]
-            if let value = DataManager.sharedInstance.tractorSearchInfo?.tractorType{
-                selectedList = value
-            }
         }
         
         if selectedList.contains("All") || selectedList.count == filterList.count - 1{

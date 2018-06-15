@@ -87,7 +87,7 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
                 
         self.fetchTractorLocations()
         
-        mapView.selectedRadius = Int((DataManager.sharedInstance.tractorSearchInfo?.radius)!)!
+        mapView.selectedRadius = (DataManager.sharedInstance.tractorSearchInfo?.radius as NSString?)?.integerValue ?? 50
         mapView.initialSetup(forType: .TractorType)
         mapView.mapFilterDelegate = self
 
@@ -197,7 +197,8 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
         emptyLabel.isHidden = true
         collectionView.isHidden = true
         LoadingView.shared.showOverlay()
-        DataManager.sharedInstance.requestToSearchTractor(tractorSearchInfo, completionHandler: {( status, tractorList) in
+        let info = tractorSearchInfo.copy() as! TractorSearchInfo
+        DataManager.sharedInstance.requestToSearchTractor(info, completionHandler: {( status, tractorList) in
             
             LoadingView.shared.hideOverlayView()
             

@@ -208,7 +208,7 @@ class HomeViewController: BaseViewController, UICollectionViewDataSource, UIColl
         let dataManager = DataManager.sharedInstance
         let ifLoggedIn = dataManager.isLogin
         
-        bottomCollectionViewImgArr = [.tractorSearch, .terminalSearch, .contact, .login, .loadBoard]
+        bottomCollectionViewImgArr = [.contact ,.terminalSearch, .tractorSearch, .login, .loadBoard]
         
         if ifLoggedIn {
             if let indexOfLogin = bottomCollectionViewImgArr.index(of: .login){

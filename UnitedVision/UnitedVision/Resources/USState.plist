@@ -6,6 +6,8 @@
 	<string>AL</string>
 	<key>ALASKA</key>
 	<string>AK</string>
+	<key>AMERICAN SAMOA</key>
+	<string>AS</string>
 	<key>ARIZONA</key>
 	<string>AZ</string>
 	<key>ARKANSAS</key>
@@ -18,10 +20,14 @@
 	<string>CT</string>
 	<key>DELAWARE</key>
 	<string>DE</string>
+	<key>DISTRICT OF COLUMBIA</key>
+	<string>DC</string>
 	<key>FLORIDA</key>
 	<string>FL</string>
 	<key>GEORGIA</key>
 	<string>GA</string>
+	<key>GUAM</key>
+	<string>GU</string>
 	<key>HAWAII</key>
 	<string>HI</string>
 	<key>IDAHO</key>
@@ -40,12 +46,16 @@
 	<string>LA</string>
 	<key>MAINE</key>
 	<string>ME</string>
+	<key>MARSHALL ISLANDS</key>
+	<string>MH</string>
 	<key>MARYLAND</key>
 	<string>MD</string>
 	<key>MASSACHUSETTS</key>
 	<string>MA</string>
 	<key>MICHIGAN</key>
 	<string>MI</string>
+	<key>MICRONESIA</key>
+	<string>FM</string>
 	<key>MINNESOTA</key>
 	<string>MN</string>
 	<key>MISSISSIPPI</key>
@@ -70,14 +80,20 @@
 	<string>NC</string>
 	<key>NORTH DAKOTA</key>
 	<string>ND</string>
+	<key>NORTHERN MARIANAS</key>
+	<string>MP</string>
 	<key>OHIO</key>
 	<string>OH</string>
 	<key>OKLAHOMA</key>
 	<string>OK</string>
 	<key>OREGON</key>
 	<string>OR</string>
+	<key>PALAU</key>
+	<string>PW</string>
 	<key>PENNSYLVANIA</key>
 	<string>PA</string>
+	<key>PUERTO RICO</key>
+	<string>PR</string>
 	<key>RHODE ISLAND</key>
 	<string>RI</string>
 	<key>SOUTH CAROLINA</key>
@@ -94,6 +110,8 @@
 	<string>VT</string>
 	<key>VIRGINIA</key>
 	<string>VA</string>
+	<key>VIRGIN ISLANDS</key>
+	<string>VI</string>
 	<key>WASHINGTON</key>
 	<string>WA</string>
 	<key>WEST VIRGINIA</key>
@@ -102,11 +120,5 @@
 	<string>WI</string>
 	<key>WYOMING</key>
 	<string>WY</string>
-	<key>GUAM</key>
-	<string>GU</string>
-	<key>PUERTO RICO</key>
-	<string>PR</string>
-	<key>VIRGIN ISLANDS</key>
-	<string>VI</string>
 </dict>
 </plist>
