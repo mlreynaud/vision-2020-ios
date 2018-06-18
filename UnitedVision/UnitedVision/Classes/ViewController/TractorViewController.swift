@@ -48,7 +48,7 @@ enum TractorSortType : Int {
 }
 
 let kSortBy = "Sort By"
-let kCellPadding:CGFloat = 1
+let kTractorCellPadding:CGFloat = 1
 
 class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewDelegate, TractorCollectionGridCellDelegate, GMSMapViewDelegate,SideMenuLogOutDelegate {
     
@@ -72,7 +72,7 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
 
     var tractorArray = [TractorInfo]()
     
-    var collectionViewCellWidth: CGFloat = 0
+    var tractorCellWidth: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -287,10 +287,10 @@ extension TractorViewController : UICollectionViewDelegate, UICollectionViewData
     func setupCollectionView(screenSize: CGSize){
 
         if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight{
-            collectionViewCellWidth = screenSize.width/2 - kCellPadding
+            tractorCellWidth = screenSize.width/2 - kTractorCellPadding
         }
         else {
-            collectionViewCellWidth = screenSize.width
+            tractorCellWidth = screenSize.width
         }
     }
     
@@ -327,7 +327,7 @@ extension TractorViewController : UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionViewCellWidth, height: 110)
+        return CGSize(width: tractorCellWidth, height: 110)
     }
     
 //MARK- TractorCollectionViewCell delegate methods

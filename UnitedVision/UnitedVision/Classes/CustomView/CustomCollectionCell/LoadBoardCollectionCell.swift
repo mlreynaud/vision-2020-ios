@@ -17,13 +17,13 @@ class LoadBoardCollectionCell: UICollectionViewCell {
     @IBOutlet weak var pickupDateDescLbl: UILabel!
     @IBOutlet weak var deliveryDateDescLbl : UILabel!
     @IBOutlet weak var distanceDescLbl: UILabel!
-    @IBOutlet weak var hazmatDescLbl : UILabel!
     @IBOutlet weak var weightDescLbl: UILabel!
     @IBOutlet weak var tractorTypeDescLbl : UILabel!
-    
     @IBOutlet weak var estimatedChargeLbl: UILabel!
     
     @IBOutlet weak var callBtn: UIButton!
+    
+    @IBOutlet weak var hazmatImageView: UIImageView!
     
     var phoneNumStr: String?
 
@@ -48,11 +48,11 @@ class LoadBoardCollectionCell: UICollectionViewCell {
         pickupDateDescLbl.text = loadBoardInfo.pickupDateStr
         deliveryDateDescLbl.text = loadBoardInfo.deliveryDateStr
         distanceDescLbl.text = "\(loadBoardInfo.distance ?? 0.0)"
-        hazmatDescLbl.text = loadBoardInfo.hazmat! ? "Y" : "N"
         weightDescLbl.text = "\(loadBoardInfo.weight ?? 0.0)"
         tractorTypeDescLbl.text = loadBoardInfo.tractorType
         estimatedChargeLbl.text = loadBoardInfo.estimatedCharge
         phoneNumStr = loadBoardInfo.terminalPhone ?? ""
+        hazmatImageView.image = (loadBoardInfo.hazmat ?? false) ? UIImage(named:"ic_check_circle_green") : UIImage(named:"ic_cancel_circle_red")
         containerView.sizeToFit()
     }
 }

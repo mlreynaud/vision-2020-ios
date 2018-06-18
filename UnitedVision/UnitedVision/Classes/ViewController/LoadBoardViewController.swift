@@ -9,7 +9,8 @@
 import UIKit
 
 let kFilterBtnHeight: CGFloat = 45
-let kLoadBoardCellHeight: CGFloat = 142
+
+let kLoadBoardCellPadding:CGFloat = 1
 
 enum LoadBoardSortType : Int {
     case EOrigin = 0
@@ -60,6 +61,10 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
     
     @IBOutlet weak var emptyLabel: UILabel!
     
+    var loadBoardCellWidth: CGFloat = 0
+    
+    var kLoadBoardCellHeight: CGFloat = 0 
+    
     var loadBoardInfoArr = [LoadBoardInfo](){
         didSet {
             emptyLabel.isHidden = loadBoardInfoArr.count != 0
@@ -77,7 +82,10 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
         addSortBarBtn()
         setNavigationBarItem()
         fetchLoadBoardData()
+        setupCollectionView(screenSize: view.frame.size)
+        kLoadBoardCellHeight = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 170 : 150
     }
+    
     
     func addSortBarBtn() {
         let sortBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
@@ -140,6 +148,7 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
         UIViewControllerTransitionCoordinator) {        
         let dispatchTime = DispatchTime.now() + 0.1
         DispatchQueue.main.asyncAfter(deadline:dispatchTime) {
+            self.setupCollectionView(screenSize: size)
             self.collectionView.reloadData()
         }
         repositionFilterBtn(size: size)
@@ -183,6 +192,15 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
         self.navigationController?.pushViewController(filterCtrl, animated: true)
     }
     
+    func setupCollectionView(screenSize: CGSize){
+        if UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight{
+            loadBoardCellWidth = screenSize.width/2 - kTractorCellPadding
+        }
+        else {
+            loadBoardCellWidth = screenSize.width
+        }
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -200,7 +218,7 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: kLoadBoardCellHeight)
+        return CGSize(width: loadBoardCellWidth, height: kLoadBoardCellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
