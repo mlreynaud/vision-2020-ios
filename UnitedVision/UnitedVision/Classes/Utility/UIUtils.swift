@@ -237,13 +237,13 @@ class UIUtils: NSObject {
         return dateFormatter.string(from: date)
     }
     
-    class func checkPlatformIsSimulator() -> Bool{
-        var isSimulator = false
-        #if targetEnvironment(simulator)
-            isSimulator = true
-        #endif
-        return isSimulator
-    }
+//    class func checkPlatformIsSimulator() -> Bool{
+//        var isSimulator = false
+//        #if targetEnvironment(simulator)
+//            isSimulator = true
+//        #endif
+//        return isSimulator
+//    }
     
     class func transparentSearchBarBackgrund(_ searchBar: UISearchBar)
     {

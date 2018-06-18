@@ -482,11 +482,11 @@ class DataManager: NSObject {
         }
         var requestStr = String()
         if !searchInfo.originCity.isBlank(){
-            requestStr.append("originCity=\(searchInfo.originCity) \(searchInfo.originStateAbbrev)".encodeString())
+            requestStr.append("originCity=" + "\(searchInfo.originCity) \(searchInfo.originStateAbbrev)".encodeString())
             requestStr.append("&")
         }
         if !searchInfo.destCity.isBlank(){
-            requestStr.append("destCity=\(searchInfo.destCity) \(searchInfo.destStateAbbrev)".encodeString())
+            requestStr.append("destCity=" + "\(searchInfo.destCity) \(searchInfo.destStateAbbrev)".encodeString())
         }
         
         if searchInfo.trailerTypeId.count > 0{
