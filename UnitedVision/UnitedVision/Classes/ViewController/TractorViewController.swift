@@ -87,7 +87,9 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
                 
         self.fetchTractorLocations()
         
-        mapView.selectedRadius = (DataManager.sharedInstance.tractorSearchInfo?.radius as NSString?)?.integerValue ?? 50
+        if let selectedRadiusValue = (DataManager.sharedInstance.tractorSearchInfo?.radius as NSString?)?.integerValue, selectedRadiusValue != 0{
+            mapView.selectedRadius = selectedRadiusValue
+        }
         mapView.initialSetup(forType: .TractorType)
         mapView.mapFilterDelegate = self
 
@@ -136,8 +138,6 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
         }
     }
     
-    //MARK-
-
     override func viewWillTransition(to size: CGSize, with coordinator:
         UIViewControllerTransitionCoordinator) {
         mapView.parentVCOrientationChanged()
@@ -199,12 +199,9 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
         LoadingView.shared.showOverlay()
         let info = tractorSearchInfo.copy() as! TractorSearchInfo
         DataManager.sharedInstance.requestToSearchTractor(info, completionHandler: {( status, tractorList) in
-            
             LoadingView.shared.hideOverlayView()
-            
-            if (status)
-            {
-                self.tractorArray = (tractorList)! //DataManager.sharedInstance.tractorList
+            if (status){
+                self.tractorArray = tractorList!
                 self.addTractorAnnotations()
                 self.mapView.addSearchCentreMarker()
                 self.collectionView.reloadData()
@@ -234,7 +231,7 @@ class TractorViewController: BaseViewController, UISearchBarDelegate, MKMapViewD
                 mapLocationList.append(info)
             }
         }
-        mapView.setSelectedRadius(Int(self.tractorSearchInfo.radius)!)
+        mapView.setSelectedRadius(Int(self.tractorSearchInfo.radius) ?? 50 )
         mapView.searchLocation = searchLocation
         mapView.addTractorList(mapLocationList)
         mapView.zoomMapToRadius()

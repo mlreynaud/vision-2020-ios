@@ -46,13 +46,13 @@ class FilterPopupViewController: UIViewController , UITableViewDataSource, UITab
     //MARK: Button action methods
     @IBAction func doneButtonAction(_ sender: UIButton)
     {
-        if (tractorSearchfilterType == .tractorType) {
+        if tractorSearchfilterType == .tractorType {
             self.tractorCompletionHandler?(selectedList)
         }
-        if (tractorSearchfilterType == .status){
+        if tractorSearchfilterType == .status{
             self.statusFilterCompletionHandler?(selectedList)
         }
-        if (lbSearchfilterType == .tractorType){
+        if lbSearchfilterType == .tractorType{
             self.tractorCompletionHandler?(selectedList)
         }
         self.dismiss(animated: true, completion: nil)

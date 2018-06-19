@@ -16,8 +16,8 @@ class FilterSearchViewController: UIViewController, UITableViewDelegate, UITable
 
     @IBOutlet weak var searchViewHeight: NSLayoutConstraint!
     
-    var tractorSearchfilterType: TractorSearchFilterType!
-    var loadBoardSearchFilterType: LoadBoardSearchFilterType!
+    var tractorSearchfilterType: TractorSearchFilterType?
+    var loadBoardSearchFilterType: LoadBoardSearchFilterType?
     
     var selectedValue : Any?
     var filterList : [AnyObject] = []

@@ -12,6 +12,8 @@ let kFilterBtnHeight: CGFloat = 45
 
 let kLoadBoardCellPadding:CGFloat = 1
 
+let loadBoardAutoRefreshInterval:Double = 300
+
 enum LoadBoardSortType : Int {
     case EOrigin = 0
     case EDestinationCity
@@ -27,7 +29,7 @@ enum LoadBoardSortType : Int {
         case .EOrigin:
             return "Origin"
         case .EDestinationCity:
-            return "Destination City"
+            return "Destination"
         case .EPickUpDate:
             return "Pick Up Date"
         case .EDeliveryDate:
@@ -52,7 +54,7 @@ enum LoadBoardSortType : Int {
     }
 }
 
-class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SideMenuLogOutDelegate {
     
     @IBOutlet weak var collectionView : UICollectionView!
     
@@ -60,6 +62,8 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
     @IBOutlet weak var topFilterBtnViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var emptyLabel: UILabel!
+    
+    let refreshControl = UIRefreshControl()
     
     var loadBoardCellWidth: CGFloat = 0
     
@@ -74,18 +78,36 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
     let loadBoardPopUpVC = LoadBoardPopUpVC.initiatePopOverVC()
     
     var loadBoardSearchInfo: LoadBoardSearchInfo!
+    
+    var loadBoardAutoRefreshTimer: Timer?
+    
+    var isAlreadyFetchingLoadBoard = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadBoardSearchInfo = DataManager.sharedInstance.returnLoadBoardSearchFilterValues()
         setTitleView(withTitle: "LOAD BOARD", Frame: nil)
         addSortBarBtn()
-        setNavigationBarItem()
         fetchLoadBoardData()
+        setNavigationBarItem()
         setupCollectionView(screenSize: view.frame.size)
         kLoadBoardCellHeight = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 170 : 150
+        refreshControl.addTarget(self, action: #selector(fetchLoadBoardData), for: .valueChanged)
+        if #available(iOS 10.0, *) {
+            collectionView.refreshControl = refreshControl
+        } else {
+            collectionView.addSubview(refreshControl)
+        }
     }
     
+    func sideMenuLogOutPressed() {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func restartAutoFetchTimer(){
+        loadBoardAutoRefreshTimer?.invalidate()
+        loadBoardAutoRefreshTimer = Timer.scheduledTimer(timeInterval: loadBoardAutoRefreshInterval, target: self, selector: #selector(fetchLoadBoardData), userInfo: nil, repeats: true)
+    }
     
     func addSortBarBtn() {
         let sortBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
@@ -142,6 +164,10 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         repositionFilterBtn(size: view.frame.size)
+        restartAutoFetchTimer()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        loadBoardAutoRefreshTimer?.invalidate()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator:
@@ -165,11 +191,19 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
         }
     }
 
-    func fetchLoadBoardData(){
+    @objc func fetchLoadBoardData(){
+        if isAlreadyFetchingLoadBoard {
+            return
+        }
+        isAlreadyFetchingLoadBoard = true
+        loadBoardAutoRefreshTimer?.invalidate()
         LoadingView.shared.showOverlay()
         let info = loadBoardSearchInfo.copy() as! LoadBoardSearchInfo
         DataManager.sharedInstance.getLoadBoardContent(info: info, completionHandler: { (status, respArr, err)  in
             LoadingView.shared.hideOverlayView()
+            self.refreshControl.endRefreshing()
+            self.isAlreadyFetchingLoadBoard = false
+            self.restartAutoFetchTimer()
             if status, (respArr != nil){
                 self.loadBoardInfoArr = (respArr as? [LoadBoardInfo]) ?? [LoadBoardInfo]()
                 self.performListSortingFor(SortType: .EPickUpDate)

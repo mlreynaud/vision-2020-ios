@@ -82,8 +82,10 @@ class LoadBoardFilterVC: BaseViewController, SideMenuLogOutDelegate {
             let lbSearchfilterType = LoadBoardSearchFilterType(rawValue: index)
             let filterLblValue = getValue(for: lbSearchfilterType!, from: lbSearchInfo!) as! String
             filterLbl[index].text = filterLblValue
-            if lbSearchfilterType == .trailerType || lbSearchfilterType == .tractorTerminal || lbSearchfilterType == .tractorType{
-                if let filterCancelButton = UIUtils.returnElement(with: index, from: filterCancelBtn){
+            if lbSearchfilterType == .trailerType || lbSearchfilterType == .tractorTerminal || lbSearchfilterType == .tractorType ||
+                lbSearchfilterType == .originLocation ||
+                lbSearchfilterType == .destLocation{
+                if let filterCancelButton = UIUtils.returnElement(withTag: index, from: filterCancelBtn){
                     filterCancelButton.isHidden = filterLblValue.isEmpty
                 }
             }
@@ -170,6 +172,14 @@ extension LoadBoardFilterVC{
     @IBAction func filterCancelBtnTapped(_ sender: UIButton) {
         let lbSearchfilterType = LoadBoardSearchFilterType(rawValue: sender.tag)!
         switch lbSearchfilterType {
+        case .originLocation:
+            lbSearchInfo?.originCity = ""
+            lbSearchInfo?.originState = ""
+            lbSearchInfo?.originStateAbbrev = ""
+        case .destLocation:
+            lbSearchInfo?.destCity = ""
+            lbSearchInfo?.destState = ""
+            lbSearchInfo?.destStateAbbrev = ""
         case .tractorType:
             lbSearchInfo?.tractorType.removeAll()
         case .trailerType:
@@ -285,12 +295,13 @@ extension LoadBoardFilterVC{
 
 extension LoadBoardFilterVC: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace){
-        viewController.dismiss(animated: true, completion: nil)
+        let isStateSelected: Bool = place.types.contains("administrative_area_level_1")
+        
         let geocoder: GMSGeocoder = GMSGeocoder()
         geocoder.reverseGeocodeCoordinate(place.coordinate) { (response, error) in
             if let address = response?.firstResult(){
                 if self.gmsAutocompleteViewType == .EOriginLocation{
-                    self.lbSearchInfo?.originCity = (address.locality) ?? ""
+                    self.lbSearchInfo?.originCity = !isStateSelected ? ((address.locality) ?? "") : ""
                     let administrativeArea = address.administrativeArea ?? ""
                     self.lbSearchInfo?.originState = administrativeArea
                     if !administrativeArea.isBlank(){
@@ -299,7 +310,7 @@ extension LoadBoardFilterVC: GMSAutocompleteViewControllerDelegate {
                     self.reloadLabel(at: LoadBoardSearchFilterType.originLocation.rawValue)
                 }
                 else if self.gmsAutocompleteViewType == .EDestLocation{
-                    self.lbSearchInfo?.destCity = (address.locality) ?? ""
+                    self.lbSearchInfo?.destCity = !isStateSelected ? ((address.locality) ?? "") : ""
                     let administrativeArea = address.administrativeArea ?? ""
                     self.lbSearchInfo?.destState = administrativeArea
                     if !administrativeArea.isBlank(){
@@ -308,6 +319,7 @@ extension LoadBoardFilterVC: GMSAutocompleteViewControllerDelegate {
                     self.reloadLabel(at: LoadBoardSearchFilterType.destLocation.rawValue)
                 }
             }
+            viewController.dismiss(animated: true, completion: nil)
         }
     }
     

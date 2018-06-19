@@ -30,6 +30,8 @@ class LoadBoardPopUpVC: UIViewController {
     
     @IBOutlet weak var containerView: UIView!
     
+    @IBOutlet weak var backGreyView: UIView!
+    
     var phoneNumStr: String?
 
     var loadBoardInfo: LoadBoardInfo?
@@ -41,6 +43,7 @@ class LoadBoardPopUpVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        backGreyView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cancelBtnTapped)))
     }
     
     override func viewWillAppear(_ animated: Bool) {

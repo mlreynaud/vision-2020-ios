@@ -186,6 +186,7 @@ class DataManager: NSObject {
             
             do{
                 if let arr =  try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as? [Dictionary<String, Any>]{
+                    print("Fetched model count = " + "\(arr.count)")
                     for dict in arr
                     {
                         let info = TractorInfo(info:dict)
@@ -213,8 +214,9 @@ class DataManager: NSObject {
             return mutList
         }
         
-        var requestStr = "radius=\(searchInfo.radius)&lat=\(searchInfo.latitude)&lon=\(searchInfo.longitude)"
-        
+        var requestStr = String()
+        requestStr.append("radius=\(searchInfo.radius)&")
+        requestStr.append("lat=\(searchInfo.latitude)&lon=\(searchInfo.longitude)")
         requestStr.append("&status=")
         searchInfo.status = remove(str: "All", fromList: searchInfo.status)
         if (searchInfo.status.count > 0)
@@ -481,16 +483,25 @@ class DataManager: NSObject {
             return mutList
         }
         var requestStr = String()
-        if !searchInfo.originCity.isBlank(){
-            requestStr.append("originCity=" + "\(searchInfo.originCity) \(searchInfo.originStateAbbrev)".encodeString())
+        if !searchInfo.originCity.isBlank() || !searchInfo.originStateAbbrev.isBlank(){
+            requestStr.append("originCity=")
+            if !searchInfo.originCity.isBlank(){
+                requestStr.append("\(searchInfo.originCity) ".encodeString())
+            }
+            requestStr.append("\(searchInfo.originStateAbbrev)".encodeString())
             requestStr.append("&")
         }
-        if !searchInfo.destCity.isBlank(){
-            requestStr.append("destCity=" + "\(searchInfo.destCity) \(searchInfo.destStateAbbrev)".encodeString())
+        if !searchInfo.destCity.isBlank() || !searchInfo.destStateAbbrev.isBlank(){
+            requestStr.append("destCity=")
+            if !searchInfo.destCity.isBlank(){
+                requestStr.append("\(searchInfo.destCity) ".encodeString())
+            }
+            requestStr.append("\(searchInfo.destStateAbbrev)".encodeString())
+            requestStr.append("&")
         }
-        
+    
         if searchInfo.trailerTypeId.count > 0{
-            requestStr.append("&trailerType=\(searchInfo.trailerTypeId.encodeString())")
+            requestStr.append("trailerType=\(searchInfo.trailerTypeId.encodeString())")
         }
         
         searchInfo.tractorType = remove(str: "All", fromList: searchInfo.tractorType)
@@ -516,13 +527,13 @@ class DataManager: NSObject {
                 }
             }
             let joinedStr = tractorTypeList.map { $0.encodeString() }.joined(separator: "&tractorTypes=")
-            requestStr.append("&tractorTypes=\(joinedStr)")
+            requestStr.append("&tractorTypes=\(joinedStr)" + "&")
         }
         if searchInfo.terminalId.count > 0{
-            requestStr.append("&terminal=\(searchInfo.terminalId.encodeString())")
+            requestStr.append("terminal=\(searchInfo.terminalId.encodeString())" + "&")
         }
         if searchInfo.hazmat{
-            requestStr.append("&hazmat=Y")
+            requestStr.append("hazmat=Y")
         }
         return requestStr
     }

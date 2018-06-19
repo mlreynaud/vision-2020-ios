@@ -286,7 +286,7 @@ class UIUtils: NSObject {
     class func returnCheckOrCrossImage(str : String) -> UIImage! {
         return  str == "Y" ? UIImage(named:"ic_check_circle_green") : UIImage(named:"ic_cancel_circle_red")
     }
-    class func returnElement(with tag:Int, from array:[UIView]) -> UIView?{
+    class func returnElement(withTag tag:Int, from array:[UIView]) -> UIView?{
         for item in array {
             if item.tag == tag{
                 return item

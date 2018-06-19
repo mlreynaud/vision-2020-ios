@@ -108,7 +108,7 @@ class TractorFilterViewController: BaseViewController, UIPickerViewDelegate, UIP
             let filterLblValue = getValue(for: filterType!, from: searchInfo!) as! String
             filterLbl[index].text = filterLblValue
             if filterType == .trailerType || filterType == .tractorTerminal || filterType == .status || filterType == .tractorType{
-                if let filterCancelButton = UIUtils.returnElement(with: index, from: filterCancelBtn){
+                if let filterCancelButton = UIUtils.returnElement(withTag: index, from: filterCancelBtn){
                     filterCancelButton.isHidden = filterLblValue.isEmpty
                 }
             }
@@ -389,7 +389,9 @@ extension TractorFilterViewController
         pickerView?.showsSelectionIndicator = true
         pickerView?.backgroundColor = UIColor.white
         pickerView?.isUserInteractionEnabled = true
-        pickerView?.selectRow(radiusList.index(of:(searchInfo?.radius)!)!, inComponent: 0, animated: false)
+        
+        let radiusIndex = radiusList.index(of:searchInfo?.radius ?? "") ?? 0
+        pickerView?.selectRow(radiusIndex, inComponent: 0, animated: false)
         
         toolBar = UIToolbar(frame: CGRect(x:0, y:0 , width: width, height:50))
         toolBar?.barStyle = .default

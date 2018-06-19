@@ -23,7 +23,7 @@ class TractorSearchInfo: NSObject, NSCopying {
     var trailerTypeDesc : String = ""
     
     // required
-    var radius: String = ""
+    var radius: String = "50"
     var city: String = ""
     var state: String = ""
     var zip: String = ""
