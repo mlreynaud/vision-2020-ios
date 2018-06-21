@@ -91,7 +91,7 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
         fetchLoadBoardData()
         setNavigationBarItem()
         setupCollectionView(screenSize: view.frame.size)
-        kLoadBoardCellHeight = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 170 : 150
+        kLoadBoardCellHeight = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 200 : 150
         refreshControl.addTarget(self, action: #selector(fetchLoadBoardData), for: .valueChanged)
         if #available(iOS 10.0, *) {
             collectionView.refreshControl = refreshControl

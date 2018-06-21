@@ -206,12 +206,19 @@ extension TractorFilterViewController{
     }
     
     @IBAction func filterBtnTapped(_ sender: UIButton) {
+        
+        func presentAutoCompleteController(filterType: GMSPlacesAutocompleteTypeFilter){
+            let autocompleteController = GMSAutocompleteViewController()
+            autocompleteController.delegate = self
+            let filter = GMSAutocompleteFilter()
+            filter.type = filterType
+            autocompleteController.autocompleteFilter = filter
+            present(autocompleteController, animated:true, completion: nil)
+        }
         let filterType = TractorSearchFilterType(rawValue: sender.tag)!
         switch filterType {
         case .searchLocation:
-            let autocompleteController = GMSAutocompleteViewController()
-            autocompleteController.delegate = self
-            present(autocompleteController, animated:true, completion: nil)
+            presentAutoCompleteController(filterType: .city)
         case .radius:
             pickerToolbarView.isHidden = false
             pickerToolbarView.frame =  CGRect(x:0, y: view.bounds.size.height - 250 , width: view.bounds.size.width, height:250)

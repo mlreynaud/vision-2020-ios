@@ -132,9 +132,10 @@ extension LoadBoardFilterVC{
             
             lbSearchInfo?.trailerTypeId = defaultLoadBoardInfo.trailerTypeId
             lbSearchInfo?.trailerTypeDesc = defaultLoadBoardInfo.trailerTypeDesc
+            
             lbSearchInfo?.terminalId = defaultLoadBoardInfo.terminalId
+            lbSearchInfo?.tractorId = defaultLoadBoardInfo.tractorId
             lbSearchInfo?.tractorType.removeAll()
-            lbSearchInfo?.hazmat = false
         }
         DataManager.sharedInstance.loadBoardSearchInfo = lbSearchInfo
         AppPrefData.sharedInstance.saveAllData()
@@ -153,13 +154,21 @@ extension LoadBoardFilterVC{
     }
     
     @IBAction func filterBtnTapped(_ sender: UIButton) {
+        
+        func presentAutoCompleteController(filterType: GMSPlacesAutocompleteTypeFilter){
+            let autocompleteController = GMSAutocompleteViewController()
+            autocompleteController.delegate = self
+            let filter = GMSAutocompleteFilter()
+            filter.type = filterType
+            autocompleteController.autocompleteFilter = filter
+            present(autocompleteController, animated:true, completion: nil)
+        }
+        
         let lbSearchfilterType = LoadBoardSearchFilterType(rawValue: sender.tag)!
         switch lbSearchfilterType {
         case .originLocation, .destLocation:
-            let autocompleteController = GMSAutocompleteViewController()
-            autocompleteController.delegate = self
             gmsAutocompleteViewType = LBgmsAutocompleteViewType(rawValue: lbSearchfilterType.rawValue)
-            present(autocompleteController, animated:true, completion: nil)
+            presentAutoCompleteController(filterType: .city)
         case .tractorType:
             showFilterPopup(lbSearchfilterType)
         case .trailerType, .tractorTerminal:
