@@ -12,7 +12,7 @@ import GoogleMaps
 import GooglePlaces
 
 let numberOfLoadBoardFilterLbls = 5
-let kLoadBoardFilterTitle = "LOADBOARD SEARCH FILTER"
+let kLoadBoardFilterTitle = "LOAD BOARD FILTER"
 
 enum LBgmsAutocompleteViewType: Int{
     case EOriginLocation = 0
@@ -121,7 +121,7 @@ extension LoadBoardFilterVC{
     
     @IBAction func resetBtnPressed(_ sender: UIControl) {
         AppPrefData.sharedInstance.tractorSearchDict = nil
-        if let defaultLoadBoardInfo = DataManager.sharedInstance.fetchLoadBoardSearchFilterDefaultValues(){
+        if let defaultLoadBoardInfo = DataManager.sharedInstance.fetchLoadBoardSearchFilterDefaultValues(factoryDefaults:true){
             lbSearchInfo?.originCity = defaultLoadBoardInfo.originCity
             lbSearchInfo?.originState = defaultLoadBoardInfo.originState
             lbSearchInfo?.originStateAbbrev = defaultLoadBoardInfo.originStateAbbrev

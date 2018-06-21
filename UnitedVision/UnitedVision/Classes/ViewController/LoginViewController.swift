@@ -24,6 +24,7 @@ class LoginViewController: UITableViewController, UITextFieldDelegate, MFMailCom
         super.viewDidLoad()
         setTitleView(withTitle: "LOGIN", Frame: nil)
         emailTextfield.text = "" // ""owner.operator
+        emailTextfield.autocorrectionType = .no
         passwordTextfield.text = ""
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewTapped)))

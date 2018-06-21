@@ -591,13 +591,18 @@ class DataManager: NSObject {
         return tsInfo?.copy() as! TractorSearchInfo
     }
     
-    func fetchTractorSearchFilterDefaultValues() -> TractorSearchInfo?{
-        var dict = AppPrefData.sharedInstance.tractorSearchDict
-        if dict == nil || (dict?.count)! == 0 {
-            dict = UIUtils.parsePlist(ofName: "TractorFilter") as? Dictionary <String,Any>
+    func fetchTractorSearchFilterDefaultValues(factoryDefaults:Bool = false) -> TractorSearchInfo?{
+        if (factoryDefaults) {
+            return TractorSearchInfo()
         }
-        let searchInfo = TractorSearchInfo(info: dict!)
-        return searchInfo
+        else {
+            var dict = AppPrefData.sharedInstance.tractorSearchDict
+            if dict == nil || (dict?.count)! == 0 {
+                dict = UIUtils.parsePlist(ofName: "TractorFilter") as? Dictionary <String,Any>
+            }
+            let searchInfo = TractorSearchInfo(info: dict!)
+            return searchInfo
+        }
     }
     
     func returnLoadBoardSearchFilterValues() -> LoadBoardSearchInfo{
@@ -609,12 +614,17 @@ class DataManager: NSObject {
         return lbSearchInfo?.copy() as! LoadBoardSearchInfo
     }
     
-    func fetchLoadBoardSearchFilterDefaultValues() -> LoadBoardSearchInfo?{
-        var lbSearchDict = AppPrefData.sharedInstance.loadBoardSearchDict
-        if lbSearchDict == nil || (lbSearchDict?.count)! == 0 {
-            lbSearchDict = UIUtils.parsePlist(ofName: "LoadBoardFilter") as? Dictionary <String,Any>
+    func fetchLoadBoardSearchFilterDefaultValues(factoryDefaults:Bool = false) -> LoadBoardSearchInfo?{
+        if (factoryDefaults){
+            return LoadBoardSearchInfo()
         }
-        let lbSearchInfo = LoadBoardSearchInfo(info: lbSearchDict!)
-        return lbSearchInfo
+        else {
+            var lbSearchDict = AppPrefData.sharedInstance.loadBoardSearchDict
+            if lbSearchDict == nil || (lbSearchDict?.count)! == 0 {
+                lbSearchDict = UIUtils.parsePlist(ofName: "LoadBoardFilter") as? Dictionary <String,Any>
+            }
+            let lbSearchInfo = LoadBoardSearchInfo(info: lbSearchDict!)
+            return lbSearchInfo
+        }
     }
 }

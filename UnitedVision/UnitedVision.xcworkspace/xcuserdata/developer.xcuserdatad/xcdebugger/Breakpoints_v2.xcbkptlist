@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/CustomView/MapView.swift"
-            timestampString = "547764461.648687"
+            timestampString = "551303239.813787"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
@@ -105,7 +105,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/CustomView/MapView.swift"
-            timestampString = "547764461.649173"
+            timestampString = "551303239.813947"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "41"
@@ -121,7 +121,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/CustomView/MapView.swift"
-            timestampString = "547764461.649567"
+            timestampString = "551303239.813996"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "40"
@@ -137,7 +137,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/CustomView/MapView.swift"
-            timestampString = "547764461.649738"
+            timestampString = "551303239.814049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "303"
@@ -153,7 +153,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "551053422.528972"
+            timestampString = "551303239.8141479"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "236"
@@ -169,7 +169,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "551053422.529467"
+            timestampString = "551303239.814232"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "142"
@@ -185,7 +185,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "551053422.52973"
+            timestampString = "551303239.814317"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "135"
@@ -361,7 +361,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/CustomView/MapView.swift"
-            timestampString = "547764461.650779"
+            timestampString = "551303239.814466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "176"
@@ -393,11 +393,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/WebServiceManager.swift"
-            timestampString = "547764461.6509891"
+            timestampString = "551303239.814537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "sendRequest(_:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -409,13 +409,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/WebServiceManager.swift"
-            timestampString = "547764461.651167"
+            timestampString = "551303239.814597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "printResponse(response:error:)"
-            landmarkType = "7">
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "WebServiceManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -425,12 +425,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/WebServiceManager.swift"
-            timestampString = "547764461.651297"
+            timestampString = "551303239.81464"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "printResponse(response:error:)"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "removeWhitespaceInString(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -441,7 +441,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "551053422.530116"
+            timestampString = "551303239.814683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "145"
@@ -457,7 +457,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "551053422.530362"
+            timestampString = "551303239.8147399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "148"
@@ -505,7 +505,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/DataManager.swift"
-            timestampString = "551053422.530598"
+            timestampString = "551303239.814788"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "457"
@@ -553,7 +553,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/CustomView/MapView.swift"
-            timestampString = "547764461.651896"
+            timestampString = "551303239.8148659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "426"
@@ -569,7 +569,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/CustomView/MapView.swift"
-            timestampString = "547764461.651989"
+            timestampString = "551303239.814925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "484"
@@ -585,7 +585,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/CustomView/MapView.swift"
-            timestampString = "547764461.652072"
+            timestampString = "551303239.81498"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "483"
@@ -870,11 +870,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/WebServiceManager.swift"
-            timestampString = "547764461.65329"
+            timestampString = "551303239.815231"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "sendRequest(_:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -886,12 +886,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UnitedVision/Classes/DataManager/WebServiceManager.swift"
-            timestampString = "547764461.653374"
+            timestampString = "551303239.815323"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "sendRequest(_:completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnitedVision/Classes/DataManager/WebServiceManager.swift"
+            timestampString = "551303239.8154"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "createRequest(_:forMethod:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnitedVision/Classes/DataManager/WebServiceManager.swift"
+            timestampString = "551303239.815446"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "createRequest(_:forMethod:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UnitedVision/Classes/ViewController/LoadBoardFilterVC.swift"
+            timestampString = "551303239.815513"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "saveDefaultViewTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

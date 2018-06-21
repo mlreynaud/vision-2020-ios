@@ -149,7 +149,7 @@ extension TractorFilterViewController{
 
         func resetFilterToDefaultValues(){
             AppPrefData.sharedInstance.tractorSearchDict = nil
-            if let defaultTractorInfo = DataManager.sharedInstance.fetchTractorSearchFilterDefaultValues(){
+            if let defaultTractorInfo = DataManager.sharedInstance.fetchTractorSearchFilterDefaultValues(factoryDefaults:true){
                 if !isCurrentLocAvail{
                     searchInfo?.city = defaultTractorInfo.city
                     searchInfo?.state = defaultTractorInfo.state
