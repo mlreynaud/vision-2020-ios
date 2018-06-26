@@ -82,7 +82,9 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
     var loadBoardAutoRefreshTimer: Timer?
     
     var isAlreadyFetchingLoadBoard = false
-
+    
+    var currentLBSortType = LoadBoardSortType.EPickUpDate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadBoardSearchInfo = DataManager.sharedInstance.returnLoadBoardSearchFilterValues()
@@ -124,7 +126,8 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
         sortPopOver.isCancelEnabled = true
         sortPopOver.popOverCompletionHandler = { (selectedOption) in
             if selectedOption != nil{
-                self.performListSortingFor(SortType: LoadBoardSortType(rawValue:selectedOption!)!)
+                self.currentLBSortType = LoadBoardSortType(rawValue:selectedOption!) ?? self.currentLBSortType
+                self.performListSortingFor(SortType: self.currentLBSortType)
             }
         }
         sortPopOver.modalPresentationStyle = .overCurrentContext
@@ -206,7 +209,7 @@ class LoadBoardViewController: UIViewController, UICollectionViewDelegate, UICol
             self.restartAutoFetchTimer()
             if status, (respArr != nil){
                 self.loadBoardInfoArr = (respArr as? [LoadBoardInfo]) ?? [LoadBoardInfo]()
-                self.performListSortingFor(SortType: .EPickUpDate)
+                self.performListSortingFor(SortType: self.currentLBSortType)
                 self.collectionView.reloadData()
             }
         })
