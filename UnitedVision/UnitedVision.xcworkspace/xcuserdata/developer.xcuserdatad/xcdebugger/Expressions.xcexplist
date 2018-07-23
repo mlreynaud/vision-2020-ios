@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "static WebServiceManager.postRequest(service:withPostDict:):WebServiceManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DataManager.getLoadBoardContent(completionHandler:):DataManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "request.header">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ContactTableCell.setCellData(contactInfo:indexPath:):ContactTableCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in DataManager.requestToLoginOrVerifyToken(reqType:paramDict:completionHandler:):DataManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "error?.localizedDescription">
+            </PersistentString>
+            <PersistentString
+               value = "paramDIct">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static WebServiceManager.createRequest(_:forMethod:):WebServiceManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "DataManager.sharedInstance.deviceID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FilterSearchViewController.callSearchAPI(_:):FilterSearchViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "tractorSearchfilterType == nil ? &quot;loadboard&quot; : &quot;tractor&quot;">
+            </PersistentString>
+            <PersistentString
+               value = "loadBoardSearchFilterType">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GoogleMapMarker.setMarker():MapView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "locationInfo.first">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SideMenuViewController.signInButtonAction():SideMenuViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DataManager.requestToLoginOrVerifyToken(reqType:paramDict:completionHandler:):DataManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "RegisterViewController.viewDidLoad():RegisterViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UIFont.systemFontOfSize(16)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ContactViewController.callButtonAction(_:):ContactViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sender.tag">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in DataManager.fetchContactList(completionHandler:):DataManager.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

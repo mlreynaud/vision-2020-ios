@@ -10,7 +10,7 @@ import Foundation
 
 // MARK:- Server URLs
 
-let kServerUrl = "http://uv.agilink.net/api2/"  //"https://api.uvlogistics.com/" 
+let kServerUrl = "https://api.uvlogistics.com/" // "https://qawww.uvlogistics.com/"
 
 let kDefaultRadius = 50 
 

@@ -2,7 +2,7 @@
 //  LoadBoardFilterVC.swift
 //  UnitedVision
 //
-//  Created by Simrandeep Singh on 13/06/18.
+//  Created by Agilink 06/12/18.
 //  Copyright © 2018 Agilink. All rights reserved.
 //
 

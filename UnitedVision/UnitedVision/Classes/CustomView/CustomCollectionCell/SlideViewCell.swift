@@ -2,7 +2,7 @@
 //  SlideViewCell.swift
 //  UnitedVision
 //
-//  Created by Agilink on 02/04/18.
+//  Created by Agilink on 04/02/18.
 //  Copyright © 2018 Agilink. All rights reserved.
 //
 

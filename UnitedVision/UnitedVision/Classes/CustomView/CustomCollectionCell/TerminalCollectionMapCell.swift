@@ -2,7 +2,7 @@
 //  TerminalCollectionMapCell.swift
 //  UnitedVision
 //
-//  Created by Agilink on 24/04/18.
+//  Created by Agilink on 04/24/18.
 //  Copyright © 2018 Agilink. All rights reserved.
 //
 
